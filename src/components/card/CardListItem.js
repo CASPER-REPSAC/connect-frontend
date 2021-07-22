@@ -1,140 +1,112 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import {
+  CardItemBlock,
+  CardItemHeader,
+  CardItemHeaderArticle,
+  CardItemHeaderArticleContent,
+  CardItemHeaderAuthIcon,
+  CardItemHeaderParticipants,
+  CardItemTag,
+  CardItemHeaderArticleContentTitle,
+} from './CardListItemStyled';
 import Tag from '../common/Tag';
 
-// id: 1,
-//       title: 'this is title',
-//       type: 'study',
-//       author: '5 11',
-//       participants: ['5 11', 'floodnut', 'woo'],
-//       createDate: '2021-07-01',
-//       content: 'this is content.',
-//       currentState: 'running',
-//       startDate: '2021-07-05',
-//       endDate: '2021-07-27',
-//       read: false,
+const widthBase = 18;
+const maxWidth = 27;
 
-const CardItemBlock = styled.div`
-  border: solid 1px Tan;
-  border-radius: 0.8rem;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 10rem;
-  width: 20rem;
-  background: WhiteSmoke;
-  * {
-    overflow: hidden;
-  }
-  ${(props) =>
-    props.sinWidth &&
-    css`
-      width: ${props.sinWidth}rem;
-    `}
-`;
+const titleLength = 15;
+const contentLength = 65;
+const authorLength = 10;
 
-const CardItemHeader = styled.div`
-  display: flex;
-`;
+const participantsLength = 4;
 
-const CardItemHeaderAuth = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0px;
-  padding-top: 0.3rem;
-  margin-right: 0.7rem;
+const CardListItem = ({ card, colors }) => {
+  const { title, author, type, participants, read, content, tags } = card;
 
-  div: last-child {
-    max-width: 3rem;
-  }
-`;
+  const { tagColors } = colors;
 
-const CardItemHeaderAuthIcon = styled.div`
-  height: 3rem;
-  width: 3rem;
-  background: gray;
-  border-radius: 0.3rem;
-`;
+  const [width, widthSet] = useState(widthBase);
+  const [titleCut, titleCutSet] = useState(title);
+  const [contentCut, contentCutSet] = useState(content);
+  const [authorCut, authorCutSet] = useState(author);
 
-const CardItemHeaderArticle = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  div:last-child {
-    font-size: 0.95rem;
-    max-height: 3.85em;
-  }
-`;
-
-const CardItemHeaderArticleTitle = styled.div`
-  font-weight: bold;
-  font-size: 0.8rem;
-  display: flex;
-  justify-content: space-between;
-
-  div: first-child {
-    max-width: 10rem;
-    height: 1.5rem;
-    font-size: 1rem;
-    display: flex;
-    .Read {
-      font-size: 0.5rem;
-      color: gray;
-      align: center;
-      display: inline-block;
+  useEffect(() => {
+    if (title.length > titleLength) {
+      titleCutSet(titleCut.substr(0, titleLength) + '...');
     }
-  }
-  div: last-child {
-    flex: 1;
-    text-align: right;
-  }
-`;
 
-const CardItemFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
+    if (content.length > contentLength) {
+      contentCutSet(contentCut.substr(0, contentLength) + '...');
+      widthSet(widthBase + 2);
+    }
 
-const CardListItem = ({ card, tagColors }) => {
-  const {
-    title,
-    author,
-    type,
-    read,
-    currentState,
-    startDate,
-    endDate,
-    content,
-    tags,
-    id,
-  } = card;
+    if (author.length > authorLength) {
+      authorCutSet(authorCut.substr(0, authorLength));
+    }
+
+    if (participants.length > participantsLength) {
+      widthSet(widthBase + (participants.length - participantsLength));
+    }
+
+    if (width > maxWidth) {
+      widthSet(maxWidth);
+    }
+  }, []);
 
   // 소개를 입력받아서 이 함수 안에서 일정 길이 넘어가면 자르고 ... 붙이기
   //
 
-  let width = 20 + (Math.floor(Math.sin(id) * 100) % 4);
   return (
     <CardItemBlock sinWidth={width}>
       <CardItemHeader>
-        <CardItemHeaderAuth>
-          <CardItemHeaderAuthIcon></CardItemHeaderAuthIcon>
-          <div title={author}>{author}</div>
-        </CardItemHeaderAuth>
         <CardItemHeaderArticle>
-          <CardItemHeaderArticleTitle>
-            <div>
-              <div title={title}>{title}</div>
-              <div className="Read">{read && '읽음'}</div>
-            </div>
-            <div>{type}</div>
-          </CardItemHeaderArticleTitle>
-          <div>{content}</div>
+          <CardItemHeaderAuthIcon
+            style={{
+              textAlign: 'center',
+              lineHeight: '55px',
+              fontWeight: 'bold',
+              fontSize: '30px',
+              color: 'white',
+            }}
+          >
+            {author.substr(0, 1)}
+          </CardItemHeaderAuthIcon>
+          <CardItemHeaderArticleContent>
+            <CardItemHeaderArticleContentTitle>
+              <div title={title} className="title">
+                {titleCut}
+                <div className="Read">{read && '읽음'}</div>
+              </div>
+              <div className="typeAuth">
+                <div>{type}</div>
+                <div title={author} className="author">
+                  {authorCut}
+                </div>
+              </div>
+            </CardItemHeaderArticleContentTitle>
+            <div className="content">{contentCut}</div>
+          </CardItemHeaderArticleContent>
         </CardItemHeaderArticle>
+        <CardItemHeaderParticipants>
+          {participants.map((participant, index) => (
+            <div
+              className="participant"
+              key={index}
+              title={participant}
+              style={{
+                textAlign: 'center',
+                lineHeight: '30px',
+                fontWeight: 'bold',
+                fontSize: '16px',
+                color: 'white',
+              }}
+            >
+              {participant.substr(0, 1)}
+            </div>
+          ))}
+        </CardItemHeaderParticipants>
       </CardItemHeader>
-      <CardItemFooter>
+      <CardItemTag>
         <div>
           {tags.map((tag, index) => {
             let c = { tagColor: tagColors[tag] };
@@ -145,12 +117,7 @@ const CardListItem = ({ card, tagColors }) => {
             );
           })}
         </div>
-        <div>
-          <Tag currentState={currentState}>
-            {startDate} - {endDate}
-          </Tag>
-        </div>
-      </CardItemFooter>
+      </CardItemTag>
     </CardItemBlock>
   );
 };

@@ -40,6 +40,16 @@ const initialState = {
     web: 'darkcyan',
     rev: 'OrangeRed',
   },
+  currentColors: {
+    text: '#27242C',
+    bbackGround: '#ebe9ef',
+    unActiveCard: '#f4f4f4',
+    stroke: '#E0E0E0',
+    background: '#FFFFFF',
+    shadow: 'rgba(0,0,0,0.05)',
+    unActiveButton: '#F3F3F3',
+    unActiveButtonText: '#AFAFB4',
+  },
 };
 
 // reducers

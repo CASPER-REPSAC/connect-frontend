@@ -1,11 +1,11 @@
 import React from 'react';
 import CardListItem from './CardListItem';
 
-const CardList = ({ cards, tagColors }) => {
+const CardList = (props) => {
   return (
     <div className="CardList">
-      {cards.map((card) => (
-        <CardListItem key={card.id} card={card} tagColors={tagColors} />
+      {props.cards.map((card) => (
+        <CardListItem key={card.id} card={card} colors={props.colors} />
       ))}
     </div>
   );
