@@ -37,7 +37,6 @@ const CardListItem = ({ card, colors }) => {
       let c = introduce.charCodeAt(i);
       b += c >> 7 ? 2 : 1;
       if (b > maxIntroduce) {
-        console.log(i);
         introduceCutSet(introduce.substr(0, i));
         break;
       }
@@ -61,7 +60,6 @@ const CardListItem = ({ card, colors }) => {
   }, []);
 
   useEffect(() => {
-    console.log(introduce.length, introduceCut.length);
     if (introduce.length > introduceCut.length) {
       introduceCutSet(introduceCut + '...');
     }

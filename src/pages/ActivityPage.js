@@ -1,7 +1,8 @@
 import React from 'react';
 import CardListContainer from '../containers/CardListContainer';
 
-const ActivityPage = () => {
+const ActivityPage = ({ history }) => {
+  console.log(history);
   return (
     <div>
       card list
