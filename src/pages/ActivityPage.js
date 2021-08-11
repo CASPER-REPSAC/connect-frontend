@@ -1,7 +1,7 @@
 import React from 'react';
 import CardListContainer from '../containers/CardListContainer';
 
-const CardListPage = () => {
+const ActivityPage = () => {
   return (
     <div>
       card list
@@ -10,4 +10,4 @@ const CardListPage = () => {
   );
 };
 
-export default React.memo(CardListPage);
+export default React.memo(ActivityPage);

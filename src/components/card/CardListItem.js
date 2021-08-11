@@ -1,55 +1,69 @@
 import React, { useState, useEffect } from 'react';
 import {
   CardItemBlock,
-  CardItemHeader,
-  CardItemHeaderArticle,
-  CardItemHeaderArticleContent,
-  CardItemHeaderAuthIcon,
-  CardItemHeaderParticipants,
-  CardItemTag,
-  CardItemHeaderArticleContentTitle,
+  TopSection,
+  ArticleBlock,
+  Article,
+  AuthIcon,
+  Participants,
+  Tags,
+  ArticleHeader,
 } from './CardListItemStyled';
 import Tag from '../common/Tag';
 
-const widthBase = 18;
+const widthBase = 20;
 const maxWidth = 27;
 
-const titleLength = 15;
-const contentLength = 65;
-const authorLength = 10;
+const maxTitle = 15;
+const maxIntroduce = 65;
+const maxAuthor = 10;
 
-const participantsLength = 4;
+const maxParticipants = 4;
 
 const CardListItem = ({ card, colors }) => {
-  const { title, author, type, participants, read, content, tags } = card;
-
+  const { title, author, type, participants, read, introduce, tags } = card;
   const { tagColors } = colors;
 
   const [width, widthSet] = useState(widthBase);
   const [titleCut, titleCutSet] = useState(title);
-  const [contentCut, contentCutSet] = useState(content);
+  const [introduceCut, introduceCutSet] = useState(introduce);
   const [authorCut, authorCutSet] = useState(author);
 
+  // ... 안 붙는 문제 해결하기
   useEffect(() => {
-    if (title.length > titleLength) {
-      titleCutSet(titleCut.substr(0, titleLength) + '...');
+    let b = 0;
+    let i = 0;
+    for (i; i < maxIntroduce; i++) {
+      let c = introduce.charCodeAt(i);
+      b += c >> 7 ? 2 : 1;
+      if (b > maxIntroduce) {
+        console.log(i);
+        introduceCutSet(introduce.substr(0, i));
+        break;
+      }
     }
 
-    if (content.length > contentLength) {
-      contentCutSet(contentCut.substr(0, contentLength) + '...');
-      widthSet(widthBase + 2);
+    if (participants.length > maxParticipants) {
+      widthSet(widthBase + participants.length - maxParticipants);
     }
 
-    if (author.length > authorLength) {
-      authorCutSet(authorCut.substr(0, authorLength));
+    if (title.length > maxTitle) {
+      titleCutSet(titleCut.substr(0, maxTitle) + '...');
     }
 
-    if (participants.length > participantsLength) {
-      widthSet(widthBase + (participants.length - participantsLength));
+    if (author.length > maxAuthor) {
+      authorCutSet(authorCut.substr(0, maxAuthor));
     }
 
     if (width > maxWidth) {
       widthSet(maxWidth);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(introduce.length, introduceCut.length);
+    if (introduce.length > introduceCut.length) {
+      introduceCutSet(introduceCut + '...');
     }
   }, []);
 
@@ -58,9 +72,9 @@ const CardListItem = ({ card, colors }) => {
 
   return (
     <CardItemBlock sinWidth={width}>
-      <CardItemHeader>
-        <CardItemHeaderArticle>
-          <CardItemHeaderAuthIcon
+      <TopSection>
+        <ArticleBlock>
+          <AuthIcon
             style={{
               textAlign: 'center',
               lineHeight: '55px',
@@ -70,9 +84,9 @@ const CardListItem = ({ card, colors }) => {
             }}
           >
             {author.substr(0, 1)}
-          </CardItemHeaderAuthIcon>
-          <CardItemHeaderArticleContent>
-            <CardItemHeaderArticleContentTitle>
+          </AuthIcon>
+          <Article>
+            <ArticleHeader>
               <div title={title} className="title">
                 {titleCut}
                 <div className="Read">{read && '읽음'}</div>
@@ -83,11 +97,11 @@ const CardListItem = ({ card, colors }) => {
                   {authorCut}
                 </div>
               </div>
-            </CardItemHeaderArticleContentTitle>
-            <div className="content">{contentCut}</div>
-          </CardItemHeaderArticleContent>
-        </CardItemHeaderArticle>
-        <CardItemHeaderParticipants>
+            </ArticleHeader>
+            <div className="introduce">{introduceCut}</div>
+          </Article>
+        </ArticleBlock>
+        <Participants>
           {participants.map((participant, index) => (
             <div
               className="participant"
@@ -104,9 +118,9 @@ const CardListItem = ({ card, colors }) => {
               {participant.substr(0, 1)}
             </div>
           ))}
-        </CardItemHeaderParticipants>
-      </CardItemHeader>
-      <CardItemTag>
+        </Participants>
+      </TopSection>
+      <Tags>
         <div>
           {tags.map((tag, index) => {
             let c = { tagColor: tagColors[tag] };
@@ -117,7 +131,7 @@ const CardListItem = ({ card, colors }) => {
             );
           })}
         </div>
-      </CardItemTag>
+      </Tags>
     </CardItemBlock>
   );
 };

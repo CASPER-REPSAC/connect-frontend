@@ -49,21 +49,21 @@ export const CardItemBlock = styled.div`
     `}
 `;
 
-export const CardItemHeader = styled.div`
+export const TopSection = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const CardItemHeaderArticle = styled.div`
+export const ArticleBlock = styled.div`
   display: flex;
   margin-bottom: 5px;
-  .content {
+  .introduce {
     font-size: 12px;
     font-weight: normal;
   }
 `;
 
-export const CardItemHeaderAuthIcon = styled.div`
+export const AuthIcon = styled.div`
   flex: none;
   height: 3.6rem;
   width: 3.6rem;
@@ -72,13 +72,13 @@ export const CardItemHeaderAuthIcon = styled.div`
   border-radius: 0.8rem;
 `;
 
-export const CardItemHeaderArticleContent = styled.div`
+export const Article = styled.div`
   font-weight: bold;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 `;
-export const CardItemHeaderArticleContentTitle = styled.div`
+export const ArticleHeader = styled.div`
   background: white;
   display: flex;
   justify-content: space-between;
@@ -103,7 +103,7 @@ export const CardItemHeaderArticleContentTitle = styled.div`
     }
   }
 `;
-export const CardItemHeaderParticipants = styled.div`
+export const Participants = styled.div`
   display: flex;
   .participant {
     width: 2.3rem;
@@ -117,6 +117,6 @@ export const CardItemHeaderParticipants = styled.div`
   }
 `;
 
-export const CardItemTag = styled.div`
+export const Tags = styled.div`
   display: flex;
 `;
