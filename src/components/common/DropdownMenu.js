@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './DropdownMenu.css';
 
-const DropdownMenu = ({ children }) => {
+const DropdownMenu = ({ children, menuName, menuLink }) => {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
 
@@ -11,9 +12,9 @@ const DropdownMenu = ({ children }) => {
       onMouseOver={() => setIsActive(true)}
       onMouseOut={() => setIsActive(false)}
     >
-      <button className="menu-trigger">
-        <span>DropDown</span>
-      </button>
+      <Link className="menu-trigger" to={menuLink}>
+        <span>{menuName}</span>
+      </Link>
       <nav
         ref={dropdownRef}
         className={`menu ${isActive ? 'active' : 'inactive'}`}

@@ -36,6 +36,11 @@ function App() {
             <Route exact component={ActivityPage} path={'/activities'} />
             <Route
               exact
+              component={ActivityPage}
+              path={'/activities/:category'}
+            />
+            <Route
+              exact
               component={ActivityDetailPage}
               path={'/activities/:category/:id'}
             />
