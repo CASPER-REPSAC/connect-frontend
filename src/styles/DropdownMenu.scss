@@ -1,0 +1,73 @@
+@import './utils.scss';
+
+.menu-container {
+  position: relative;
+  width: 200px;
+}
+
+.menu-trigger {
+  background: #ffffff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border: none;
+  vertical-align: middle;
+  transition: box-shadow 0.4s ease;
+  width: 100%;
+
+  &:hover {
+    filter: brightness(95%);
+  }
+
+  span {
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    margin: 0 10px;
+    width: 100%;
+  }
+}
+
+.menu {
+  border-radius: 0 0 $dropdown-menu-radius $dropdown-menu-radius;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    background: white;
+  }
+  li + li {
+    border-top: solid 1px $gray2;
+  }
+  li:hover {
+    filter: brightness(95%);
+  }
+
+  li a {
+    text-decoration: none;
+    color: #333333;
+    padding: 15px 20px;
+    display: block;
+  }
+}

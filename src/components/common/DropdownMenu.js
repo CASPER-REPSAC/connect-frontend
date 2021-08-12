@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './DropdownMenu.css';
+import '../../styles/DropdownMenu.scss';
 
 const DropdownMenu = ({ children, menuName, menuLink }) => {
   const dropdownRef = useRef(null);

@@ -1,0 +1,11 @@
+$app-box-radius: 30px;
+$dropdown-menu-radius: 10px;
+
+$gray1: rgba(234, 233, 241, 0.63);
+$gray2: rgb(216, 215, 226);
+
+@mixin box-shadow($radius) {
+  background: #ffffff;
+  border-radius: $radius;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}

@@ -1,10 +1,4 @@
-// import modules
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import './App.scss';
 
 // import Pages
 import ActivityDetailPage from './pages/ActivityDetailPage';
@@ -14,44 +8,31 @@ import WritePage from './pages/WritePage';
 import ActivityPage from './pages/ActivityPage';
 import MainPage from './pages/MainPage';
 
-// import Nav, Footer
+// import Basic Components
+import MainContainer from './containers/MainContainer';
 import Nav from './components/navigation/Nav';
+import Sidebar from './components/navigation/Sidebar';
 
 function App() {
   return (
-    <>
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/main" />
-          </Route>
-
-          <Route path="/main">
-            <Nav />
-            <Route exact component={MainPage} path="/main" />
-          </Route>
-
-          <Route path={'/activities'}>
-            <Nav />
-            <Route exact component={ActivityPage} path={'/activities'} />
-            <Route
-              exact
-              component={ActivityPage}
-              path={'/activities/:category'}
-            />
-            <Route
-              exact
-              component={ActivityDetailPage}
-              path={'/activities/:category/:id'}
-            />
-          </Route>
-
-          <Route exact component={LoginPage} path={'/login'} />
-          <Route exact component={RegisterPage} path={'/register'} />
-          <Route exact component={WritePage} path={'/write'} />
-        </Switch>
-      </Router>
-    </>
+    <div className="app-container">
+      <div className="app-box">
+        <div className="sidebar-container">
+          <Sidebar />
+        </div>
+        <div className="nav-main-container">
+          <Nav />
+          <MainContainer
+            ActivityDetailPage={ActivityDetailPage}
+            LoginPage={LoginPage}
+            RegisterPage={RegisterPage}
+            WritePage={WritePage}
+            ActivityPage={ActivityPage}
+            MainPage={MainPage}
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 

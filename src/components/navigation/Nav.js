@@ -2,7 +2,8 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
 import DropdownMenu from '../common/DropdownMenu';
-import './Nav.scss';
+import Searchbar from '../common/Searchbar';
+import '../../styles/Nav.scss';
 
 const Nav = () => {
   return (
@@ -19,6 +20,7 @@ const Nav = () => {
           <Link to="/activities/ctf">ctf</Link>
         </li>
       </DropdownMenu>
+      <Searchbar />
     </div>
   );
 };
