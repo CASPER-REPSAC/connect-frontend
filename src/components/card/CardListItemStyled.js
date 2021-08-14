@@ -6,7 +6,7 @@ const currentColors = {
   unActiveCard: '#f4f4f4',
   stroke: '#E0E0E0',
   background: '#FFFFFF',
-  shadow: 'rgba(0,0,0,0.05)',
+  shadow: '#cfcfcf10',
   unActiveButton: '#F3F3F3',
   unActiveButtonText: '#AFAFB4',
 };
@@ -30,10 +30,10 @@ export const CardItemBlock = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 10.7rem;
+  height: 10rem;
   width: 20rem;
   background: ${background};
-  box-shadow: 0px 3px 8px 3px ${shadow};
+  box-shadow: 0px 10px 10px 6px ${shadow};
   * {
     overflow: hidden;
   }
@@ -47,6 +47,10 @@ export const CardItemBlock = styled.div`
     css`
       background: ${unActiveCard};
     `}
+
+    &+& {
+    margin-left: 10px;
+  }
 `;
 
 export const TopSection = styled.div`
@@ -65,8 +69,8 @@ export const ArticleBlock = styled.div`
 
 export const AuthIcon = styled.div`
   flex: none;
-  height: 3.6rem;
-  width: 3.6rem;
+  height: 3.4rem;
+  width: 3.4rem;
   background: lightgray;
   margin: 8px 12px 5px 0px;
   border-radius: 0.8rem;
@@ -103,14 +107,14 @@ export const ArticleHeader = styled.div`
     }
   }
 `;
+
 export const Participants = styled.div`
   display: flex;
   .participant {
-    width: 2.3rem;
-    height: 2.3rem;
+    width: 1.7rem;
+    height: 1.7rem;
     background: lightgray;
-    border: 1px solid lightgray;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
   }
   .participant + .participant {
     margin-left: 0.2rem;

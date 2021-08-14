@@ -8,6 +8,8 @@ const CardListContainer = (props) => {
 };
 
 export default connect(
-  (state) => ({ cards: state.cards.cards, colors: state.colors }),
+  (state) => ({
+    cards: state.activities.activities,
+  }),
   {},
 )(CardListContainer);

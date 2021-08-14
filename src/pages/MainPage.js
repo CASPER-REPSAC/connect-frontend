@@ -1,13 +1,21 @@
 import React from 'react';
 import Button from '../components/common/Button';
+import { connect } from 'react-redux';
+import RecentBox from '../components/common/RecentBox';
 
-const MainPage = () => {
+import '../styles/MainPage.scss';
+
+const MainPage = ({ cards }) => {
   return (
-    <div>
-      Main
-      <Button>하이</Button>
+    <div className="main-page">
+      <RecentBox cards={cards} />
     </div>
   );
 };
 
-export default React.memo(MainPage);
+export default connect(
+  (state) => ({
+    cards: state.activities.activities,
+  }),
+  {},
+)(MainPage);

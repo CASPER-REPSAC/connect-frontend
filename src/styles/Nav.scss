@@ -1,9 +1,32 @@
+@import './utils.scss';
+
 .nav {
   display: flex;
 
   div:last-child {
     margin-left: auto;
     margin-right: 1rem;
+  }
+
+  .logo-tablet {
+    display: none;
+  }
+
+  .nav-link-logo {
+    display: flex;
+  }
+
+  @media (max-width: $tablet-width) {
+    .logo-tablet {
+      display: block;
+      width: 20px;
+      object-fit: contain;
+      margin: 0 15px 0 20px;
+    }
+
+    .dropdown-HOME {
+      display: none;
+    }
   }
 }
 

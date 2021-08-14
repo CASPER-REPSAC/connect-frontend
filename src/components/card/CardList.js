@@ -1,11 +1,12 @@
 import React from 'react';
 import CardListItem from './CardListItem';
+import '../../styles/CardList.scss';
 
 const CardList = (props) => {
   return (
-    <div className="CardList">
+    <div className="card-list">
       {props.cards.map((card) => (
-        <CardListItem key={card.id} card={card} colors={props.colors} />
+        <CardListItem key={card.id} card={card} />
       ))}
     </div>
   );

@@ -1,0 +1,8 @@
+@import './utils.scss';
+
+.card-list {
+  display: flex;
+  div {
+    flex: none;
+  }
+}

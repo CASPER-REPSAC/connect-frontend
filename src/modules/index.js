@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import cards from './cards';
+import activities from './activities';
 import auth from './auth';
 import colors from './colors';
 
 const rootReducer = combineReducers({
-  cards,
+  activities,
   auth,
   colors,
 });

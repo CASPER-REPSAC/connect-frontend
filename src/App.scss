@@ -14,11 +14,24 @@
 
   min-height: 88vh;
   @include box-shadow($app-box-radius);
+  box-shadow: none;
+
+  overflow: hidden;
 
   display: flex;
 
   .sidebar-container {
     flex: 1;
+  }
+
+  .main-container {
+    width: 100%;
+  }
+
+  @media (max-width: $tablet-width) {
+    .sidebar-container {
+      display: none;
+    }
   }
   .nav-main-container {
     flex: 4;

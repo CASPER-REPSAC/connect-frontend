@@ -5,6 +5,8 @@ const ActivityPage = ({ history }) => {
   console.log(history);
   return (
     <div>
+      activity page
+      <br />
       card list
       <CardListContainer />
     </div>

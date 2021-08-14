@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+
 import {
   CardItemBlock,
   TopSection,
@@ -11,8 +13,8 @@ import {
 } from './CardListItemStyled';
 import Tag from '../common/Tag';
 
-const widthBase = 20;
-const maxWidth = 27;
+const widthBase = 18;
+const maxWidth = 25;
 
 const maxTitle = 15;
 const maxIntroduce = 65;
@@ -21,7 +23,7 @@ const maxAuthor = 10;
 const maxParticipants = 4;
 
 const CardListItem = ({ card, colors }) => {
-  const { title, author, type, participants, read, introduce, tags } = card;
+  const { title, author, type, participants, introduce, tags } = card;
   const { tagColors } = colors;
 
   const [width, widthSet] = useState(widthBase);
@@ -87,7 +89,6 @@ const CardListItem = ({ card, colors }) => {
             <ArticleHeader>
               <div title={title} className="title">
                 {titleCut}
-                <div className="Read">{read && '읽음'}</div>
               </div>
               <div className="typeAuth">
                 <div>{type}</div>
@@ -134,4 +135,9 @@ const CardListItem = ({ card, colors }) => {
   );
 };
 
-export default React.memo(CardListItem);
+export default connect(
+  (state) => ({
+    colors: state.colors,
+  }),
+  {},
+)(CardListItem);

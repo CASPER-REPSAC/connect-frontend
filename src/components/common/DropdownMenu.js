@@ -8,7 +8,7 @@ const DropdownMenu = ({ children, menuName, menuLink }) => {
 
   return (
     <div
-      className="menu-container"
+      className={`menu-container dropdown-${menuName}`}
       onMouseOver={() => setIsActive(true)}
       onMouseOut={() => setIsActive(false)}
     >

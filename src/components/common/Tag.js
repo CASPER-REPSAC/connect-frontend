@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const StyledTag = styled.div`
-  font-size: 0.7rem;
+  font-size: 10px;
   color: white;
   display: inline-block;
   padding: 0.1rem 0.6rem 0.2rem 0.6rem;

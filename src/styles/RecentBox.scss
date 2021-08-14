@@ -1,0 +1,58 @@
+@import './utils.scss';
+
+.recent-box {
+  padding: 15px;
+  .selector {
+    border-radius: 10px 10px 0 0;
+    display: inline-block;
+    overflow: hidden;
+    .selector-item {
+      display: inline-block;
+      width: 100px;
+      height: 25px;
+
+      font-weight: 600;
+      font-size: 12px;
+      padding: 1px 5px;
+      cursor: pointer;
+
+      text-align: center;
+      line-height: 25px;
+
+      &.active {
+        background: $black1;
+        color: white;
+      }
+
+      &.inactive {
+        background: $gray3;
+        color: $gray-text;
+      }
+    }
+  }
+
+  .content {
+    margin-top: -4px;
+    padding: 10px;
+    border: 1px solid $gray2;
+    border-radius: 0 14px 14px 14px;
+    color: $black1;
+    font-size: 12px;
+    font-weight: 500;
+
+    overflow: scroll;
+    width: 60vw;
+
+    @media (max-width: $tablet-width) {
+      width: 75vw;
+    }
+
+    .no-card {
+      display: flex;
+      align-items: center;
+      img {
+        margin-right: 10px;
+      }
+    }
+  }
+}

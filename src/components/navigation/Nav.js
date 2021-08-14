@@ -1,23 +1,29 @@
 // import modules
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import React from 'react';
+
 import DropdownMenu from '../common/DropdownMenu';
 import Searchbar from '../common/Searchbar';
+
+import casLogo from '../../img/cas-40.png';
 import '../../styles/Nav.scss';
 
 const Nav = () => {
   return (
     <div className="nav">
+      <NavLink to="/" className="nav-link-logo">
+        <img src={casLogo} alt="Logo" className="logo-tablet" />
+      </NavLink>
       <DropdownMenu menuName="HOME" menuLink="/" />
       <DropdownMenu menuName="ACTIVITY" menuLink="/activities">
         <li>
-          <Link to="/activities/study">study</Link>
+          <NavLink to="/activities/study">study</NavLink>
         </li>
         <li>
-          <Link to="/activities/project">project</Link>
+          <NavLink to="/activities/project">project</NavLink>
         </li>
         <li>
-          <Link to="/activities/ctf">ctf</Link>
+          <NavLink to="/activities/ctf">ctf</NavLink>
         </li>
       </DropdownMenu>
       <Searchbar />
