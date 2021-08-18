@@ -26,16 +26,21 @@ const RecentBox = ({ cards }) => {
 
   return (
     <div className="recent-box">
-      <div className="selector">
-        {menus.map((v) => (
-          <SelectorItem
-            selectorName={v}
-            selected={selected}
-            setSelected={setSelected}
-          />
-        ))}
+      <div className="selector-box">
+        <div className="selector">
+          {menus.map((v) => (
+            <SelectorItem
+              selectorName={v}
+              selected={selected}
+              setSelected={setSelected}
+            />
+          ))}
+        </div>
+        <div className="tip">
+          tip - shift+wheel scroll으로 가로 스크롤 할 수 있습니다.
+        </div>
       </div>
-      <div className="content">
+      <div className="content horizontal-scroll">
         {cards ? (
           <CardList cards={cards} />
         ) : (

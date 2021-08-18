@@ -27,43 +27,15 @@ const CardListItem = ({ card, colors }) => {
   const { tagColors } = colors;
 
   const [width, widthSet] = useState(widthBase);
-  const [titleCut, titleCutSet] = useState(title);
-  const [introduceCut, introduceCutSet] = useState(introduce);
-  const [authorCut, authorCutSet] = useState(author);
 
   // ... 안 붙는 문제 해결하기
   useEffect(() => {
-    let b = 0;
-    let i = 0;
-    for (i; i < maxIntroduce; i++) {
-      let c = introduce.charCodeAt(i);
-      b += c >> 7 ? 2 : 1;
-      if (b > maxIntroduce) {
-        introduceCutSet(introduce.substr(0, i));
-        break;
-      }
-    }
-
     if (participants.length > maxParticipants) {
       widthSet(widthBase + participants.length - maxParticipants);
     }
 
-    if (title.length > maxTitle) {
-      titleCutSet(titleCut.substr(0, maxTitle) + '...');
-    }
-
-    if (author.length > maxAuthor) {
-      authorCutSet(authorCut.substr(0, maxAuthor));
-    }
-
     if (width > maxWidth) {
       widthSet(maxWidth);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (introduce.length > introduceCut.length) {
-      introduceCutSet(introduceCut + '...');
     }
   }, []);
 
@@ -87,17 +59,19 @@ const CardListItem = ({ card, colors }) => {
           </AuthIcon>
           <Article>
             <ArticleHeader>
-              <div title={title} className="title">
-                {titleCut}
+              <div title={title} className="title dragable">
+                {title}
               </div>
               <div className="typeAuth">
                 <div>{type}</div>
                 <div title={author} className="author">
-                  {authorCut}
+                  {author}
                 </div>
               </div>
             </ArticleHeader>
-            <div className="introduce">{introduceCut}</div>
+            <div className="introduce dragable" title={introduce}>
+              {introduce}
+            </div>
           </Article>
         </ArticleBlock>
         <Participants>

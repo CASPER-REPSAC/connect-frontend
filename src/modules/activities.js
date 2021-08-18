@@ -17,7 +17,7 @@ const initialState = {
       author: '5 11',
       participants: ['floodnut', 'woo'],
       createDate: '2021-07-01',
-      introduce: '여기는 65자 이상이면 잘립니다. 간단한 소개 파트가 필요해보임',
+      introduce: '여기는 첫째줄에서 잘림. 간단한 소개 파트가 필요해보임',
       currentState: 0,
       startDate: '2021-07-05',
       endDate: '2021-07-27',

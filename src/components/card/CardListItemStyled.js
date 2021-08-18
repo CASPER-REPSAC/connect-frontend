@@ -34,9 +34,8 @@ export const CardItemBlock = styled.div`
   width: 20rem;
   background: ${background};
   box-shadow: 0px 10px 10px 6px ${shadow};
-  * {
-    overflow: hidden;
-  }
+  cursor: pointer;
+
   ${(props) =>
     props.sinWidth &&
     css`
@@ -61,19 +60,25 @@ export const TopSection = styled.div`
 export const ArticleBlock = styled.div`
   display: flex;
   margin-bottom: 5px;
+
   .introduce {
     font-size: 12px;
     font-weight: normal;
+    height: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: text;
   }
 `;
 
 export const AuthIcon = styled.div`
   flex: none;
-  height: 3.4rem;
-  width: 3.4rem;
+  height: 3.6rem;
+  width: 3.6rem;
   background: lightgray;
   margin: 8px 12px 5px 0px;
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
 `;
 
 export const Article = styled.div`
@@ -81,13 +86,22 @@ export const Article = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 75%;
+  max-width: 75%;
+  max-height: 3.2rem;
 `;
 export const ArticleHeader = styled.div`
   background: white;
   display: flex;
   justify-content: space-between;
   .title {
+    width: 8rem;
     margin-top: 8px;
+    height: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: text;
   }
   .Read {
     font-size: 8px;

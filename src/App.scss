@@ -10,7 +10,8 @@
 }
 
 .app-box {
-  width: 80vw;
+  width: $app-box-width;
+  max-width: $app-box-width;
 
   min-height: 88vh;
   @include box-shadow($app-box-radius);
@@ -21,11 +22,8 @@
   display: flex;
 
   .sidebar-container {
-    flex: 1;
-  }
-
-  .main-container {
-    width: 100%;
+    width: $sidebar-width;
+    flex: none;
   }
 
   @media (max-width: $tablet-width) {
@@ -34,7 +32,12 @@
     }
   }
   .nav-main-container {
-    flex: 4;
+    width: 100%;
+    max-width: 100%;
+    .main {
+      width: 100%;
+      max-width: 100%;
+    }
   }
 
   .sidebar-container + .nav-main-container {
@@ -45,7 +48,7 @@
 .nav-main-container {
   display: flex;
   flex-direction: column;
-  .nav + .main-container {
+  .nav + .main {
     border-top: 1px solid $gray2;
   }
 }

@@ -1,6 +1,42 @@
 @import './utils.scss';
 
+.sidebar {
+  padding: 14px;
+  .mini-profile {
+    margin: 3rem 0 1rem 0;
+  }
+}
+
 .logo-sidebar {
   width: 70px;
   margin: 15% 0 0 15%;
+}
+
+.sidebar-todo-item {
+  @include box-shadow(8px);
+  box-shadow: none;
+  border: 1px solid $gray2;
+
+  font-size: 12px;
+  width: 100%;
+  height: 2.5rem;
+  padding: $mini-card-padding;
+
+  display: flex;
+  align-items: center;
+
+  .checkbox {
+    margin-right: $mini-card-padding;
+  }
+  .title {
+    font-weight: 700;
+  }
+  .sub-title {
+    color: $gray-text;
+    margin-left: auto;
+  }
+
+  & + & {
+    margin-top: 4px;
+  }
 }

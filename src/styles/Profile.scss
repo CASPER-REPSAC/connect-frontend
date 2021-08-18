@@ -1,0 +1,50 @@
+@import './utils.scss';
+
+.mini-profile {
+  color: $black1;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid $gray2;
+  @include box-shadow($card-radius);
+  box-shadow: none;
+
+  font-size: 12px;
+  .profile {
+    display: flex;
+    padding: $mini-card-padding;
+    align-items: center;
+    .icon {
+      display: flex;
+      width: 40px;
+      height: 40px;
+      flex: none;
+      border-radius: 5px;
+      background-color: lightgray;
+      color: white;
+      margin: 3px $mini-card-padding 3px 3px;
+      text-align: center;
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      .name {
+        font-weight: 700;
+      }
+      .badge {
+        display: flex;
+      }
+    }
+  }
+  .introduce {
+    display: flex;
+    padding: 0 $mini-card-padding;
+  }
+  .arrow-down {
+    text-align: center;
+    padding-bottom: $mini-card-padding;
+  }
+}

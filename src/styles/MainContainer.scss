@@ -1,0 +1,16 @@
+@import './utils.scss';
+
+.main {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  .main-container {
+    padding: 15px;
+    width: calc(80vw - 250px);
+    max-width: calc(80vw - 250px);
+    @media (max-width: $tablet-width) {
+      width: calc(80vw);
+      max-width: calc(80vw);
+    }
+  }
+}
