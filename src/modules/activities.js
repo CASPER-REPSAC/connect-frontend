@@ -1,8 +1,29 @@
 import { handleActions } from 'redux-actions';
+import {
+  getActivity,
+  getTag,
+  getUsers,
+  getListData,
+  getDataByURL,
+} from './api';
 
 // action types
+const SET_ACTIVITIES = 'activities/GET_ACTIVITIES';
 
 // action genarator functions
+export const getActivites = () => (dispatch) => {
+  return getListData('/activities/')
+    .then((response) => {
+      console.log(response);
+      dispatch({
+        type: SET_ACTIVITIES,
+        payload: response['results'],
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 // id, type, title, author, createdDate, content, currentState, startDate, endDate
 // initial state
@@ -62,11 +83,42 @@ const initialState = {
       tags: ['rev', 'pwn'],
       viewer_num: 180,
     },
+    {
+      id: 4,
+      title: 'this is title',
+      type: 'CTF',
+      author: '5 11',
+      participants: [
+        'pawnTTi',
+        'swimming',
+        'dongas',
+        '박지성분',
+        'neva',
+        'root',
+        '신성민',
+      ],
+      createDate: '2021-07-02',
+      introduce:
+        'i like jelly fish i like jelly fish i like sponge bob living in the pineapple ',
+      currentState: 0,
+      startDate: '2021-07-06',
+      endDate: '2021-07-15',
+      tags: ['rev', 'pwn'],
+      viewer_num: 180,
+    },
   ],
 };
 
 // reducers
-const activities = handleActions({}, initialState);
+const activities = handleActions(
+  {
+    [SET_ACTIVITIES]: (state, action) => ({
+      ...state,
+      activities: action.payload,
+    }),
+  },
+  initialState,
+);
 
 // export
 export default activities;
