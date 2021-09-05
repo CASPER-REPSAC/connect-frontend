@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/RecentBox.scss';
 import CardList from '../card/CardList';
-import casGray from '../../img/casOutlineDark-40.png';
+import { NoCards } from './NoCards';
 
 const SelectorItem = ({ selectorName, selected, setSelected }) => {
   return (
@@ -28,8 +28,9 @@ const RecentBox = ({ cards }) => {
     <div className="recent-box">
       <div className="selector-box">
         <div className="selector">
-          {menus.map((v) => (
+          {menus.map((v, index) => (
             <SelectorItem
+              key={index}
               selectorName={v}
               selected={selected}
               setSelected={setSelected}
@@ -41,14 +42,7 @@ const RecentBox = ({ cards }) => {
         </div>
       </div>
       <div className="content horizontal-scroll">
-        {cards ? (
-          <CardList cards={cards} />
-        ) : (
-          <div className="no-card">
-            <img src={casGray} alt="cas logo" />
-            <span>현재 보여줄 수 있는 카드가 없네요..</span>
-          </div>
-        )}
+        {cards ? <CardList cards={cards} /> : <NoCards />}
       </div>
     </div>
   );

@@ -47,9 +47,7 @@ export const CardItemBlock = styled.div`
       background: ${unActiveCard};
     `}
 
-    &+& {
-    margin-left: 10px;
-  }
+    margin-right: 10px;
 `;
 
 export const TopSection = styled.div`

@@ -14,7 +14,7 @@ const Nav = () => {
       <NavLink to="/" className="nav-link-logo">
         <img src={casLogo} alt="Logo" className="logo-tablet" />
       </NavLink>
-      <DropdownMenu menuName="HOME" menuLink="/" />
+      <DropdownMenu menuName="HOME" menuLink="/"></DropdownMenu>
       <DropdownMenu menuName="ACTIVITY" menuLink="/activities">
         <li>
           <NavLink to="/activities/study">study</NavLink>
@@ -26,6 +26,7 @@ const Nav = () => {
           <NavLink to="/activities/ctf">ctf</NavLink>
         </li>
       </DropdownMenu>
+      <DropdownMenu menuName="WRITE" menuLink="/write"></DropdownMenu>
       <Searchbar />
     </div>
   );

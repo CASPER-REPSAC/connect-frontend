@@ -17,8 +17,11 @@ function getUsers(user_id) {
   return axios.get(baseURL + '/users/' + user_id + '/');
 }
 
-function getListData(url) {
-  return axios.get(baseURL + url);
+async function getListData(url, setState) {
+  const res = await axios.get(url);
+  console.log('getListData', res['data']['results']);
+  setState(res['data']['results']);
+  return res[''];
 }
 
 // id 사용하지 않고

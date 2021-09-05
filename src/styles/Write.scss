@@ -1,0 +1,41 @@
+@import './utils.scss';
+
+.activityForm {
+  h3 {
+    margin-top: 1rem;
+    margin-bottom: 5px;
+  }
+  .no-margin {
+    margin-top: 0rem;
+  }
+  .rti--container {
+    &:focus {
+      outline: none;
+    }
+    font-size: 12px;
+    .rti--tag {
+      color: white;
+    }
+  }
+  input {
+    width: 100%;
+    padding: 4px;
+    border-radius: 7px;
+    border: 1.5px solid $gray-text;
+    &:focus {
+      outline: none;
+    }
+  }
+  input[type='date'] {
+    width: 150px;
+    display: block;
+  }
+  select {
+    padding: 4px;
+    border-radius: 7px;
+    border: 1.5px solid $gray-text;
+    &:focus {
+      outline: none;
+    }
+  }
+}

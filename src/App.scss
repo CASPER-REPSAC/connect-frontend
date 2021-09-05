@@ -5,20 +5,23 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+
   background-color: $gray1;
 }
 
 .app-box {
   width: $app-box-width;
   max-width: $app-box-width;
-
   min-height: 88vh;
   @include box-shadow($app-box-radius);
   box-shadow: none;
+  margin: 5.5vh 0;
+  @media (max-height: 850px) {
+    margin: 50px 0;
+  }
 
-  overflow: hidden;
-
+  overflow-x: hidden;
   display: flex;
 
   .sidebar-container {

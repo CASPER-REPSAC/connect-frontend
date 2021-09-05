@@ -14,7 +14,7 @@ const CardList = ({ n, cards }) => {
 
   if (!n) {
     return (
-      <div className="card-list2">
+      <div className="card-list">
         {cards &&
           cards.map((card) => <CardListItem key={card.id} card={card} />)}
       </div>

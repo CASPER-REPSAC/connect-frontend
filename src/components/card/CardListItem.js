@@ -11,6 +11,7 @@ import {
   Tags,
   ArticleHeader,
 } from './CardListItemStyled';
+import { Link } from 'react-router-dom';
 import Tag from '../common/Tag';
 
 const widthBase = 18;
@@ -23,7 +24,8 @@ const maxAuthor = 10;
 const maxParticipants = 4;
 
 const CardListItem = ({ card, colors }) => {
-  const { title, author, type, participants, introduce, tags } = card;
+  const { title, author, type, participants, description, tags, id } = card;
+  let url = '/activities/' + type.toLowerCase() + '/' + id;
   const { tagColors } = colors;
 
   const [width, widthSet] = useState(widthBase);
@@ -43,69 +45,71 @@ const CardListItem = ({ card, colors }) => {
   //
 
   return (
-    <CardItemBlock sinWidth={width}>
-      <TopSection>
-        <ArticleBlock>
-          <AuthIcon
-            style={{
-              textAlign: 'center',
-              lineHeight: '55px',
-              fontWeight: 'bold',
-              fontSize: '30px',
-              color: 'white',
-            }}
-          >
-            {author.substr(0, 1)}
-          </AuthIcon>
-          <Article>
-            <ArticleHeader>
-              <div title={title} className="title dragable">
-                {title}
-              </div>
-              <div className="typeAuth">
-                <div>{type}</div>
-                <div title={author} className="author">
-                  {author}
-                </div>
-              </div>
-            </ArticleHeader>
-            <div className="introduce dragable" title={introduce}>
-              {introduce}
-            </div>
-          </Article>
-        </ArticleBlock>
-        <Participants>
-          {participants.map((participant, index) => (
-            <div
-              className="participant"
-              key={index}
-              title={participant}
+    <Link to={url}>
+      <CardItemBlock sinWidth={width}>
+        <TopSection>
+          <ArticleBlock>
+            <AuthIcon
               style={{
                 textAlign: 'center',
-                lineHeight: '30px',
+                lineHeight: '55px',
                 fontWeight: 'bold',
-                fontSize: '16px',
+                fontSize: '30px',
                 color: 'white',
               }}
             >
-              {participant.substr(0, 1)}
-            </div>
-          ))}
-        </Participants>
-      </TopSection>
-      <Tags>
-        <div>
-          {tags.map((tag, index) => {
-            let c = { tagColor: tagColors[tag] };
-            return (
-              <Tag {...c} key={index}>
-                {tag}
-              </Tag>
-            );
-          })}
-        </div>
-      </Tags>
-    </CardItemBlock>
+              {author.substr(0, 1)}
+            </AuthIcon>
+            <Article>
+              <ArticleHeader>
+                <div title={title} className="title dragable">
+                  {title}
+                </div>
+                <div className="typeAuth">
+                  <div>{type}</div>
+                  <div title={author} className="author">
+                    {author}
+                  </div>
+                </div>
+              </ArticleHeader>
+              <div className="introduce dragable" title={description}>
+                {description}
+              </div>
+            </Article>
+          </ArticleBlock>
+          <Participants>
+            {participants.map((participant, index) => (
+              <div
+                className="participant"
+                key={index}
+                title={participant}
+                style={{
+                  textAlign: 'center',
+                  lineHeight: '30px',
+                  fontWeight: 'bold',
+                  fontSize: '16px',
+                  color: 'white',
+                }}
+              >
+                {participant.substr(0, 1)}
+              </div>
+            ))}
+          </Participants>
+        </TopSection>
+        <Tags>
+          <div>
+            {tags.map((tag, index) => {
+              let c = { tagColor: tagColors[tag] };
+              return (
+                <Tag {...c} key={index}>
+                  {tag}
+                </Tag>
+              );
+            })}
+          </div>
+        </Tags>
+      </CardItemBlock>
+    </Link>
   );
 };
 

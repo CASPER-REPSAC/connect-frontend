@@ -7,14 +7,12 @@ import axios from 'axios';
 
 import '../styles/MainPage.scss';
 
-const MainPage = ({ cards }) => {
+const MainPage = () => {
+  const [cards, setCards] = useState();
   useEffect(() => {
-    async function getActivites() {
-      const res2 = await axios.get('http://localhost:8000/api/');
-      console.log(res2);
-    }
-    getActivites();
+    getListData('/api/', setCards);
   }, []);
+
   return (
     <div className="main-page">
       <RecentBox cards={cards} />
@@ -25,7 +23,7 @@ const MainPage = ({ cards }) => {
 
 export default connect(
   (state) => ({
-    cards: state.activities.activities,
+    // cards: state.activities.activities,
   }),
   {},
 )(MainPage);
