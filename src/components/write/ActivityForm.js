@@ -3,43 +3,15 @@ import axios from 'axios';
 import { TagsInput } from 'react-tag-input-component';
 import Button from '../common/Button';
 
-function submitActivity(inputs, tags, participants) {
-  const data = {
-    ...inputs,
-    tags: tags,
-    participants: participants,
-  };
-  console.log('fail', data);
-  axios
-    .post('/api/', data, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log('err', error);
-    });
-}
-
-const ActivityForm = () => {
-  const date = new Date().toISOString().substr(0, 10);
-  const [inputs, setInputs] = useState({
-    title: '',
-    type: 'CTF',
-    author: 'casper',
-    createDate: date,
-    description: '',
-    startDate: date,
-    endDate: date,
-    currentState: 0,
-    viewerNum: 0,
-  });
-  const [tags, setTags] = useState(['casper']);
-  const [participants, setParticipants] = useState(['parti1']);
-
+const ActivityForm = ({
+  inputs,
+  setInputs,
+  tags,
+  setTags,
+  participants,
+  setParticipants,
+  submitActivity,
+}) => {
   const onChangeHandler = (e) => {
     setInputs({ ...inputs, [e.target.id]: e.target.value });
   };
@@ -115,7 +87,7 @@ const ActivityForm = () => {
       />
       <br />
       <Button onClick={() => submitActivity(inputs, tags, participants)}>
-        제출
+        작성
       </Button>
       <br />
     </div>

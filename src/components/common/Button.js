@@ -34,6 +34,15 @@ const StyledButton = styled.button`
         background: ${palette.cyan[4]};
       }
     `}
+
+    ${(props) =>
+    props.gray &&
+    css`
+      background: ${palette.gray[5]};
+      &:hover {
+        background: ${palette.gray[6]};
+      }
+    `}
 `;
 
 // props.children도 함께 상속됨.

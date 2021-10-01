@@ -38,7 +38,7 @@ const MainContainer = ({
 
           <Route exact component={LoginPage} path={'/login'} />
           <Route exact component={RegisterPage} path={'/register'} />
-          <Route exact component={WritePage} path={'/write'} />
+          <Route component={WritePage} path={'/write'} />
         </Switch>
       </div>
     </div>
