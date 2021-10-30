@@ -4,6 +4,7 @@ import RecentBox from '../components/common/RecentBox';
 import CardList from '../components/card/CardList';
 import { getListData } from '../modules/api';
 import axios from 'axios';
+import GoogleButton from '../components/auth/GoogleButton';
 
 import '../styles/MainPage.scss';
 
@@ -15,6 +16,7 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
+      <GoogleButton />
       <RecentBox cards={cards} />
       <CardList n={true} />
     </div>
