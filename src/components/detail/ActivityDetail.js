@@ -21,10 +21,16 @@ const ActivityDetail = ({ activityDetail }) => {
   return (
     <>
       <h3>{title}</h3>
-      {chapterid[0] &&
-        chapterid.map((chapter, index) => (
-          <li key={index}> {chapter.subject}</li>
-        ))}
+      <b>챕터</b>
+      <ol>
+        {chapterid[0] ? (
+          chapterid.map((chapter, index) => (
+            <li key={index}> {chapter.subject}</li>
+          ))
+        ) : (
+          <>챕터가 없습니다.</>
+        )}
+      </ol>
     </>
   );
 };

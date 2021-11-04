@@ -32,8 +32,9 @@ const WriteActivity = () => {
       participants: participants,
     };
     setSendCounter(sendCounter + 1);
+    console.log('write data', data);
     axios
-      .post('/api/', data, {
+      .post('/api/activities', data, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -52,6 +53,7 @@ const WriteActivity = () => {
 
   return (
     <div>
+      {console.log(tags)}
       {sendCounter === 0 && (
         <ActivityForm
           inputs={inputs}

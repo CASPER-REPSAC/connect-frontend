@@ -4,6 +4,7 @@
 
 ## notes..
 
+- create read update 폼만 만들고 기능 구현은 나중에
 - css class naming rules: kebab-case
 
 ## stack

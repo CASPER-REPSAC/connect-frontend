@@ -3,6 +3,8 @@ import axios from 'axios';
 import { TagsInput } from 'react-tag-input-component';
 import Button from '../common/Button';
 
+// 참여자는 신청 페이지로 받기 -> 신청하면 작성자에게 알림.
+
 const ActivityForm = ({
   inputs,
   setInputs,
@@ -76,15 +78,7 @@ const ActivityForm = ({
         name="tags"
         placeHolder="태그를 입력해주세요"
       />
-      <label htmlFor="participants">
-        <h3>Participants</h3>
-      </label>
-      <TagsInput
-        value={participants}
-        onChange={setParticipants}
-        name="participants"
-        placeHolder="참가자를 입력해주세요"
-      />
+
       <br />
       <Button onClick={() => submitActivity(inputs, tags, participants)}>
         작성
@@ -93,5 +87,17 @@ const ActivityForm = ({
     </div>
   );
 };
+
+/*
+<label htmlFor="participants">
+  <h3>Participants</h3>
+</label>
+<TagsInput
+  value={participants}
+  onChange={setParticipants}
+  name="participants"
+  placeHolder="참가자를 입력해주세요"
+/>
+*/
 
 export { ActivityForm };
