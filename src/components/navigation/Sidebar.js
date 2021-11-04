@@ -13,6 +13,7 @@ const Sidebar = () => {
       <NavLink to="/">
         <img src={casLogo} alt="Logo" className="logo-sidebar" />
       </NavLink>
+      <GoogleButton />
       <MiniProfile />
       <SidebarTodos />
     </div>

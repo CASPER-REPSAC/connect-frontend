@@ -1,45 +1,55 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
+import './Tag.scss';
 
-const StyledTag = styled.div`
-  font-size: 10px;
-  color: white;
-  display: inline-block;
-  padding: 0.1rem 0.6rem 0.2rem 0.6rem;
-  border-radius: 1rem;
+/*
+  const StyledTag = styled.div`
+    font-size: 10px;
+    color: white;
+    display: inline-block;
+    padding: 0.1rem 0.6rem 0.2rem 0.6rem;
+    border-radius: 1rem;
 
-  & + & {
-    margin-left: 0.3rem;
-  }
-
-  background: gray;
-
-  ${(props) => {
-    const { tagColor } = props;
-    return css`
-      background: ${tagColor};
-    `;
-  }}
-
-  ${(props) => {
-    const { currentState } = props;
-    switch (currentState) {
-      case 'running':
-        return css`
-          background: darkorange;
-        `;
-      case 'finished':
-        return css`
-          background: gray;
-        `;
-      default:
-        return 0;
+    & + & {
+      margin-left: 0.3rem;
     }
-  }}
-`;
 
-const Tag = (props) => {
-  return <StyledTag {...props} />;
+    background: gray;
+
+    ${(props) => {
+      const { tagColor } = props;
+      return css`
+        background: ${tagColor};
+      `;
+    }}
+
+    ${(props) => {
+      const { currentState } = props;
+      switch (currentState) {
+        case 'running':
+          return css`
+            background: darkorange;
+          `;
+        case 'finished':
+          return css`
+            background: gray;
+          `;
+        default:
+          return 0;
+      }
+    }}
+  `;
+*/
+
+const Tag = ({ tagId }) => {
+  return (
+    <span>
+      <Link to={`/tags/${tagId}`} className="styled-tag">
+        {tagId}
+      </Link>
+    </span>
+  );
 };
 
 export default Tag;

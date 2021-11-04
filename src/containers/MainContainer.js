@@ -8,11 +8,12 @@ const MainContainer = ({
   LoginPage,
   RegisterPage,
   WritePage,
+  UserPage,
+  TagPage,
 }) => {
   return (
     <div className="main">
       <div className="main-container">
-        {' '}
         <Switch>
           <Route exact path="/">
             <Redirect to="/main" />
@@ -22,19 +23,20 @@ const MainContainer = ({
             <Route exact component={MainPage} path="/main" />
           </Route>
 
+          <Route path={'/types'}>
+            <Route exact component={ActivityPage} path={'/types/:type'} />
+          </Route>
+
           <Route path={'/activities'}>
             <Route exact component={ActivityPage} path={'/activities'} />
             <Route
               exact
-              component={ActivityPage}
-              path={'/activities/:category'}
-            />
-            <Route
-              exact
               component={ActivityDetailPage}
-              path={'/activities/:category/:id'}
+              path={'/activities/:activityId'}
             />
           </Route>
+          <Route exact component={UserPage} path={'/users/:userId'} />
+          <Route exact component={TagPage} path={'/tags/:tagId'} />
 
           <Route exact component={LoginPage} path={'/login'} />
           <Route exact component={RegisterPage} path={'/register'} />

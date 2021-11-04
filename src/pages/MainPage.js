@@ -4,21 +4,39 @@ import RecentBox from '../components/common/RecentBox';
 import CardList from '../components/card/CardList';
 import { getListData } from '../modules/api';
 import axios from 'axios';
-import GoogleButton from '../components/auth/GoogleButton';
 
-import '../styles/MainPage.scss';
+// import '../styles/MainPage.scss';
 
 const MainPage = () => {
   const [cards, setCards] = useState();
   useEffect(() => {
-    getListData('/api/', setCards);
+    getListData('/api/activities/', setCards);
   }, []);
+
+  const [tags, setTags] = useState([]);
 
   return (
     <div className="main-page">
-      <GoogleButton />
-      <RecentBox cards={cards} />
-      <CardList n={true} />
+      {console.log('cards', cards)}
+      {cards && cards[0] && (
+        <>
+          <RecentBox cards={cards} />
+          <br />
+          <h3>Currently Running</h3>
+          <CardList
+            n={true}
+            cards={cards.filter((card) => card.currentState === 1).slice(2, 4)}
+          />
+          <br />
+          <h3>Ended</h3>
+          <CardList
+            n={true}
+            cards={cards
+              .filter((card) => card.currentState === 0)
+              .slice(15, 20)}
+          />
+        </>
+      )}
     </div>
   );
 };

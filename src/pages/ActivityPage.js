@@ -1,38 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import CardList from '../components/card/CardList';
 import { getListData } from '../modules/api';
-import axios from 'axios';
+import { Stack } from 'react-bootstrap';
 import { NoCards } from '../components/common/NoCards';
 
-async function getActivity(url, setState) {
-  const res = await axios.get(url);
-  console.log('getListData', res['data']['results']);
-
-  setState(res['data']['results']);
-  return res[''];
-}
 const ActivityPage = () => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    getActivity('/api/', setCards);
+    getListData('/api/activities/', setCards);
   }, []);
 
   return (
-    <div>
-      {cards[0] ? (
+    <Stack gap={3}>
+      {cards && cards[0] ? (
         <>
-          <h3>CTF</h3>
-          <CardList cards={cards.filter((v) => v['type'] === 'CTF')} />
-          <h3>Study</h3>
-          <CardList cards={cards.filter((v) => v['type'] === 'Study')} />
-          <h3>Project</h3>
-          <CardList cards={cards.filter((v) => v['type'] === 'Project')} />
+          <div>
+            <h3>CTF</h3>
+            <CardList
+              cards={cards
+                .filter((v) => v['type'] === 'CTF')
+                .filter((v, index) => index < 5)}
+            />
+          </div>
+          <div>
+            <h3>Study</h3>
+            <CardList
+              cards={cards
+                .filter((v) => v['type'] === 'Study')
+                .filter((v, index) => index < 5)}
+            />
+          </div>
+          <div>
+            <h3>Project</h3>
+            <CardList
+              cards={cards
+                .filter((v) => v['type'] === 'Project')
+                .filter((v, index) => index < 5)}
+            />
+          </div>
         </>
       ) : (
         <NoCards />
       )}
-    </div>
+    </Stack>
   );
 };
 

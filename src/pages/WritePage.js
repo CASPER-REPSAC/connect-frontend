@@ -7,12 +7,12 @@ import '../styles/Write.scss';
 
 const WritePage = () => {
   return (
-    <div>
+    <>
       <Switch>
         <Route exact component={WriteActivity} path={'/write'} />
         <Route exact component={WriteChapters} path={'/write/:id'} />
       </Switch>
-    </div>
+    </>
   );
 };
 

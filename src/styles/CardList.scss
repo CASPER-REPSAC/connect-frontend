@@ -2,7 +2,14 @@
 
 .card-list {
   display: flex;
-  div {
-    flex: none;
+}
+.nowrap {
+  flex-wrap: nowrap;
+}
+
+.wrap {
+  flex-wrap: wrap;
+  .card-item-block {
+    margin-bottom: 10px;
   }
 }

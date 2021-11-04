@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import {
+  CardItemBlock,
+  TopSection,
+  ArticleBlock,
+  Article,
+  AuthIcon,
+  Participants,
+  Tags,
+  ArticleHeader,
+} from './CardListItemStyled';
 import { Link } from 'react-router-dom';
 import Tag from '../common/Tag';
-
-import './CardItem.scss';
 
 const widthBase = 18;
 const maxWidth = 25;
@@ -13,7 +21,7 @@ const maxParticipants = 4;
 
 const CardListItem = ({ card, colors }) => {
   const { title, author, type, participants, description, tags, id } = card;
-  let url = '/activities/' + id;
+  let url = '/activities/' + type.toLowerCase() + '/' + id;
   const { tagColors } = colors;
 
   const [width, widthSet] = useState(widthBase);
@@ -33,12 +41,11 @@ const CardListItem = ({ card, colors }) => {
   //
 
   return (
-    <div className="card-item-block">
-      <div className="top-section">
-        <div className="article-block">
-          <Link to={`/users/${author}`}>
-            <div
-              className="auth-icon"
+    <Link to={url}>
+      <CardItemBlock sinWidth={width}>
+        <TopSection>
+          <ArticleBlock>
+            <AuthIcon
               style={{
                 textAlign: 'center',
                 lineHeight: '55px',
@@ -48,53 +55,57 @@ const CardListItem = ({ card, colors }) => {
               }}
             >
               {author.substr(0, 1)}
-            </div>
-          </Link>
-          <div className="article">
-            <div className="article-header">
-              <Link to={url}>
+            </AuthIcon>
+            <Article>
+              <ArticleHeader>
                 <div title={title} className="title dragable">
                   {title}
                 </div>
-              </Link>
-              <div className="typeAuth">
-                <Link to={`/types/${type}`}>
+                <div className="typeAuth">
                   <div>{type}</div>
-                </Link>
-                <Link to={`/users/${author}`}>
                   <div title={author} className="author">
                     {author}
                   </div>
-                </Link>
-              </div>
-            </div>
-            <Link to={url}>
+                </div>
+              </ArticleHeader>
               <div className="introduce dragable" title={description}>
                 {description}
               </div>
-            </Link>
+            </Article>
+          </ArticleBlock>
+          <Participants>
+            {participants.map((participant, index) => (
+              <div
+                className="participant"
+                key={index}
+                title={participant}
+                style={{
+                  textAlign: 'center',
+                  lineHeight: '30px',
+                  fontWeight: 'bold',
+                  fontSize: '16px',
+                  color: 'white',
+                }}
+              >
+                {participant.substr(0, 1)}
+              </div>
+            ))}
+          </Participants>
+        </TopSection>
+        <Tags>
+          <div>
+            {tags.map((tag, index) => {
+              let c = { tagColor: tagColors[tag] };
+              return (
+                <Tag {...c} key={index}>
+                  {tag}
+                </Tag>
+              );
+            })}
           </div>
-        </div>
-        <div className="participants">
-          {participants.map((participant, index) => (
-            <Link
-              to={`/participants/${participant.user_id}`}
-              className="participant"
-              key={index}
-              title={participant.user_id}
-            >
-              {participant.user_id}
-            </Link>
-          ))}
-        </div>
-      </div>
-      <div className="tags">
-        {tags.map((tag, index) => {
-          let c = { tagColor: tagColors[tag] };
-          return <Tag {...c} key={index} tagId={tag.tag_id} />;
-        })}
-      </div>
-    </div>
+        </Tags>
+      </CardItemBlock>
+    </Link>
   );
 };
 

@@ -24,6 +24,19 @@ const RecentBox = ({ cards }) => {
   const menus = ['내가 쓴 글', '최신글'];
   const [selected, setSelected] = useState(menus[0]);
 
+  console.log(
+    'RecentBox',
+    cards.sort(function (a, b) {
+      if (new Date(a.createDate) > new Date(b.createDate)) {
+        return -1;
+      } else if (new Date(a.createDate) < new Date(b.createDate)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }),
+  );
+
   return (
     <div className="recent-box">
       <div className="selector-box">
@@ -42,7 +55,8 @@ const RecentBox = ({ cards }) => {
         </div>
       </div>
       <div className="content horizontal-scroll">
-        {cards ? <CardList cards={cards} /> : <NoCards />}
+        {console.log(selected)}
+        {cards ? <CardList cards={cards} nowrap /> : <NoCards />}
       </div>
     </div>
   );

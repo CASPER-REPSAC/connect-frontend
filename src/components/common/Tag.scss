@@ -1,0 +1,19 @@
+.styled-tag {
+  font-size: 10px;
+  color: white;
+  display: inline;
+  padding: 0.1rem 0.6rem 0.2rem 0.6rem;
+  border-radius: 1rem;
+  border: none;
+
+  transition: all 150ms ease-in-out;
+
+  margin-right: 0.3rem;
+
+  background: gray;
+  &:hover {
+    color: white;
+    text-decoration: none;
+    background: black;
+  }
+}

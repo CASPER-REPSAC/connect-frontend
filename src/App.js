@@ -7,6 +7,8 @@ import RegisterPage from './pages/RegisterPage';
 import WritePage from './pages/WritePage';
 import ActivityPage from './pages/ActivityPage';
 import MainPage from './pages/MainPage';
+import TagPage from './pages/TagPage';
+import UserPage from './pages/UserPage';
 
 // import Basic Components
 import MainContainer from './containers/MainContainer';
@@ -29,6 +31,8 @@ function App() {
             WritePage={WritePage}
             ActivityPage={ActivityPage}
             MainPage={MainPage}
+            TagPage={TagPage}
+            UserPage={UserPage}
           />
         </div>
       </div>
