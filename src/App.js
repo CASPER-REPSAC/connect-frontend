@@ -2,6 +2,7 @@ import './App.scss';
 
 // import Pages
 import ActivityDetailPage from './pages/ActivityDetailPage';
+import ActivityChapterPage from './pages/ActivityChapterPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WritePage from './pages/WritePage';
@@ -26,6 +27,7 @@ function App() {
           <Nav />
           <MainContainer
             ActivityDetailPage={ActivityDetailPage}
+            ActivityChapterPage={ActivityChapterPage}
             LoginPage={LoginPage}
             RegisterPage={RegisterPage}
             WritePage={WritePage}

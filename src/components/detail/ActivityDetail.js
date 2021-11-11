@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ActivityDetail = ({ activityDetail }) => {
   console.log('activity detail', activityDetail);
+  const [writeRes, setWriteRes] = useState(false);
+  const [resID, setResID] = useState();
   const {
     author,
     chapterid,
@@ -18,6 +21,7 @@ const ActivityDetail = ({ activityDetail }) => {
     url,
     viewerNum,
   } = activityDetail;
+
   return (
     <>
       <h3>{title}</h3>
@@ -25,7 +29,14 @@ const ActivityDetail = ({ activityDetail }) => {
       <ol>
         {chapterid[0] ? (
           chapterid.map((chapter, index) => (
-            <li key={index}> {chapter.subject}</li>
+            <li key={index}>
+              <Link
+                to={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
+              >
+                {' '}
+                {chapter.subject}
+              </Link>
+            </li>
           ))
         ) : (
           <>챕터가 없습니다.</>
