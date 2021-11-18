@@ -4,6 +4,8 @@ import ActivityDetail from '../components/detail/ActivityDetail';
 import { getActivityDetail } from '../modules/api';
 import axios from 'axios';
 
+import WriteChapter from '../components/write/WriteChapter';
+
 const ActivityDetailPage = ({ match, history }) => {
   const { params } = match;
 

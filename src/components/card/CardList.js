@@ -2,7 +2,7 @@ import React from 'react';
 import CardListItem from './CardListItem';
 import '../../styles/CardList.scss';
 
-const CardList = ({ n, cards, nowrap }) => {
+const CardList = ({ cards, nowrap }) => {
   return (
     <>
       {nowrap ? (

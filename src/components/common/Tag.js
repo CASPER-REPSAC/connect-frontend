@@ -42,14 +42,27 @@ import './Tag.scss';
   `;
 */
 
-const Tag = ({ tagId }) => {
+const BigTag = ({tagId, tagName}) => {
+  return (
+    <>
+    <span>
+      <Link to={`/tags/${tagId}`} className="styled-tag big-tag">
+        {tagName}
+      </Link>
+    </span>
+    </>
+  );
+}
+
+const Tag = ({ tagId, tagName }) => {
   return (
     <span>
       <Link to={`/tags/${tagId}`} className="styled-tag">
-        {tagId}
+        {tagName}
       </Link>
     </span>
   );
 };
 
+export { BigTag };
 export default Tag;

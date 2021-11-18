@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
 import WriteActivity from '../components/write/WriteActivity';
-import WriteChapters from '../components/write/WriteChapters';
+import WriteChapter from '../components/write/WriteChapter';
 import '../styles/Write.scss';
 
 const WritePage = () => {
@@ -10,7 +10,7 @@ const WritePage = () => {
     <>
       <Switch>
         <Route exact component={WriteActivity} path={'/write'} />
-        <Route exact component={WriteChapters} path={'/write/:id'} />
+        <Route exact component={WriteChapter} path={'/write/:id'} />
       </Switch>
     </>
   );

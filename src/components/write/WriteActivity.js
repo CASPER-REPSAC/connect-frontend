@@ -15,10 +15,9 @@ const WriteActivity = () => {
     startDate: date,
     endDate: date,
     currentState: 0,
-    viewerNum: 0,
   });
   const [tags, setTags] = useState(['casper']);
-  const [participants, setParticipants] = useState(['parti1']);
+  const [participants, setParticipants] = useState([]);
 
   // states for write response
   const [writeRes, setWriteRes] = useState(false);
@@ -34,7 +33,7 @@ const WriteActivity = () => {
     setSendCounter(sendCounter + 1);
     console.log('write data', data);
     await axios
-      .post('/api/activities', data, {
+      .post('/api/activities/', data, {
         headers: {
           'Content-Type': 'application/json',
         },

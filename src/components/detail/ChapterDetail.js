@@ -6,7 +6,9 @@ import {
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 
-const ChapterDetail = ({ chapterData }) => {
+import FileUploadTest from '../write/FileUploadTest';
+
+const ChapterDetail = ({ chapterData, match }) => {
   console.log('ChapterDetail', chapterData[0]);
   const {
     activityid,
@@ -24,9 +26,22 @@ const ChapterDetail = ({ chapterData }) => {
   return (
     <div className="chapter-detail">
       <div className="d-flex align-items-center small">
-        <Link to={`/activities/${activityid}/chapter/${last}`} className="m-1">
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </Link>
+        {last !== 0 ? (
+          <Link
+            to={`/activities/${activityid}/chapter/${last}`}
+            className="m-1"
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </Link>
+        ) : (
+          <Link
+            to={`/activities/${activityid}/chapter/${chapterid}`}
+            className="m-1"
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </Link>
+        )}
+
         <div>chapter {chapterid}</div>
         <Link to={`/activities/${activityid}/chapter/${next}`} className="m-1">
           <FontAwesomeIcon icon={faChevronRight} />
@@ -48,6 +63,8 @@ const ChapterDetail = ({ chapterData }) => {
       <article className="mt-3">
         <p>{article}</p>
       </article>
+
+      <FileUploadTest match={match} />
     </div>
   );
 };

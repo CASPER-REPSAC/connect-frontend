@@ -91,7 +91,16 @@ const CardListItem = ({ card, colors }) => {
       <div className="tags">
         {tags.map((tag, index) => {
           let c = { tagColor: tagColors[tag] };
-          return <Tag {...c} key={index} tagId={tag.tag_id} />;
+          if (index < 4) {
+            return (
+              <Tag
+                {...c}
+                key={index}
+                tagId={tag.tag_id}
+                tagName={tag.tag_name}
+              />
+            );
+          }
         })}
       </div>
     </div>

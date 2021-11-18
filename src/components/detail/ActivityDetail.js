@@ -42,6 +42,25 @@ const ActivityDetail = ({ activityDetail }) => {
           <>챕터가 없습니다.</>
         )}
       </ol>
+      <h3>받아온 데이터</h3>
+
+      <ul>
+        {Object.keys(activityDetail).map((key) => {
+          if (typeof activityDetail[key] === 'object') {
+            return (
+              <li>
+                {key} - {JSON.stringify(activityDetail[key])}
+              </li>
+            );
+          } else {
+            return (
+              <li key={key}>
+                {key} - {activityDetail[key]}
+              </li>
+            );
+          }
+        })}
+      </ul>
     </>
   );
 };

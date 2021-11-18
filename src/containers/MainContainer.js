@@ -35,6 +35,7 @@ const MainContainer = ({
               component={ActivityDetailPage}
               path={'/activities/:activityId'}
             />
+
             <Route
               exact
               component={ActivityChapterPage}

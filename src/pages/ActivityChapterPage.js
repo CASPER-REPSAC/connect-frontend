@@ -13,7 +13,7 @@ const ActivityChapterPage = ({ match }) => {
   return (
     <div className="activity-chapter-page">
       {console.log('activityChapterDetail', chapterData)}
-      {chapterData && <ChapterDetail chapterData={chapterData} />}
+      {chapterData && <ChapterDetail chapterData={chapterData} match={match} />}
     </div>
   );
 };
