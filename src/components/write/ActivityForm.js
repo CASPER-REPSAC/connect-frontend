@@ -20,8 +20,10 @@ const ActivityForm = ({
 
   return (
     <div className="activityForm" style={{ maxWidth: '500px' }}>
-      <label htmlFor="title">
-        <h3 className="no-margin">Title</h3>
+      <h4>액티비티 작성</h4>
+      <hr />
+      <label htmlFor="title" className="no-margin">
+        <h5>Title</h5>
       </label>
       <input
         type="text"
@@ -30,7 +32,7 @@ const ActivityForm = ({
         onChange={(e) => onChangeHandler(e)}
       />
       <label htmlFor="description">
-        <h3>Description</h3>
+        <h5>Description</h5>
       </label>
       <input
         type="text"
@@ -40,7 +42,7 @@ const ActivityForm = ({
       />
 
       <label htmlFor="type">
-        <h3>Type</h3>
+        <h5>Type</h5>
       </label>
       <select
         name="type"
@@ -52,8 +54,8 @@ const ActivityForm = ({
         <option value="Study">Study</option>
         <option value="Project">Project</option>
       </select>
-      <h3>Date</h3>
-      <div>
+      <div className="date">
+        <h5 className="mt-3">Date</h5>
         <label htmlFor="startDate">start date</label>
         <input
           type="date"
@@ -61,8 +63,6 @@ const ActivityForm = ({
           value={inputs['startDate']}
           onChange={(e) => onChangeHandler(e)}
         />
-      </div>
-      <div>
         <label htmlFor="endDate">end date</label>
         <input
           type="date"
@@ -71,7 +71,7 @@ const ActivityForm = ({
           onChange={(e) => onChangeHandler(e)}
         />
       </div>
-      <h3>Tags</h3>
+      <h5 className="mt-3">Tags</h5>
       <TagsInput
         value={tags}
         onChange={setTags}
@@ -80,9 +80,7 @@ const ActivityForm = ({
       />
 
       <br />
-      <Button onClick={() => submitActivity(inputs, tags, participants)}>
-        작성
-      </Button>
+      <Button onClick={() => submitActivity()}>작성</Button>
       <br />
     </div>
   );
@@ -90,7 +88,7 @@ const ActivityForm = ({
 
 /*
 <label htmlFor="participants">
-  <h3>Participants</h3>
+  <h5>Participants</h5>
 </label>
 <TagsInput
   value={participants}

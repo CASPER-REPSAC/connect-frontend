@@ -102,7 +102,7 @@ module.exports = function (proxy, allowedHost) {
     public: allowedHost,
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
     proxy: {
-      '/api': process.env.REACT_APP_BACK_SERVER_BASE_URL,
+      '/api/**': process.env.REACT_APP_BACK_SERVER_BASE_URL,
       changeOrigin: true,
     },
 

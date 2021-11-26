@@ -17,13 +17,13 @@ const Nav = () => {
       <DropdownMenu menuName="HOME" menuLink="/"></DropdownMenu>
       <DropdownMenu menuName="ACTIVITY" menuLink="/activities">
         <li>
-          <NavLink to="/types/study">study</NavLink>
+          <NavLink to="/types/Study">Study</NavLink>
         </li>
         <li>
-          <NavLink to="/types/project">project</NavLink>
+          <NavLink to="/types/Project">Project</NavLink>
         </li>
         <li>
-          <NavLink to="/types/ctf">ctf</NavLink>
+          <NavLink to="/types/CTF">CTF</NavLink>
         </li>
       </DropdownMenu>
       <DropdownMenu menuName="WRITE" menuLink="/write"></DropdownMenu>

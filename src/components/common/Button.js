@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import palette from '../../lib/styles/palette';
 
 const StyledButton = styled.button`
   border: none;
@@ -14,34 +13,19 @@ const StyledButton = styled.button`
 
   background: #27242c;
   &:hover {
-    background: #37343c;
+    filter: brightness(80%);
   }
 
   ${(props) =>
-    props.fullWidth &&
     css`
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-      width: 100%;
-      font-size: 1.125rem;
-    `}
-
-  ${(props) =>
-    props.cyan &&
-    css`
-      background: ${palette.cyan[5]};
-      &:hover {
-        background: ${palette.cyan[4]};
-      }
-    `}
-
-    ${(props) =>
-    props.gray &&
-    css`
-      background: ${palette.gray[5]};
-      &:hover {
-        background: ${palette.gray[6]};
-      }
+      width: ${props.width};
+      height: ${props.height};
+      color: ${props.color};
+      background: ${props.background};
+      border-radius: ${props.borderRadius};
+      font-size: ${props.fontSize};
+      margin: ${props.margin};
+      border: ${props.border};
     `}
 `;
 

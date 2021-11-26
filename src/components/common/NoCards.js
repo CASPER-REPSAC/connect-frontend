@@ -1,32 +1,15 @@
 import React from 'react';
 import casGray from '../../img/casOutlineDark-40.png';
-import styled from 'styled-components';
-
-// .no-card {
-//   display: flex;
-//   align-items: center;
-//   img {
-//     margin-right: 10px;
-//   }
-// }
-
-const NoCardDiv = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 500;
-`;
-
-const NoCardSpan = styled.span`
-  margin-left: 10px;
-`;
 
 const NoCards = () => {
   return (
-    <NoCardDiv>
+    <div className="d-flex align-items-center">
       <img src={casGray} alt="cas logo" />
-      <NoCardSpan>현재 보여줄 수 있는 카드가 없네요..</NoCardSpan>
-    </NoCardDiv>
+      <small className="m-1 text-muted">
+        현재 보여줄 수 있는 카드가 없네요.. <br /> 인터넷 연결이나 서버의 문제일
+        수 있어요.
+      </small>
+    </div>
   );
 };
 

@@ -1,9 +1,9 @@
 @import './utils.scss';
 
-.mini-profile {
+.conn-mini-profile {
+  background-color: red;
   color: $black1;
   width: 100%;
-  margin: auto;
   display: flex;
   flex-direction: column;
   overflow: hidden;

@@ -57,7 +57,7 @@ async function getListData(url, setState) {
   console.log('getListData', data, typeof data);
 
   setState(
-    res.data.sort(function (a, b) {
+    data.sort(function (a, b) {
       if (new Date(a.createDate) > new Date(b.createDate)) {
         return -1;
       } else if (new Date(a.createDate) < new Date(b.createDate)) {

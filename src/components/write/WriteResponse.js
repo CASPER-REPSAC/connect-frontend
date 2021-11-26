@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../common/Button';
 import { useHistory } from 'react-router-dom';
 
-const WriteResponse = ({ res, resID, setSendCounter }) => {
+const WriteResponse = ({ res, resID, setSendCounter, submitActivity }) => {
   const history = useHistory();
   const routeChange = (path) => {
     history.push(path);
@@ -29,7 +29,7 @@ const WriteResponse = ({ res, resID, setSendCounter }) => {
           )}
         </div>
         <div className="button">
-          <Button gray onClick={() => routeChange('/')}>
+          <Button background="gray" onClick={() => routeChange('/')}>
             홈으로
           </Button>
           {res === true && (
@@ -38,7 +38,15 @@ const WriteResponse = ({ res, resID, setSendCounter }) => {
             </Button>
           )}
           {res === false && (
-            <Button onClick={() => setSendCounter(0)}>돌아가기</Button>
+            <>
+              <Button
+                onClick={() => submitActivity()}
+                background="MidnightBlue"
+              >
+                재요청
+              </Button>
+              <Button onClick={() => setSendCounter(0)}>돌아가기</Button>
+            </>
           )}
         </div>
       </div>

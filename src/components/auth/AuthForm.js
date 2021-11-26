@@ -59,7 +59,6 @@ const AuthForm = () => {
           type="password"
         />
         <ButtonWidthMarginTop cyan fullWidth>
-          {' '}
           로그인
         </ButtonWidthMarginTop>
       </form>

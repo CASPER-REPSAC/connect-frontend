@@ -3,39 +3,69 @@ import axios from 'axios';
 
 // /activities/:activityId/chapter/:chapterId
 const FileUploadTest = ({ match }) => {
-  const { activityId, chapterId } = match.params;
-  const [file, setFile] = useState();
-
+  const [formData, setFormData] = useState(new FormData());
+  const [fileName, setFileName] = useState('');
   // async function uploadChapterFile(activityId, chapterId, filePath, fileBlob) {
+  console.log(match.url);
 
   const uploadChapterFile = async () => {
-    const formData = new FormData();
-    formData.append('files', file);
     await axios
-      .post(
-        `/api/activites/${activityId}/chapter/${chapterId}/11.zip`,
-        formData,
-      )
+      .post(`/api${match.url}/upload/${fileName}`, formData, {
+        headers: {
+          // 'Content-Type': 'multipart/form-data',
+        },
+      })
       .then((res) => {
         console.log(res);
       })
       .catch((err) => console.log(err));
   };
 
+  const onChange = async (e) => {
+    /* 
+      api - uploadChapterFilen
+      e.target.files[0]이랑 match.url만 넘겨줄 것
+      - 파일명: e.target.files[0].name
+      - url: match.url
+    */
+    console.log('name', e.target.files[0].name);
+    let tmpFormData = new FormData();
+    tmpFormData.append('file', e.target.files[0]);
+    // await axios
+    //   .post(
+    //     `http://connects.casper.or.kr:30009/api${match.url}/upload/ddd.zip`,
+    //     tmpFormData,
+    //     {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data',
+    //       },
+    //     },
+    //   )
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => console.log(err));
+
+    console.log(typeof tmpFormData);
+    console.log(tmpFormData.getAll('file'));
+    setFormData(tmpFormData);
+    const filenametmp = e.target.value.split('\\');
+    setFileName(filenametmp[filenametmp.length - 1]);
+  };
   return (
     <>
       <br />
       <br />
       <h1>File Upload Test</h1>
-      <small>
-        {`/api/activities/${activityId}/chapter/${chapterId}/11.zip`}로 요청
-        보내는 중
-      </small>
+      <small>{`/api${match.url}/upload/${fileName}`}로 요청</small>
+      <br />
       <input
         type="file"
         name="files"
-        onChange={(e) => setFile(e.target.files[0])}
+        onChange={(e) => onChange(e)}
+        // accept=".zip"
       />
+      <br />
       <button onClick={uploadChapterFile}>submit</button>
     </>
   );

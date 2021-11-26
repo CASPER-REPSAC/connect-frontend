@@ -5,11 +5,14 @@ import CardList from '../components/card/CardList';
 import { getListData } from '../modules/api';
 import axios from 'axios';
 
+import { NoCards } from '../components/common/NoCards';
+
 // import '../styles/MainPage.scss';
 
 const MainPage = () => {
   const [cards, setCards] = useState();
   useEffect(() => {
+    
     getListData('/api/activities/', setCards);
   }, []);
 
@@ -17,8 +20,7 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
-      {console.log('cards', cards)}
-      {cards && cards[0] && (
+      {cards && cards[0] ? (
         <>
           <RecentBox cards={cards} />
           <br />
@@ -35,6 +37,10 @@ const MainPage = () => {
               .filter((card) => card.currentState === 0)
               .slice(15, 20)}
           />
+        </>
+      ) : (
+        <>
+          <NoCards />
         </>
       )}
     </div>

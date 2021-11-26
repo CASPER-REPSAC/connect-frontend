@@ -24,7 +24,7 @@ const WriteActivity = () => {
   const [sendCounter, setSendCounter] = useState(0);
   const [resID, setResID] = useState(null);
 
-  async function submitActivity(inputs, tags, participants) {
+  async function submitActivity() {
     const data = {
       ...inputs,
       tags: tags,
@@ -33,7 +33,7 @@ const WriteActivity = () => {
     setSendCounter(sendCounter + 1);
     console.log('write data', data);
     await axios
-      .post('/api/activities/', data, {
+      .post('/api/activities', data, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -69,6 +69,7 @@ const WriteActivity = () => {
           res={writeRes}
           resID={resID}
           setSendCounter={setSendCounter}
+          submitActivity={submitActivity}
         />
       )}
     </div>

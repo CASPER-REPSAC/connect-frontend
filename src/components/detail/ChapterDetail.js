@@ -31,20 +31,29 @@ const ChapterDetail = ({ chapterData, match }) => {
             to={`/activities/${activityid}/chapter/${last}`}
             className="m-1"
           >
-            <FontAwesomeIcon icon={faChevronLeft} />
+            <FontAwesomeIcon icon={faChevronLeft} /> 
+            <small>
+            이전 챕터
+            </small> 
           </Link>
         ) : (
           <Link
             to={`/activities/${activityid}/chapter/${chapterid}`}
             className="m-1"
           >
+             <small>
+            이전 챕터
+            </small> 
             <FontAwesomeIcon icon={faChevronLeft} />
           </Link>
         )}
 
-        <div>chapter {chapterid}</div>
+        <div>{" "}</div>
         <Link to={`/activities/${activityid}/chapter/${next}`} className="m-1">
-          <FontAwesomeIcon icon={faChevronRight} />
+           <small>
+            다음 챕터
+            </small> 
+            <FontAwesomeIcon icon={faChevronRight} />
         </Link>
       </div>
 
