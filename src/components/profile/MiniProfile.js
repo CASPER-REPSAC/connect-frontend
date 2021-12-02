@@ -1,14 +1,9 @@
 import React from 'react';
 import '../../styles/Profile.scss';
-import Button from '../common/Button';
-import axios from 'axios';
+import LoginButton from '../auth/LoginButton';
 
 function MiniProfile({ user, icon, name, badge, introduce }) {
-  const onClickHandler = async () => {
-    console.log('hi');
-    // let data, header;
-    // await axios.post('/api/auth/google/', data,{{header:header}})
-  };
+  
   return (
     <>
       {user ? (
@@ -33,15 +28,7 @@ function MiniProfile({ user, icon, name, badge, introduce }) {
             <small className="m-1 text-muted text-center">
               유저 데이터가 없습니다. <br /> 로그인 해주세요.
             </small>
-            <Button
-              className="d-block"
-              width="100%"
-              onClick={() => {
-                onClickHandler();
-              }}
-            >
-              로그인
-            </Button>
+            <LoginButton />
           </div>
         </>
       )}
