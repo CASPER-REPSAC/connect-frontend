@@ -10,7 +10,7 @@ const FileUploadTest = ({ match }) => {
 
   const uploadChapterFile = async () => {
     await axios
-      .post(`/api${match.url}/upload/${fileName}`, formData, {
+      .post(`/api${match.url}/upload/${fileName}/`, formData, {
         headers: {
           // 'Content-Type': 'multipart/form-data',
         },

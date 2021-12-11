@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../styles/Profile.scss';
 import LoginButton from '../auth/LoginButton';
+import GoogleButton from '../auth/GoogleButton';
 
 function MiniProfile({ user, icon, name, badge, introduce }) {
   
@@ -28,7 +29,7 @@ function MiniProfile({ user, icon, name, badge, introduce }) {
             <small className="m-1 text-muted text-center">
               유저 데이터가 없습니다. <br /> 로그인 해주세요.
             </small>
-            <LoginButton />
+            <GoogleButton />
           </div>
         </>
       )}

@@ -16,9 +16,18 @@ import MainContainer from './containers/MainContainer';
 import Nav from './components/navigation/Nav';
 import Sidebar from './components/navigation/Sidebar';
 
+import axios from "axios";
+const reqTest =async()=>{
+  const res = await axios.get('/api/test/');
+  console.log("get",res)
+  const res2 = await axios.post('/api/test/');
+  console.log("post",res2)
+}
+
 function App() {
   return (
     <div className="app-container">
+    <button onClick={()=>reqTest()}>req test</button>
       <div className="app-box">
         <div className="sidebar-container">
           <Sidebar />

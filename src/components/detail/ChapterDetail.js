@@ -41,10 +41,10 @@ const ChapterDetail = ({ chapterData, match }) => {
             to={`/activities/${activityid}/chapter/${chapterid}`}
             className="m-1"
           >
+            <FontAwesomeIcon icon={faChevronLeft} />
              <small>
             이전 챕터
             </small> 
-            <FontAwesomeIcon icon={faChevronLeft} />
           </Link>
         )}
 

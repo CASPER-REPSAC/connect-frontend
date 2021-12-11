@@ -6,6 +6,7 @@ import { getListData } from '../modules/api';
 import axios from 'axios';
 
 import { NoCards } from '../components/common/NoCards';
+import GoogleButtonLocal from "../components/auth/GoogleButtonLocal";
 
 // import '../styles/MainPage.scss';
 
@@ -20,9 +21,12 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
+    로컬로 가는 구글로그인
+          <GoogleButtonLocal/>
       {cards && cards[0] ? (
         <>
           <RecentBox cards={cards} />
+          
           <br />
           <h3>Currently Running</h3>
           <CardList

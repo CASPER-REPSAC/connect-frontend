@@ -1,0 +1,7 @@
+yarn run v1.22.15
+$ export PORT=80 && node scripts/start.js
+(node:3641) [DEP0148] DeprecationWarning: Use of deprecated folder mapping "./" in the "exports" field module resolution of the package at /home/leebon/connect-frontend/node_modules/postcss-safe-parser/node_modules/postcss/package.json.
+Update this package.json to use a subpath pattern like "./*".
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Admin permissions are required to run a server on a port below 1024.
+Done in 3.38s.

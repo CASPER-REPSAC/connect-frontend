@@ -12,8 +12,11 @@ const GoogleLoginButton = ({ onSocial }) => {
     console.log(response);
     console.log(response.profileObj.email);
     // const email = response.profileObj.email
-
-    const res = await axios.post('http://api.w00.kr/accounts/tokentest/', {
+    const headers = {
+      "Access-Control-Request-Headers": "content-type",
+      "Access-Control-Request-Method": "POST"
+    }
+    const res = await axios.post('/accounts/tokentest/', {
       access_token: response.accessToken,
       // email: email
     }, {

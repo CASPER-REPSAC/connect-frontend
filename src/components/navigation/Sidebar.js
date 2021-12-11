@@ -16,7 +16,7 @@ const Sidebar = () => {
       <NavLink to="/" className="d-block">
         <img src={casLogo} alt="Logo" className="logo-sidebar" />
       </NavLink>
-      <GoogleButton />
+      {/* <GoogleButton /> */}
       <MiniProfile user={user} />
       {/* <SidebarTodos /> */}
     </div>

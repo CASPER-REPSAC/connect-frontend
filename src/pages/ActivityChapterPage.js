@@ -7,7 +7,7 @@ const ActivityChapterPage = ({ match }) => {
   const [chapterData, setChapterData] = useState();
 
   useEffect(() => {
-    getListData(`/api${match.url}`, setChapterData);
+    getListData(`/api${match.url}/`, setChapterData);
   }, [match]);
 
   return (

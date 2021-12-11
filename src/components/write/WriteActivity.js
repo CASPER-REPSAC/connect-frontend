@@ -33,7 +33,7 @@ const WriteActivity = () => {
     setSendCounter(sendCounter + 1);
     console.log('write data', data);
     await axios
-      .post('/api/activities', data, {
+      .post('/api/activities/', data, {
         headers: {
           'Content-Type': 'application/json',
         },

@@ -1,9 +1,13 @@
 import axios from 'axios';
+import {Cookies} from 'react-cookie';
+
 
 export const WEB_SERVER_URL = `${process.env.REACT_APP_FRONT_SERVER_BASE_URL}`;
 export const API_SERVER_URL = `${process.env.REACT_APP_BACK_SERVER_BASE_URL}`;
 
 const baseURL = API_SERVER_URL;
+
+const cookies = new Cookies();
 
 // ActivityDetailPage
 async function getActivityDetail(activity_id, setState) {
@@ -16,7 +20,7 @@ async function getActivityDetail(activity_id, setState) {
 }
 
 async function getTags(tags, setTags) {
-  const res = await axios.get('/api/tags/');
+  const res = await axios.get('/api/w00/tags/');
   if (res.status === 201) {
     return res.stutus;
   }
@@ -24,17 +28,17 @@ async function getTags(tags, setTags) {
 
 // TagPage
 async function getTagInfo(tag_id, setTagInfo) {
-  const res = await axios.get('/api/tags/' + tag_id + '/');
+  const res = await axios.get('/api/w00/tags/' + tag_id + '/');
   setTagInfo(res.data);
 }
 
 // TagPage
 async function getCardsByTag(tagId, setState) {
   async function getActivity(activityId) {
-    const res = await axios.get(`/api/activities/${activityId}`);
+    const res = await axios.get(`/api/activities/${activityId}/`);
     return res.data[0];
   }
-  const res = await axios.get(`/api/tags/${tagId}`);
+  const res = await axios.get(`/api/w00/tags/${tagId}/`);
   if (res.status === 200) {
     console.log('getCardsByTag - res', res);
     const cards = await Promise.all(
@@ -52,6 +56,7 @@ function getUsers(user_id) {
 
 // lots...
 async function getListData(url, setState) {
+  const token="Bearer " + cookies.get('access_token');
   const res = await axios.get(url);
   const data = res.data;
   console.log('getListData', data, typeof data);

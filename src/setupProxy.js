@@ -13,7 +13,7 @@ module.exports = (app) => {
   app.use(
     '/accounts',
     createProxyMiddleware({
-      target: process.env.REACT_APP_BACK_SERVER_BASE_URL,
+      target: process.env.REACT_APP_BACK_SERVER_ACCOUNT_URL,
       changeOrigin: true,
     }),
   );

@@ -7,6 +7,8 @@ import Searchbar from '../common/Searchbar';
 
 import casLogo from '../../img/cas-40.png';
 import '../../styles/Nav.scss';
+import GoogleButton from '../auth/GoogleButton';
+
 
 const Nav = () => {
   return (
@@ -27,6 +29,7 @@ const Nav = () => {
         </li>
       </DropdownMenu>
       <DropdownMenu menuName="WRITE" menuLink="/write"></DropdownMenu>
+      <GoogleButton />
       <Searchbar />
     </div>
   );
