@@ -45,7 +45,7 @@ const ActivityDetailPage = ({ match, history }) => {
     <>
       {console.log(match)}
       {activityDetail && <ActivityDetail activityDetail={activityDetail} />}
-      <button onClick={() => CChapterTest()}>챕터 생성 테스트</button>
+      {/* <button onClick={() => CChapterTest()}>챕터 생성 테스트</button> */}
     </>
   );
 };

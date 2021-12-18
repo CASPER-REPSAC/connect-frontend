@@ -64,5 +64,13 @@ const Tag = ({ tagId, tagName }) => {
   );
 };
 
-export { BigTag };
+const NoLinkTag = ( { style, tagId, tagName }) => {
+  return (
+    <span className="styled-tag" style={style}>
+        {tagName}
+    </span>
+  );
+};
+
+export { BigTag, NoLinkTag };
 export default Tag;

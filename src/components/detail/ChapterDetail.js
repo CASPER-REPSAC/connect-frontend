@@ -10,18 +10,19 @@ import FileUploadTest from '../write/FileUploadTest';
 
 const ChapterDetail = ({ chapterData, match }) => {
   console.log('ChapterDetail', chapterData[0]);
+  console.log('chapterData', chapterData);
   const {
     activityid,
     article,
     chapterid,
     created_time,
-    filepath,
-    filesize,
     last,
     modified_time,
     next,
     subject,
   } = chapterData[0];
+
+  const files = chapterData[1];
 
   return (
     <div className="chapter-detail">
@@ -67,7 +68,16 @@ const ChapterDetail = ({ chapterData, match }) => {
       <hr />
 
       <div className="text-secondary">
-        {filepath && filesize ? <>파일 다운로드({filesize})</> : <>파일 없음</>}
+        {
+          files && Array.isArray(files) ?(<>
+            {
+              files.map((file, index)=> {
+                return (<div  className="text-secondary"><small><a key={index} href={`${process.env.REACT_APP_BACK_SERVER_BASE_URL}/api/activities/${activityid}/chapter/${last}/download/${file.filepath}`}>{file.filename}</a></small></div>)
+              })
+            }
+            </>
+          ):(<>파일이 없습니다.</>)
+        }
       </div>
       <article className="mt-3">
         <p>{article}</p>

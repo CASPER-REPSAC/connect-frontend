@@ -2,6 +2,7 @@ import React from 'react';
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import {Cookies} from 'react-cookie';
+import Button from '../common/Button';
 
 const cookies = new Cookies();
 
@@ -13,14 +14,9 @@ const GoogleLoginButton = ({ onSocial }) => {
     console.log(response.profileObj.email);
     // const email = response.profileObj.email
 
-    const res = await axios.post('http://api.w00.kr/accounts/tokentest/', {
+    const res = await axios.post('/accounts/tokentest/', {
       access_token: response.accessToken,
       // email: email
-    }, {
-      headers:  {
-      "Access-Control-Request-Headers": "content-type",
-      "Access-Control-Request-Method": "POST"
-    }
     })
     console.log(res);
     if (res.status===200){
@@ -36,8 +32,11 @@ const GoogleLoginButton = ({ onSocial }) => {
     <div>
       <GoogleLogin
         clientId={clientId}
+        render={renderProps => (
+      <Button onClick={renderProps.onClick} style={{}}>구글로 로그인</Button>
+    )}
         responseType={'id_token'}
-        buttonText="Google"
+        buttonText="Google Login"
         onSuccess={onSuccess}
         onFailure={onFailure}
       />

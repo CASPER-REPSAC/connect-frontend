@@ -33,6 +33,7 @@ const GoogleLoginButton = ({ onSocial }) => {
   return (
     <div>
       <GoogleLogin
+        // style={{height:"100px"}}
         clientId={clientId}
         responseType={'id_token'}
         buttonText="Google"
