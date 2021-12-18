@@ -19,11 +19,6 @@ const GoogleLoginButton = ({ onSocial }) => {
     const res = await axios.post('/accounts/tokentest/', {
       access_token: response.accessToken,
       // email: email
-    }, {
-      headers:  {
-      "Access-Control-Request-Headers": "content-type",
-      "Access-Control-Request-Method": "POST"
-    }
     })
     console.log(res);
     if (res.status===200){
