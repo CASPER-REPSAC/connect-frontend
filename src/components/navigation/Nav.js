@@ -9,6 +9,8 @@ import casLogo from '../../img/cas-40.png';
 import '../../styles/Nav.scss';
 import GoogleButton from '../auth/GoogleButton';
 
+import { Cookies } from 'react-cookie';
+const cookies = new Cookies();
 
 const Nav = () => {
   return (
@@ -29,7 +31,8 @@ const Nav = () => {
         </li>
       </DropdownMenu>
       <DropdownMenu menuName="WRITE" menuLink="/write"></DropdownMenu>
-      <GoogleButton />
+      {!cookies.get('access_token') && <GoogleButton />}
+
       <Searchbar />
     </div>
   );

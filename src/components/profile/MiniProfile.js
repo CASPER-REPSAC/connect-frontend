@@ -4,7 +4,6 @@ import LoginButton from '../auth/LoginButton';
 import GoogleButton from '../auth/GoogleButton';
 
 function MiniProfile({ user, icon, name, badge, introduce }) {
-  
   return (
     <>
       {user ? (
