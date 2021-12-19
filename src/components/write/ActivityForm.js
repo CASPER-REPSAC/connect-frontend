@@ -19,7 +19,7 @@ const ActivityForm = ({
   };
 
   return (
-    <div className="activityForm" style={{ maxWidth: '500px' }}>
+    <div className="activity-form" style={{ maxWidth: '500px' }}>
       <h4>액티비티 작성</h4>
       <hr />
       <label htmlFor="title" className="no-margin">

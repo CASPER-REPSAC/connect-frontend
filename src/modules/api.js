@@ -1,6 +1,5 @@
 import axios from 'axios';
-import {Cookies} from 'react-cookie';
-
+import { Cookies } from 'react-cookie';
 
 export const WEB_SERVER_URL = `${process.env.REACT_APP_FRONT_SERVER_BASE_URL}`;
 export const API_SERVER_URL = `${process.env.REACT_APP_BACK_SERVER_BASE_URL}`;
@@ -56,7 +55,7 @@ function getUsers(user_id) {
 
 // lots...
 async function getListData(url, setState) {
-  const token="Bearer " + cookies.get('access_token');
+  const token = 'Bearer ' + cookies.get('access_token');
   const res = await axios.get(url);
   const data = res.data;
   console.log('getListData', data, typeof data);
@@ -80,59 +79,104 @@ function getDataByURL(url) {
   return axios.get(url);
 }
 
+async function uploadChapterFiles(targetFiles, activityId, chapterId) {
+  let count = 0;
+  const arr = [];
+  console.log('targetFiles', targetFiles);
+  if (targetFiles.length > 0) {
+    for (let i = 0; i < targetFiles.length; i++) {
+      let formData = new FormData();
+      formData.append('file', targetFiles[i]);
+      const fileName = targetFiles[i].name;
+      console.log(
+        `/api/activities/${activityId}/chapter/${chapterId}/upload/${fileName}/`,
+      );
+      await axios
+        .post(
+          `/api/activities/${activityId}/chapter/${chapterId}/upload/${fileName}/`,
+          formData,
+        )
+        .then((res) => {
+          console.log(res);
+          count++;
+        })
+        .catch((err) => {
+          console.log(err);
+          arr.push(fileName);
+        });
+    }
+  }
+  return [count, arr];
+}
+
 // api/activities/<int:pk>/chapter/<int:chapterid>/upload/<str:filename>
-async function uploadChapterFile(activityId, chapterId, filePath, fileBlob) {
-  let reader = new FileReader();
-  reader.readAsDataURL(fileBlob);
-
-  const formData = new FormData();
-  formData.append('files', fileBlob, fileBlob.name);
-  formData.append('enctype', 'multipart/form-data');
-  console.log(
-    'req address',
-    `/api/activities/${activityId}/chapter/${49}/upload/${fileBlob.name}`,
-  );
-  const res = await axios.post(
-    `/api/activities/${activityId}/chapter/${49}/upload/${fileBlob.name}`,
-    formData,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data',
+async function uploadChapterFile(activityId, chapterId, fileName, formData) {
+  await axios
+    .post(
+      `/api/activities/${activityId}/chapter/${chapterId}/upload/${fileName}/`,
+      formData,
+      {
+        headers: {
+          // 'Content-Type': 'multipart/form-data',
+        },
       },
-    },
-  );
+    )
+    .then((res) => {
+      console.log(res);
+      return 1;
+    })
+    .catch((err) => {
+      console.log(err);
+      return -1;
+    });
+}
 
-  if (res.status === 201) {
+async function submitChapter(data, activityId, setWriteRes) {
+  console.log('submitChapter');
+  const token = 'Bearer ' + cookies.get('access_token');
+  const datas = {
+    ...data,
+    token: token,
+  };
+  const res = await axios.post(`/api/activities/${activityId}`, datas, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (res['status'] === 201) {
+    setWriteRes(true);
     console.log(res);
+    return res['data']['chapterid'];
+  } else {
+    setWriteRes(false);
   }
 }
 
-async function submitChapter(chapterInput, filePath, fileBlob) {
-  console.log('chapterInput', chapterInput);
-  console.log('filePath', filePath);
-  console.log('fileBlob', fileBlob);
-  console.log('fileBlob.name', fileBlob.name);
-  const res = await axios.post(
-    `/api/activities/${chapterInput.activityid}`,
-    chapterInput,
-    {
+const submitActivity = async (data, setWriteRes, setResID) => {
+  const token = 'Bearer ' + cookies.get('access_token');
+  const datas = {
+    ...data,
+    token: token,
+  };
+
+  await axios
+    .post('/api/activities/', datas, {
       headers: {
         'Content-Type': 'application/json',
       },
-    },
-  );
-  console.log('submitChpate', res);
-
-  if (res.status === 201 && filePath) {
-    console.log(res);
-    uploadChapterFile(
-      res.data.activityid,
-      res.data.chapterid,
-      filePath,
-      fileBlob,
-    );
-  }
-}
+    })
+    .then((response) => {
+      console.log(response);
+      if (response['status'] === 201) {
+        setWriteRes(true);
+        setResID(response['data']['id']);
+      }
+    })
+    .catch((error) => {
+      console.log('err', error);
+    });
+};
 
 export {
   getActivityDetail,
@@ -143,5 +187,7 @@ export {
   getDataByURL,
   getCardsByTag,
   submitChapter,
+  submitActivity,
   uploadChapterFile,
+  uploadChapterFiles,
 };

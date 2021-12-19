@@ -5,6 +5,8 @@ import { getActivityDetail } from '../modules/api';
 import axios from 'axios';
 
 import WriteChapter from '../components/write/WriteChapter';
+import Button from "../components/common/Button";
+
 
 const ActivityDetailPage = ({ match, history }) => {
   const { params } = match;
@@ -43,9 +45,14 @@ const ActivityDetailPage = ({ match, history }) => {
   }
   return (
     <>
+    <div className="d-flex flex-column justify-content-between h-100">
       {console.log(match)}
       {activityDetail && <ActivityDetail activityDetail={activityDetail} />}
       {/* <button onClick={() => CChapterTest()}>챕터 생성 테스트</button> */}
+      <div style={{textAlign:"right"}}>
+        <Button width="100px" onClick={()=>{history.push(`/write/activities/${params.activityId}`)}}>챕터 작성</Button>
+      </div>
+    </div>
     </>
   );
 };

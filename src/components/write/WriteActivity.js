@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ActivityForm } from './ActivityForm';
 import WriteResponse from './WriteResponse';
 import axios from 'axios';
+import { submitActivity } from '../../modules/api';
 
 const WriteActivity = () => {
   // states for write form
@@ -24,30 +25,15 @@ const WriteActivity = () => {
   const [sendCounter, setSendCounter] = useState(0);
   const [resID, setResID] = useState(null);
 
-  async function submitActivity() {
+  async function onSubmitActivity() {
     const data = {
       ...inputs,
       tags: tags,
       participants: participants,
     };
+    submitActivity(data, setWriteRes, setResID);
     setSendCounter(sendCounter + 1);
     console.log('write data', data);
-    await axios
-      .post('/api/activities/', data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response['status'] === 201) {
-          setWriteRes(true);
-          setResID(response['data']['id']);
-        }
-      })
-      .catch((error) => {
-        console.log('err', error);
-      });
   }
 
   return (
@@ -61,7 +47,7 @@ const WriteActivity = () => {
           setTags={setTags}
           participants={participants}
           setParticipants={setParticipants}
-          submitActivity={submitActivity}
+          submitActivity={onSubmitActivity}
         ></ActivityForm>
       )}
       {sendCounter > 0 && (
@@ -69,7 +55,7 @@ const WriteActivity = () => {
           res={writeRes}
           resID={resID}
           setSendCounter={setSendCounter}
-          submitActivity={submitActivity}
+          submitActivity={onSubmitActivity}
         />
       )}
     </div>

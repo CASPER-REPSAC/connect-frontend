@@ -7,6 +7,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import FileUploadTest from '../write/FileUploadTest';
+import "../../styles/Detail.scss";
+
+function arrSlice(arr, n) {
+  let i;
+  var result = [];
+  for(i=0; i<arr.length; i+=n) result.push(arr.slice(i, i+n));
+  return result;
+}
 
 const ChapterDetail = ({ chapterData, match }) => {
   console.log('ChapterDetail', chapterData[0]);
@@ -22,7 +30,7 @@ const ChapterDetail = ({ chapterData, match }) => {
     subject,
   } = chapterData[0];
 
-  const files = chapterData[1];
+  const files = arrSlice(chapterData[1], 3);
 
   return (
     <div className="chapter-detail">
@@ -67,13 +75,15 @@ const ChapterDetail = ({ chapterData, match }) => {
       </div>
       <hr />
 
-      <div className="text-secondary">
+      <div className="files">
         {
           files && Array.isArray(files) ?(<>
             {
-              files.map((file, index)=> {
-                return (<div  className="text-secondary"><small><a key={index} href={`${process.env.REACT_APP_BACK_SERVER_BASE_URL}/api/activities/${activityid}/chapter/${last}/download/${file.filepath}`}>{file.filename}</a></small></div>)
-              })
+              files.map((file, index)=> 
+                (<div key={index} style={{marginRight:"20px"}}>{file.map((file, index)=>
+                (<div key={index}><a href={`${process.env.REACT_APP_BACK_SERVER_BASE_URL}/api/activities/${activityid}/chapter/${last}/download/${file.filepath}`}><small className="text-secondary">{file.filename}</small></a></div>)
+                )}</div>)
+              )
             }
             </>
           ):(<>파일이 없습니다.</>)

@@ -28,9 +28,21 @@ const FileUploadTest = ({ match }) => {
       - 파일명: e.target.files[0].name
       - url: match.url
     */
-    console.log('name', e.target.files[0].name);
-    let tmpFormData = new FormData();
-    tmpFormData.append('file', e.target.files[0]);
+    if (e.target.files[0]) {
+      console.log('name', e.target.files[0].name);
+      let tmpFormData = new FormData();
+      for (let i = 0; i < e.target.files.length; i++) {
+        tmpFormData.append('file', e.target.files[i]);
+      }
+      // tmpFormData.append('file', e.target.files[0]);
+
+      console.log(typeof tmpFormData);
+      console.log(tmpFormData.getAll('file'));
+      setFormData(tmpFormData);
+      const filenametmp = e.target.value.split('\\');
+      setFileName(filenametmp[filenametmp.length - 1]);
+    }
+
     // await axios
     //   .post(
     //     `http://connects.casper.or.kr:30009/api${match.url}/upload/ddd.zip`,
@@ -45,12 +57,6 @@ const FileUploadTest = ({ match }) => {
     //     console.log(res);
     //   })
     //   .catch((err) => console.log(err));
-
-    console.log(typeof tmpFormData);
-    console.log(tmpFormData.getAll('file'));
-    setFormData(tmpFormData);
-    const filenametmp = e.target.value.split('\\');
-    setFileName(filenametmp[filenametmp.length - 1]);
   };
   return (
     <>
@@ -63,6 +69,7 @@ const FileUploadTest = ({ match }) => {
         type="file"
         name="files"
         onChange={(e) => onChange(e)}
+        multiple
         // accept=".zip"
       />
       <br />

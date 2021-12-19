@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge} from "react-bootstrap";
 import Tag from "../common/Tag";
+import "../../styles/Detail.scss";
+
+function arrSlice(arr, n) {
+  let i;
+  var result = [];
+  for(i=0; i<arr.length; i+=n) result.push(arr.slice(i, i+n));
+  return result;
+}
 
 const ActivityDetail = ({ activityDetail }) => {
   console.log('activity detail', activityDetail);
@@ -9,7 +17,7 @@ const ActivityDetail = ({ activityDetail }) => {
   const [resID, setResID] = useState();
   const {
     author,
-    chapterid,
+
     createDate,
     currentState,
     description,
@@ -24,9 +32,12 @@ const ActivityDetail = ({ activityDetail }) => {
     viewerNum,
   } = activityDetail;
 
+  let {chapterid} = activityDetail;
+  chapterid = arrSlice(chapterid, 10);
+
   return (
-    <>
-    <div className="d-flex justify-content-between">
+    <div className="activity-detail">
+    <div className="d-flex justify-content-between ">
       <h3>{title}
       {
         currentState===1 ?(<Badge style={{fontSize:"13px", marginLeft:"10px"}} bg="success">진행중</Badge> 
@@ -55,23 +66,27 @@ const ActivityDetail = ({ activityDetail }) => {
         })}
       </div>
       <b>챕터</b>
-      <ol>
+      <ol className="chapter">
         {chapterid && Array.isArray(chapterid) ? (
-          chapterid.map((chapter, index) => (
-            <li key={index}>
-              <Link
-                to={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
-              >
-                {' '}
-                {chapter.subject}
-              </Link>
-            </li>
+          chapterid.map((chapters, index) => (
+            <div key={index}  style={{marginRight:"50px"}}>
+              {chapters.map((chapter, index)=>
+               <li key={index}>
+                <Link
+                  to={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
+                >
+                  {chapter.subject}
+                </Link>
+              </li>
+              )}
+             
+            </div>
           ))
         ) : (
           <>챕터가 없습니다.</>
         )}
       </ol>
-    </>
+    </div>
   );
 };
 
