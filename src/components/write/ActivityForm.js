@@ -32,12 +32,14 @@ const ActivityForm = ({
       <label htmlFor="description">
         <h5>Description</h5>
       </label>
-      <input
+      <br />
+      <textarea
         type="text"
         id="description"
-        value={inputs['description']}
+        name="description"
         onChange={(e) => onChangeHandler(e)}
-      />
+        value={inputs['description'] || ''}
+      ></textarea>
 
       <label htmlFor="type">
         <h5>Type</h5>

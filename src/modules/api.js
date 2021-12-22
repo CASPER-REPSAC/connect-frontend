@@ -94,7 +94,7 @@ async function uploadChapterFiles(targetFiles, activityId, chapterId) {
   }
   const token = 'Bearer ' + accessToken;
 
-  let count = 0;
+  let fileCount = 0;
   const arr = [];
   console.log('targetFiles', targetFiles);
   if (targetFiles.length > 0) {
@@ -117,7 +117,7 @@ async function uploadChapterFiles(targetFiles, activityId, chapterId) {
         )
         .then((res) => {
           console.log(res);
-          count++;
+          fileCount++;
         })
         .catch((err) => {
           console.log(err);
@@ -125,7 +125,7 @@ async function uploadChapterFiles(targetFiles, activityId, chapterId) {
         });
     }
   }
-  return [count, arr];
+  return [fileCount, arr];
 }
 
 // api/activities/<int:pk>/chapter/<int:chapterid>/upload/<str:filename>
@@ -181,6 +181,65 @@ async function submitChapter(data, activityId, setWriteRes) {
   }
 }
 
+// api/activities/int:pk/chapter/int:chapterid/update_chapter/
+async function updateChapter(data, activityId, setWriteRes, chapterId) {
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
+  const datas = {
+    ...data,
+    token: token,
+  };
+  const res = await axios.post(
+    `/api/activities/${activityId}/chapter/${chapterId}/update_chapter`,
+    datas,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    },
+  );
+
+  if (res['status'] === 201) {
+    setWriteRes(true);
+    console.log(res);
+    return res['data']['chapterid'];
+  } else {
+    setWriteRes(false);
+  }
+}
+
+async function deleteChapter(activityId, setWriteRes, chapterId) {
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
+  const datas = {
+    token: token,
+  };
+  const res = await axios.delete(
+    `/api/activities/${activityId}/chapter/${chapterId}/`,
+    datas,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    },
+  );
+
+  if (res['status'] === 201 || res['status'] === 200) {
+    setWriteRes(true);
+    console.log(res);
+  } else {
+    setWriteRes(false);
+  }
+}
+
 const submitActivity = async (data, setWriteRes, setResID) => {
   const accessToken = isAccessToken();
   if (!accessToken) {
@@ -211,8 +270,8 @@ const submitActivity = async (data, setWriteRes, setResID) => {
     });
 };
 
-// api/activities/int:pk/chapter/int:chapterid/update_chapter/
-const updateActivity = async (data, setWriteRes, setResID) => {
+// /api/w00/activities/<액티비티id>/
+const updateActivity = async (data, setWriteRes, setResID, activityId) => {
   const accessToken = isAccessToken();
   if (!accessToken) {
     return false;
@@ -224,7 +283,37 @@ const updateActivity = async (data, setWriteRes, setResID) => {
   };
 
   await axios
-    .post('/api/activities/', datas, {
+    .post(`/api/w00/activities/${activityId}`, datas, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      if (response['status'] === 201) {
+        setWriteRes(true);
+        setResID(response['data']['id']);
+      }
+    })
+    .catch((error) => {
+      console.log('err', error);
+    });
+};
+
+// /api/w00/activities/<액티비티id>/
+const deleteActivity = async (setWriteRes, setResID, activityId) => {
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
+  const datas = {
+    token: token,
+  };
+
+  await axios
+    .delete(`/api/activities/${activityId}`, datas, {
       headers: {
         'Content-Type': 'application/json',
         authorization: token,
@@ -251,8 +340,11 @@ export {
   getDataByURL,
   getCardsByTag,
   submitChapter,
+  updateChapter,
+  deleteChapter,
   submitActivity,
   updateActivity,
+  deleteActivity,
   uploadChapterFile,
   uploadChapterFiles,
 };

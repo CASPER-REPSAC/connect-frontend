@@ -30,17 +30,13 @@ const MainPage = () => {
           <h3>Planned</h3>
           <CardList
             n={true}
-            cards={cards
-              .filter((card) => card.currentState === 0)
-              .slice(15, 20)}
+            cards={cards.filter((card) => card.currentState === 0)}
           />
           <br />
           <h3>Ended</h3>
           <CardList
             n={true}
-            cards={cards
-              .filter((card) => card.currentState === 2)
-              .slice(15, 20)}
+            cards={cards.filter((card) => card.currentState === 2)}
           />
         </>
       ) : (

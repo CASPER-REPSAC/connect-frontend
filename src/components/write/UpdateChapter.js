@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ChapterForm from './ChapterForm';
 import {
   getActivityDetail,
-  submitChapter,
+  updateChapter,
   uploadChapterFiles,
 } from '../../modules/api';
 import { WriteChapterResponse } from './WriteResponse';
@@ -55,7 +55,13 @@ const UpdateChapter = ({ match }) => {
       activityid: chapterInput.activityid,
     };
     setSendCounter(sendCounter + 1);
-    const res = await submitChapter(data, match.params.activityId, setWriteRes);
+    const res = await updateChapter(
+      data,
+      match.params.activityId,
+      setWriteRes,
+      match.params.chapterId,
+    );
+
     console.log(res);
     setResID(res);
     if (targetFiles) {

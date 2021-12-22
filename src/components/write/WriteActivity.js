@@ -14,6 +14,7 @@ const WriteActivity = () => {
   const [inputs, setInputs] = useState({
     title: '',
     type: 'CTF',
+    author: 'casper',
     createDate: date,
     description: '',
     startDate: date,
