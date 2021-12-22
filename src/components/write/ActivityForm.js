@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { TagsInput } from 'react-tag-input-component';
 import Button from '../common/Button';
 
@@ -17,7 +16,6 @@ const ActivityForm = ({
   const onChangeHandler = (e) => {
     setInputs({ ...inputs, [e.target.id]: e.target.value });
   };
-
   return (
     <div className="activity-form" style={{ maxWidth: '500px' }}>
       <label htmlFor="title" className="no-margin">

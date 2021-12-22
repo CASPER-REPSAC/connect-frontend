@@ -2,12 +2,8 @@ import React, { useState } from 'react';
 import { ActivityForm } from './ActivityForm';
 import WriteResponse from './WriteResponse';
 import { submitActivity } from '../../modules/api';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
 const WriteActivity = () => {
-  const { user } = useSelector((state) => ({ user: state.auth.user }));
-
   // states for write form
   const date = new Date().toISOString().substr(0, 10);
 
@@ -43,7 +39,6 @@ const WriteActivity = () => {
   return (
     <div>
       {/* {console.log(tags)} */}
-      {!user.access_token && <Redirect to="/main" />}
       {sendCounter === 0 && (
         <>
           <h4>액티비티 작성</h4>

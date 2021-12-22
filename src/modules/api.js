@@ -21,9 +21,12 @@ const isAccessToken = () => {
 async function getActivityDetail(activity_id, setState) {
   const res = await axios.get(`/api/activities/${activity_id}/`);
   console.log('getActivityDetail', res);
-  if (res.status === 200) {
+  if (res.status === 200 && res.data.length > 0) {
     console.log('getActivityDetail res', res);
     setState(res.data[0]);
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -272,6 +275,7 @@ const submitActivity = async (data, setWriteRes, setResID) => {
 
 // /api/w00/activities/<액티비티id>/
 const updateActivity = async (data, setWriteRes, setResID, activityId) => {
+  console.log('updateactivity', activityId);
   const accessToken = isAccessToken();
   if (!accessToken) {
     return false;
@@ -283,7 +287,7 @@ const updateActivity = async (data, setWriteRes, setResID, activityId) => {
   };
 
   await axios
-    .post(`/api/w00/activities/${activityId}`, datas, {
+    .put(`/api/w00/activities/${activityId}/`, datas, {
       headers: {
         'Content-Type': 'application/json',
         authorization: token,
@@ -291,10 +295,8 @@ const updateActivity = async (data, setWriteRes, setResID, activityId) => {
     })
     .then((response) => {
       console.log(response);
-      if (response['status'] === 201) {
-        setWriteRes(true);
-        setResID(response['data']['id']);
-      }
+      setWriteRes(true);
+      setResID(response['data']['id']);
     })
     .catch((error) => {
       console.log('err', error);
@@ -302,7 +304,7 @@ const updateActivity = async (data, setWriteRes, setResID, activityId) => {
 };
 
 // /api/w00/activities/<액티비티id>/
-const deleteActivity = async (setWriteRes, setResID, activityId) => {
+const deleteActivity = async (setWriteRes, activityId) => {
   const accessToken = isAccessToken();
   if (!accessToken) {
     return false;
@@ -313,18 +315,14 @@ const deleteActivity = async (setWriteRes, setResID, activityId) => {
   };
 
   await axios
-    .delete(`/api/activities/${activityId}`, datas, {
+    .delete(`/api/w00/activities/${activityId}/`, datas, {
       headers: {
         'Content-Type': 'application/json',
         authorization: token,
       },
     })
     .then((response) => {
-      console.log(response);
-      if (response['status'] === 201) {
-        setWriteRes(true);
-        setResID(response['data']['id']);
-      }
+      setWriteRes(true);
     })
     .catch((error) => {
       console.log('err', error);

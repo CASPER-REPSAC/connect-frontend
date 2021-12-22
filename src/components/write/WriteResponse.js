@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../common/Button';
 import { useHistory } from 'react-router-dom';
+import { NoCards } from '../common/NoCards';
 
 const WriteResponse = ({ res, resID, setSendCounter, submitActivity }) => {
   const history = useHistory();
@@ -10,8 +11,13 @@ const WriteResponse = ({ res, resID, setSendCounter, submitActivity }) => {
   return (
     <div className="writeResponse">
       <div className="title">
-        {res === true && '성공적으로 작성 되었습니다!'}
-        {res === false && '작성에 실패하였습니다.'}
+        <NoCards
+          msg={
+            res === true
+              ? '성공적으로 작성 되었습니다'
+              : '작성에 실패하였습니다.'
+          }
+        />
       </div>
       <div className="body">
         <div style={{ maxWidth: '400px', fontSize: '13px' }} className="text">
@@ -79,8 +85,13 @@ const WriteChapterResponse = ({
   return (
     <div className="writeResponse">
       <div className="title">
-        {res === true && '챕터가 성공적으로 작성 되었습니다!'}
-        {res === false && '작성에 실패하였습니다.'}
+        <NoCards
+          msg={
+            res === true
+              ? '챕터가 성공적으로 작성 되었습니다!'
+              : '챕터 작성에 실패하였습니다.'
+          }
+        />
       </div>
       <div className="body">
         <div style={{ maxWidth: '400px', fontSize: '13px' }}>
@@ -131,6 +142,72 @@ const WriteChapterResponse = ({
               </Button>
             </>
           )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const DeleteResponse = ({ res, setSendCounter, submitActivity }) => {
+  const history = useHistory();
+  const routeChange = (path) => {
+    history.push(path);
+  };
+  return (
+    <div className="writeResponse">
+      <div className="title">
+        <NoCards
+          msg={
+            res === true ? '성공적으로 삭제 되었습니다' : '삭제하지 못했습니다.'
+          }
+        />
+      </div>
+      <div className="body">
+        <div className="button d-flex justify-content-center">
+          <Button background="gray" onClick={() => routeChange('/')}>
+            홈으로
+          </Button>
+          {res === false && (
+            <>
+              <Button
+                style={{ marginLeft: '5px' }}
+                onClick={() => submitActivity()}
+                background="MidnightBlue"
+              >
+                재요청
+              </Button>
+              <Button
+                style={{ marginLeft: '5px' }}
+                onClick={() => setSendCounter(0)}
+              >
+                돌아가기
+              </Button>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const DeleteAsk = ({ setDeleteAsk, onDeleteActivity }) => {
+  return (
+    <div className="writeResponse">
+      <div className="title">
+        <NoCards msg={'정말 삭제하시겠습니까?'} />
+      </div>
+      <div className="body">
+        <div className="button d-flex justify-content-center">
+          <Button background="gray" onClick={() => setDeleteAsk(false)}>
+            뒤로
+          </Button>
+          <Button
+            background="#8B0000"
+            style={{ marginLeft: '5px' }}
+            onClick={() => onDeleteActivity()}
+          >
+            확인
+          </Button>
         </div>
       </div>
     </div>
