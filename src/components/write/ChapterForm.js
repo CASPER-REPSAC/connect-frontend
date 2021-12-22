@@ -14,8 +14,7 @@ const ChapterForm = ({
   return (
     <div className="chapter-form">
       {console.log('chapterfore')}
-      <h3 className="no-margin">{title}</h3>
-      <hr />
+
       <label htmlFor="subject" className="no-margin">
         <h5>Title</h5>
       </label>

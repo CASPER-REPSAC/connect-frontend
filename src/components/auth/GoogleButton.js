@@ -26,8 +26,16 @@ const GoogleLoginButton = ({ onSocial }) => {
     console.log(res);
     if (res.status === 200) {
       onLoginSuccess(res.data.user);
-      window.localStorage.setItem('user', JSON.stringify(res.data.user));
+      window.localStorage.setItem(
+        'user',
+        JSON.stringify({
+          ...res.data.user,
+          access_token: res.data.access_token,
+          refresh_token: res.data.refresh_token,
+        }),
+      );
       cookies.set('access_token', res.data.access_token);
+      cookies.set('refresh_token', res.data.refresh_token, { httpOnly: true });
     }
   };
 

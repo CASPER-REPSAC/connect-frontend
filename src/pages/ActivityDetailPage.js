@@ -5,8 +5,7 @@ import { getActivityDetail } from '../modules/api';
 import axios from 'axios';
 
 import WriteChapter from '../components/write/WriteChapter';
-import Button from "../components/common/Button";
-
+import Button from '../components/common/Button';
 
 const ActivityDetailPage = ({ match, history }) => {
   const { params } = match;
@@ -15,44 +14,32 @@ const ActivityDetailPage = ({ match, history }) => {
   useEffect(() => {
     getActivityDetail(params.activityId, setActivityDetail);
   }, [params]);
-  const [writeRes, setWriteRes] = useState(false);
-  const [resID, setResID] = useState();
 
-  async function CChapterTest() {
-    const data = {
-      activityid: params.activityId,
-      subject: 'test chap',
-      article: 'test art',
-    };
-    console.log('CChapterTest data', data);
-    await axios
-      .post(`/api/activities/${params.activityId}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response['status'] === 201) {
-          setWriteRes(true);
-          setResID(response['data']['chapterid']);
-        }
-        history.go(0);
-      })
-      .catch((error) => {
-        console.log('err', error);
-      });
-  }
   return (
     <>
-    <div className="d-flex flex-column justify-content-between h-100">
-      {console.log(match)}
-      {activityDetail && <ActivityDetail activityDetail={activityDetail} />}
-      {/* <button onClick={() => CChapterTest()}>챕터 생성 테스트</button> */}
-      <div style={{textAlign:"right"}}>
-        <Button width="100px" onClick={()=>{history.push(`/write/activities/${params.activityId}`)}}>챕터 작성</Button>
+      <div className="d-flex flex-column justify-content-between h-100">
+        {console.log(match)}
+        {activityDetail && <ActivityDetail activityDetail={activityDetail} />}
+        <div className="d-flex justify-content-between">
+          <Button
+            width="content-fit"
+            style={{ marginLeft: '5px' }}
+            onClick={() => {
+              history.push(`/write/activities/${params.activityId}`);
+            }}
+          >
+            챕터 작성
+          </Button>
+          <Button
+            width="content-fit"
+            onClick={() => {
+              history.push(`/write/activities/${params.activityId}/update`);
+            }}
+          >
+            액티비티 수정
+          </Button>
+        </div>
       </div>
-    </div>
     </>
   );
 };

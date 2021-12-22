@@ -2,18 +2,14 @@ import React, { useState } from 'react';
 import { ActivityForm } from './ActivityForm';
 import WriteResponse from './WriteResponse';
 import { submitActivity } from '../../modules/api';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
-const WriteActivity = () => {
-  const { user } = useSelector((state) => ({ user: state.auth.user }));
-
+const UpdateActivity = () => {
   // states for write form
   const date = new Date().toISOString().substr(0, 10);
-
   const [inputs, setInputs] = useState({
     title: '',
     type: 'CTF',
+    author: 'casper',
     createDate: date,
     description: '',
     startDate: date,
@@ -42,10 +38,9 @@ const WriteActivity = () => {
   return (
     <div>
       {/* {console.log(tags)} */}
-      {!user.access_token && <Redirect to="/main" />}
       {sendCounter === 0 && (
         <>
-          <h4>액티비티 작성</h4>
+          <h4>액티비티 수정</h4>
           <hr />
           <ActivityForm
             inputs={inputs}
@@ -70,4 +65,4 @@ const WriteActivity = () => {
   );
 };
 
-export default WriteActivity;
+export default UpdateActivity;

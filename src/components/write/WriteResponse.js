@@ -14,7 +14,7 @@ const WriteResponse = ({ res, resID, setSendCounter, submitActivity }) => {
         {res === false && '작성에 실패하였습니다.'}
       </div>
       <div className="body">
-        <div className="text">
+        <div style={{ maxWidth: '400px', fontSize: '13px' }} className="text">
           {res === true && (
             <>
               지금 바로 챕터를 작성할 수 있습니다. <br />
@@ -28,24 +28,33 @@ const WriteResponse = ({ res, resID, setSendCounter, submitActivity }) => {
             </>
           )}
         </div>
-        <div className="button">
+        <div className="button d-flex justify-content-center">
           <Button background="gray" onClick={() => routeChange('/')}>
             홈으로
           </Button>
           {res === true && (
-            <Button onClick={() => routeChange(`/write/activities/${resID}`)}>
+            <Button
+              style={{ marginLeft: '5px' }}
+              onClick={() => routeChange(`/write/activities/${resID}`)}
+            >
               챕터 작성
             </Button>
           )}
           {res === false && (
             <>
               <Button
+                style={{ marginLeft: '5px' }}
                 onClick={() => submitActivity()}
                 background="MidnightBlue"
               >
                 재요청
               </Button>
-              <Button onClick={() => setSendCounter(0)}>돌아가기</Button>
+              <Button
+                style={{ marginLeft: '5px' }}
+                onClick={() => setSendCounter(0)}
+              >
+                돌아가기
+              </Button>
             </>
           )}
         </div>
@@ -74,14 +83,14 @@ const WriteChapterResponse = ({
         {res === false && '작성에 실패하였습니다.'}
       </div>
       <div className="body">
-        <div className="text">
+        <div style={{ maxWidth: '400px', fontSize: '13px' }}>
           {res === true && fileRes === false && (
             <>
-              하지만 파일 작성에 실패하였습니다. (
+              하지만 파일 작성에 실패하였습니다. <br />
+              실패한 파일:{' '}
               {fileFail.map((file, index) => (
-                <span key={index}>실패한 파일: {file}</span>
+                <span key={index}>{file}</span>
               ))}
-              )
             </>
           )}
           {res === false && (
@@ -91,16 +100,13 @@ const WriteChapterResponse = ({
             </>
           )}
         </div>
-        <div className="button">
-          <Button
-            background="gray"
-            style={{ marginLeft: '5px' }}
-            onClick={() => routeChange('/')}
-          >
+        <div className="button d-flex justify-content-center">
+          <Button background="gray" onClick={() => routeChange('/')}>
             홈으로
           </Button>
           {res === true && (
             <Button
+              style={{ marginLeft: '5px' }}
               onClick={() =>
                 routeChange(`/activities/${activityId}/chapter/${resID}`)
               }
@@ -110,10 +116,19 @@ const WriteChapterResponse = ({
           )}
           {res === false && (
             <>
-              <Button onClick={() => submitChapter()} background="MidnightBlue">
+              <Button
+                style={{ marginLeft: '5px' }}
+                onClick={() => submitChapter()}
+                background="MidnightBlue"
+              >
                 재요청
               </Button>
-              <Button onClick={() => setSendCounter(0)}>돌아가기</Button>
+              <Button
+                style={{ marginLeft: '5px' }}
+                onClick={() => setSendCounter(0)}
+              >
+                돌아가기
+              </Button>
             </>
           )}
         </div>

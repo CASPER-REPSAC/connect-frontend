@@ -7,7 +7,7 @@ import {
 } from '../../modules/api';
 import { WriteChapterResponse } from './WriteResponse';
 
-const WriteChapter = ({ match }) => {
+const UpdateChapter = ({ match }) => {
   const [activityDetail, setActivityDetail] = useState();
   const [chapterInput, setChapterInput] = useState({
     subject: '',
@@ -83,7 +83,7 @@ const WriteChapter = ({ match }) => {
         <>
           {sendCounter === 0 && (
             <>
-              <h4 className="no-margin">챕터 작성: {activityDetail.title} </h4>
+              <h4 className="no-margin">챕터 수정: {activityDetail.title} </h4>
               <hr />
               <ChapterForm
                 activityDetail={activityDetail}
@@ -116,4 +116,4 @@ const WriteChapter = ({ match }) => {
   );
 };
 
-export default WriteChapter;
+export default UpdateChapter;

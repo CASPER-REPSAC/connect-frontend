@@ -40,15 +40,21 @@ function App() {
   useEffect(() => {
     const localStorageUser = window.localStorage.getItem('user');
     const cookieAccessToken = cookies.get('access_token');
+    const cookieRefreshToken = cookies.get('refresh_token');
 
     if (localStorageUser && cookieAccessToken) {
       const accessTokenExp = jwt(cookieAccessToken).exp;
+
       const isExp = new Date(accessTokenExp * 1000) < new Date();
       if (isExp) {
         window.localStorage.removeItem('user');
         onLogout();
       } else {
-        onLoginSuccess(JSON.parse(localStorageUser));
+        onLoginSuccess({
+          ...JSON.parse(localStorageUser),
+          access_token: cookieAccessToken,
+          refresh_token: cookieRefreshToken,
+        });
       }
     } else {
       cookies.remove('access_token');

@@ -8,6 +8,15 @@ const baseURL = API_SERVER_URL;
 
 const cookies = new Cookies();
 
+const isAccessToken = () => {
+  const accessToken = cookies.get('access_token');
+  if (!accessToken) {
+    return false;
+  } else {
+    return accessToken;
+  }
+};
+
 // ActivityDetailPage
 async function getActivityDetail(activity_id, setState) {
   const res = await axios.get(`/api/activities/${activity_id}/`);
@@ -55,7 +64,6 @@ function getUsers(user_id) {
 
 // lots...
 async function getListData(url, setState) {
-  const token = 'Bearer ' + cookies.get('access_token');
   const res = await axios.get(url);
   const data = res.data;
   console.log('getListData', data, typeof data);
@@ -80,7 +88,12 @@ function getDataByURL(url) {
 }
 
 async function uploadChapterFiles(targetFiles, activityId, chapterId) {
-  const token = 'Bearer ' + cookies.get('access_token');
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
+
   let count = 0;
   const arr = [];
   console.log('targetFiles', targetFiles);
@@ -117,7 +130,11 @@ async function uploadChapterFiles(targetFiles, activityId, chapterId) {
 
 // api/activities/<int:pk>/chapter/<int:chapterid>/upload/<str:filename>
 async function uploadChapterFile(activityId, chapterId, fileName, formData) {
-  const token = 'Bearer ' + cookies.get('access_token');
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
   await axios
     .post(
       `/api/activities/${activityId}/chapter/${chapterId}/upload/${fileName}/`,
@@ -139,8 +156,11 @@ async function uploadChapterFile(activityId, chapterId, fileName, formData) {
 }
 
 async function submitChapter(data, activityId, setWriteRes) {
-  console.log('submitChapter');
-  const token = 'Bearer ' + cookies.get('access_token');
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
   const datas = {
     ...data,
     token: token,
@@ -187,6 +207,37 @@ const submitActivity = async (data, setWriteRes, setResID) => {
     });
 };
 
+// api/activities/int:pk/chapter/int:chapterid/update_chapter/
+const updateActivity = async (data, setWriteRes, setResID) => {
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
+  const datas = {
+    ...data,
+    token: token,
+  };
+
+  await axios
+    .post('/api/activities/', datas, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      if (response['status'] === 201) {
+        setWriteRes(true);
+        setResID(response['data']['id']);
+      }
+    })
+    .catch((error) => {
+      console.log('err', error);
+    });
+};
+
 export {
   getActivityDetail,
   getTags,
@@ -197,6 +248,7 @@ export {
   getCardsByTag,
   submitChapter,
   submitActivity,
+  updateActivity,
   uploadChapterFile,
   uploadChapterFiles,
 };

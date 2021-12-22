@@ -7,21 +7,23 @@
     margin-left: auto;
     margin-right: 1rem;
   }
-
-  .logo-tablet {
-    display: none;
-  }
-
   .nav-link-logo {
     display: flex;
   }
 
+  .less-then-tablet-show {
+    display: none !important;
+  }
+
   @media (max-width: $tablet-width) {
     .logo-tablet {
-      display: block;
       width: 20px;
       object-fit: contain;
       margin: 0 15px 0 20px;
+    }
+
+    .less-then-tablet-show {
+      display: flex !important;
     }
 
     .dropdown-HOME {

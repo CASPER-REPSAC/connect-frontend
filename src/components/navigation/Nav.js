@@ -17,7 +17,11 @@ const Nav = () => {
   return (
     <div className="nav">
       <NavLink to="/" className="nav-link-logo">
-        <img src={casLogo} alt="Logo" className="logo-tablet" />
+        <img
+          src={casLogo}
+          alt="Logo"
+          className="logo-tablet less-then-tablet-show"
+        />
       </NavLink>
       <DropdownMenu menuName="HOME" menuLink="/"></DropdownMenu>
       <DropdownMenu menuName="ACTIVITY" menuLink="/activities">
@@ -32,7 +36,11 @@ const Nav = () => {
         </li>
       </DropdownMenu>
       <DropdownMenu menuName="WRITE" menuLink="/write"></DropdownMenu>
-      {!email && !pk && 'access_token' && <GoogleButton />}
+      {!email && !pk && 'access_token' && (
+        <div className="justify-content-center align-items-center less-then-tablet-show ">
+          <GoogleButton />
+        </div>
+      )}
 
       <Searchbar />
     </div>

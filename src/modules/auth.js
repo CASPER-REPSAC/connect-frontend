@@ -18,6 +18,8 @@ const initialState = {
     first_name: null,
     last_name: null,
     pk: null,
+    access_token: null,
+    refresh_token: null,
   },
 };
 
@@ -32,6 +34,8 @@ function auth(state = initialState, action) {
           first_name: action.userData.first_name,
           last_name: action.userData.last_name,
           pk: action.userData.pk,
+          access_token: action.userData.access_token,
+          refresh_token: action.userData.refresh_token,
         },
       };
     case LOGOUT:
