@@ -182,7 +182,11 @@ async function submitChapter(data, activityId, setWriteRes) {
 }
 
 const submitActivity = async (data, setWriteRes, setResID) => {
-  const token = 'Bearer ' + cookies.get('access_token');
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
   const datas = {
     ...data,
     token: token,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ActivityForm } from './ActivityForm';
 import WriteResponse from './WriteResponse';
-import { submitActivity } from '../../modules/api';
+import { updateActivity } from '../../modules/api';
 
 const UpdateActivity = () => {
   // states for write form
@@ -30,7 +30,7 @@ const UpdateActivity = () => {
       tags: tags,
       participants: participants,
     };
-    submitActivity(data, setWriteRes, setResID);
+    updateActivity(data, setWriteRes, setResID);
     setSendCounter(sendCounter + 1);
     console.log('write data', data);
   }
