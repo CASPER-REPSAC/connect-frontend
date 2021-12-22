@@ -1,25 +1,32 @@
 import React from 'react';
 import '../../styles/Profile.scss';
-import LoginButton from '../auth/LoginButton';
-import GoogleButton from '../auth/GoogleButton';
+import { useSelector } from 'react-redux';
 
-function MiniProfile({ user, icon, name, badge, introduce }) {
+import GoogleButton from '../auth/GoogleButton';
+import LogoutButton from '../auth/LogoutButton';
+
+function MiniProfile() {
+  const { user } = useSelector((state) => ({ user: state.auth.user }));
+  const { icon, first_name, last_name, email, pk } = user;
   return (
     <>
-      {user ? (
+      {email && pk ? (
         <>
           <div className="conn-mini-profile">
             <div className="profile">
               <div className="icon">{icon ? icon : 'no icon'}</div>
               <div className="right">
-                <div className="name">{name ? name : 'no name'}</div>
-                <div className="badge">{badge ? badge : 'no badge'}</div>
+                <div className="name">
+                  {last_name ? last_name : 'no name'}
+                  {first_name ? first_name : 'no name'}
+                </div>
               </div>
             </div>
-            <div className="introduce">
-              {introduce ? introduce : 'no introduce'}
+            <div className="introduce">{email ? email : 'no introduce'}</div>
+
+            <div className="justify-content-center align-items-center p-3">
+              <LogoutButton />
             </div>
-            <div className="arrow-down">▼</div>
           </div>
         </>
       ) : (

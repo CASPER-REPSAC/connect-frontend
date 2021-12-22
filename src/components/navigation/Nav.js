@@ -9,10 +9,11 @@ import casLogo from '../../img/cas-40.png';
 import '../../styles/Nav.scss';
 import GoogleButton from '../auth/GoogleButton';
 
-import { Cookies } from 'react-cookie';
-const cookies = new Cookies();
+import { useSelector } from 'react-redux';
 
 const Nav = () => {
+  const { user } = useSelector((state) => ({ user: state.auth.user }));
+  const { email, pk } = user;
   return (
     <div className="nav">
       <NavLink to="/" className="nav-link-logo">
@@ -31,7 +32,7 @@ const Nav = () => {
         </li>
       </DropdownMenu>
       <DropdownMenu menuName="WRITE" menuLink="/write"></DropdownMenu>
-      {!cookies.get('access_token') && <GoogleButton />}
+      {!email && !pk && 'access_token' && <GoogleButton />}
 
       <Searchbar />
     </div>

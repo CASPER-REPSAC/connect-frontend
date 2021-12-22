@@ -80,6 +80,7 @@ function getDataByURL(url) {
 }
 
 async function uploadChapterFiles(targetFiles, activityId, chapterId) {
+  const token = 'Bearer ' + cookies.get('access_token');
   let count = 0;
   const arr = [];
   console.log('targetFiles', targetFiles);
@@ -95,6 +96,11 @@ async function uploadChapterFiles(targetFiles, activityId, chapterId) {
         .post(
           `/api/activities/${activityId}/chapter/${chapterId}/upload/${fileName}/`,
           formData,
+          {
+            headers: {
+              authorization: token,
+            },
+          },
         )
         .then((res) => {
           console.log(res);
@@ -111,13 +117,14 @@ async function uploadChapterFiles(targetFiles, activityId, chapterId) {
 
 // api/activities/<int:pk>/chapter/<int:chapterid>/upload/<str:filename>
 async function uploadChapterFile(activityId, chapterId, fileName, formData) {
+  const token = 'Bearer ' + cookies.get('access_token');
   await axios
     .post(
       `/api/activities/${activityId}/chapter/${chapterId}/upload/${fileName}/`,
       formData,
       {
         headers: {
-          // 'Content-Type': 'multipart/form-data',
+          authorization: token,
         },
       },
     )
@@ -141,6 +148,7 @@ async function submitChapter(data, activityId, setWriteRes) {
   const res = await axios.post(`/api/activities/${activityId}`, datas, {
     headers: {
       'Content-Type': 'application/json',
+      authorization: token,
     },
   });
 
@@ -164,6 +172,7 @@ const submitActivity = async (data, setWriteRes, setResID) => {
     .post('/api/activities/', datas, {
       headers: {
         'Content-Type': 'application/json',
+        authorization: token,
       },
     })
     .then((response) => {

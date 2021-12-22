@@ -75,10 +75,9 @@ const WriteChapterResponse = ({
       </div>
       <div className="body">
         <div className="text">
-          {res === true && fileRes === false && '하지만 '}
-          {fileRes === false && (
+          {res === true && fileRes === false && (
             <>
-              파일 작성에 실패하였습니다. (
+              하지만 파일 작성에 실패하였습니다. (
               {fileFail.map((file, index) => (
                 <span key={index}>실패한 파일: {file}</span>
               ))}
