@@ -3,6 +3,7 @@ import CommentForm from '../write/CommentForm';
 import { submitComment, deleteComment } from '../../modules/api';
 import Button from './Button';
 import { useSelector } from 'react-redux';
+import '../../styles/Comment.scss';
 
 const CommentList = ({ comments }) => {
   return (
@@ -14,9 +15,9 @@ const CommentList = ({ comments }) => {
             className="p-3"
             style={{ borderTop: '1px solid gray' }}
           >
+            <h6>{comment.user}</h6>
             <div className="d-flex justify-content-between ">
-              <div>{comment.comment}</div>
-              <small className="text-muted">{comment.user}</small>
+              <div className="text-break">{comment.comment}</div>
             </div>
             <div className="d-flex justify-content-end">
               <Button
@@ -59,7 +60,7 @@ const Comment = ({ activityId, chapterId, comments }) => {
   };
 
   return (
-    <div>
+    <div className="comment">
       <CommentForm
         commentInput={commentInput}
         inputHandler={inputHandler}

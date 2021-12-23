@@ -60,7 +60,7 @@ const updateActivity = async (data, setWriteRes, setResID, activityId) => {
   };
 
   await axios
-    .put(`/api/w00/activities/${activityId}/`, datas, {
+    .patch(`/api/activities/${activityId}/`, datas, {
       headers: {
         'Content-Type': 'application/json',
         authorization: token,

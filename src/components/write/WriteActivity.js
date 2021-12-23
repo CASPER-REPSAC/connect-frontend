@@ -42,11 +42,6 @@ const WriteActivity = () => {
     setSendCounter(sendCounter + 1);
     console.log('write data', data);
   }
-  useEffect(() => {
-    if (resID) {
-      submitActiParticipants(resID, pk);
-    }
-  }, [resID]);
 
   return (
     <>

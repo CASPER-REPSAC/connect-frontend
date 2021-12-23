@@ -15,17 +15,6 @@ const isAccessToken = () => {
   }
 };
 
-const submitActiParticipants = async (activity_id, user_id) => {
-  const data = {
-    activity_id: activity_id,
-    user_id: user_id,
-  };
-  const res = await sendPostRequest(`/api/w00/actiparticipants/ `, data);
-
-  // data = {comment, activityid, chapterid, createtime, writer(accessToken)};
-  console.log(res);
-};
-
 // url, data => res
 const sendPostRequest = async (url, data) => {
   const accessToken = isAccessToken();
@@ -140,6 +129,17 @@ const submitActivity = async (data, setWriteRes, setResID) => {
 const submitComment = async (data) => {
   data = { ...data, createtime: '2021-12-23 05:11:04' };
   const res = await sendPostRequest(`/api/activities/write_comment/`, data);
+  // data = {comment, activityid, chapterid, createtime, writer(accessToken)};
+  console.log(res);
+};
+
+const submitActiParticipants = async (activity_id, user_id) => {
+  const data = {
+    activity_id: activity_id,
+    user_id: user_id,
+  };
+  const res = await sendPostRequest(`/api/w00/actiparticipants/ `, data);
+
   // data = {comment, activityid, chapterid, createtime, writer(accessToken)};
   console.log(res);
 };

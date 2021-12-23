@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { ActivityForm } from './ActivityForm';
 import { UpdateResponse } from './WriteResponse';
 import { updateActivity } from '../../modules/api';
+import { useSelector } from 'react-redux';
 
 const UpdateActivity = ({ match, activityDetail, prevTags }) => {
   const { params } = match;
+  const { user } = useSelector((state) => ({ user: state.auth.user }));
+  const { pk } = user;
 
   console.log('match', match);
   // states for write form
@@ -24,6 +27,10 @@ const UpdateActivity = ({ match, activityDetail, prevTags }) => {
   useEffect(() => {
     console.log('tags', tags);
   }, [tags]);
+
+  useEffect(() => {
+    setInputs({ ...inputs, author: pk });
+  }, [user]);
 
   // states for write response
   const [writeRes, setWriteRes] = useState(false);

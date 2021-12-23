@@ -90,4 +90,31 @@ const deleteComment = async (commentpk) => {
   console.log(res);
 };
 
-export { deleteChapter, deleteActivity, deleteComment };
+const deleteActiParticipants = async (activity_id, user_id, setWriteRes) => {
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
+  const data = {
+    activity_id: activity_id,
+    user_id: user_id,
+  };
+
+  await axios
+    .delete(`/api/w00/actiparticipants/ `, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    })
+    .then((response) => {
+      setWriteRes(true);
+    })
+    .catch((error) => {
+      setWriteRes(false);
+      console.log('err', error);
+    });
+};
+
+export { deleteChapter, deleteActivity, deleteComment, deleteActiParticipants };

@@ -1,0 +1,26 @@
+@import './utils.scss';
+$text: #27242c;
+$bbackGround: #ebe9ef;
+$unActiveCard: #f4f4f4;
+$stroke: #e0e0e0;
+$background: #ffffff;
+$shadow: #cfcfcf10;
+$unActiveButton: #f3f3f3;
+$unActiveButtonText: #afafb4;
+
+.comment {
+  position: relative;
+  border: solid 1px $stroke;
+  font-size: 14px;
+  color: $text;
+  border-radius: 0.6rem;
+  padding: 0rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: fit-content;
+  min-width: 100%;
+  margin-top: 10px;
+  box-shadow: 0px 10px 10px 6px $shadow;
+  margin-right: 10px;
+}

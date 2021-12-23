@@ -10,7 +10,7 @@ const CardList = ({ cards, nowrap }) => {
   }
   return (
     <>
-      {cards && cards.length !== 0 ? (
+      {cards && Array.isArray(cards) && cards.length !== 0 ? (
         <>
           {console.log(cards)}
           <div className={`card-list ${wrapState}`}>

@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
 import ActivityDetail from '../components/detail/ActivityDetail';
-import { getActivityDetail, deleteActivity } from '../modules/api';
+import {
+  getActivityDetail,
+  deleteActivity,
+  submitActiParticipants,
+  deleteActiParticipants,
+} from '../modules/api';
 import { NoCards } from '../components/common/NoCards';
+import { useSelector } from 'react-redux';
 
 import Button from '../components/common/Button';
 import { DeleteResponse, DeleteAsk } from '../components/write/WriteResponse';
 
 const ActivityDetailPage = ({ match, history }) => {
+  const { user } = useSelector((state) => ({ user: state.auth.user }));
+  const { pk } = user;
   const { params } = match;
 
   const [activityDetail, setActivityDetail] = useState();
@@ -15,6 +23,7 @@ const ActivityDetailPage = ({ match, history }) => {
   const [deleteRes, setDeleteRes] = useState();
   const [deleteAsk, setDeleteAsk] = useState(false);
   const [sendCounter, setSendCounter] = useState(0);
+  const [deleteActiParti, setDeleteActiParti] = useState();
 
   useEffect(() => {
     async function getActi() {
@@ -87,6 +96,28 @@ const ActivityDetailPage = ({ match, history }) => {
                 }}
               >
                 액티비티 수정
+              </Button>
+            </div>
+            <div>
+              <Button
+                width="content-fit"
+                background="midnightblue"
+                onClick={() => submitActiParticipants(params.activityId, pk)}
+              >
+                참가 신청
+              </Button>
+              <Button
+                width="content-fit"
+                style={{ marginLeft: '5px' }}
+                onClick={() =>
+                  deleteActiParticipants(
+                    params.activityId,
+                    pk,
+                    setDeleteActiParti,
+                  )
+                }
+              >
+                탈퇴 신청
               </Button>
             </div>
           </div>

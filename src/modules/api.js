@@ -19,7 +19,12 @@ import {
   getUserActivityList,
 } from './api_read';
 import { updateChapter, updateActivity } from './api_update';
-import { deleteChapter, deleteActivity, deleteComment } from './api_delete';
+import {
+  deleteChapter,
+  deleteActivity,
+  deleteComment,
+  deleteActiParticipants,
+} from './api_delete';
 
 export const WEB_SERVER_URL = `${process.env.REACT_APP_FRONT_SERVER_BASE_URL}`;
 export const API_SERVER_URL = `${process.env.REACT_APP_BACK_SERVER_BASE_URL}`;
@@ -46,4 +51,5 @@ export {
   deleteChapter,
   deleteActivity,
   deleteComment,
+  deleteActiParticipants,
 };

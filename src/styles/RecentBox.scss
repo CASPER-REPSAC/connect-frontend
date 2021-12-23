@@ -3,13 +3,16 @@
 .recent-box {
   width: 100%;
   max-width: 100%;
+
   .selector-box {
     display: flex;
     align-items: center;
+
     .selector {
       border-radius: 10px 10px 0 0;
       display: inline-block;
       overflow: hidden;
+
       .selector-item {
         display: inline-block;
         width: 100px;
@@ -50,9 +53,9 @@
     border: 1px solid $gray2;
     border-radius: 0 14px 14px 14px;
     color: $black1;
-    font-size: 12px;
+    // font-size: 12px;
     font-weight: 500;
-
+    height: 182px;
     overflow-y: hidden;
     overflow-x: scroll;
   }
