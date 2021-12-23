@@ -22,10 +22,7 @@ const sendPostRequest = async (url, data) => {
     return false;
   }
   const token = 'Bearer ' + accessToken;
-  data = {
-    ...data,
-    token: token,
-  };
+
   const res = await axios.post(url, data, {
     headers: {
       'Content-Type': 'application/json',

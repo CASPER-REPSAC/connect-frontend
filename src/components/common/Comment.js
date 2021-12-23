@@ -39,7 +39,6 @@ const Comment = ({ activityId, chapterId, comments }) => {
   // {comment, activityid, chapterid, createtime, writer(accessToken)};
 
   const { user } = useSelector((state) => ({ user: state.auth.user }));
-  const { pk } = user;
 
   const [commentInput, setCommentInput] = useState({
     comment: '',
@@ -49,8 +48,8 @@ const Comment = ({ activityId, chapterId, comments }) => {
   });
 
   useEffect(() => {
-    setCommentInput({ ...commentInput, writer: pk });
-  }, []);
+    setCommentInput({ ...commentInput, writer: user.pk });
+  }, [user]);
 
   const inputHandler = ({ target }) => {
     setCommentInput({ ...commentInput, comment: target.value });
