@@ -5,8 +5,9 @@ import {
   updateChapter,
   uploadChapterFiles,
 } from '../../modules/api';
-import { WriteChapterResponse } from './WriteResponse';
+import { UpdateResponse } from './WriteResponse';
 import { getListData } from '../../modules/api';
+import { NoCards } from '../common/NoCards';
 
 const UpdateChapter = ({ match }) => {
   const [chapterData, setChapterData] = useState();
@@ -28,6 +29,7 @@ const UpdateChapter = ({ match }) => {
     activityid: match.params.id,
     files: [],
     file_delete: [],
+    current_files: [],
   });
   const [targetFiles, setTargetFiles] = useState();
 
@@ -38,6 +40,7 @@ const UpdateChapter = ({ match }) => {
         subject: chapterData[0].subject,
         article: chapterData[0].article,
         activityid: chapterData[0].activityid,
+        current_files: chapterData[1],
       });
     }
   }, [chapterData]);
@@ -73,6 +76,20 @@ const UpdateChapter = ({ match }) => {
     setTargetFiles(target.files);
   };
 
+  const onFileDelete = (filepath) => {
+    setChapterInput({
+      ...chapterInput,
+      file_delete: [...chapterInput.file_delete, filepath],
+    });
+  };
+
+  const onFileUnDelete = (filepath) => {
+    setChapterInput({
+      ...chapterInput,
+      file_delete: chapterInput.file_delete.filter((file) => file !== filepath),
+    });
+  };
+
   const onSubmitChapter = async () => {
     const data = {
       subject: chapterInput.subject,
@@ -81,6 +98,7 @@ const UpdateChapter = ({ match }) => {
       file_delete: chapterInput.file_delete,
     };
     setSendCounter(sendCounter + 1);
+    console.log('updaeteadf', data);
     const res = await updateChapter(
       data,
       match.params.activityId,
@@ -94,7 +112,7 @@ const UpdateChapter = ({ match }) => {
       const fileUploadRes = await uploadChapterFiles(
         targetFiles,
         match.params.activityId,
-        res,
+        match.params.chapterId,
       );
 
       console.log('fileUploadRes', fileUploadRes);
@@ -108,6 +126,10 @@ const UpdateChapter = ({ match }) => {
       setFileRes(true);
     }
   };
+
+  if (!chapterData) {
+    return <NoCards msg="없는 페이지 입니다." />;
+  }
 
   return (
     <>
@@ -123,11 +145,15 @@ const UpdateChapter = ({ match }) => {
                 inputHandler={inputHandler}
                 onFileChange={onFileChange}
                 submitChapter={onSubmitChapter}
+                update
+                onFileDelete={onFileDelete}
+                onFileUnDelete={onFileUnDelete}
+                targetFiles={targetFiles}
               />
             </>
           )}
           {sendCounter > 0 && (
-            <WriteChapterResponse
+            <UpdateResponse
               res={writeRes}
               resID={resID}
               fileFail={fileFail}
@@ -135,6 +161,7 @@ const UpdateChapter = ({ match }) => {
               setSendCounter={setSendCounter}
               submitChapter={onSubmitChapter}
               activityId={chapterInput.activityid}
+              submitActivity={onSubmitChapter}
             />
           )}
         </>

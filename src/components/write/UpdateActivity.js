@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityForm } from './ActivityForm';
-import UpdateResponse from './WriteResponse';
+import { UpdateResponse } from './WriteResponse';
 import { updateActivity } from '../../modules/api';
 
 const UpdateActivity = ({ match, activityDetail, prevTags }) => {

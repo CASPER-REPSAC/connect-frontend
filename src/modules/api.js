@@ -168,7 +168,7 @@ async function submitChapter(data, activityId, setWriteRes) {
     ...data,
     token: token,
   };
-  const res = await axios.post(`/api/activities/${activityId}`, datas, {
+  const res = await axios.post(`/api/activities/${activityId}/`, datas, {
     headers: {
       'Content-Type': 'application/json',
       authorization: token,
@@ -206,7 +206,7 @@ async function updateChapter(data, activityId, setWriteRes, chapterId) {
     },
   );
 
-  if (res['status'] === 201) {
+  if (res['status'] === 201 || res['status'] === 200) {
     setWriteRes(true);
     console.log(res);
     return res['data']['chapterid'];
@@ -215,7 +215,7 @@ async function updateChapter(data, activityId, setWriteRes, chapterId) {
   }
 }
 
-async function deleteChapter(activityId, setWriteRes, chapterId) {
+async function deleteChapter(activityId, setDeleteRes, chapterId) {
   const accessToken = isAccessToken();
   if (!accessToken) {
     return false;
@@ -235,11 +235,11 @@ async function deleteChapter(activityId, setWriteRes, chapterId) {
     },
   );
 
-  if (res['status'] === 201 || res['status'] === 200) {
-    setWriteRes(true);
-    console.log(res);
+  console.log('delete chapter res', res);
+  if (res['status'] === 201 || res['status'] === 200 || res['status'] === 204) {
+    setDeleteRes(true);
   } else {
-    setWriteRes(false);
+    setDeleteRes(false);
   }
 }
 
@@ -329,6 +329,13 @@ const deleteActivity = async (setWriteRes, activityId) => {
     });
 };
 
+const submitComment = async (data) => {
+  const res = await axios.post(`/api/activities/write_comment/`, data);
+};
+const deleteComment = async (data) => {
+  const res = await axios.post(`/api/activities/delete_comment/`, data);
+};
+
 export {
   getActivityDetail,
   getTags,
@@ -345,4 +352,6 @@ export {
   deleteActivity,
   uploadChapterFile,
   uploadChapterFiles,
+  submitComment,
+  deleteComment,
 };

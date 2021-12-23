@@ -91,6 +91,7 @@ const WriteChapter = ({ match }) => {
                 inputHandler={inputHandler}
                 onFileChange={onFileChange}
                 submitChapter={onSubmitChapter}
+                targetFiles={targetFiles}
               />
             </>
           )}

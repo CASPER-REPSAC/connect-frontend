@@ -7,6 +7,10 @@ const ChapterForm = ({
   chapterInput,
   onFileChange,
   submitChapter,
+  update,
+  onFileDelete,
+  onFileUnDelete,
+  targetFiles,
 }) => {
   const { title, type } = activityDetail;
   console.log('ChapterForm - activityDetail', activityDetail);
@@ -39,15 +43,19 @@ const ChapterForm = ({
         value={chapterInput.article || ''}
       ></textarea>
       <br />
-      <label htmlFor="inputFile">
-        <h5>files</h5>
+      <label htmlFor="inputFile" className="d-flex">
+        <h5>Files</h5>
+        <small className="m-1 text-muted">
+          파일은 3개까지 업로드 할 수 있습니다.
+        </small>
       </label>
-      <br />
       <input
         type="file"
         name="files"
         onChange={(e) => onFileChange(e)}
         multiple
+        files={targetFiles}
+        style={{ display: 'block' }}
         // accept=".zip"
       />
       {console.log(chapterInput.files)}
@@ -61,7 +69,39 @@ const ChapterForm = ({
           ))}
         </>
       )}
-      <br />
+      {update && (
+        <>
+          <label htmlFor="inputFile" className="d-flex">
+            <h5>Existing Files</h5>
+            <small className="m-1 text-muted">
+              클릭해서 삭제할 파일을 지정할 수 있습니다.
+            </small>
+          </label>
+
+          <div
+            className="input-box d-flex justify-content-start"
+            onChange={(e) => onFileChange(e)}
+          >
+            {chapterInput.current_files.map((file, index) => (
+              <div
+                key={index}
+                style={{ marginLeft: '5px' }}
+                onClick={
+                  chapterInput.file_delete.includes(file.filepath)
+                    ? () => onFileUnDelete(file.filepath)
+                    : () => onFileDelete(file.filepath)
+                }
+              >
+                {chapterInput.file_delete.includes(file.filepath) ? (
+                  <del>{file.filename}</del>
+                ) : (
+                  <>{file.filename}</>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
       <br />
       <Button onClick={() => submitChapter()}>작성</Button>
       <br />

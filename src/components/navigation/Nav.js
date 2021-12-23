@@ -8,6 +8,7 @@ import Searchbar from '../common/Searchbar';
 import casLogo from '../../img/cas-40.png';
 import '../../styles/Nav.scss';
 import GoogleButton from '../auth/GoogleButton';
+import LogoutButton from '../auth/LogoutButton';
 
 import { useSelector } from 'react-redux';
 
@@ -36,10 +37,16 @@ const Nav = () => {
         </li>
       </DropdownMenu>
       <DropdownMenu menuName="WRITE" menuLink="/write"></DropdownMenu>
-      {!email && !pk && 'access_token' && (
+      {!email && !pk ? (
         <div className="justify-content-center align-items-center less-then-tablet-show ">
           <GoogleButton />
         </div>
+      ) : (
+        <>
+          <div className="justify-content-center align-items-center less-then-tablet-show ">
+            <LogoutButton />
+          </div>
+        </>
       )}
 
       <Searchbar />

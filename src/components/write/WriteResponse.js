@@ -97,7 +97,7 @@ export const UpdateResponse = ({
       </div>
       <div className="body">
         <div style={{ maxWidth: '400px', fontSize: '13px' }} className="text">
-          {res === false && (
+          {res !== true && (
             <>
               인터넷 연결이나 서버의 문제일 수 있습니다. <br />
               다시 작성페이지로 갈까요?
@@ -105,10 +105,18 @@ export const UpdateResponse = ({
           )}
         </div>
         <div className="button d-flex justify-content-center">
-          <Button background="gray" onClick={() => routeChange('/')}>
-            홈으로
-          </Button>
-          {res === false && (
+          <Button onClick={() => routeChange('/')}>홈으로</Button>
+          {res === true && (
+            <Button
+              style={{ marginLeft: '5px' }}
+              onClick={() => history.go(-1)}
+              background="MidnightBlue"
+            >
+              보러가기
+            </Button>
+          )}
+
+          {res !== true && (
             <>
               <Button
                 style={{ marginLeft: '5px' }}
@@ -229,8 +237,10 @@ export const DeleteResponse = ({ res, setSendCounter, submitActivity }) => {
           <Button background="gray" onClick={() => routeChange('/')}>
             홈으로
           </Button>
-          {res === false && (
+
+          {res !== true && (
             <>
+              {console.log(res)}
               <Button
                 style={{ marginLeft: '5px' }}
                 onClick={() => submitActivity()}
