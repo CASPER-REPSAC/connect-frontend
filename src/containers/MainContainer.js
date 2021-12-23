@@ -11,6 +11,7 @@ const MainContainer = ({
   WritePage,
   UserPage,
   TagPage,
+  SearchPage,
 }) => {
   return (
     <div className="main">
@@ -26,6 +27,10 @@ const MainContainer = ({
 
           <Route path={'/types'}>
             <Route exact component={ActivityPage} path={'/types/:type'} />
+          </Route>
+
+          <Route path={'/search'}>
+            <Route exact component={SearchPage} path={'/search/:keyword'} />
           </Route>
 
           <Route path={'/activities'}>

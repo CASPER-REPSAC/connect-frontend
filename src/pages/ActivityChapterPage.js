@@ -4,6 +4,7 @@ import { getListData, deleteChapter } from '../modules/api';
 import { NoCards } from '../components/common/NoCards';
 
 import Button from '../components/common/Button';
+import Comment from '../components/common/Comment';
 import { DeleteResponse, DeleteAsk } from '../components/write/WriteResponse';
 
 const ActivityChapterPage = ({ match, history }) => {
@@ -76,6 +77,11 @@ const ActivityChapterPage = ({ match, history }) => {
               챕터 수정
             </Button>
           </div>
+          <Comment
+            activityId={params.activityId}
+            chapterId={params.chapterId}
+            comments={chapterData[2]}
+          />
         </>
       ) : (
         <NoCards msg="없는 페이지 입니다." />

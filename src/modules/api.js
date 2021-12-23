@@ -330,10 +330,56 @@ const deleteActivity = async (setWriteRes, activityId) => {
 };
 
 const submitComment = async (data) => {
-  const res = await axios.post(`/api/activities/write_comment/`, data);
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
+  data = { ...data, createtime: '2021-12-23 05:11:04' };
+  const res = await axios.post(`/api/activities/write_comment/`, data, {
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: token,
+    },
+  });
+  // data = {comment, activityid, chapterid, createtime, writer(accessToken)};
+  console.log(res);
 };
-const deleteComment = async (data) => {
-  const res = await axios.post(`/api/activities/delete_comment/`, data);
+
+const deleteComment = async (commentpk) => {
+  const accessToken = isAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+  const token = 'Bearer ' + accessToken;
+  const data = { authorization: token };
+
+  const res = await axios.post(
+    `/api/activities/delete_comment/${commentpk}/`,
+    data,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token,
+      },
+    },
+  );
+  console.log(res);
+};
+
+const getSearchResult = async (keyword, search_type, setState, page_number) => {
+  const data = {
+    keyword: keyword,
+    search_type: '',
+    page_number: page_number,
+  };
+  const res = await axios.get(`/api/search/`, {
+    params: data,
+  });
+  if (res.status === 200) {
+    setState(res.data);
+  }
+  console.log(res);
 };
 
 export {
@@ -354,4 +400,5 @@ export {
   uploadChapterFiles,
   submitComment,
   deleteComment,
+  getSearchResult,
 };

@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WritePage from './pages/WritePage';
 import ActivityPage from './pages/ActivityPage';
+import SearchPage from './pages/SearchPage';
 import MainPage from './pages/MainPage';
 import TagPage from './pages/TagPage';
 import UserPage from './pages/UserPage';
@@ -81,6 +82,7 @@ function App() {
             MainPage={MainPage}
             TagPage={TagPage}
             UserPage={UserPage}
+            SearchPage={SearchPage}
           />
         </div>
       </div>
