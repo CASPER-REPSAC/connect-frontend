@@ -1,5 +1,6 @@
 import React from 'react';
 import CardListItem from './CardListItem';
+import ChapterCardItem from './ChapterCardItem';
 import '../../styles/CardList.scss';
 import { NoCards } from '../common/NoCards';
 
@@ -14,9 +15,17 @@ const CardList = ({ cards, nowrap }) => {
         <>
           {console.log(cards)}
           <div className={`card-list ${wrapState}`}>
-            {cards.map((card) => (
-              <CardListItem key={card.id} card={card} />
-            ))}
+            {cards.map((card) => {
+              const isChapter = Object.keys(card).includes('chapterid');
+              if (isChapter) {
+                return (
+                  <>
+                    <ChapterCardItem card={card} />
+                  </>
+                );
+              }
+              return <CardListItem key={card.id} card={card} />;
+            })}
           </div>
         </>
       ) : (

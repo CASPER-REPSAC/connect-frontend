@@ -15,7 +15,8 @@ const UpdateActivityContainer = ({ match }) => {
 
   useEffect(() => {
     if (activityDetail) {
-      setTags([...activityDetail.tags.map((tag) => tag.tag_name)]);
+      const set = new Set([...activityDetail.tags.map((tag) => tag.tag_name)]);
+      setTags([...set]);
     }
   }, [activityDetail]);
 

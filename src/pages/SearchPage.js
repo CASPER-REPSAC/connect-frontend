@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getSearchResult } from '../modules/api';
 import { NoCards } from '../components/common/NoCards';
-import CardListItem from '../components/card/CardListItem';
-import ChapterCardItem from '../components/card/ChapterCardItem';
+import CardList from '../components/card/CardList';
 import PagingButton from '../components/search/PagingButton';
 import SearchTypeInput from '../components/search/SearchTypeInput';
 
@@ -45,9 +44,7 @@ const SearchPage = ({ match }) => {
               <NoCards msg="검색결과가 없습니다." />
             </div>
           ) : (
-            searchResult.searched_objects.map((object, index) => {
-              return <CardListItem />;
-            })
+            <CardList cards={searchResult.searched_objects} />
           )}
           <PagingButton
             pageIndex={pageIndex}
