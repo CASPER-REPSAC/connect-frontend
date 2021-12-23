@@ -81,9 +81,9 @@ const CardListItem = ({ card, colors }) => {
               to={`/participants/${participant.user_id}`}
               className="participant"
               key={index}
-              title={participant.user_name}
+              title={participant.user_id}
             >
-              {participant.user_id}
+              {participant.user_name.substring(0, 1)}
             </Link>
           ))}
         </div>

@@ -196,7 +196,7 @@ async function updateChapter(data, activityId, setWriteRes, chapterId) {
     token: token,
   };
   const res = await axios.post(
-    `/api/activities/${activityId}/chapter/${chapterId}/update_chapter`,
+    `/api/activities/${activityId}/chapter/${chapterId}/update_chapter/`,
     datas,
     {
       headers: {

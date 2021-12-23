@@ -3,7 +3,12 @@ import Button from '../common/Button';
 import { useHistory } from 'react-router-dom';
 import { NoCards } from '../common/NoCards';
 
-const WriteResponse = ({ res, resID, setSendCounter, submitActivity }) => {
+export const WriteResponse = ({
+  res,
+  resID,
+  setSendCounter,
+  submitActivity,
+}) => {
   const history = useHistory();
   const routeChange = (path) => {
     history.push(path);
@@ -69,7 +74,64 @@ const WriteResponse = ({ res, resID, setSendCounter, submitActivity }) => {
   );
 };
 
-const WriteChapterResponse = ({
+export const UpdateResponse = ({
+  res,
+  resID,
+  setSendCounter,
+  submitActivity,
+}) => {
+  const history = useHistory();
+  const routeChange = (path) => {
+    history.push(path);
+  };
+  return (
+    <div className="writeResponse">
+      <div className="title">
+        <NoCards
+          msg={
+            res === true
+              ? '성공적으로 수정 되었습니다'
+              : '수정에 실패하였습니다.'
+          }
+        />
+      </div>
+      <div className="body">
+        <div style={{ maxWidth: '400px', fontSize: '13px' }} className="text">
+          {res === false && (
+            <>
+              인터넷 연결이나 서버의 문제일 수 있습니다. <br />
+              다시 작성페이지로 갈까요?
+            </>
+          )}
+        </div>
+        <div className="button d-flex justify-content-center">
+          <Button background="gray" onClick={() => routeChange('/')}>
+            홈으로
+          </Button>
+          {res === false && (
+            <>
+              <Button
+                style={{ marginLeft: '5px' }}
+                onClick={() => submitActivity()}
+                background="MidnightBlue"
+              >
+                재요청
+              </Button>
+              <Button
+                style={{ marginLeft: '5px' }}
+                onClick={() => setSendCounter(0)}
+              >
+                돌아가기
+              </Button>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const WriteChapterResponse = ({
   res,
   fileRes,
   fileFail,
@@ -215,4 +277,3 @@ export const DeleteAsk = ({ setDeleteAsk, onDeleteActivity }) => {
 };
 
 export default WriteResponse;
-export { WriteChapterResponse };

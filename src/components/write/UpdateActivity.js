@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityForm } from './ActivityForm';
-import WriteResponse from './WriteResponse';
+import UpdateResponse from './WriteResponse';
 import { updateActivity } from '../../modules/api';
 
 const UpdateActivity = ({ match, activityDetail, prevTags }) => {
@@ -61,7 +61,7 @@ const UpdateActivity = ({ match, activityDetail, prevTags }) => {
           </>
         )}
         {sendCounter > 0 && (
-          <WriteResponse
+          <UpdateResponse
             res={writeRes}
             resID={resID}
             setSendCounter={setSendCounter}

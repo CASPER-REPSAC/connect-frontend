@@ -5,7 +5,7 @@ import { getListData } from '../modules/api';
 import Button from '../components/common/Button';
 
 const ActivityChapterPage = ({ match, history }) => {
-  console.log('ActivityChapterPage match', match);
+  // console.log('ActivityChapterPage match', match);
   const { params } = match;
   const [chapterData, setChapterData] = useState();
 

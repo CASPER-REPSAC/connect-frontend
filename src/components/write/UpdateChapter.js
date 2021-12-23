@@ -6,16 +6,41 @@ import {
   uploadChapterFiles,
 } from '../../modules/api';
 import { WriteChapterResponse } from './WriteResponse';
+import { getListData } from '../../modules/api';
 
 const UpdateChapter = ({ match }) => {
+  const [chapterData, setChapterData] = useState();
+  const { params } = match;
+
+  useEffect(() => {
+    getListData(
+      `/api/activities/${params.activityId}/chapter/${params.chapterId}/`,
+      setChapterData,
+    );
+  }, [match]);
+
+  console.log('chapterData', chapterData);
+
   const [activityDetail, setActivityDetail] = useState();
   const [chapterInput, setChapterInput] = useState({
     subject: '',
     article: '',
     activityid: match.params.id,
     files: [],
+    file_delete: [],
   });
   const [targetFiles, setTargetFiles] = useState();
+
+  useEffect(() => {
+    if (chapterData) {
+      setChapterInput({
+        ...chapterInput,
+        subject: chapterData[0].subject,
+        article: chapterData[0].article,
+        activityid: chapterData[0].activityid,
+      });
+    }
+  }, [chapterData]);
 
   // states for write response
   const [writeRes, setWriteRes] = useState(false);
@@ -53,6 +78,7 @@ const UpdateChapter = ({ match }) => {
       subject: chapterInput.subject,
       article: chapterInput.article,
       activityid: chapterInput.activityid,
+      file_delete: chapterInput.file_delete,
     };
     setSendCounter(sendCounter + 1);
     const res = await updateChapter(
