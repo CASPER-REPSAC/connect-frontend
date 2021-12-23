@@ -20,45 +20,55 @@ const SelectorItem = ({ selectorName, selected, setSelected }) => {
   );
 };
 
-const RecentBox = ({ firstSectionCards, secondSectionCards }) => {
+const RecentBox = ({ firstSectionCards, secondSectionCards, noTap, title }) => {
   const menus = ['내가 가입한 글', '최신글'];
   const [selected, setSelected] = useState(menus[0]);
 
   return (
     <div className="recent-box">
-      <div className="selector-box">
-        <div className="selector">
-          {menus.map((v, index) => (
-            <SelectorItem
-              key={index}
-              selectorName={v}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          ))}
-        </div>
-        <div className="tip">
+      {!noTap ? (
+        <div className="selector-box">
+          <div className="selector">
+            {menus.map((v, index) => (
+              <SelectorItem
+                key={index}
+                selectorName={v}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            ))}
+          </div>
+          {/* <div className="tip">
           tip - shift+wheel scroll으로 가로 스크롤 할 수 있습니다.
+        </div> */}
         </div>
-      </div>
+      ) : (
+        <div className="notap-box">{title}</div>
+      )}
       <div className="content horizontal-scroll">
         {console.log(selected)}
-        {selected === '내가 가입한 글' ? (
+        {!noTap ? (
           <>
-            {firstSectionCards ? (
-              <CardList cards={firstSectionCards} nowrap />
+            {selected === menus[0] ? (
+              <>
+                {firstSectionCards ? (
+                  <CardList cards={firstSectionCards} />
+                ) : (
+                  <NoCards />
+                )}
+              </>
             ) : (
-              <NoCards />
+              <>
+                {secondSectionCards ? (
+                  <CardList cards={secondSectionCards} />
+                ) : (
+                  <NoCards />
+                )}
+              </>
             )}
           </>
         ) : (
-          <>
-            {secondSectionCards ? (
-              <CardList cards={secondSectionCards} nowrap />
-            ) : (
-              <NoCards />
-            )}
-          </>
+          <CardList cards={firstSectionCards} />
         )}
       </div>
     </div>

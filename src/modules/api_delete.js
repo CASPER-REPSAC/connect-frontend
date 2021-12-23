@@ -100,9 +100,8 @@ const deleteActiParticipants = async (activity_id, user_id, setWriteRes) => {
     activity_id: activity_id,
     user_id: user_id,
   };
-
   await axios
-    .delete(`/api/w00/actiparticipants/ `, data, {
+    .delete(`/api/activities/${activity_id}/member/`, data, {
       headers: {
         'Content-Type': 'application/json',
         authorization: token,

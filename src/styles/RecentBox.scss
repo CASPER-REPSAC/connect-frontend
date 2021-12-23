@@ -3,7 +3,15 @@
 .recent-box {
   width: 100%;
   max-width: 100%;
-
+  margin-bottom: 20px;
+  .notap-box {
+    border-radius: 10px 10px 0 0;
+    background: $black1;
+    color: white;
+    width: fit-content;
+    padding: 1px 10px;
+    font-weight: 600;
+  }
   .selector-box {
     display: flex;
     align-items: center;
@@ -56,7 +64,8 @@
     // font-size: 12px;
     font-weight: 500;
     height: 182px;
-    overflow-y: hidden;
-    overflow-x: scroll;
+    max-height: 182px;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 }

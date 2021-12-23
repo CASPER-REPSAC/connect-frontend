@@ -34,23 +34,20 @@ const MainPage = () => {
             />
           )}
 
-          <br />
-          <h3>Currently Running</h3>
-          <CardList
-            n={true}
-            cards={cards.filter((card) => card.currentState === 1)}
+          <RecentBox
+            noTap
+            title="Currently Running"
+            firstSectionCards={cards.filter((card) => card.currentState === 1)}
           />
-          <br />
-          <h3>Planned</h3>
-          <CardList
-            n={true}
-            cards={cards.filter((card) => card.currentState === 0)}
+          <RecentBox
+            noTap
+            title="Planned"
+            firstSectionCards={cards.filter((card) => card.currentState === 0)}
           />
-          <br />
-          <h3>Ended</h3>
-          <CardList
-            n={true}
-            cards={cards.filter((card) => card.currentState === 2)}
+          <RecentBox
+            noTap
+            title="Ended"
+            firstSectionCards={cards.filter((card) => card.currentState === 2)}
           />
         </>
       ) : (

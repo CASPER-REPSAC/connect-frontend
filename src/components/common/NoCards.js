@@ -5,7 +5,7 @@ const NoCards = ({ msg }) => {
   return (
     <div className="d-flex align-items-center">
       <img src={casGray} alt="cas logo" />
-      <small className="m-1 text-muted">
+      <small className="m-1 text-muted" style={{ fontSize: '12px' }}>
         {msg || (
           <>
             현재 보여줄 수 있는 카드가 없네요.. <br /> 인터넷 연결이나 서버의
