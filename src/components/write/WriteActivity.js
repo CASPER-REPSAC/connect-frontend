@@ -37,7 +37,7 @@ const WriteActivity = () => {
   }
 
   return (
-    <div>
+    <>
       {/* {console.log(tags)} */}
       {sendCounter === 0 && (
         <>
@@ -62,7 +62,7 @@ const WriteActivity = () => {
           submitActivity={onSubmitActivity}
         />
       )}
-    </div>
+    </>
   );
 };
 

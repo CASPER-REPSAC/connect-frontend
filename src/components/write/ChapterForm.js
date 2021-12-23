@@ -16,7 +16,7 @@ const ChapterForm = ({
   console.log('ChapterForm - activityDetail', activityDetail);
 
   return (
-    <div className="chapter-form">
+    <div className="chapter-form" style={{ maxWidth: '700px' }}>
       {console.log('chapterfore')}
 
       <label htmlFor="subject" className="no-margin">

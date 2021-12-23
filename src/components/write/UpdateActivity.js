@@ -11,7 +11,7 @@ const UpdateActivity = ({ match, activityDetail, prevTags }) => {
   const [inputs, setInputs] = useState({
     title: activityDetail.title,
     type: activityDetail.type,
-    author: 'casper',
+    // author: 'casper',
     createDate: activityDetail.createDate,
     description: activityDetail.description,
     startDate: activityDetail.startDate,
@@ -42,7 +42,7 @@ const UpdateActivity = ({ match, activityDetail, prevTags }) => {
   }
 
   return (
-    <div>
+    <>
       {/* {console.log(tags)} */}
       <>
         {inputs && sendCounter === 0 && (
@@ -69,7 +69,7 @@ const UpdateActivity = ({ match, activityDetail, prevTags }) => {
           />
         )}
       </>
-    </div>
+    </>
   );
 };
 

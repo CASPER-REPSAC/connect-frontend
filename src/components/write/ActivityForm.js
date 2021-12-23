@@ -17,7 +17,7 @@ const ActivityForm = ({
     setInputs({ ...inputs, [e.target.id]: e.target.value });
   };
   return (
-    <div className="activity-form" style={{ maxWidth: '500px' }}>
+    <div className="activity-form" style={{ maxWidth: '700px' }}>
       <label htmlFor="title" className="no-margin">
         <h5>Title</h5>
       </label>

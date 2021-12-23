@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import RecentBox from '../components/common/RecentBox';
 import CardList from '../components/card/CardList';
-import { getListData } from '../modules/api';
+import { getActivityList } from '../modules/api';
 
 import { NoCards } from '../components/common/NoCards';
 
@@ -11,7 +11,7 @@ import { NoCards } from '../components/common/NoCards';
 const MainPage = () => {
   const [cards, setCards] = useState();
   useEffect(() => {
-    getListData('/api/activities/', setCards);
+    getActivityList(setCards);
   }, []);
 
   return (
