@@ -2,23 +2,37 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import RecentBox from '../components/common/RecentBox';
 import CardList from '../components/card/CardList';
-import { getActivityList } from '../modules/api';
-
+import { getActivityList, getUserActivityList } from '../modules/api';
+import { useSelector } from 'react-redux';
 import { NoCards } from '../components/common/NoCards';
 
 // import '../styles/MainPage.scss';
 
 const MainPage = () => {
+  const { user } = useSelector((state) => ({ user: state.auth.user }));
+
   const [cards, setCards] = useState();
+  const [userActiCards, setUserActiCards] = useState();
   useEffect(() => {
     getActivityList(setCards);
   }, []);
+
+  useEffect(() => {
+    if (user.pk) {
+      getUserActivityList(user.pk, setUserActiCards);
+    }
+  }, [user]);
 
   return (
     <div className="main-page">
       {cards && cards[0] ? (
         <>
-          <RecentBox cards={cards} />
+          {userActiCards && (
+            <RecentBox
+              firstSectionCards={userActiCards}
+              secondSectionCards={cards}
+            />
+          )}
 
           <br />
           <h3>Currently Running</h3>

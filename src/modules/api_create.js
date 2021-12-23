@@ -15,6 +15,17 @@ const isAccessToken = () => {
   }
 };
 
+const submitActiParticipants = async (activity_id, user_id) => {
+  const data = {
+    activity_id: activity_id,
+    user_id: user_id,
+  };
+  const res = await sendPostRequest(`/api/w00/actiparticipants/ `, data);
+
+  // data = {comment, activityid, chapterid, createtime, writer(accessToken)};
+  console.log(res);
+};
+
 // url, data => res
 const sendPostRequest = async (url, data) => {
   const accessToken = isAccessToken();
@@ -104,21 +115,7 @@ async function uploadChapterFile(activityId, chapterId, fileName, formData) {
 }
 
 async function submitChapter(data, activityId, setWriteRes) {
-  const accessToken = isAccessToken();
-  if (!accessToken) {
-    return false;
-  }
-  const token = 'Bearer ' + accessToken;
-  const datas = {
-    ...data,
-    token: token,
-  };
-  const res = await axios.post(`/api/activities/${activityId}/`, datas, {
-    headers: {
-      'Content-Type': 'application/json',
-      authorization: token,
-    },
-  });
+  const res = await sendPostRequest(`/api/activities/${activityId}/`, data);
 
   if (res['status'] === 201) {
     setWriteRes(true);
@@ -130,68 +127,19 @@ async function submitChapter(data, activityId, setWriteRes) {
 }
 
 const submitActivity = async (data, setWriteRes, setResID) => {
-  const accessToken = isAccessToken();
-  if (!accessToken) {
-    return false;
-  }
-  const token = 'Bearer ' + accessToken;
-  const datas = {
-    ...data,
-    token: token,
-  };
+  const res = await sendPostRequest('/api/activities/', data);
 
-  await axios
-    .post('/api/activities/', datas, {
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: token,
-      },
-    })
-    .then((response) => {
-      console.log(response);
-      if (response['status'] === 201) {
-        setWriteRes(true);
-        setResID(response['data']['id']);
-      }
-    })
-    .catch((error) => {
-      console.log('err', error);
-    });
+  if (res['status'] === 201) {
+    setWriteRes(true);
+    setResID(res['data']['id']);
+  } else {
+    setWriteRes(false);
+  }
 };
 
 const submitComment = async (data) => {
-  const accessToken = isAccessToken();
-  if (!accessToken) {
-    return false;
-  }
-  const token = 'Bearer ' + accessToken;
   data = { ...data, createtime: '2021-12-23 05:11:04' };
-  const res = await axios.post(`/api/activities/write_comment/`, data, {
-    headers: {
-      'Content-Type': 'application/json',
-      authorization: token,
-    },
-  });
-  // data = {comment, activityid, chapterid, createtime, writer(accessToken)};
-  console.log(res);
-};
-
-const submitActiParticipants = async (activity_id, user_id) => {
-  const accessToken = isAccessToken();
-  if (!accessToken) {
-    return false;
-  }
-  const token = 'Bearer ' + accessToken;
-  const data = {
-    activity_id: activity_id,
-    user_id: user_id,
-  };
-  const res = await axios.post(`/api/activities/write_comment/`, data, {
-    headers: {
-      'Content-Type': 'application/json',
-      authorization: token,
-    },
-  });
+  const res = await sendPostRequest(`/api/activities/write_comment/`, data);
   // data = {comment, activityid, chapterid, createtime, writer(accessToken)};
   console.log(res);
 };

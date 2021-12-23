@@ -111,6 +111,14 @@ const getSearchResult = async (keyword, search_type, setState, page_number) => {
   console.log(res);
 };
 
+const getUserActivityList = async (userId, setState) => {
+  const res = await axios.get(`/api/w00/users/${userId}/`);
+  if (res.status === 200 || res.status === 201 || res.status === 204) {
+    setState(res.data);
+  }
+  console.log(res);
+};
+
 export {
   getActivityDetail,
   getTags,
@@ -121,4 +129,5 @@ export {
   getDataByURL,
   getCardsByTag,
   getSearchResult,
+  getUserActivityList,
 };

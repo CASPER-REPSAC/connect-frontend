@@ -20,22 +20,9 @@ const SelectorItem = ({ selectorName, selected, setSelected }) => {
   );
 };
 
-const RecentBox = ({ cards }) => {
-  const menus = ['내가 쓴 글', '최신글'];
+const RecentBox = ({ firstSectionCards, secondSectionCards }) => {
+  const menus = ['내가 가입한 글', '최신글'];
   const [selected, setSelected] = useState(menus[0]);
-
-  console.log(
-    'RecentBox',
-    cards.sort(function (a, b) {
-      if (new Date(a.createDate) > new Date(b.createDate)) {
-        return -1;
-      } else if (new Date(a.createDate) < new Date(b.createDate)) {
-        return 1;
-      } else {
-        return 0;
-      }
-    }),
-  );
 
   return (
     <div className="recent-box">
@@ -56,7 +43,23 @@ const RecentBox = ({ cards }) => {
       </div>
       <div className="content horizontal-scroll">
         {console.log(selected)}
-        {cards ? <CardList cards={cards} nowrap /> : <NoCards />}
+        {selected === '내가 가입한 글' ? (
+          <>
+            {firstSectionCards ? (
+              <CardList cards={firstSectionCards} nowrap />
+            ) : (
+              <NoCards />
+            )}
+          </>
+        ) : (
+          <>
+            {secondSectionCards ? (
+              <CardList cards={secondSectionCards} nowrap />
+            ) : (
+              <NoCards />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

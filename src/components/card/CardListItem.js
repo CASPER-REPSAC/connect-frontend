@@ -36,7 +36,7 @@ const CardListItem = ({ card, colors }) => {
     <div className="card-item-block">
       <div className="top-section">
         <div className="article-block">
-          <Link to={`/users/${author}`}>
+          <Link to={`/users/${author || 'test@test.com'}`}>
             <div
               className="auth-icon"
               style={{
@@ -58,19 +58,22 @@ const CardListItem = ({ card, colors }) => {
                 </div>
               </Link>
               <div className="typeAuth">
-                <Link to={`/types/${type}`}>
+                <Link to={`/types/${type || 'CTF'}`}>
                   <div>{type}</div>
                 </Link>
-                <Link to={`/users/${author}`}>
-                  <div title={author} className="author">
-                    {author}
+                <Link to={`/users/${author || 'test@test.com'}`}>
+                  <div title={author || 'test@test.com'} className="author">
+                    {author || 'test@test.com'}
                   </div>
                 </Link>
               </div>
             </div>
             <Link to={url}>
-              <div className="introduce dragable" title={description}>
-                {description}
+              <div
+                className="introduce dragable"
+                title={description || 'no description'}
+              >
+                {description || 'no description'}
               </div>
             </Link>
           </div>

@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActivityForm } from './ActivityForm';
 import WriteResponse from './WriteResponse';
-import { submitActivity } from '../../modules/api';
+import { submitActivity, submitActiParticipants } from '../../modules/api';
+import { useSelector } from 'react-redux';
 
 const WriteActivity = () => {
   // states for write form
   const date = new Date().toISOString().substr(0, 10);
+  const { user } = useSelector((state) => ({ user: state.auth.user }));
+  const { pk } = user;
 
   const [inputs, setInputs] = useState({
     title: '',
     type: 'CTF',
-    author: 'casper',
+    author: '',
     createDate: date,
     description: '',
     startDate: date,
@@ -19,6 +22,10 @@ const WriteActivity = () => {
   });
   const [tags, setTags] = useState(['casper']);
   const [participants, setParticipants] = useState([]);
+
+  useEffect(() => {
+    setInputs({ ...inputs, author: pk });
+  }, [user]);
 
   // states for write response
   const [writeRes, setWriteRes] = useState(false);
@@ -35,6 +42,11 @@ const WriteActivity = () => {
     setSendCounter(sendCounter + 1);
     console.log('write data', data);
   }
+  useEffect(() => {
+    if (resID) {
+      submitActiParticipants(resID, pk);
+    }
+  }, [resID]);
 
   return (
     <>
