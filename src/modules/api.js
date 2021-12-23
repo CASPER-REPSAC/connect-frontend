@@ -17,6 +17,7 @@ import {
   getCardsByTag,
   getSearchResult,
   getUserActivityList,
+  getUserContainedList,
 } from './api_read';
 import { updateChapter, updateActivity } from './api_update';
 import {
@@ -46,6 +47,7 @@ export {
   getCardsByTag,
   getSearchResult,
   getUserActivityList,
+  getUserContainedList,
   updateChapter,
   updateActivity,
   deleteChapter,

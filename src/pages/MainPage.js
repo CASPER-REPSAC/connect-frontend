@@ -37,15 +37,18 @@ const MainPage = () => {
           <RecentBox
             noTap
             title="Currently Running"
+            titleColor="#c6b300"
             firstSectionCards={cards.filter((card) => card.currentState === 1)}
           />
           <RecentBox
             noTap
             title="Planned"
+            titleColor="#0a7fad"
             firstSectionCards={cards.filter((card) => card.currentState === 0)}
           />
           <RecentBox
             noTap
+            titleColor="#56656b"
             title="Ended"
             firstSectionCards={cards.filter((card) => card.currentState === 2)}
           />

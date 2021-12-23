@@ -11,7 +11,18 @@
   width: 70px;
   margin: 15% 0 30px 15%;
 }
-
+.sidebar-todos {
+  @include box-shadow(8px);
+  box-shadow: none;
+  border: 1px solid $gray2;
+  padding: $mini-card-padding;
+  .title {
+    font-size: 13px;
+  }
+  .font-700 {
+    font-weight: 700;
+  }
+}
 .sidebar-todo-item {
   @include box-shadow(8px);
   box-shadow: none;

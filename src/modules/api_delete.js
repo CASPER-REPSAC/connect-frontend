@@ -76,7 +76,7 @@ const deleteComment = async (commentpk) => {
   }
   const token = 'Bearer ' + accessToken;
   const data = { authorization: token };
-
+  console.log('deleteComment');
   const res = await axios.post(
     `/api/activities/delete_comment/${commentpk}/`,
     data,

@@ -1,12 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function SidebarTodoItem({ to, title, subTitle }) {
+function SidebarTodoItem({ activity }) {
+  const { title, description, activityid, type } = activity;
   return (
-    <div className="sidebar-todo-item">
-      <input type="checkbox" name="" id="" className="checkbox dragable" />
+    <Link
+      to={`/activities/${activityid}`}
+      className="sidebar-todo-item"
+      title={description}
+    >
       <div className="title">{title ? title : 'no title'}</div>
-      <div className="sub-title">{subTitle ? subTitle : 'no subTitle'}</div>
-    </div>
+      <div className="sub-title">{type ? type : 'no type'}</div>
+    </Link>
   );
 }
 

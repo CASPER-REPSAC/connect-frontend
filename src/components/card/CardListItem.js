@@ -91,20 +91,23 @@ const CardListItem = ({ card, colors }) => {
           ))}
         </div>
       </div>
-      <div className="tags">
-        {tags.map((tag, index) => {
-          let c = { tagColor: tagColors[tag] };
-          if (index < 4) {
-            return (
-              <Tag
-                {...c}
-                key={index}
-                tagId={tag.tag_id}
-                tagName={tag.tag_name}
-              />
-            );
-          }
-        })}
+      <div className="d-flex justify-content-between align-items-end">
+        <div className="tags">
+          {tags.map((tag, index) => {
+            let c = { tagColor: tagColors[tag] };
+            if (index < 4) {
+              return (
+                <Tag
+                  {...c}
+                  key={index}
+                  tagId={tag.tag_id}
+                  tagName={tag.tag_name}
+                />
+              );
+            }
+          })}
+        </div>
+        <div className="card-type">activity</div>
       </div>
     </div>
   );

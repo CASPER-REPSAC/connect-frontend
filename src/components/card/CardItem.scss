@@ -19,10 +19,13 @@ $unActiveButtonText: #afafb4;
   justify-content: space-between;
   height: 10rem;
   width: fit-content;
-  min-width: 20rem;
-  max-width: 25rem;
+  min-width: 16rem;
+  max-width: 23rem;
   box-shadow: 0px 10px 10px 6px $shadow;
   margin-right: 10px;
+  .card-type {
+    font-size: 11px;
+  }
 }
 
 .chapter-card-item-block {
@@ -42,6 +45,28 @@ $unActiveButtonText: #afafb4;
   box-shadow: 0px 10px 10px 6px $shadow;
   margin-right: 10px;
   margin-bottom: 10px;
+  .card-type {
+    font-size: 11px;
+  }
+  .title {
+    width: 8rem;
+    margin-top: 8px;
+    height: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .introduce {
+    font-size: 12px;
+    font-weight: normal;
+    height: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
 }
 
 .top-section {
@@ -56,8 +81,12 @@ $unActiveButtonText: #afafb4;
       font-size: 12px;
       font-weight: normal;
       height: 3rem;
+      max-height: 3rem;
+      width: fit-content;
+      max-width: 230px;
       overflow: hidden;
       text-overflow: ellipsis;
+      word-break: break-all;
       white-space: nowrap;
       cursor: pointer;
     }
@@ -85,9 +114,13 @@ $unActiveButtonText: #afafb4;
     background: white;
     display: flex;
     justify-content: space-between;
+    width: 100%;
     .title {
-      width: 8rem;
+      width: fit-content;
+      // min-width: 100px;
+      display: inline-block;
       margin-top: 8px;
+      margin-right: 13px;
       height: 1.2rem;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -109,6 +142,7 @@ $unActiveButtonText: #afafb4;
       .author {
         font-size: 8px;
         font-weight: normal;
+        text-overflow: ellipsis;
       }
     }
   }

@@ -13,7 +13,7 @@ const CommentList = ({ comments }) => {
           <div
             key={index}
             className="p-3"
-            style={{ borderTop: '1px solid gray' }}
+            style={{ borderTop: '1px solid lightgray' }}
           >
             <h6>{comment.user}</h6>
             <div className="d-flex justify-content-between ">

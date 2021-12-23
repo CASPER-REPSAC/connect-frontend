@@ -10,26 +10,22 @@ const ChapterCardItem = ({ card, colors }) => {
 
   return (
     <div className="chapter-card-item-block">
-      <div className="top-section">
-        <div className="article-block">
-          <div className="article">
-            <div className="article-header">
-              <Link to={url}>
-                <div title={subject || 'no subject'} className="title dragable">
-                  {subject || 'no subject'}
-                </div>
-              </Link>
+      <div>
+        <div className="article-header">
+          <Link to={url}>
+            <div title={subject || 'no subject'} className="title dragable">
+              {subject || 'no subject'}
             </div>
-            <Link to={url}>
-              <div
-                className="introduce dragable"
-                title={article || 'no article'}
-              >
-                {article || 'no article'}
-              </div>
-            </Link>
-          </div>
+          </Link>
         </div>
+        <Link to={url}>
+          <div className="introduce dragable" title={article || 'no article'}>
+            {article || 'no article'}
+          </div>
+        </Link>
+      </div>
+      <div className="d-flex justify-content-end">
+        <div className="card-type">chapter</div>
       </div>
     </div>
   );

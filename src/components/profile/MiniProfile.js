@@ -1,12 +1,10 @@
 import React from 'react';
 import '../../styles/Profile.scss';
-import { useSelector } from 'react-redux';
 
 import GoogleButton from '../auth/GoogleButton';
 import LogoutButton from '../auth/LogoutButton';
 
-function MiniProfile() {
-  const { user } = useSelector((state) => ({ user: state.auth.user }));
+function MiniProfile({ user }) {
   const { icon, first_name, last_name, email, pk } = user;
   return (
     <>
@@ -14,7 +12,7 @@ function MiniProfile() {
         <>
           <div className="conn-mini-profile">
             <div className="profile">
-              <div className="icon">{icon ? icon : 'no icon'}</div>
+              <div className="icon">{email ? email.substring(0, 1) : 'A'}</div>
               <div className="right">
                 <div className="name">
                   {last_name ? last_name : 'no name'}

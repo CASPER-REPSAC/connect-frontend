@@ -1,73 +1,58 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import './Tag.scss';
 
-/*
-  const StyledTag = styled.div`
-    font-size: 10px;
-    color: white;
-    display: inline-block;
-    padding: 0.1rem 0.6rem 0.2rem 0.6rem;
-    border-radius: 1rem;
+const tagColor = [
+  '#D49926',
+  '#dd5A2E',
+  '#9335E8',
+  '#072E36',
+  '#4D992C',
+  '#63283E',
+  '#634651',
+  '#B0466D',
+  '#1B6354',
+  '#962F0B',
+];
 
-    & + & {
-      margin-left: 0.3rem;
-    }
-
-    background: gray;
-
-    ${(props) => {
-      const { tagColor } = props;
-      return css`
-        background: ${tagColor};
-      `;
-    }}
-
-    ${(props) => {
-      const { currentState } = props;
-      switch (currentState) {
-        case 'running':
-          return css`
-            background: darkorange;
-          `;
-        case 'finished':
-          return css`
-            background: gray;
-          `;
-        default:
-          return 0;
-      }
-    }}
-  `;
-*/
-
-const BigTag = ({tagId, tagName}) => {
+const BigTag = ({ tagId, tagName }) => {
+  const colorIndex = tagId % tagColor.length;
   return (
     <>
-    <span>
-      <Link to={`/tags/${tagId}`} className="styled-tag big-tag">
-        {tagName}
-      </Link>
-    </span>
+      <span>
+        <Link
+          to={`/tags/${tagId}`}
+          className="styled-tag big-tag"
+          style={{ backgroundColor: tagColor[colorIndex] }}
+        >
+          {tagName}
+        </Link>
+      </span>
     </>
   );
-}
+};
 
 const Tag = ({ tagId, tagName }) => {
+  const colorIndex = tagId % tagColor.length;
   return (
     <span>
-      <Link to={`/tags/${tagId}`} className="styled-tag">
+      <Link
+        to={`/tags/${tagId}`}
+        className="styled-tag"
+        style={{ backgroundColor: tagColor[colorIndex] }}
+      >
         {tagName}
       </Link>
     </span>
   );
 };
 
-const NoLinkTag = ( { style, tagId, tagName }) => {
+const NoLinkTag = ({ style, tagId, tagName }) => {
+  const colorIndex = tagId % tagColor.length;
+  style = { ...style, backgroundColor: tagColor[colorIndex] };
   return (
     <span className="styled-tag" style={style}>
-        {tagName}
+      {tagName}
     </span>
   );
 };

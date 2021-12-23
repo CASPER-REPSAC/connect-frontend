@@ -105,14 +105,27 @@ const getSearchResult = async (keyword, search_type, setState, page_number) => {
   const res = await axios.get(`/api/search/`, {
     params: data,
   });
-  if (res.status === 200) {
+  if (res.status === 200 || res.status === 201 || res.status === 204) {
     setState(res.data);
   }
   console.log(res);
 };
 
 const getUserActivityList = async (userId, setState) => {
-  const res = await axios.get(`/api/w00/users/${userId}/`);
+  const res = await axios.get(`/api/user/${userId}/`);
+  if (res.status === 200 || res.status === 201 || res.status === 204) {
+    setState(res.data);
+  }
+  console.log(res);
+};
+
+const getUserContainedList = async (accessToken, setState) => {
+  const res = await axios.get(`/api/user/contained/`, {
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: 'Bearer ' + accessToken,
+    },
+  });
   if (res.status === 200 || res.status === 201 || res.status === 204) {
     setState(res.data);
   }
@@ -130,4 +143,5 @@ export {
   getCardsByTag,
   getSearchResult,
   getUserActivityList,
+  getUserContainedList,
 };

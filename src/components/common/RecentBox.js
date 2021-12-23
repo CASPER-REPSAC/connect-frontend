@@ -20,8 +20,14 @@ const SelectorItem = ({ selectorName, selected, setSelected }) => {
   );
 };
 
-const RecentBox = ({ firstSectionCards, secondSectionCards, noTap, title }) => {
-  const menus = ['내가 가입한 글', '최신글'];
+const RecentBox = ({
+  firstSectionCards,
+  secondSectionCards,
+  noTap,
+  title,
+  titleColor,
+}) => {
+  const menus = ['내가 쓴글', '최신글'];
   const [selected, setSelected] = useState(menus[0]);
 
   return (
@@ -43,7 +49,9 @@ const RecentBox = ({ firstSectionCards, secondSectionCards, noTap, title }) => {
         </div> */}
         </div>
       ) : (
-        <div className="notap-box">{title}</div>
+        <div className="notap-box" style={{ background: titleColor }}>
+          {title}
+        </div>
       )}
       <div className="content horizontal-scroll">
         {console.log(selected)}
