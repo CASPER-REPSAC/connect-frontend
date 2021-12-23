@@ -17,7 +17,7 @@ const SidebarTodos = ({ userContainedActivity }) => {
         userContainedActivity.length > 0 && (
           <>
             {userContainedActivity.map((activity, index) => (
-              <SidebarTodoItem activity={activity} />
+              <SidebarTodoItem key={index} activity={activity} />
             ))}
           </>
         )}

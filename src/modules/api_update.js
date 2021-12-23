@@ -46,8 +46,7 @@ async function updateChapter(data, activityId, setWriteRes, chapterId) {
   }
 }
 
-// /api/w00/activities/<액티비티id>/
-const updateActivity = async (data, setWriteRes, setResID, activityId) => {
+const updateActivity = async (data, setWriteRes, activityId) => {
   console.log('updateactivity', activityId);
   const accessToken = isAccessToken();
   if (!accessToken) {
@@ -69,9 +68,9 @@ const updateActivity = async (data, setWriteRes, setResID, activityId) => {
     .then((response) => {
       console.log(response);
       setWriteRes(true);
-      setResID(response['data']['id']);
     })
     .catch((error) => {
+      setWriteRes(false);
       console.log('err', error);
     });
 };

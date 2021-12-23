@@ -4,6 +4,7 @@ import './App.scss';
 // import Pages
 import ActivityDetailPage from './pages/ActivityDetailPage';
 import ActivityChapterPage from './pages/ActivityChapterPage';
+import ActivityManagePage from './pages/ActivityManagePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WritePage from './pages/WritePage';
@@ -75,6 +76,7 @@ function App() {
           <MainContainer
             ActivityDetailPage={ActivityDetailPage}
             ActivityChapterPage={ActivityChapterPage}
+            ActivityManagePage={ActivityManagePage}
             LoginPage={LoginPage}
             RegisterPage={RegisterPage}
             WritePage={WritePage}

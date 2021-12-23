@@ -9,9 +9,8 @@ const ActivityForm = ({
   setInputs,
   tags,
   setTags,
-  participants,
-  setParticipants,
   submitActivity,
+  manage,
 }) => {
   const onChangeHandler = (e) => {
     setInputs({ ...inputs, [e.target.id]: e.target.value });
@@ -76,10 +75,13 @@ const ActivityForm = ({
         name="tags"
         placeHolder="태그를 입력해주세요"
       />
-
-      <br />
-      <Button onClick={() => submitActivity()}>작성</Button>
-      <br />
+      {!manage && (
+        <>
+          <br />
+          <Button onClick={() => submitActivity()}>작성</Button>
+          <br />
+        </>
+      )}
     </div>
   );
 };
@@ -97,3 +99,4 @@ const ActivityForm = ({
 */
 
 export { ActivityForm };
+export default ActivityForm;

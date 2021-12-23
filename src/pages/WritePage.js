@@ -19,17 +19,18 @@ const WritePage = () => {
         <Switch>
           <Route exact component={WriteActivity} path={'/write'} />
 
-          <Route
+          {/* <Route
             exact
             component={UpdateActivityContainer}
             path={'/write/activities/:activityId/update'}
-          />
+          /> */}
 
           <Route
             exact
             component={WriteChapter}
             path={'/write/activities/:activityId'}
           />
+
           <Route
             exact
             component={UpdateChapter}

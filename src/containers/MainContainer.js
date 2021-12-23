@@ -6,6 +6,7 @@ const MainContainer = ({
   ActivityPage,
   ActivityDetailPage,
   ActivityChapterPage,
+  ActivityManagePage,
   LoginPage,
   RegisterPage,
   WritePage,
@@ -31,6 +32,14 @@ const MainContainer = ({
 
           <Route path={'/search'}>
             <Route exact component={SearchPage} path={'/search/:keyword'} />
+          </Route>
+
+          <Route path={'/manage'}>
+            <Route
+              exact
+              component={ActivityManagePage}
+              path={'/manage/:activityId'}
+            />
           </Route>
 
           <Route path={'/activities'}>

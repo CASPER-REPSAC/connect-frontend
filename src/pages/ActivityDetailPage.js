@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import ActivityDetail from '../components/detail/ActivityDetail';
 import {
   getActivityDetail,
-  deleteActivity,
   submitActiParticipants,
   deleteActiParticipants,
 } from '../modules/api';
@@ -20,9 +19,6 @@ const ActivityDetailPage = ({ match, history }) => {
 
   const [activityDetail, setActivityDetail] = useState();
   const [getActivityRes, setGetActivityRes] = useState();
-  const [deleteRes, setDeleteRes] = useState();
-  const [deleteAsk, setDeleteAsk] = useState(false);
-  const [sendCounter, setSendCounter] = useState(0);
   const [deleteActiParti, setDeleteActiParti] = useState();
 
   useEffect(() => {
@@ -33,37 +29,6 @@ const ActivityDetailPage = ({ match, history }) => {
     }
     getActi();
   }, [params]);
-
-  const onDeleteActivity = () => {
-    // deleteActivity = async (setWriteRes, activityId)
-    console.log(params.activityId);
-    setSendCounter(sendCounter + 1);
-    deleteActivity(setDeleteRes, params.activityId);
-  };
-
-  if (sendCounter !== 0) {
-    return (
-      <>
-        <DeleteResponse
-          res={deleteRes}
-          setSendCounter={setSendCounter}
-          submitActivity={onDeleteActivity}
-        />
-      </>
-    );
-  }
-
-  if (deleteAsk === true) {
-    // setDeleteAsk, onDeleteActivity
-    return (
-      <>
-        <DeleteAsk
-          setDeleteAsk={setDeleteAsk}
-          onDeleteActivity={onDeleteActivity}
-        />
-      </>
-    );
-  }
 
   return (
     <>
@@ -84,18 +49,9 @@ const ActivityDetailPage = ({ match, history }) => {
               <Button
                 width="content-fit"
                 background="#8B0000"
-                onClick={() => setDeleteAsk(true)}
+                onClick={() => history.push(`/manage/${params.activityId}`)}
               >
-                액티비티 삭제
-              </Button>
-              <Button
-                width="content-fit"
-                style={{ marginLeft: '5px' }}
-                onClick={() => {
-                  history.push(`/write/activities/${params.activityId}/update`);
-                }}
-              >
-                액티비티 수정
+                관리
               </Button>
             </div>
             <div>
