@@ -9,8 +9,7 @@ import {
 import { NoCards } from '../components/common/NoCards';
 import { useSelector } from 'react-redux';
 
-import Button from '../components/common/Button';
-import { DeleteResponse, DeleteAsk } from '../components/write/WriteResponse';
+import { Button, ManageButton } from '../components/common/Button';
 
 const ActivityDetailPage = ({ match, history }) => {
   const { user } = useSelector((state) => ({ user: state.auth.user }));
@@ -35,7 +34,13 @@ const ActivityDetailPage = ({ match, history }) => {
       {getActivityRes === true && (
         <div className="d-flex flex-column justify-content-between h-100">
           {console.log(match)}
-          {activityDetail && <ActivityDetail activityDetail={activityDetail} />}
+
+          {activityDetail && (
+            <ActivityDetail
+              activityDetail={activityDetail}
+              ManageButton={ManageButton}
+            />
+          )}
           <div className="d-flex justify-content-between">
             <Button
               width="content-fit"
@@ -45,15 +50,7 @@ const ActivityDetailPage = ({ match, history }) => {
             >
               챕터 작성
             </Button>
-            <div>
-              <Button
-                width="content-fit"
-                background="#8B0000"
-                onClick={() => history.push(`/manage/${params.activityId}`)}
-              >
-                관리
-              </Button>
-            </div>
+
             <div>
               <Button
                 width="content-fit"

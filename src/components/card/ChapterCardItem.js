@@ -25,7 +25,7 @@ const ChapterCardItem = ({ card, colors }) => {
         </Link>
       </div>
       <div className="d-flex justify-content-end">
-        <div className="card-type">chapter</div>
+        <div className="card-type text-muted">chapter</div>
       </div>
     </div>
   );

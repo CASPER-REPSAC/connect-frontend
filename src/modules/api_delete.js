@@ -21,12 +21,9 @@ async function deleteChapter(activityId, setDeleteRes, chapterId) {
     return false;
   }
   const token = 'Bearer ' + accessToken;
-  const datas = {
-    token: token,
-  };
+
   const res = await axios.delete(
     `/api/activities/${activityId}/chapter/${chapterId}/`,
-    datas,
     {
       headers: {
         'Content-Type': 'application/json',
@@ -45,28 +42,25 @@ async function deleteChapter(activityId, setDeleteRes, chapterId) {
 
 // /api/w00/activities/<액티비티id>/
 const deleteActivity = async (setWriteRes, activityId) => {
+  console.log('deleteActivity');
   const accessToken = isAccessToken();
   if (!accessToken) {
     return false;
   }
   const token = 'Bearer ' + accessToken;
-  const datas = {
-    token: token,
-  };
 
-  await axios
-    .delete(`/api/w00/activities/${activityId}/`, datas, {
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: token,
-      },
-    })
-    .then((response) => {
-      setWriteRes(true);
-    })
-    .catch((error) => {
-      console.log('err', error);
-    });
+  const res = await axios.delete(`/api/w00/activities/${activityId}/`, {
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: token,
+    },
+  });
+
+  if (res.status === 204 || res.status === 200 || res.status === 201) {
+    setWriteRes(true);
+  } else {
+    setWriteRes(false);
+  }
 };
 
 const deleteComment = async (commentpk) => {

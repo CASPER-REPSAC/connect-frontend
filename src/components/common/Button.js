@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 const StyledButton = styled.button`
   border: none;
@@ -34,4 +35,18 @@ const Button = (props) => {
   return <StyledButton {...props} />;
 };
 
+const ManageButton = ({ activityId, text }) => {
+  const history = useHistory();
+  return (
+    <Button
+      width="content-fit"
+      background="#8B0000"
+      onClick={() => history.push(`/manage/${activityId}`)}
+    >
+      {text || '액티비티 관리'}
+    </Button>
+  );
+};
+
+export { Button, ManageButton };
 export default React.memo(Button);

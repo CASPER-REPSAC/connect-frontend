@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { updateActivity } from '../../modules/api';
-import { ResSuccessModal, ResFailModal } from '../common/ResModal';
+import { AskReqModal } from '../common/ResModal';
 import Button from '../common/Button';
 import ManageParticipants from './ManageParticipants';
-import { deleteActiParticipants } from '../../modules/api';
+import { deleteActivity } from '../../modules/api';
 import ActivityForm from '../write/ActivityForm';
 
 const ManageActivity = ({
   match,
+  history,
   activityDetail,
   prevTags,
   prevParticipants,
 }) => {
   const { params } = match;
-  const [show, setShow] = useState(false);
 
   console.log('match', match);
   // states for write form
@@ -28,9 +28,21 @@ const ManageActivity = ({
   });
   const [tags, setTags] = useState(prevTags);
   const [participantsDelete, setParticipantsDelete] = useState([]);
+  const [reqModal, setReqModal] = useState({
+    msg: '수정하시겠습니까?',
+    onRequest: undefined,
+    res: undefined,
+    show: false,
+    handleClose: undefined,
+    onSuccess: undefined,
+  });
+
+  const handleClose = () => {
+    setReqModal({ ...reqModal, show: false });
+  };
 
   // states for write response
-  const [writeRes, setWriteRes] = useState(false);
+  const [writeRes, setWriteRes] = useState(undefined);
   const [sendCounter, setSendCounter] = useState(0);
 
   const onClickParticipants = (participantName) => {
@@ -45,21 +57,64 @@ const ManageActivity = ({
     }
   };
 
-  const ackRequest = () => {};
-
   async function onSubmitActivity() {
     const data = {
       ...inputs,
       tags: tags,
       participants_delete: participantsDelete,
     };
+    console.log('submit');
 
-    updateActivity(data, setWriteRes, params.activityId);
-    setSendCounter(sendCounter + 1);
-    console.log('write data', data);
+    const onRequest = () => {
+      console.log('submit request');
+      updateActivity(data, setWriteRes, params.activityId);
+    };
+    const onSuccess = () => {
+      history.go(-1);
+    };
+    setReqModal({
+      ...reqModal,
+      handleClose: handleClose,
+      res: writeRes,
+      onRequest: onRequest,
+      msg: '수정하시겠습니까?',
+      show: true,
+      onSuccess: onSuccess,
+    });
   }
 
-  async function onDeleteActivity() {}
+  useEffect(() => {
+    setReqModal({ ...reqModal, res: writeRes });
+  }, [writeRes]);
+
+  async function onDeleteActivity() {
+    // msg: '수정하시겠습니까?',
+    // onRequest: undefined,
+    // res: undefined,
+    // show: false,
+    // handleClose: undefined,
+    console.log('delete');
+    const onRequest = () => {
+      console.log('delete request');
+      deleteActivity(setWriteRes, params.activityId);
+    };
+    const onSuccess = () => {
+      history.push('/main');
+    };
+    setReqModal({
+      ...reqModal,
+      handleClose: handleClose,
+      res: writeRes,
+      onRequest: onRequest,
+      msg: '삭제하시겠습니까?',
+      show: true,
+      onSuccess: onSuccess,
+    });
+  }
+
+  useEffect(() => {
+    console.log(reqModal);
+  }, [reqModal]);
 
   return (
     <>
@@ -80,9 +135,18 @@ const ManageActivity = ({
         />
       )}
       <div className="d-flex justify-content-between mt-3">
-        <Button>액티비티 삭제</Button>
+        <Button onClick={() => onDeleteActivity()}>액티비티 삭제</Button>
         <Button onClick={() => onSubmitActivity()}>액티비티 수정</Button>
       </div>
+      {/* handleClose, msg, msgSuccess, msgFail, onRequest, res, */}
+      <AskReqModal
+        show={reqModal.show}
+        handleClose={reqModal.handleClose}
+        msg={reqModal.msg}
+        onRequest={reqModal.onRequest}
+        res={reqModal.res}
+        onSuccess={reqModal.onSuccess}
+      />
     </>
   );
 };

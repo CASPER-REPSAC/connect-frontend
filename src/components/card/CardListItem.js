@@ -107,7 +107,7 @@ const CardListItem = ({ card, colors }) => {
             }
           })}
         </div>
-        <div className="card-type">activity</div>
+        <div className="card-type text-muted">activity</div>
       </div>
     </div>
   );

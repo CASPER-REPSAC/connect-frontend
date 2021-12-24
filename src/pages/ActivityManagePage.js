@@ -7,11 +7,23 @@ import '../styles/Write.scss';
 
 const ActivityManagePage = ({ match, history }) => {
   const { params } = match;
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
+
   const [activityDetail, setActivityDetail] = useState();
   const [tags, setTags] = useState();
   const [prevParticipants, setPrevParticipants] = useState();
 
   useEffect(() => {
+    if (!user.email) {
+      history.go(-1);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (activityDetail && activityDetail.author !== user.email) {
+      history.go(-1);
+    }
     if (activityDetail) {
       setTags([...activityDetail.tags.map((tag) => tag.tag_name)]);
       setPrevParticipants([...activityDetail.participants]);
@@ -27,6 +39,7 @@ const ActivityManagePage = ({ match, history }) => {
       {activityDetail && tags && Array.isArray(tags) ? (
         <ManageActivity
           match={match}
+          history={history}
           activityDetail={activityDetail}
           prevTags={tags}
           prevParticipants={prevParticipants}
