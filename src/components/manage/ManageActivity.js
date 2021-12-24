@@ -88,11 +88,6 @@ const ManageActivity = ({
   }, [writeRes]);
 
   async function onDeleteActivity() {
-    // msg: '수정하시겠습니까?',
-    // onRequest: undefined,
-    // res: undefined,
-    // show: false,
-    // handleClose: undefined,
     console.log('delete');
     const onRequest = () => {
       console.log('delete request');
@@ -111,10 +106,6 @@ const ManageActivity = ({
       onSuccess: onSuccess,
     });
   }
-
-  useEffect(() => {
-    console.log(reqModal);
-  }, [reqModal]);
 
   return (
     <>

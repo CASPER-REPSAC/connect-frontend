@@ -14,10 +14,14 @@ const ActivityChapterPage = ({ match, history }) => {
   const [deleteRes, setDeleteRes] = useState();
   const [deleteAsk, setDeleteAsk] = useState(false);
   const [sendCounter, setSendCounter] = useState(0);
+  const [reqTrigger, setReqTrigger] = useState(0);
 
   useEffect(() => {
     getListData(`/api${match.url}/`, setChapterData);
-  }, [match]);
+  }, [match, reqTrigger]);
+  const increateReqTrigger = () => {
+    setReqTrigger(reqTrigger + 1);
+  };
 
   const onDeleteActivity = async () => {
     // deleteChapter(activityId, setWriteRes, chapterId)
@@ -78,6 +82,7 @@ const ActivityChapterPage = ({ match, history }) => {
             </Button>
           </div>
           <Comment
+            increateReqTrigger={increateReqTrigger}
             activityId={params.activityId}
             chapterId={params.chapterId}
             comments={chapterData[2]}

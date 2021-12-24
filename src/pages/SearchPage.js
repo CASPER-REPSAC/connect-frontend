@@ -54,7 +54,6 @@ const SearchPage = ({ match }) => {
           />
         </>
       )}
-      <div className="text-break">{JSON.stringify(searchResult)}</div>
     </div>
   );
 };

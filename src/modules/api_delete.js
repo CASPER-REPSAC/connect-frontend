@@ -63,7 +63,7 @@ const deleteActivity = async (setWriteRes, activityId) => {
   }
 };
 
-const deleteComment = async (commentpk) => {
+const deleteComment = async (commentpk, setState) => {
   const accessToken = isAccessToken();
   if (!accessToken) {
     return false;
@@ -81,7 +81,10 @@ const deleteComment = async (commentpk) => {
       },
     },
   );
-  console.log(res);
+  if (res.status === 204 || res.status === 201 || res.status === 200) {
+    setState(true);
+  } else setState(false);
+  // console.log(res);
 };
 
 const deleteActiParticipants = async (activity_id, user_id, setWriteRes) => {
