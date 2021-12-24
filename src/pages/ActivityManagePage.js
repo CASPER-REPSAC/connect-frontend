@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getActivityDetail } from '../modules/api';
 import { useSelector } from 'react-redux';
 import ManageActivity from '../components/manage/ManageActivity';
+import { NoCards } from '../components/common/NoCards';
 import '../styles/Write.scss';
 
 const ActivityManagePage = ({ match, history }) => {
@@ -23,13 +24,15 @@ const ActivityManagePage = ({ match, history }) => {
 
   return (
     <>
-      {activityDetail && tags && Array.isArray(tags) && (
+      {activityDetail && tags && Array.isArray(tags) ? (
         <ManageActivity
           match={match}
           activityDetail={activityDetail}
           prevTags={tags}
           prevParticipants={prevParticipants}
         />
+      ) : (
+        <NoCards msg="액티비티 정보를 불러올 수 없습니다." />
       )}
     </>
   );

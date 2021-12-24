@@ -9,11 +9,11 @@ const ManageParticipants = ({
     <div className="mt-3">
       <h5>Participants</h5>
       {currentParticipants.map((participant, index) => {
-        if (participantsDelete.includes(participant.user_name)) {
+        if (participantsDelete.includes(participant.user_id)) {
           return (
             <div
               key={index}
-              onClick={() => onClickParticipants(participant.user_name)}
+              onClick={() => onClickParticipants(participant.user_id)}
               className="participant-card inactive"
             >
               <del>{participant.user_name}</del>
@@ -23,7 +23,7 @@ const ManageParticipants = ({
           return (
             <div
               key={index}
-              onClick={() => onClickParticipants(participant.user_name)}
+              onClick={() => onClickParticipants(participant.user_id)}
               className="participant-card active"
             >
               <>{participant.user_name}</>

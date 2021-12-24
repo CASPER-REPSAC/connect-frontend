@@ -20,7 +20,7 @@ const ManageActivity = ({
   const [inputs, setInputs] = useState({
     title: activityDetail.title,
     type: activityDetail.type,
-    createDate: activityDetail.createDate,
+    // createDate: activityDetail.createDate,
     description: activityDetail.description,
     startDate: activityDetail.startDate,
     endDate: activityDetail.endDate,
@@ -45,6 +45,8 @@ const ManageActivity = ({
     }
   };
 
+  const ackRequest = () => {};
+
   async function onSubmitActivity() {
     const data = {
       ...inputs,
@@ -56,6 +58,8 @@ const ManageActivity = ({
     setSendCounter(sendCounter + 1);
     console.log('write data', data);
   }
+
+  async function onDeleteActivity() {}
 
   return (
     <>
@@ -77,7 +81,7 @@ const ManageActivity = ({
       )}
       <div className="d-flex justify-content-between mt-3">
         <Button>액티비티 삭제</Button>
-        <Button>액티비티 수정</Button>
+        <Button onClick={() => onSubmitActivity()}>액티비티 수정</Button>
       </div>
     </>
   );

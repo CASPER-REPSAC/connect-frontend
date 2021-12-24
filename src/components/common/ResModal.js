@@ -31,7 +31,32 @@ export const ResFailModal = (show, handleClose, msg, reRequest) => {
   );
 };
 
-export const AskReqModal = (show, handleClose, msg, onRequest) => {
+export const AskReqModal = (show, handleClose, msg, onRequest, res) => {
+  return (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Body>
+        {msg || '메세지 없음'}
+        {res === true && (
+          <Button variant="secondary" onClick={handleClose}>
+            확인
+          </Button>
+        )}
+        {res === false && (
+          <>
+            <Button variant="secondary" onClick={handleClose}>
+              취소
+            </Button>
+            <Button variant="secondary" onClick={() => onRequest()}>
+              재요청
+            </Button>
+          </>
+        )}
+      </Modal.Body>
+    </Modal>
+  );
+};
+
+export const AskModal = (show, handleClose, msg, onRequest) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Body>

@@ -55,7 +55,7 @@ const updateActivity = async (data, setWriteRes, activityId) => {
   const token = 'Bearer ' + accessToken;
   const datas = {
     ...data,
-    token: token,
+    // token: token,
   };
 
   await axios
