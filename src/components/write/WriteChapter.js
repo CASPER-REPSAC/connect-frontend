@@ -38,6 +38,12 @@ const WriteChapter = ({ match }) => {
       [target.name]: target.value,
     });
   };
+  const inputDiscriptionHandler = (value) => {
+    setChapterInput({
+      ...chapterInput,
+      article: value,
+    });
+  };
 
   const onFileChange = ({ target }) => {
     setChapterInput({
@@ -92,6 +98,7 @@ const WriteChapter = ({ match }) => {
                 onFileChange={onFileChange}
                 submitChapter={onSubmitChapter}
                 targetFiles={targetFiles}
+                inputDiscriptionHandler={inputDiscriptionHandler}
               />
             </>
           )}

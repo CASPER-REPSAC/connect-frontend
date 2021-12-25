@@ -122,7 +122,9 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
           </div>
         </PartiCard>
       </div>
-      <div className="mb-3">{description}</div>
+      <div className="mb-3" dangerouslySetInnerHTML={{ __html: description }}>
+        {/* {description} */}
+      </div>
       <div className="mb-3">
         {tags &&
           Array.isArray(tags) &&

@@ -1,5 +1,7 @@
 import React from 'react';
 import Button from '../common/Button';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const ChapterForm = ({
   activityDetail,
@@ -11,6 +13,7 @@ const ChapterForm = ({
   onFileDelete,
   onFileUnDelete,
   targetFiles,
+  inputDiscriptionHandler,
 }) => {
   const { title, type } = activityDetail;
   console.log('ChapterForm - activityDetail', activityDetail);
@@ -35,13 +38,26 @@ const ChapterForm = ({
         <h5>Content</h5>
       </label>
       <br />
-      <textarea
-        type="text"
-        id="article"
-        name="article"
-        onChange={(e) => inputHandler(e.target)}
-        value={chapterInput.article || ''}
-      ></textarea>
+
+      <CKEditor
+        editor={ClassicEditor}
+        data={chapterInput.article || ''}
+        onReady={(editor) => {
+          // You can store the "editor" and use when it is needed.
+          console.log('Editor is ready to use!', editor);
+        }}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          console.log({ event, editor, data });
+          inputDiscriptionHandler(data);
+        }}
+        onBlur={(event, editor) => {
+          console.log('Blur.', editor);
+        }}
+        onFocus={(event, editor) => {
+          console.log('Focus.', editor);
+        }}
+      />
       <br />
       <label htmlFor="inputFile" className="d-flex">
         <h5>Files</h5>

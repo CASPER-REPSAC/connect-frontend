@@ -72,8 +72,9 @@ const CardListItem = ({ card, colors }) => {
               <div
                 className="introduce dragable"
                 title={description || 'no description'}
+                dangerouslySetInnerHTML={{ __html: description }}
               >
-                {description || 'no description'}
+                {/* {description || 'no description'} */}
               </div>
             </Link>
           </div>

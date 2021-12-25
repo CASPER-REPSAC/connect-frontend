@@ -92,8 +92,8 @@ const ChapterDetail = ({ chapterData, match }) => {
           <>파일이 없습니다.</>
         )}
       </div>
-      <article className="mt-3">
-        <p>{article}</p>
+      <article className="mt-3 mb-3">
+        <div dangerouslySetInnerHTML={{ __html: article }}></div>
       </article>
     </div>
   );

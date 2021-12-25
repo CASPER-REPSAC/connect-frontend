@@ -19,8 +19,12 @@ const ChapterCardItem = ({ card, colors }) => {
           </Link>
         </div>
         <Link to={url}>
-          <div className="introduce dragable" title={article || 'no article'}>
-            {article || 'no article'}
+          <div
+            className="introduce dragable"
+            title={article || 'no article'}
+            dangerouslySetInnerHTML={{ __html: article }}
+          >
+            {/* {article || 'no article'} */}
           </div>
         </Link>
       </div>

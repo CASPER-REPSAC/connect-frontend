@@ -67,6 +67,13 @@ const UpdateChapter = ({ match }) => {
     });
   };
 
+  const inputDiscriptionHandler = (value) => {
+    setChapterInput({
+      ...chapterInput,
+      article: value,
+    });
+  };
+
   const onFileChange = ({ target }) => {
     setChapterInput({
       ...chapterInput,
@@ -149,6 +156,7 @@ const UpdateChapter = ({ match }) => {
                 onFileDelete={onFileDelete}
                 onFileUnDelete={onFileUnDelete}
                 targetFiles={targetFiles}
+                inputDiscriptionHandler={inputDiscriptionHandler}
               />
             </>
           )}
