@@ -23,3 +23,13 @@ export const LinkedCard = (props) => {
     </PartiCard>
   );
 };
+
+export const ChapterCard = (props) => {
+  return (
+    <PartiCard {...props}>
+      <Link to={props.link || 'main'}>
+        <b>{props.children || 'title'}</b>
+      </Link>
+    </PartiCard>
+  );
+};

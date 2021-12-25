@@ -83,7 +83,7 @@ $unActiveButtonText: #afafb4;
       height: 3rem;
       max-height: 3rem;
       width: fit-content;
-      max-width: 230px;
+      max-width: 200px;
       overflow: hidden;
       text-overflow: ellipsis;
       word-break: break-all;
@@ -123,9 +123,13 @@ $unActiveButtonText: #afafb4;
       margin-right: 13px;
       height: 1.2rem;
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
       cursor: pointer;
+
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: nowrap;
     }
     .Read {
       font-size: 8px;
@@ -142,7 +146,11 @@ $unActiveButtonText: #afafb4;
       .author {
         font-size: 8px;
         font-weight: normal;
+        max-width: 50px;
+        overflow: hidden;
         text-overflow: ellipsis;
+        word-break: break-all;
+        white-space: nowrap;
       }
     }
   }

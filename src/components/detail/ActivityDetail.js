@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from 'react-bootstrap';
 import Tag from '../common/Tag';
 import { NoCards } from '../common/NoCards';
+import { RecnetBox } from '../common/RecentBox';
 import '../../styles/Detail.scss';
 import { PartiCard, LinkedCard } from '../common/PartiCard';
 import { useSelector } from 'react-redux';
@@ -17,8 +18,6 @@ function arrSlice(arr, n) {
 const ActivityDetail = ({ activityDetail, ManageButton }) => {
   const user = useSelector((state) => state.auth.user);
   console.log('activity detail', activityDetail);
-  const [writeRes, setWriteRes] = useState(false);
-  const [resID, setResID] = useState();
   const {
     author,
     createDate,
@@ -36,25 +35,44 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
   } = activityDetail;
 
   let { chapterid } = activityDetail;
+  chapterid = arrSlice(chapterid, 10);
 
   return (
     <div className="activity-detail">
       <div className="d-flex justify-content-between ">
         <h3>
           {title}
-          {currentState === 1 ? (
+          {currentState === 1 && (
             <Badge
-              style={{ fontSize: '13px', marginLeft: '10px' }}
+              style={{
+                fontSize: '13px',
+                marginLeft: '10px',
+              }}
               bg="success"
             >
               진행중
             </Badge>
-          ) : (
+          )}
+          {currentState === 0 && (
             <Badge
-              bg="secondary"
-              style={{ fontSize: '13px', marginLeft: '10px' }}
+              style={{
+                fontSize: '13px',
+                marginLeft: '10px',
+              }}
+              bg="info"
             >
               진행예정
+            </Badge>
+          )}
+          {currentState === 2 && (
+            <Badge
+              style={{
+                fontSize: '13px',
+                marginLeft: '10px',
+              }}
+              bg="secondary"
+            >
+              종료됨
             </Badge>
           )}
         </h3>
@@ -120,23 +138,25 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
       </div>
 
       <b>챕터</b>
-      <div>
-        {chapterid && Array.isArray(chapterid) && chapterid.length > 0 ? (
-          chapterid.map((chapter, index) => (
-            <>
-              <LinkedCard
-                key={`chapter_${index}`}
-                link={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
-              >
-                {index + 1}. {chapter.subject}
-              </LinkedCard>
-              <br />
-            </>
+      <div className="chapter text-break">
+        {chapterid && Array.isArray(chapterid) ? (
+          chapterid.map((chapters, index) => (
+            <div key={index} style={{ marginRight: '50px' }}>
+              {chapters.map((chapter, index1) => (
+                <div key={index1} className="">
+                  <Link
+                    to={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
+                    className="d-inline-block text-truncate"
+                    style={{ maxWidth: '150px' }}
+                  >
+                    {index * 10 + index1 + 1}. {chapter.subject}
+                  </Link>
+                </div>
+              ))}
+            </div>
           ))
         ) : (
-          <div className="p-3">
-            <NoCards msg="챕터가 없습니다." />
-          </div>
+          <>챕터가 없습니다.</>
         )}
       </div>
     </div>

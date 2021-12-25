@@ -12,7 +12,9 @@ function MiniProfile({ user }) {
         <>
           <div className="conn-mini-profile">
             <div className="profile">
-              <div className="icon">{email ? email.substring(0, 1) : 'A'}</div>
+              <div className="icon text-center">
+                {email ? email.substring(0, 1) : 'A'}
+              </div>
               <div className="right">
                 <div className="name">
                   {last_name ? last_name : 'no name'}

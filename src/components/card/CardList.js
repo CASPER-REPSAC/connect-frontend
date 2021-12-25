@@ -16,15 +16,16 @@ const CardList = ({ cards, nowrap }) => {
           {console.log(cards)}
           <div className={`card-list ${wrapState}`}>
             {cards.map((card) => {
-              const isChapter = Object.keys(card).includes('chapterid');
-              if (isChapter) {
+              console.log(Object.keys(card));
+              const isActivity = Object.keys(card).includes('participants');
+              if (isActivity) {
                 return (
                   <>
-                    <ChapterCardItem card={card} />
+                    <CardListItem key={card.id} card={card} />
                   </>
                 );
               }
-              return <CardListItem key={card.id} card={card} />;
+              return <ChapterCardItem card={card} />;
             })}
           </div>
         </>

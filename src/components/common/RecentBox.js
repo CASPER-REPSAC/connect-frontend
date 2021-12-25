@@ -83,4 +83,16 @@ const RecentBox = ({
   );
 };
 
+const BoxWithTitle = (title, titleColor, children) => {
+  return (
+    <div className="recent-box">
+      <div className="notap-box" style={{ background: titleColor }}>
+        {title}
+      </div>
+      <div className="content horizontal-scroll">{children}</div>
+    </div>
+  );
+};
+
+export { BoxWithTitle, RecentBox };
 export default React.memo(RecentBox);

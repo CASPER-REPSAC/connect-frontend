@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { TagsInput } from 'react-tag-input-component';
 import Button from '../common/Button';
 
