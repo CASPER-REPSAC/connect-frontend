@@ -66,7 +66,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <button onClick={() => reqTest()}>req test</button>
+      {/* <button onClick={() => reqTest()}>req test</button> */}
       <div className="app-box">
         <div className="sidebar-container">
           <Sidebar />

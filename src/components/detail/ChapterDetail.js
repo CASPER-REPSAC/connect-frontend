@@ -62,10 +62,12 @@ const ChapterDetail = ({ chapterData, match }) => {
       <div className="d-flex justify-content-between align-items-center">
         <h3>{subject}</h3>
 
-        <small className="text-muted">
+        <div className="text-muted text-right" style={{ fontSize: '12px' }}>
+          <Link to={`/activities/${activityid}`}>액티비티로</Link>
+          <br />
           작성 {created_time.substr(0, 10)} {created_time.substr(11, 8)} <br />
           수정 {modified_time.substr(0, 10)} {modified_time.substr(11, 8)}
-        </small>
+        </div>
       </div>
       <hr />
 

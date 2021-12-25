@@ -13,3 +13,4 @@ const NoCards = ({ msg }) => {
 };
 
 export { NoCards };
+export default NoCards;

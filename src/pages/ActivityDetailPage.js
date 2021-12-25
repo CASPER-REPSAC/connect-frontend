@@ -8,6 +8,7 @@ import {
 } from '../modules/api';
 import { NoCards } from '../components/common/NoCards';
 import { useSelector } from 'react-redux';
+import { AskReqModal } from '../components/common/ResModal';
 
 import { Button, ManageButton } from '../components/common/Button';
 
@@ -18,7 +19,71 @@ const ActivityDetailPage = ({ match, history }) => {
 
   const [activityDetail, setActivityDetail] = useState();
   const [getActivityRes, setGetActivityRes] = useState();
-  const [deleteActiParti, setDeleteActiParti] = useState();
+  const [increaseReqTrigger, setincreaseReqTrigger] = useState(0);
+  const [writeRes, setWriteRes] = useState();
+  const initialReqModalState = {
+    msg: '수정하시겠습니까?',
+    onRequest: undefined,
+    res: undefined,
+    show: false,
+    handleClose: undefined,
+    onSuccess: undefined,
+    msgSuccess: undefined,
+    msgFail: undefined,
+  };
+  const [reqModal, setReqModal] = useState(initialReqModalState);
+  const handleClose = () => {
+    setReqModal({ ...reqModal, show: false });
+  };
+  useEffect(() => {
+    setReqModal({ ...reqModal, res: writeRes });
+  }, [writeRes]);
+
+  async function onDeleteActiParticipants() {
+    console.log('dropout');
+    const onRequest = () => {
+      console.log('dropout request');
+      deleteActiParticipants(params.activityId, pk, setWriteRes);
+    };
+    const onSuccess = () => {
+      setincreaseReqTrigger(increaseReqTrigger + 1);
+      setWriteRes(undefined);
+    };
+    setReqModal({
+      ...initialReqModalState,
+      handleClose: handleClose,
+      res: writeRes,
+      onRequest: onRequest,
+      msg: '탈퇴하시겠습니까?',
+      show: true,
+      onSuccess: onSuccess,
+      msgSuccess: '탈퇴하였습니다.',
+      msgFail: '탈퇴하지 못했습니다.',
+    });
+  }
+
+  async function onSubmitActiParticipants() {
+    console.log('join acti');
+    const onRequest = () => {
+      console.log('join acti request');
+      submitActiParticipants(params.activityId, pk, setWriteRes);
+    };
+    const onSuccess = () => {
+      setincreaseReqTrigger(increaseReqTrigger + 1);
+      setWriteRes(undefined);
+    };
+    setReqModal({
+      ...initialReqModalState,
+      handleClose: handleClose,
+      res: writeRes,
+      onRequest: onRequest,
+      msg: '참가하시겠습니까?',
+      show: true,
+      onSuccess: onSuccess,
+      msgSuccess: '참가하었습니다.',
+      msgFail: '참가하지 못했습니다.',
+    });
+  }
 
   useEffect(() => {
     async function getActi() {
@@ -27,10 +92,12 @@ const ActivityDetailPage = ({ match, history }) => {
       return;
     }
     getActi();
-  }, [params]);
+  }, [params, increaseReqTrigger]);
 
   return (
     <>
+      {console.log('getActivityRes', getActivityRes)}
+      {console.log('activityDetail', activityDetail)}
       {getActivityRes === true && (
         <div className="d-flex flex-column justify-content-between h-100">
           {console.log(match)}
@@ -41,42 +108,60 @@ const ActivityDetailPage = ({ match, history }) => {
               ManageButton={ManageButton}
             />
           )}
-          <div className="d-flex justify-content-between">
-            <Button
-              width="content-fit"
-              onClick={() => {
-                history.push(`/write/activities/${params.activityId}`);
-              }}
-            >
-              챕터 작성
-            </Button>
-
-            <div>
-              <Button
-                width="content-fit"
-                background="midnightblue"
-                onClick={() => submitActiParticipants(params.activityId, pk)}
-              >
-                참가 신청
-              </Button>
-              <Button
-                width="content-fit"
-                style={{ marginLeft: '5px' }}
-                onClick={() =>
-                  deleteActiParticipants(
-                    params.activityId,
-                    pk,
-                    setDeleteActiParti,
-                  )
-                }
-              >
-                탈퇴 신청
-              </Button>
+          {user.email && (
+            <div className="d-flex justify-content-end mt-3">
+              {user.email && user.email !== activityDetail.author ? (
+                <>
+                  {activityDetail.participants
+                    .map((participant) => participant.user_name)
+                    .includes(user.email) ? (
+                    <Button
+                      width="content-fit"
+                      style={{ marginLeft: '5px' }}
+                      onClick={() => onDeleteActiParticipants()}
+                    >
+                      탈퇴 신청
+                    </Button>
+                  ) : (
+                    <Button
+                      width="content-fit"
+                      background="midnightblue"
+                      onClick={() => onSubmitActiParticipants()}
+                    >
+                      참가 신청
+                    </Button>
+                  )}
+                </>
+              ) : (
+                <>
+                  {console.log(user.email, activityDetail.author)}
+                  <Button
+                    width="content-fit"
+                    onClick={() => {
+                      history.push(`/write/activities/${params.activityId}`);
+                    }}
+                  >
+                    챕터 작성
+                  </Button>
+                </>
+              )}
             </div>
-          </div>
+          )}
         </div>
       )}
+      {getActivityRes === undefined && <NoCards msg="로딩 중..." />}
       {getActivityRes === false && <NoCards msg="없는 페이지 입니다." />}
+
+      <AskReqModal
+        show={reqModal.show}
+        handleClose={reqModal.handleClose}
+        msg={reqModal.msg}
+        msgSuccess={reqModal.msgSuccess}
+        msgFail={reqModal.msgFail}
+        onRequest={reqModal.onRequest}
+        res={reqModal.res}
+        onSuccess={reqModal.onSuccess}
+      />
     </>
   );
 };

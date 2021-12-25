@@ -43,7 +43,6 @@ const ManageActivity = ({
 
   // states for write response
   const [writeRes, setWriteRes] = useState(undefined);
-  const [sendCounter, setSendCounter] = useState(0);
 
   const onClickParticipants = (participantName) => {
     if (!participantsDelete.includes(participantName)) {

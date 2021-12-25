@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function SidebarTodoItem({ activity }) {
-  const { title, description, activityid, type } = activity;
+  const { title, description, id, type } = activity;
   return (
     <Link
-      to={`/activities/${activityid}`}
+      to={`/activities/${id}`}
       className="sidebar-todo-item"
       title={description}
     >

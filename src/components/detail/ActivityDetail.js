@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from 'react-bootstrap';
 import Tag from '../common/Tag';
+import { NoCards } from '../common/NoCards';
 import '../../styles/Detail.scss';
-import { PartiCard } from '../common/PartiCard';
+import { PartiCard, LinkedCard } from '../common/PartiCard';
 import { useSelector } from 'react-redux';
 
 function arrSlice(arr, n) {
@@ -35,7 +36,6 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
   } = activityDetail;
 
   let { chapterid } = activityDetail;
-  chapterid = arrSlice(chapterid, 10);
 
   return (
     <div className="activity-detail">
@@ -67,27 +67,37 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
           <small className="text-muted">작성자 : {author}</small>
         </div>
       </div>
-      <div>
-        진행일정 : {startDate} ~ {endDate}
+      <div
+        className="d-flex justify-content-between mt-1 align-items-center"
+        style={{ fontSize: '12px' }}
+      >
+        <div>
+          진행일정 : {startDate} ~ {endDate}
+        </div>
+        <div>
+          {user.email && user.email === author && (
+            <div>
+              <ManageButton activityId={id} />
+            </div>
+          )}
+        </div>
       </div>
       <hr />
       <div className="mb-3">
         <PartiCard>
           <div className="d-flex justify-content-between align-items-center mb-1">
             <div style={{ fontSize: '12px' }}>
-              <b> 참여자 목록</b>
+              <b> 참여자</b>
             </div>
-            {user.email && user.email === author && (
-              <div style={{ marginLeft: '12px' }}>
-                <ManageButton activityId={id} />
-              </div>
-            )}
           </div>
           <div>
             {participants &&
               Array.isArray(participants) &&
               participants.map((participant, index) => (
-                <PartiCard style={{ marginRight: '5px' }}>
+                <PartiCard
+                  key={`participant_${index}`}
+                  style={{ marginRight: '5px' }}
+                >
                   {participant.user_name}
                 </PartiCard>
               ))}
@@ -100,31 +110,35 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
           Array.isArray(tags) &&
           tags.map((tag, index) => {
             return (
-              <Tag key={index} tagName={tag.tag_name} tagId={tag.tag_id} />
+              <Tag
+                key={`tag_${index}`}
+                tagName={tag.tag_name}
+                tagId={tag.tag_id}
+              />
             );
           })}
       </div>
 
       <b>챕터</b>
-      <ol className="chapter">
-        {chapterid && Array.isArray(chapterid) ? (
-          chapterid.map((chapters, index) => (
-            <div key={index} style={{ marginRight: '50px' }}>
-              {chapters.map((chapter, index) => (
-                <li key={index}>
-                  <Link
-                    to={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
-                  >
-                    {chapter.subject}
-                  </Link>
-                </li>
-              ))}
-            </div>
+      <div>
+        {chapterid && Array.isArray(chapterid) && chapterid.length > 0 ? (
+          chapterid.map((chapter, index) => (
+            <>
+              <LinkedCard
+                key={`chapter_${index}`}
+                link={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
+              >
+                {index + 1}. {chapter.subject}
+              </LinkedCard>
+              <br />
+            </>
           ))
         ) : (
-          <>챕터가 없습니다.</>
+          <div className="p-3">
+            <NoCards msg="챕터가 없습니다." />
+          </div>
         )}
-      </ol>
+      </div>
     </div>
   );
 };

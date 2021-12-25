@@ -51,6 +51,24 @@ const ActivityForm = ({
         <option value="Study">Study</option>
         <option value="Project">Project</option>
       </select>
+      {manage && (
+        <>
+          <br />
+          <label htmlFor="currentState">
+            <h5>Current State</h5>
+          </label>
+          <select
+            name="currentState"
+            id="currentState"
+            value={inputs['currentState']}
+            onChange={(e) => onChangeHandler(e)}
+          >
+            <option value="0">Plannded</option>
+            <option value="1">Active</option>
+            <option value="2">Ended</option>
+          </select>
+        </>
+      )}
       <div className="date">
         <h5 className="mt-3">Date</h5>
         <label htmlFor="startDate">start date</label>

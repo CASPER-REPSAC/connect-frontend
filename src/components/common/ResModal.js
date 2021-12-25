@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import Button from './Button';
+import NoCards from './NoCards';
 
 export const ResSuccessModal = (show, handleClose, msg) => {
   return (
@@ -44,7 +45,7 @@ export const AskReqModal = (
           {show.res === undefined && (
             <>
               <div className="text-center">
-                {show.msg || '요청하시겠습니까?'}
+                <NoCards msg={show.msg || '요청하시겠습니까?'} />
               </div>
               <div className="text-center">
                 <Button onClick={show.handleClose}>취소</Button>
@@ -64,7 +65,7 @@ export const AskReqModal = (
           {show.res === true && (
             <>
               <div className="text-center">
-                {show.msgSuccess || '요청에 성공하였습니다.'}
+                <NoCards msg={show.msgSuccess || '요청에 성공하였습니다.'} />
               </div>
               <div className="text-center">
                 <Button
@@ -81,7 +82,7 @@ export const AskReqModal = (
           {show.res === false && (
             <>
               <div className="text-center">
-                {show.msgFail || '요청에 실패하였습니다.'}
+                <NoCards msg={show.msgFail || '요청에 실패하였습니다.'} />
               </div>
               <div className="text-center">
                 <Button onClick={show.handleClose}>취소</Button>

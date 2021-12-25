@@ -129,7 +129,7 @@ const submitComment = async (data) => {
   console.log(res);
 };
 
-const submitActiParticipants = async (activity_id, user_id) => {
+const submitActiParticipants = async (activity_id, user_id, setWriteRes) => {
   const data = {
     activity_id: activity_id,
     user_id: user_id,
@@ -138,6 +138,11 @@ const submitActiParticipants = async (activity_id, user_id) => {
     `/api/activities/${activity_id}/member/`,
     data,
   );
+  if (res.status === 201 || res.status === 200 || res.status === 204) {
+    setWriteRes(true);
+  } else {
+    setWriteRes(false);
+  }
 
   // data = {comment, activityid, chapterid, createtime, writer(accessToken)};
   console.log(res);

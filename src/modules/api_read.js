@@ -14,6 +14,7 @@ async function getActivityDetail(activity_id, setState) {
     setState(res.data[0]);
     return true;
   } else {
+    setState(false);
     return false;
   }
 }
@@ -120,7 +121,7 @@ const getUserActivityList = async (userId, setState) => {
 };
 
 const getUserContainedList = async (accessToken, setState) => {
-  const res = await axios.get(`/api/user/contained/`, {
+  const res = await axios.get(`/api/user/contained_new/`, {
     headers: {
       'Content-Type': 'application/json',
       authorization: 'Bearer ' + accessToken,

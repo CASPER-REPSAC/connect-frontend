@@ -31,8 +31,13 @@ const GoogleLoginButton = ({ onSocial }) => {
         access_token: res.data.access_token,
         refresh_token: res.data.refresh_token,
       });
-      cookies.set('access_token', res.data.access_token);
-      cookies.set('refresh_token', res.data.refresh_token, { httpOnly: true });
+      cookies.set('access_token', res.data.access_token, {
+        path: '/',
+      });
+      cookies.set('refresh_token', res.data.refresh_token, {
+        httpOnly: true,
+        path: '/',
+      });
     }
   };
 
