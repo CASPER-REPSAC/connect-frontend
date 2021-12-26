@@ -5,17 +5,25 @@ import {
   getActivityDetail,
   submitActiParticipants,
   deleteActiParticipants,
+  getUserContainedList,
 } from '../modules/api';
 import { NoCards } from '../components/common/NoCards';
 import { useSelector } from 'react-redux';
 import { AskReqModal } from '../components/common/ResModal';
 
 import { Button, ManageButton } from '../components/common/Button';
+import { useDispatch } from 'react-redux';
+import { setContainedActivities } from '../modules/activities';
 
 const ActivityDetailPage = ({ match, history }) => {
   const { user } = useSelector((state) => ({ user: state.auth.user }));
   const { pk } = user;
   const { params } = match;
+
+  const dispatch = useDispatch();
+  const getContainedActivities = (activities) => {
+    dispatch(setContainedActivities(activities));
+  };
 
   const [activityDetail, setActivityDetail] = useState();
   const [getActivityRes, setGetActivityRes] = useState();
@@ -47,6 +55,7 @@ const ActivityDetailPage = ({ match, history }) => {
     };
     const onSuccess = () => {
       setincreaseReqTrigger(increaseReqTrigger + 1);
+      getUserContainedList(user.access_token, getContainedActivities);
       setWriteRes(undefined);
     };
     setReqModal({
@@ -70,6 +79,7 @@ const ActivityDetailPage = ({ match, history }) => {
     };
     const onSuccess = () => {
       setincreaseReqTrigger(increaseReqTrigger + 1);
+      getUserContainedList(user.access_token, getContainedActivities);
       setWriteRes(undefined);
     };
     setReqModal({

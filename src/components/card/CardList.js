@@ -13,10 +13,8 @@ const CardList = ({ cards, nowrap }) => {
     <>
       {cards && Array.isArray(cards) && cards.length !== 0 ? (
         <>
-          {console.log(cards)}
           <div className={`card-list ${wrapState}`}>
             {cards.map((card) => {
-              console.log(Object.keys(card));
               const isActivity = Object.keys(card).includes('participants');
               if (isActivity) {
                 return (

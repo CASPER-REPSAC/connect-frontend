@@ -27,15 +27,9 @@ const ActivityPage = ({ match }) => {
 
   useEffect(() => {
     setCardsByType({
-      Study: cards
-        .filter((v) => v['type'] === 'Study')
-        .filter((v, index) => index < 5),
-      Project: cards
-        .filter((v) => v['type'] === 'Project')
-        .filter((v, index) => index < 5),
-      CTF: cards
-        .filter((v) => v['type'] === 'CTF')
-        .filter((v, index) => index < 5),
+      Study: cards.filter((v) => v['type'] === 'Study'),
+      Project: cards.filter((v) => v['type'] === 'Project'),
+      CTF: cards.filter((v) => v['type'] === 'CTF'),
     });
   }, [cards]);
 

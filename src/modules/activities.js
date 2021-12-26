@@ -5,10 +5,12 @@ import {
   getUsers,
   getListData,
   getDataByURL,
+  getUserContainedList,
 } from './api';
 
 // action types
 const SET_ACTIVITIES = 'activities/GET_ACTIVITIES';
+const SET_CONTAINED_ACTIVITIES = 'activities/SET_CONTAINED_ACTIVITIES';
 
 // action genarator functions
 export const getActivites = () => (dispatch) => {
@@ -25,100 +27,30 @@ export const getActivites = () => (dispatch) => {
     });
 };
 
+export const setContainedActivities = (activities) => ({
+  type: SET_CONTAINED_ACTIVITIES,
+  activities,
+});
 // id, type, title, author, createdDate, content, currentState, startDate, endDate
 // initial state
 
-// author과 participants는 문자열보다 사용자 id를 사용하는게 나을 듯 함.
 const initialState = {
-  activities: [
-    {
-      id: 1,
-      title: 'Connect Develope e fefe fef',
-      type: 'project',
-      author: '5 11',
-      participants: ['floodnut', 'woo'],
-      createDate: '2021-07-01',
-      introduce: '여기는 첫째줄에서 잘림. 간단한 소개 파트가 필요해보임',
-      currentState: 0,
-      startDate: '2021-07-05',
-      endDate: '2021-07-27',
-      tags: ['pwn', 'web'],
-      viewerNum: 100,
-    },
-    {
-      id: 2,
-      title: 'this is title',
-      type: 'CTF',
-      author: '5 11',
-      participants: ['pawnTTi', 'swimming', 'dongas', '박지성분', 'neva'],
-      createDate: '2021-07-02',
-      introduce:
-        '그래서 컴팩트 있는 소개를 따로 입력받았으면 합니다. 나중에 추가해도 됨 가나다라 마 바사 아자 차가 타 파하..',
-      currentState: 0,
-      startDate: '2021-07-06',
-      endDate: '2021-07-15',
-      tags: ['rev', 'pwn'],
-      viewer_num: 180,
-    },
-    {
-      id: 3,
-      title: 'this is title',
-      type: 'CTF',
-      author: '5 11',
-      participants: [
-        'pawnTTi',
-        'swimming',
-        'dongas',
-        '박지성분',
-        'neva',
-        'root',
-        '신성민',
-      ],
-      createDate: '2021-07-02',
-      introduce:
-        'i like jelly fish i like jelly fish i like sponge bob living in the pineapple ',
-      currentState: 0,
-      startDate: '2021-07-06',
-      endDate: '2021-07-15',
-      tags: ['rev', 'pwn'],
-      viewer_num: 180,
-    },
-    {
-      id: 4,
-      title: 'this is title',
-      type: 'CTF',
-      author: '5 11',
-      participants: [
-        'pawnTTi',
-        'swimming',
-        'dongas',
-        '박지성분',
-        'neva',
-        'root',
-        '신성민',
-      ],
-      createDate: '2021-07-02',
-      introduce:
-        'i like jelly fish i like jelly fish i like sponge bob living in the pineapple ',
-      currentState: 0,
-      startDate: '2021-07-06',
-      endDate: '2021-07-15',
-      tags: ['rev', 'pwn'],
-      viewer_num: 180,
-    },
-  ],
+  containedActivities: undefined,
+  // 참여중인 액티비티
+  allActivities: undefined,
+  // 모든 액티비티(딱히 필요한가는 애매함)
+  test: 1,
 };
 
 // reducers
-const activities = handleActions(
-  {
-    [SET_ACTIVITIES]: (state, action) => ({
-      ...state,
-      activities: action.payload,
-    }),
-  },
-  initialState,
-);
+const activities = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_CONTAINED_ACTIVITIES:
+      return { ...state, containedActivities: action.activities };
+    default:
+      return state;
+  }
+};
 
 // export
 export default activities;

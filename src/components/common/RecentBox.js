@@ -54,7 +54,6 @@ const RecentBox = ({
         </div>
       )}
       <div className="content horizontal-scroll">
-        {console.log(selected)}
         {!noTap ? (
           <>
             {selected === menus[0] ? (

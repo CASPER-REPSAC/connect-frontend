@@ -6,9 +6,12 @@ import { NoCards } from '../components/common/NoCards';
 import Button from '../components/common/Button';
 import Comment from '../components/common/Comment';
 import { DeleteResponse, DeleteAsk } from '../components/write/WriteResponse';
+import { useSelector } from 'react-redux';
 
 const ActivityChapterPage = ({ match, history }) => {
   // console.log('ActivityChapterPage match', match);
+  const { user } = useSelector((state) => ({ user: state.auth.user }));
+
   const { params } = match;
   const [chapterData, setChapterData] = useState();
   const [deleteRes, setDeleteRes] = useState();
@@ -59,34 +62,40 @@ const ActivityChapterPage = ({ match, history }) => {
       {chapterData ? (
         <>
           <ChapterDetail chapterData={chapterData} match={match} />
+          {user.email && (
+            <div className="d-flex justify-content-between">
+              <Button
+                width="content-fit"
+                background="#8B0000"
+                style={{ marginLeft: '5px' }}
+                onClick={() => setDeleteAsk(true)}
+              >
+                챕터 삭제
+              </Button>
+              <Button
+                width="content-fit"
+                style={{ marginLeft: '5px' }}
+                onClick={() => {
+                  history.push(
+                    `/write/activities/${params.activityId}/chapter/${params.chapterId}/update`,
+                  );
+                }}
+              >
+                챕터 수정
+              </Button>
+            </div>
+          )}
 
-          <div className="d-flex justify-content-between">
-            <Button
-              width="content-fit"
-              background="#8B0000"
-              style={{ marginLeft: '5px' }}
-              onClick={() => setDeleteAsk(true)}
-            >
-              챕터 삭제
-            </Button>
-            <Button
-              width="content-fit"
-              style={{ marginLeft: '5px' }}
-              onClick={() => {
-                history.push(
-                  `/write/activities/${params.activityId}/chapter/${params.chapterId}/update`,
-                );
-              }}
-            >
-              챕터 수정
-            </Button>
-          </div>
-          <Comment
-            increateReqTrigger={increateReqTrigger}
-            activityId={params.activityId}
-            chapterId={params.chapterId}
-            comments={chapterData[2]}
-          />
+          {chapterData[2].length < 1 && !user.email ? (
+            <></>
+          ) : (
+            <Comment
+              increateReqTrigger={increateReqTrigger}
+              activityId={params.activityId}
+              chapterId={params.chapterId}
+              comments={chapterData[2]}
+            />
+          )}
         </>
       ) : (
         <NoCards msg="없는 페이지 입니다." />
