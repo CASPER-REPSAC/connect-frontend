@@ -32,7 +32,7 @@ const RecentBox = ({
   maxHeight,
   display,
 }) => {
-  const menus = ['내가 쓴글', '최신 액티비티'];
+  const menus = ['내가 작성한 액티비티', '최신 액티비티'];
   const [selected, setSelected] = useState(menus[0]);
 
   return (
@@ -68,18 +68,21 @@ const RecentBox = ({
           <>
             {selected === menus[0] ? (
               <>
-                {firstSectionCards ? (
+                {firstSectionCards && firstSectionCards.length > 0 ? (
                   <CardList cards={firstSectionCards} />
                 ) : (
-                  <NoCards />
+                  <NoCards
+                    margin="5px"
+                    msg="액티비티를 작성하지 않은 것 같은데요?"
+                  />
                 )}
               </>
             ) : (
               <>
-                {secondSectionCards ? (
+                {secondSectionCards && secondSectionCards.length > 0 ? (
                   <CardList cards={secondSectionCards} />
                 ) : (
-                  <NoCards />
+                  <NoCards margin="5px" />
                 )}
               </>
             )}

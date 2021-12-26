@@ -8,7 +8,7 @@ const SidebarTodos = ({ userContainedActivity }) => {
       {userContainedActivity &&
       Array.isArray(userContainedActivity) &&
       userContainedActivity.length > 0 ? (
-        <div className="title font-700">참여 중인 액티비티</div>
+        <div className="title font-700 mb-1">참여 중인 액티비티</div>
       ) : (
         <div className="title">액티비티에 참가해보세요!</div>
       )}

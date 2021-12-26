@@ -40,25 +40,25 @@ const MainPage = () => {
             title="Running"
             titleColor="#28A745"
             firstSectionCards={cards.filter((card) => card.currentState === 1)}
-            maxHeight="352px"
+            maxHeight="332px"
           />
           <RecentBox
             noTap
             title="Planned"
             titleColor="#0a7fad"
+            maxHeight="332px"
             firstSectionCards={cards.filter((card) => card.currentState === 0)}
-            maxHeight="352px"
           />
-          <RoundBadge>
+          {/* <RoundBadge>
             <Link to={`/types/Ended`}>Ended</Link>
-          </RoundBadge>
-          {/* <RecentBox
+          </RoundBadge> */}
+          <RecentBox
             noTap
             titleColor="#56656b"
             title="Ended"
             firstSectionCards={cards.filter((card) => card.currentState === 2)}
             display="block"
-          /> */}
+          />
         </>
       ) : (
         <>

@@ -9,7 +9,9 @@ function SidebarTodoItem({ activity }) {
       className="sidebar-todo-item"
       title={description}
     >
-      <div className="title text-truncate">{title ? title : 'no title'}</div>
+      <div className="title text-truncate" style={{ fontWeight: '600' }}>
+        {title ? title : 'no title'}
+      </div>
       <div className="sub-title">{type ? type : 'no type'}</div>
     </Link>
   );

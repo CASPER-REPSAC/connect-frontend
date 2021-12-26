@@ -76,11 +76,13 @@ const CardListItem = ({ card, colors }) => {
                   fontSize="15px"
                   borderRadius="0.3rem"
                   margin="0 5px 0 0"
+                  key={index}
                 />
               );
             }
+            return <div key={index} style={{ display: 'none' }}></div>;
           })}
-          {participants.length === 1 && <small>참여자 모집 중!</small>}
+          {participants.length === 1 && <small>참여자가 없습니다.</small>}
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-end">
@@ -97,6 +99,7 @@ const CardListItem = ({ card, colors }) => {
                 />
               );
             }
+            return <div key={index} style={{ display: 'none' }}></div>;
           })}
         </div>
       </div>

@@ -40,12 +40,13 @@
 
       .selector-item {
         display: inline-block;
-        width: 100px;
+        min-width: 100px;
+        width: fit-content;
         height: 25px;
 
         font-weight: 600;
         font-size: 12px;
-        padding: 1px 5px;
+        padding: 1px 10px;
         cursor: pointer;
 
         text-align: center;
@@ -80,8 +81,8 @@
     // font-size: 12px;
     font-weight: 500;
     height: fit-content;
-    max-height: 182px;
-    min-height: 182px;
+    max-height: 172px;
+    // min-height: 182px;
     overflow-x: hidden;
     overflow-y: scroll;
   }

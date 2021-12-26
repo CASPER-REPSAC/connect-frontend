@@ -36,7 +36,13 @@ const Sidebar = () => {
       </NavLink>
       {/* <GoogleButton /> */}
       <MiniProfile user={user} />
-      {user.pk && <SidebarTodos userContainedActivity={containedActivities} />}
+      {user.pk && containedActivities && Array.isArray(containedActivities) && (
+        <SidebarTodos
+          userContainedActivity={containedActivities.filter(
+            (acti) => acti.currentState !== 2,
+          )}
+        />
+      )}
     </div>
   );
 };

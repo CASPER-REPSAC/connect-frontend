@@ -14,16 +14,20 @@ const ChapterForm = ({
   onFileUnDelete,
   targetFiles,
   inputDiscriptionHandler,
+  match,
 }) => {
   const { title, type } = activityDetail;
   console.log('ChapterForm - activityDetail', activityDetail);
+  const onBtnClick = () => {
+    window.location.href = `/activities/${match.params.activityId}`;
+  };
 
   return (
     <div className="chapter-form" style={{ maxWidth: '700px' }}>
       {console.log('chapterfore')}
 
       <label htmlFor="subject" className="no-margin">
-        <h5>Title</h5>
+        <h5>Title</h5>{' '}
       </label>
       <br />
       <input
@@ -119,7 +123,14 @@ const ChapterForm = ({
         </>
       )}
       <br />
-      <Button onClick={() => submitChapter()}>작성</Button>
+      <div className="text-center">
+        <Button background="gray" onClick={() => onBtnClick()}>
+          취소
+        </Button>
+        <Button margin="0 0 0px 5px" onClick={() => submitChapter()}>
+          작성
+        </Button>
+      </div>
       <br />
     </div>
   );

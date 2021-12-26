@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { updateActivity } from '../../modules/api';
-import { AskReqModal } from '../common/ResModal';
-import Button from '../common/Button';
+import {
+  updateActivity,
+  deleteActivity,
+  getUserContainedList,
+} from 'modules/api';
+import { AskReqModal } from 'components/common/ResModal';
+import Button from 'components/common/Button';
 import ManageParticipants from './ManageParticipants';
-import { deleteActivity } from '../../modules/api';
-import ActivityForm from '../write/ActivityForm';
+import ActivityForm from 'components/write/ActivityForm';
+
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { setContainedActivities } from 'modules/activities';
 
 const ManageActivity = ({
   match,
@@ -14,6 +21,11 @@ const ManageActivity = ({
   prevParticipants,
 }) => {
   const { params } = match;
+  const dispatch = useDispatch();
+  const getContainedActivities = (activities) => {
+    dispatch(setContainedActivities(activities));
+  };
+  const { user } = useSelector((state) => ({ user: state.auth.user }));
 
   console.log('match', match);
   // states for write form
@@ -70,6 +82,7 @@ const ManageActivity = ({
     };
     const onSuccess = () => {
       history.go(-1);
+      getUserContainedList(user.access_token, getContainedActivities);
     };
     setReqModal({
       ...reqModal,
@@ -79,6 +92,8 @@ const ManageActivity = ({
       msg: '수정하시겠습니까?',
       show: true,
       onSuccess: onSuccess,
+      msgSuccess: '수정하였습니다.',
+      msgFail: '수정하지 못했습니다.',
     });
   }
 
@@ -93,6 +108,8 @@ const ManageActivity = ({
       deleteActivity(setWriteRes, params.activityId);
     };
     const onSuccess = () => {
+      getUserContainedList(user.access_token, getContainedActivities);
+
       history.push('/main');
     };
     setReqModal({
@@ -103,6 +120,8 @@ const ManageActivity = ({
       msg: '삭제하시겠습니까?',
       show: true,
       onSuccess: onSuccess,
+      msgSuccess: '삭제하였습니다.',
+      msgFail: '삭제하지 못했습니다.',
     });
   }
 
@@ -125,7 +144,9 @@ const ManageActivity = ({
         />
       )}
       <div className="d-flex justify-content-between mt-3">
-        <Button onClick={() => onDeleteActivity()}>액티비티 삭제</Button>
+        <Button background="#8B0000" onClick={() => onDeleteActivity()}>
+          액티비티 삭제
+        </Button>
         <Button onClick={() => onSubmitActivity()}>액티비티 수정</Button>
       </div>
       {/* handleClose, msg, msgSuccess, msgFail, onRequest, res, */}
@@ -136,6 +157,8 @@ const ManageActivity = ({
         onRequest={reqModal.onRequest}
         res={reqModal.res}
         onSuccess={reqModal.onSuccess}
+        msgSuccess={reqModal.msgSuccess}
+        msgFail={reqModal.msgFail}
       />
     </>
   );

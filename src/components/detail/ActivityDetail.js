@@ -141,7 +141,7 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
 
       <b>챕터</b>
       <div className="chapter text-break">
-        {chapterid && Array.isArray(chapterid) ? (
+        {chapterid && Array.isArray(chapterid) && chapterid.length > 0 ? (
           chapterid.map((chapters, index) => (
             <div key={index} style={{ marginRight: '50px' }}>
               {chapters.map((chapter, index1) => (
@@ -158,7 +158,7 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
             </div>
           ))
         ) : (
-          <>챕터가 없습니다.</>
+          <NoCards msg="챕터가 없습니다." margin="10px" />
         )}
       </div>
     </div>

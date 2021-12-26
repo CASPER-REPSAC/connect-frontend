@@ -157,6 +157,7 @@ const UpdateChapter = ({ match }) => {
                 onFileUnDelete={onFileUnDelete}
                 targetFiles={targetFiles}
                 inputDiscriptionHandler={inputDiscriptionHandler}
+                match={match}
               />
             </>
           )}

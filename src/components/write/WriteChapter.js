@@ -99,6 +99,7 @@ const WriteChapter = ({ match }) => {
                 submitChapter={onSubmitChapter}
                 targetFiles={targetFiles}
                 inputDiscriptionHandler={inputDiscriptionHandler}
+                match={match}
               />
             </>
           )}

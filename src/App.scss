@@ -57,3 +57,29 @@
     border-top: 1px solid $gray2;
   }
 }
+
+blockquote {
+  border: none;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+  border-left: 5px solid #cccccc;
+}
+
+table {
+  border-collapse: collapse;
+}
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border: 1px solid $black1;
+}
+td {
+  width: fit-content;
+  min-width: 100px;
+}

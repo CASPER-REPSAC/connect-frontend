@@ -115,7 +115,17 @@ const getSearchResult = async (keyword, search_type, setState, page_number) => {
 const getUserActivityList = async (userId, setState) => {
   const res = await axios.get(`/api/user/${userId}/`);
   if (res.status === 200 || res.status === 201 || res.status === 204) {
-    setState(res.data);
+    setState(
+      res.data.sort((a, b) => {
+        if (a.id < b.id) {
+          return 1;
+        }
+        if (a.id > b.id) {
+          return -1;
+        }
+        return 0;
+      }),
+    );
   }
   console.log(res);
 };

@@ -14,22 +14,23 @@ const CardList = ({ cards, nowrap }) => {
       {cards && Array.isArray(cards) && cards.length !== 0 ? (
         <>
           <div className={`card-list ${wrapState}`}>
-            {cards.map((card) => {
+            {cards.map((card, index) => {
               const isActivity = Object.keys(card).includes('participants');
               if (isActivity) {
                 return (
                   <>
-                    <CardListItem key={card.id} card={card} />
+                    <CardListItem key={index} card={card} />
                   </>
                 );
               }
-              return <ChapterCardItem card={card} />;
+
+              return <ChapterCardItem card={card} key={index} />;
             })}
           </div>
         </>
       ) : (
         <>
-          <NoCards margin="10px 0px" />
+          <NoCards margin="5px" />
         </>
       )}
     </>
