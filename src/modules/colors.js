@@ -1,6 +1,6 @@
-import { handleActions } from 'redux-actions';
-
 // action types
+const TAG_COLOR_SHUFFLE = 'colors/TAG_COLOR_SHUFFLE';
+const USER_COLOR_SHUFFLE = 'colors/USER_COLOR_SHUFFLE';
 
 // action genarator functions
 
@@ -165,8 +165,31 @@ const initialState = {
   ],
 };
 
+export const tagColorShuffle = (userData) => ({
+  type: TAG_COLOR_SHUFFLE,
+});
+export const userColorShuffle = (user) => ({
+  type: USER_COLOR_SHUFFLE,
+});
+
 // reducers
-const colors = handleActions({}, initialState);
+
+const colors = (state = initialState, action) => {
+  switch (action.type) {
+    case TAG_COLOR_SHUFFLE:
+      return {
+        ...state,
+        tagColors: state.tagColors.sort(() => Math.random() - 0.5),
+      };
+    case USER_COLOR_SHUFFLE:
+      return {
+        ...state,
+        userColors: state.userColors.sort(() => Math.random() - 0.5),
+      };
+    default:
+      return state;
+  }
+};
 
 // export
 export default colors;

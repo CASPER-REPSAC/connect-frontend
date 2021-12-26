@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import RecentBox from 'components/common/RecentBox';
 import { getActivityList, getUserActivityList } from 'modules/api';
 import { useSelector } from 'react-redux';
@@ -69,9 +68,4 @@ const MainPage = () => {
   );
 };
 
-export default connect(
-  (state) => ({
-    // cards: state.activities.activities,
-  }),
-  {},
-)(MainPage);
+export default React.memo(MainPage);

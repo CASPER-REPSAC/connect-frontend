@@ -2,7 +2,6 @@ import React from 'react';
 import casGray from '../../img/casOutlineDark-40.png';
 
 const NoCards = ({ msg, margin }) => {
-  console.log(margin);
   return (
     <div className="d-flex align-items-center" style={{ margin: margin }}>
       <img src={casGray} alt="cas logo" />
