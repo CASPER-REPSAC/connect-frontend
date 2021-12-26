@@ -78,7 +78,7 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
         </h3>
         <div
           className="d-flex flex-column align-items-end"
-          style={{ fontSize: '12px' }}
+          style={{ fontSize: '13px' }}
         >
           <small className="text-muted">{type}</small>
           <small className="text-muted">{createDate}</small>
@@ -87,7 +87,7 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
       </div>
       <div
         className="d-flex justify-content-between mt-1 align-items-center"
-        style={{ fontSize: '12px' }}
+        style={{ fontSize: '13px' }}
       >
         <div>
           진행일정 : {startDate} ~ {endDate}
@@ -149,7 +149,7 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
                   <Link
                     to={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
                     className="d-inline-block text-truncate"
-                    style={{ maxWidth: '150px' }}
+                    style={{ maxWidth: '200px' }}
                   >
                     {index * 10 + index1 + 1}. {chapter.subject}
                   </Link>
