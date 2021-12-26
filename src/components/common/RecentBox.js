@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import '../../styles/RecentBox.scss';
 import CardList from '../card/CardList';
 import { NoCards } from './NoCards';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const SelectorItem = ({ selectorName, selected, setSelected }) => {
   return (
@@ -26,8 +29,10 @@ const RecentBox = ({
   noTap,
   title,
   titleColor,
+  maxHeight,
+  display,
 }) => {
-  const menus = ['내가 쓴글', '최신글'];
+  const menus = ['내가 쓴글', '최신 액티비티'];
   const [selected, setSelected] = useState(menus[0]);
 
   return (
@@ -50,10 +55,15 @@ const RecentBox = ({
         </div>
       ) : (
         <div className="notap-box" style={{ background: titleColor }}>
-          {title}
+          <Link to={`/types/${title}`}>
+            {title} <FontAwesomeIcon icon={faChevronRight} className="icon" />
+          </Link>
         </div>
       )}
-      <div className="content horizontal-scroll">
+      <div
+        className="content horizontal-scroll"
+        style={{ maxHeight: maxHeight, display: display }}
+      >
         {!noTap ? (
           <>
             {selected === menus[0] ? (

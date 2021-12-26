@@ -15,6 +15,7 @@
   width: $app-box-width;
   max-width: $app-box-width;
   min-height: 88vh;
+  min-width: 320px;
   @include box-shadow($app-box-radius);
   box-shadow: none;
   margin: 5.5vh 0;

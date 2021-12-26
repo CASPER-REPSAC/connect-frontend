@@ -11,6 +11,23 @@
     width: fit-content;
     padding: 1px 10px;
     font-weight: 600;
+    transition: 800ms ease-in-out;
+    a:hover {
+      color: white;
+    }
+    .icon {
+      transition: 100ms ease-in-out;
+
+      font-size: 12px;
+      * {
+        color: white;
+      }
+    }
+    &:hover {
+      .icon {
+        transform: translate(3px);
+      }
+    }
   }
   .selector-box {
     display: flex;
@@ -56,15 +73,15 @@
   }
 
   .content {
-    padding: 10px;
-    padding-bottom: 5px;
+    padding: 5px;
     border: 1px solid $gray2;
     border-radius: 0 14px 14px 14px;
     color: $black1;
     // font-size: 12px;
     font-weight: 500;
-    height: 182px;
+    height: fit-content;
     max-height: 182px;
+    min-height: 182px;
     overflow-x: hidden;
     overflow-y: scroll;
   }

@@ -29,7 +29,7 @@ const CardList = ({ cards, nowrap }) => {
         </>
       ) : (
         <>
-          <NoCards />
+          <NoCards margin="10px 0px" />
         </>
       )}
     </>

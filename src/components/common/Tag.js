@@ -1,29 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Tag.scss';
-
-const tagColor = [
-  '#D49926',
-  '#dd5A2E',
-  '#9335E8',
-  '#072E36',
-  '#4D992C',
-  '#63283E',
-  '#634651',
-  '#B0466D',
-  '#1B6354',
-  '#962F0B',
-];
+import { useSelector } from 'react-redux';
 
 const BigTag = ({ tagId, tagName }) => {
-  const colorIndex = tagId % tagColor.length;
+  const { tagColors } = useSelector((state) => ({
+    tagColors: state.colors.tagColors,
+  }));
+  const colorIndex = tagId % tagColors.length;
   return (
     <>
       <span>
         <Link
           to={`/tags/${tagId}`}
           className="styled-tag big-tag"
-          style={{ backgroundColor: tagColor[colorIndex] }}
+          style={{ backgroundColor: tagColors[colorIndex] }}
         >
           {tagName}
         </Link>
@@ -33,13 +24,16 @@ const BigTag = ({ tagId, tagName }) => {
 };
 
 const Tag = ({ tagId, tagName }) => {
-  const colorIndex = tagId % tagColor.length;
+  const { tagColors } = useSelector((state) => ({
+    tagColors: state.colors.tagColors,
+  }));
+  const colorIndex = tagId % tagColors.length;
   return (
     <span>
       <Link
         to={`/tags/${tagId}`}
         className="styled-tag"
-        style={{ backgroundColor: tagColor[colorIndex] }}
+        style={{ backgroundColor: tagColors[colorIndex] }}
       >
         {tagName}
       </Link>
@@ -48,8 +42,11 @@ const Tag = ({ tagId, tagName }) => {
 };
 
 const NoLinkTag = ({ style, tagId, tagName }) => {
-  const colorIndex = tagId % tagColor.length;
-  style = { ...style, backgroundColor: tagColor[colorIndex] };
+  const { tagColors } = useSelector((state) => ({
+    tagColors: state.colors.tagColors,
+  }));
+  const colorIndex = tagId % tagColors.length;
+  style = { ...style, backgroundColor: tagColors[colorIndex] };
   return (
     <span className="styled-tag" style={style}>
       {tagName}

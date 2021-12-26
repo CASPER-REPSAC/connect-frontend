@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import Tag from '../common/Tag';
+import { UserIcon } from '../common/UserIcon';
 
 import './CardItem.scss';
 
@@ -36,20 +37,14 @@ const CardListItem = ({ card, colors }) => {
     <div className="card-item-block">
       <div className="top-section">
         <div className="article-block">
-          <Link to={`/users/${author || 'test@test.com'}`}>
-            <div
-              className="auth-icon"
-              style={{
-                textAlign: 'center',
-                lineHeight: '55px',
-                fontWeight: 'bold',
-                fontSize: '30px',
-                color: 'white',
-              }}
-            >
-              {author.substr(0, 1)}
-            </div>
-          </Link>
+          <UserIcon
+            user={author}
+            url={`/users/${author}`}
+            width="50px"
+            height="50px"
+            borderRadius="8px"
+          />
+
           <div className="article">
             <div className="article-header">
               <Link to={url}>
@@ -57,39 +52,35 @@ const CardListItem = ({ card, colors }) => {
                   {title}
                 </div>
               </Link>
-              <div className="typeAuth">
-                <Link to={`/types/${type || 'CTF'}`}>
-                  <div>{type}</div>
-                </Link>
-                <Link to={`/users/${author || 'test@test.com'}`}>
-                  <div title={author || 'test@test.com'} className="author">
-                    {author || 'test@test.com'}
-                  </div>
-                </Link>
-              </div>
             </div>
-            <Link to={url}>
-              <div
-                className="introduce dragable"
-                title={description || 'no description'}
-                dangerouslySetInnerHTML={{ __html: description }}
-              >
-                {/* {description || 'no description'} */}
-              </div>
-            </Link>
+            <div className="typeAuth">
+              <Link to={url}>
+                <div>{type}</div>
+              </Link>
+              {/* <Link to={`/users/${author || 'test@test.com'}`}>
+                <div title={author || 'test@test.com'} className="author">
+                  {author || 'test@test.com'}
+                </div>
+              </Link> */}
+            </div>
           </div>
         </div>
         <div className="participants">
-          {participants.map((participant, index) => (
-            <Link
-              to={`/participants/${participant.user_id}`}
-              className="participant"
-              key={index}
-              title={participant.user_id}
-            >
-              {participant.user_name.substring(0, 1)}
-            </Link>
-          ))}
+          {participants.map((participant, index) => {
+            if (participant.user_name !== author) {
+              return (
+                <UserIcon
+                  user={participant.user_name}
+                  width="30px"
+                  height="30px"
+                  fontSize="15px"
+                  borderRadius="0.3rem"
+                  margin="0 5px 0 0"
+                />
+              );
+            }
+          })}
+          {participants.length === 1 && <small>참여자 모집 중!</small>}
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-end">
@@ -108,7 +99,6 @@ const CardListItem = ({ card, colors }) => {
             }
           })}
         </div>
-        <div className="card-type text-muted">activity</div>
       </div>
     </div>
   );

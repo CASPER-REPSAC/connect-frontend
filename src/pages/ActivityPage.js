@@ -14,11 +14,16 @@ const OneBlock = ({ blockTitle, cards }) => {
 };
 
 const ActivityPage = ({ match }) => {
+  const { type } = match.params;
+
   const [cards, setCards] = useState([1]);
   const [cardsByType, setCardsByType] = useState({
     Study: undefined,
     CTF: undefined,
     Project: undefined,
+    Running: undefined,
+    Planned: undefined,
+    Ended: undefined,
   });
 
   useEffect(() => {
@@ -30,11 +35,13 @@ const ActivityPage = ({ match }) => {
       Study: cards.filter((v) => v['type'] === 'Study'),
       Project: cards.filter((v) => v['type'] === 'Project'),
       CTF: cards.filter((v) => v['type'] === 'CTF'),
+      Running: cards.filter((v) => v['currentState'] === 1),
+      Planned: cards.filter((v) => v['currentState'] === 0),
+      Ended: cards.filter((v) => v['currentState'] === 2),
     });
   }, [cards]);
 
-  if (match.params.type) {
-    const { type } = match.params;
+  if (type) {
     return (
       <>
         <OneBlock blockTitle={type} cards={cardsByType[type]} />

@@ -27,6 +27,15 @@ const Nav = () => {
       <DropdownMenu menuName="HOME" menuLink="/"></DropdownMenu>
       <DropdownMenu menuName="ACTIVITY" menuLink="/activities">
         <li>
+          <NavLink to="/types/Running">Running</NavLink>
+        </li>
+        <li>
+          <NavLink to="/types/Planned">Planned</NavLink>
+        </li>
+        <li>
+          <NavLink to="/types/Ended">Ended</NavLink>
+        </li>
+        <li>
           <NavLink to="/types/Study">Study</NavLink>
         </li>
         <li>

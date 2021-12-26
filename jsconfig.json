@@ -1,5 +1,7 @@
 {
-    "compilerOptions": {
-        "target": "es6"
-    }
+  "compilerOptions": {
+    "target": "es6",
+    "baseUrl": "src"
+  },
+  "includes": ["src"]
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import RecentBox from '../components/common/RecentBox';
-import CardList from '../components/card/CardList';
-import { getActivityList, getUserActivityList } from '../modules/api';
+import RecentBox from 'components/common/RecentBox';
+import { getActivityList, getUserActivityList } from 'modules/api';
 import { useSelector } from 'react-redux';
-import { NoCards } from '../components/common/NoCards';
+import { NoCards } from 'components/common/NoCards';
+import { RoundBadge } from 'components/common/RoundBadge';
+import { Link } from 'react-router-dom';
 
 // import '../styles/MainPage.scss';
 
@@ -36,22 +37,28 @@ const MainPage = () => {
 
           <RecentBox
             noTap
-            title="Currently Running"
+            title="Running"
             titleColor="#28A745"
             firstSectionCards={cards.filter((card) => card.currentState === 1)}
+            maxHeight="352px"
           />
           <RecentBox
             noTap
             title="Planned"
             titleColor="#0a7fad"
             firstSectionCards={cards.filter((card) => card.currentState === 0)}
+            maxHeight="352px"
           />
-          <RecentBox
+          <RoundBadge>
+            <Link to={`/types/Ended`}>Ended</Link>
+          </RoundBadge>
+          {/* <RecentBox
             noTap
             titleColor="#56656b"
             title="Ended"
             firstSectionCards={cards.filter((card) => card.currentState === 2)}
-          />
+            display="block"
+          /> */}
         </>
       ) : (
         <>
