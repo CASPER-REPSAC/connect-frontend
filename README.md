@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# Connect frontend with tailwindcss && redux thunk
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Outline
 
-## Available Scripts
+부트스트랩이 구시대 유물이 되었다는 소식을 듣고 tailwindcss로 갈아타기로 함. 잘가....
 
-In the project directory, you can run:
+또한 각 컴포넌트에서 useState를 통해 관리되던 지역 상태를 모두 redux를 사용해 전역 상태로 만들고, 이를 위해 비동기 처리를 redux-chunk로 할 예정.
 
-### `yarn start`
+## New packages compare to previous connect frontend project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- babel-plugin-module-resolver
+  - 절대 경로 import를 위해 사용
+  - CRA에서는 .babelrc파일을 사용할 수 없기 때문에 아래의 패키지가 필요.(eject를 통해 사용할 수 있으나 권장되지 않음.)
+  - customize-cra, react-app-rewired
+  - config-overrides.js와 package.json의 scripts에서 react-app-rewired는 이 패키지를 위한 것.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Others
 
-### `yarn test`
+### package.json
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+scripts.build의 GENERATE_SOURCEMAP=falseGENERATE_SOURCEMAP=false 설정으로 sourcemap 생성 방지
 
-### `yarn build`
+### src/services/helpers.js
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+log() 함수를 만들어 webpack을 건드리지 않고 build 시에 console.log가 찍히지 않게 함.
+매번 import를 해야하는게 귀찮긴하다..
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### css
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+flex-box 위주의 레이아웃을 grid로 전환
+tailwindcss의 테마기능 활용
