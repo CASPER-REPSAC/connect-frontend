@@ -19,8 +19,9 @@ const WriteActivity = () => {
     startDate: date,
     endDate: date,
     currentState: 0,
+    password: '',
   });
-  const [tags, setTags] = useState(['casper']);
+  const [tags, setTags] = useState([]);
   const [participants, setParticipants] = useState([]);
 
   useEffect(() => {

@@ -101,65 +101,69 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
         </div>
       </div>
       <hr />
-      <div className="mb-3">
-        <PartiCard>
-          <div className="d-flex justify-content-between align-items-center mb-1">
-            <div style={{ fontSize: '12px' }}>
-              <b> 참여자</b>
-            </div>
+      <div className="d-flex mb-3 article-grid">
+        <div
+          className="mb-3 description"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
+        <div className="side">
+          <div className="mb-3 particard">
+            <PartiCard>
+              <div className="d-flex justify-content-between align-items-center mb-1">
+                <div style={{ fontSize: '12px' }}>
+                  <b> 참여자</b>
+                </div>
+              </div>
+              <div>
+                {participants &&
+                  Array.isArray(participants) &&
+                  participants.map((participant, index) => (
+                    <PartiCard key={`participant_${index}`}>
+                      {participant.user_name}
+                    </PartiCard>
+                  ))}
+              </div>
+            </PartiCard>
           </div>
-          <div>
-            {participants &&
-              Array.isArray(participants) &&
-              participants.map((participant, index) => (
-                <PartiCard
-                  key={`participant_${index}`}
-                  style={{ marginRight: '5px' }}
-                >
-                  {participant.user_name}
-                </PartiCard>
-              ))}
+          <div className="mb-3 tags">
+            {tags &&
+              Array.isArray(tags) &&
+              tags.map((tag, index) => {
+                return (
+                  <Tag
+                    key={`tag_${index}`}
+                    tagName={tag.tag_name}
+                    tagId={tag.tag_id}
+                  />
+                );
+              })}
           </div>
-        </PartiCard>
-      </div>
-      <div className="mb-3" dangerouslySetInnerHTML={{ __html: description }}>
-        {/* {description} */}
-      </div>
-      <div className="mb-3">
-        {tags &&
-          Array.isArray(tags) &&
-          tags.map((tag, index) => {
-            return (
-              <Tag
-                key={`tag_${index}`}
-                tagName={tag.tag_name}
-                tagId={tag.tag_id}
-              />
-            );
-          })}
+        </div>
       </div>
 
-      <b>챕터</b>
-      <div className="chapter text-break">
-        {chapterid && Array.isArray(chapterid) && chapterid.length > 0 ? (
-          chapterid.map((chapters, index) => (
-            <div key={index} style={{ marginRight: '50px' }}>
-              {chapters.map((chapter, index1) => (
-                <div key={index1} className="">
-                  <Link
-                    to={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
-                    className="d-inline-block text-truncate"
-                    style={{ maxWidth: '200px' }}
-                  >
-                    {index * 10 + index1 + 1}. {chapter.subject}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          ))
-        ) : (
-          <NoCards msg="챕터가 없습니다." margin="10px" />
-        )}
+      <div className="chapters">
+        <b>챕터</b>
+        <div className="chapter text-break">
+          {chapterid && Array.isArray(chapterid) && chapterid.length > 0 ? (
+            chapterid.map((chapters, index) => (
+              <div key={index} style={{ marginRight: '50px' }}>
+                {chapters.map((chapter, index1) => (
+                  <div key={index1} className="">
+                    <Link
+                      to={`/activities/${chapter.activityid}/chapter/${chapter.chapterid}`}
+                      className="d-inline-block text-truncate"
+                      style={{ maxWidth: '200px' }}
+                    >
+                      {index * 10 + index1 + 1}. {chapter.subject}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            ))
+          ) : (
+            <NoCards msg="챕터가 없습니다." margin="10px" />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -15,9 +15,6 @@
   &.inactive {
     filter: brightness(80%);
   }
-  & + & {
-    margin-left: 5px;
-  }
 }
 
 .activity-form,

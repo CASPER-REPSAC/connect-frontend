@@ -1,24 +1,42 @@
 @import './utils.scss';
 
-.activity-detail{
-    .chapter{
-        display: flex;
+.activity-detail {
+  .chapter {
+    display: flex;
+  }
+  @media (max-width: 700px) {
+    .chapter {
+      display: block;
     }
-    @media (max-width: 700px){
-        .chapter{
-            display: block;
-        }
-    }
+  }
+  .side {
+    width: 200px;
+    flex: none;
+    margin: 10px;
+    padding: 10px;
+    margin-top: 0px;
+    padding-top: 0px;
+    border-left: 1px solid lightgray;
+  }
+  .description {
+    width: 100%;
+  }
+  .article-grid {
+    min-height: 300px;
+  }
 
+  .chapters {
+    flex: none;
+  }
 }
 
-.chapter-detail{
-    .files{
-        display: flex;
+.chapter-detail {
+  .files {
+    display: flex;
+  }
+  @media (max-width: 700px) {
+    .files {
+      display: block;
     }
-    @media (max-width: 700px){
-        .files{
-            display: block;
-        }
-    }
+  }
 }

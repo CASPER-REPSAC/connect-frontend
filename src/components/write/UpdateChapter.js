@@ -103,6 +103,7 @@ const UpdateChapter = ({ match }) => {
       article: chapterInput.article,
       activityid: chapterInput.activityid,
       file_delete: chapterInput.file_delete,
+      password: chapterInput.password,
     };
     setSendCounter(sendCounter + 1);
     console.log('updaeteadf', data);

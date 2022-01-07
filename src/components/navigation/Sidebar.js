@@ -42,7 +42,7 @@ const Sidebar = () => {
           src={casLogo}
           alt="Logo"
           className="logo-sidebar"
-          onClick={() => onClick()}
+          // onClick={() => onClick()}
         />
       </NavLink>
       {/* <GoogleButton /> */}

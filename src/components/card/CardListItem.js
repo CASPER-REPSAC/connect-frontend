@@ -66,23 +66,7 @@ const CardListItem = ({ card, colors }) => {
           </div>
         </div>
         <div className="participants">
-          {participants.map((participant, index) => {
-            if (participant.user_name !== author) {
-              return (
-                <UserIcon
-                  user={participant.user_name}
-                  width="30px"
-                  height="30px"
-                  fontSize="15px"
-                  borderRadius="0.3rem"
-                  margin="0 5px 0 0"
-                  key={index}
-                />
-              );
-            }
-            return <div key={index} style={{ display: 'none' }}></div>;
-          })}
-          {participants.length === 1 && <small>참여자가 없습니다.</small>}
+          {participants && <small>참여자 {participants.length}명</small>}
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-end">

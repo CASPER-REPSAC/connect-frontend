@@ -13,6 +13,7 @@ const WriteChapter = ({ match }) => {
     subject: '',
     article: '',
     activityid: match.params.id,
+    password: '',
     files: [],
   });
   const [targetFiles, setTargetFiles] = useState();
@@ -59,6 +60,7 @@ const WriteChapter = ({ match }) => {
       subject: chapterInput.subject,
       article: chapterInput.article,
       activityid: chapterInput.activityid,
+      password: chapterInput.password,
     };
     setSendCounter(sendCounter + 1);
     const res = await submitChapter(data, match.params.activityId, setWriteRes);

@@ -6,7 +6,7 @@ export const PartiCard = (props) => {
   return (
     <div
       {...props}
-      className="participant-card active"
+      className="participant-card active w-100"
       style={{ fontSize: '12px' }}
     >
       <>{props.children}</>

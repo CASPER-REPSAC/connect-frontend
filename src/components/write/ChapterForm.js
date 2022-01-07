@@ -100,6 +100,7 @@ const ChapterForm = ({
 
           <div
             className="input-box d-flex justify-content-start"
+            style={{ minHeight: '41px' }}
             onChange={(e) => onFileChange(e)}
           >
             {chapterInput.current_files.map((file, index) => (
@@ -123,6 +124,19 @@ const ChapterForm = ({
         </>
       )}
       <br />
+      <label htmlFor="title" className="mt-3">
+        <h5>Password</h5>
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        name="password"
+        className="d-block"
+        style={{ width: '200px' }}
+        value={chapterInput.password || ''}
+        onChange={(e) => inputHandler(e.target)}
+      />
       <div className="text-center">
         <Button background="gray" onClick={() => onBtnClick()}>
           취소

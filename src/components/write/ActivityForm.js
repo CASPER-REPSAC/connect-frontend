@@ -110,6 +110,20 @@ const ActivityForm = ({
         name="tags"
         placeHolder="태그를 입력해주세요"
       />
+
+      <label htmlFor="title" className="mt-3">
+        <h5>Password</h5>
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        className="d-block"
+        style={{ width: '200px' }}
+        value={inputs['password'] || ''}
+        onChange={(e) => onChangeHandler(e)}
+      />
+
       {!manage && (
         <>
           <br />
