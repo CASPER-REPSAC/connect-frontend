@@ -64,7 +64,6 @@ const WriteChapter = ({ match }) => {
     };
     setSendCounter(sendCounter + 1);
     const res = await submitChapter(data, match.params.activityId, setWriteRes);
-    console.log(res);
     setResID(res);
     if (targetFiles) {
       const fileUploadRes = await uploadChapterFiles(
@@ -73,7 +72,6 @@ const WriteChapter = ({ match }) => {
         res,
       );
 
-      console.log('fileUploadRes', fileUploadRes);
       if (fileUploadRes[0] !== targetFiles.length) {
         setFileRes(false);
         setFileFail(fileUploadRes[1]);

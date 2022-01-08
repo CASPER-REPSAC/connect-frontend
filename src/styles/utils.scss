@@ -65,6 +65,53 @@ img[src$='.png'] {
   }
 }
 
+.tooltip-container {
+  position: relative;
+  border: 0px;
+  .custom-tooltip {
+    padding: 3px 0;
+    width: 100px; /* 툴팁 영역의 넓이를 설정 */
+    background-color: $black1;
+    color: #fff;
+    border: 0px;
+    text-align: center;
+    border-radius: 6px;
+    top: 100%;
+    left: -50%;
+    font-size: small;
+    position: absolute; /* 절대 위치를 사용 */
+    z-index: 100;
+    opacity: 0;
+    transform: scale(0, 0) rotate(20deg);
+    transition: 100ms ease-in-out;
+  }
+  .custom-tooltip::after {
+    position: absolute;
+    top: -35%; /* 사각형 영역이 중앙에 오도록 위치 */
+    right: 50%; /* 왼쪽에서 100% 위치에 오도록 위치 */
+    content: ' ';
+
+    border: 5px solid $black1;
+    border-color: transparent transparent $black1 transparent;
+  }
+  &:hover {
+    .custom-tooltip {
+      opacity: 100;
+      transform: scale(1, 1) rotate(0);
+    }
+  }
+  .leader-tooltip {
+    position: absolute;
+    top: -40%;
+    left: 25%;
+  }
+  .leader-tooltip::after {
+    position: absolute;
+    font-size: 16px;
+    content: '👑';
+  }
+}
+
 $scroll-width: 5px;
 .horizontal-scroll {
   &::-webkit-scrollbar {

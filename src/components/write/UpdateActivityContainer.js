@@ -22,7 +22,6 @@ const UpdateActivityContainer = ({ match }) => {
 
   return (
     <div>
-      {/* {console.log(tags)} */}
       {activityDetail && tags ? (
         <>
           <UpdateActivity

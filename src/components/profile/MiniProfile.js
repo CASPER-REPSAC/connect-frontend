@@ -3,7 +3,7 @@ import '../../styles/Profile.scss';
 
 import GoogleButton from '../auth/GoogleButton';
 import LogoutButton from '../auth/LogoutButton';
-import { UserIcon } from '../common/UserIcon';
+import { UserIcon } from '../common/PartiCard';
 
 function MiniProfile({ user }) {
   const { icon, first_name, last_name, email, pk } = user;
@@ -16,15 +16,8 @@ function MiniProfile({ user }) {
               {/* <div className="icon text-center">
                 {email ? email.substring(0, 1) : 'A'}
               </div> */}
-              <UserIcon
-                user={email}
-                width="40px"
-                height="40px"
-                fontSize="15px"
-                borderRadius="7px"
-                margin="5px 5px 0 5px"
-              />
-              <div className="right">
+              <UserIcon userName={`${last_name}${first_name}`} noTooltip />
+              <div className=" m-2 right">
                 <div className="name">
                   {last_name ? last_name : 'no name'}
                   {first_name ? first_name : 'no name'}

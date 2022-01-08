@@ -20,8 +20,6 @@ const UpdateChapter = ({ match }) => {
     );
   }, [match]);
 
-  console.log('chapterData', chapterData);
-
   const [activityDetail, setActivityDetail] = useState();
   const [chapterInput, setChapterInput] = useState({
     subject: '',
@@ -52,7 +50,6 @@ const UpdateChapter = ({ match }) => {
   const [resID, setResID] = useState(null);
   const [fileFail, setFileFail] = useState([]);
 
-  // console.log(match);
   useEffect(() => {
     if (match.params.activityId) {
       getActivityDetail(match.params.activityId, setActivityDetail);
@@ -106,7 +103,6 @@ const UpdateChapter = ({ match }) => {
       password: chapterInput.password,
     };
     setSendCounter(sendCounter + 1);
-    console.log('updaeteadf', data);
     const res = await updateChapter(
       data,
       match.params.activityId,
@@ -114,7 +110,6 @@ const UpdateChapter = ({ match }) => {
       match.params.chapterId,
     );
 
-    console.log(res);
     setResID(res);
     if (targetFiles) {
       const fileUploadRes = await uploadChapterFiles(
@@ -123,7 +118,6 @@ const UpdateChapter = ({ match }) => {
         match.params.chapterId,
       );
 
-      console.log('fileUploadRes', fileUploadRes);
       if (fileUploadRes[0] !== targetFiles.length) {
         setFileRes(false);
         setFileFail(fileUploadRes[1]);

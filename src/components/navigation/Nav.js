@@ -9,6 +9,7 @@ import casLogo from '../../img/cas-40.png';
 import '../../styles/Nav.scss';
 import GoogleButton from '../auth/GoogleButton';
 import LogoutButton from '../auth/LogoutButton';
+import { Button } from '../common/Button';
 
 import { useSelector } from 'react-redux';
 
@@ -45,7 +46,18 @@ const Nav = () => {
           <NavLink to="/types/CTF">CTF</NavLink>
         </li>
       </DropdownMenu>
+
       <DropdownMenu menuName="WRITE" menuLink="/write"></DropdownMenu>
+      <div className="d-flex justify-content-center align-items-center m-1">
+        <Button
+          onClick={() => {
+            window.open('https://github.com/CASPER-REPSAC/casper-api/issues');
+          }}
+          background="#8B0000"
+        >
+          ISSUES
+        </Button>
+      </div>
       {!email && !pk ? (
         <div className="justify-content-center align-items-center less-then-tablet-show ">
           <GoogleButton />

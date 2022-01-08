@@ -27,7 +27,7 @@ const MainPage = () => {
     <div className="main-page">
       {cards && cards[0] ? (
         <>
-          {userActiCards && (
+          {user.email && userActiCards && (
             <RecentBox
               firstSectionCards={userActiCards}
               secondSectionCards={cards}

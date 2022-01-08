@@ -48,9 +48,7 @@ const ActivityDetailPage = ({ match, history }) => {
   }, [writeRes]);
 
   async function onDeleteActiParticipants() {
-    console.log('dropout');
     const onRequest = () => {
-      console.log('dropout request');
       deleteActiParticipants(params.activityId, pk, setWriteRes);
     };
     const onSuccess = () => {
@@ -72,9 +70,7 @@ const ActivityDetailPage = ({ match, history }) => {
   }
 
   async function onSubmitActiParticipants() {
-    console.log('join acti');
     const onRequest = () => {
-      console.log('join acti request');
       submitActiParticipants(params.activityId, pk, setWriteRes);
     };
     const onSuccess = () => {
@@ -106,12 +102,8 @@ const ActivityDetailPage = ({ match, history }) => {
 
   return (
     <>
-      {console.log('getActivityRes', getActivityRes)}
-      {console.log('activityDetail', activityDetail)}
       {getActivityRes === true && (
         <div className="d-flex flex-column justify-content-between h-100">
-          {console.log(match)}
-
           {activityDetail && (
             <ActivityDetail
               activityDetail={activityDetail}
@@ -144,7 +136,6 @@ const ActivityDetailPage = ({ match, history }) => {
                 </>
               ) : (
                 <>
-                  {console.log(user.email, activityDetail.author)}
                   <Button
                     width="content-fit"
                     onClick={() => {

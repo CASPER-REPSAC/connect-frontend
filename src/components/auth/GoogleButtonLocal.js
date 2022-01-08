@@ -1,7 +1,7 @@
 import React from 'react';
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
-import {Cookies} from 'react-cookie';
+import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
 
@@ -13,15 +13,15 @@ const GoogleLoginButton = ({ onSocial }) => {
     console.log(response.profileObj.email);
     // const email = response.profileObj.email
     const headers = {
-      "Access-Control-Request-Headers": "content-type",
-      "Access-Control-Request-Method": "POST"
-    }
+      'Access-Control-Request-Headers': 'content-type',
+      'Access-Control-Request-Method': 'POST',
+    };
     const res = await axios.post('/accounts/tokentest/', {
       access_token: response.accessToken,
       // email: email
-    })
+    });
     console.log(res);
-    if (res.status===200){
+    if (res.status === 200) {
       cookies.set('access_token', res.data.access_token);
     }
   };

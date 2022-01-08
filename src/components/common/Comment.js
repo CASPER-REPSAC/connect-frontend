@@ -5,6 +5,7 @@ import Button from './Button';
 import { useSelector } from 'react-redux';
 import '../../styles/Comment.scss';
 import { AskReqModal } from './ResModal';
+import { UserIcon } from './PartiCard';
 
 const CommentList = ({ comments, user, increateReqTrigger }) => {
   const [reqModal, setReqModal] = useState({
@@ -25,9 +26,7 @@ const CommentList = ({ comments, user, increateReqTrigger }) => {
   };
 
   async function onDeleteActivity(commentpk) {
-    console.log('delete');
     const onRequest = async () => {
-      console.log('delete request');
       await deleteComment(commentpk, setWriteRes);
     };
     const onSuccess = () => {
@@ -53,12 +52,15 @@ const CommentList = ({ comments, user, increateReqTrigger }) => {
             className="p-3 d-flex justify-content-between"
             style={{ borderTop: '1px solid lightgray' }}
           >
-            <div>
-              <div className="mb-1">
-                <b>{comment.user}</b>
-              </div>
-              <div className="">
-                <div className="text-break">{comment.comment}</div>
+            <div className="d-flex">
+              {/* <UserIcon userName="hihi" img="" author /> */}
+              <div className="comments">
+                <div className="mb-1">
+                  <b>{comment.user}</b>
+                </div>
+                <div className="">
+                  <div className="text-break">{comment.comment}</div>
+                </div>
               </div>
             </div>
             {comment.writer === user.pk && (

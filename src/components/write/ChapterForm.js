@@ -17,15 +17,12 @@ const ChapterForm = ({
   match,
 }) => {
   const { title, type } = activityDetail;
-  console.log('ChapterForm - activityDetail', activityDetail);
   const onBtnClick = () => {
     window.location.href = `/activities/${match.params.activityId}`;
   };
 
   return (
     <div className="chapter-form" style={{ maxWidth: '700px' }}>
-      {console.log('chapterfore')}
-
       <label htmlFor="subject" className="no-margin">
         <h5>Title</h5>{' '}
       </label>
@@ -48,19 +45,13 @@ const ChapterForm = ({
         data={chapterInput.article || ''}
         onReady={(editor) => {
           // You can store the "editor" and use when it is needed.
-          console.log('Editor is ready to use!', editor);
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
           inputDiscriptionHandler(data);
         }}
-        onBlur={(event, editor) => {
-          console.log('Blur.', editor);
-        }}
-        onFocus={(event, editor) => {
-          console.log('Focus.', editor);
-        }}
+        onBlur={(event, editor) => {}}
+        onFocus={(event, editor) => {}}
       />
       <br />
       <label htmlFor="inputFile" className="d-flex">
@@ -78,7 +69,6 @@ const ChapterForm = ({
         style={{ display: 'block' }}
         // accept=".zip"
       />
-      {console.log(chapterInput.files)}
       {Array.isArray(chapterInput.files) && chapterInput.files.length > 1 && (
         <>
           {chapterInput.files.map((file, index) => (

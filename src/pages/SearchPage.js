@@ -9,7 +9,6 @@ const SearchPage = ({ match }) => {
   const [searchResult, setSearchResult] = useState();
   const [searchType, setSearchType] = useState('all');
   const [pageIndex, setPageIndex] = useState(1);
-  console.log(match);
   useEffect(() => {
     //   getSearchResult = async (keyword, search_type, setState)
     getSearchResult(
@@ -21,7 +20,6 @@ const SearchPage = ({ match }) => {
   }, [pageIndex, match, searchType]);
 
   const onSearchTypeChange = ({ target }) => {
-    console.log(target.value);
     setSearchType(target.value);
   };
 

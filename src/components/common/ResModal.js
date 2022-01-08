@@ -39,7 +39,6 @@ export const AskReqModal = (
 ) => {
   return (
     <Modal show={show.show} onHide={show.handleClose}>
-      {console.log('show', show)}
       <Modal.Body>
         <div>
           {show.res === undefined && (
@@ -53,7 +52,6 @@ export const AskReqModal = (
                   margin="0 0 0 5px"
                   background="#8B0000"
                   onClick={() => {
-                    console.log('modal request');
                     show.onRequest();
                   }}
                 >

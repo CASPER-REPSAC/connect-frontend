@@ -6,7 +6,6 @@ import CardList from '../components/card/CardList';
 import { BigTag } from '../components/common/Tag';
 
 const ShowTagInfo = ({ tagInfo }) => {
-  console.log('tagInfo', tagInfo);
   const { id, name, url } = tagInfo;
   return (
     <>
@@ -22,7 +21,6 @@ const TagPage = ({ match }) => {
   useEffect(() => {
     getCardsByTag(tagId, setCards);
   }, [match]);
-  console.log(match);
 
   useEffect(() => {
     getTagInfo(tagId, setTagInfo);

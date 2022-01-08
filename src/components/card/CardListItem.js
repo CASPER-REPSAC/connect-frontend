@@ -18,7 +18,7 @@ const CardListItem = ({ card, colors }) => {
   const { tagColors } = colors;
 
   const [width, widthSet] = useState(widthBase);
-  const [authorIcon, setAuthorIcon] = useState();
+  const [authorProfile, setAuthorProfile] = useState();
 
   useEffect(() => {
     if (participants.length > maxParticipants) {
@@ -29,9 +29,8 @@ const CardListItem = ({ card, colors }) => {
       widthSet(maxWidth);
     }
 
-    setAuthorIcon(
-      participants.filter((parti) => parti.profile.email === author)[0].profile
-        .picture,
+    setAuthorProfile(
+      participants.filter((parti) => parti.profile.email === author)[0].profile,
     );
   }, []);
 
@@ -42,8 +41,13 @@ const CardListItem = ({ card, colors }) => {
     <div className="card-item-block">
       <div className="top-section">
         <div className="article-block">
-          {authorIcon && <UserIcon img={authorIcon} userName={author} />}
-
+          {authorProfile && (
+            <UserIcon
+              img={authorProfile.picture}
+              userName={authorProfile.name}
+              author
+            />
+          )}
           <div className="article">
             <div className="article-header">
               <Link to={url}>

@@ -4,10 +4,10 @@ import Button from '../common/Button';
 const CommentForm = ({ commentInput, inputHandler, submitComment }) => {
   return (
     <div className="chapter-form">
-      {console.log('chapterfore')}
-
       <label htmlFor="article">
-        <h6>Comment</h6>
+        <h6>
+          <b>댓글</b>
+        </h6>
       </label>
       <br />
       <textarea

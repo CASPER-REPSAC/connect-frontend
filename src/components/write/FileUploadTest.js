@@ -6,7 +6,6 @@ const FileUploadTest = ({ match }) => {
   const [formData, setFormData] = useState(new FormData());
   const [fileName, setFileName] = useState('');
   // async function uploadChapterFile(activityId, chapterId, filePath, fileBlob) {
-  console.log(match.url);
 
   const uploadChapterFile = async () => {
     await axios
@@ -15,9 +14,7 @@ const FileUploadTest = ({ match }) => {
           // 'Content-Type': 'multipart/form-data',
         },
       })
-      .then((res) => {
-        console.log(res);
-      })
+      .then((res) => {})
       .catch((err) => console.log(err));
   };
 
@@ -29,34 +26,16 @@ const FileUploadTest = ({ match }) => {
       - url: match.url
     */
     if (e.target.files[0]) {
-      console.log('name', e.target.files[0].name);
       let tmpFormData = new FormData();
       for (let i = 0; i < e.target.files.length; i++) {
         tmpFormData.append('file', e.target.files[i]);
       }
       // tmpFormData.append('file', e.target.files[0]);
 
-      console.log(typeof tmpFormData);
-      console.log(tmpFormData.getAll('file'));
       setFormData(tmpFormData);
       const filenametmp = e.target.value.split('\\');
       setFileName(filenametmp[filenametmp.length - 1]);
     }
-
-    // await axios
-    //   .post(
-    //     `http://connects.casper.or.kr:30009/api${match.url}/upload/ddd.zip`,
-    //     tmpFormData,
-    //     {
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data',
-    //       },
-    //     },
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => console.log(err));
   };
   return (
     <>

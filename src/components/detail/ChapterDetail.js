@@ -16,8 +16,6 @@ function arrSlice(arr, n) {
 }
 
 const ChapterDetail = ({ chapterData, match }) => {
-  console.log('ChapterDetail', chapterData[0]);
-  console.log('chapterData', chapterData);
   const {
     activityid,
     article,

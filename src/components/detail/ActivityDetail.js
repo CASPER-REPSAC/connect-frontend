@@ -5,7 +5,7 @@ import Tag from '../common/Tag';
 import { NoCards } from '../common/NoCards';
 import { RecnetBox } from '../common/RecentBox';
 import '../../styles/Detail.scss';
-import { PartiCard, LinkedCard, PartiIcon } from '../common/PartiCard';
+import { PartiCard, LinkedCard, UserIcon } from '../common/PartiCard';
 import { useSelector } from 'react-redux';
 
 function arrSlice(arr, n) {
@@ -17,7 +17,6 @@ function arrSlice(arr, n) {
 
 const ActivityDetail = ({ activityDetail, ManageButton }) => {
   const user = useSelector((state) => state.auth.user);
-  console.log('activity detail', activityDetail);
   const {
     author,
     createDate,
@@ -41,7 +40,7 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
     <div className="activity-detail">
       <div className="d-flex justify-content-between ">
         <h3>
-          {title}
+          <b>{title}</b>
           {currentState === 1 && (
             <Badge
               style={{
@@ -110,20 +109,33 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
           <div className="particard">
             <PartiCard>
               <div className="d-flex justify-content-between align-items-center mb-1">
-                <div style={{ fontSize: '12px' }}>
+                <div style={{ fontSize: '12px' }} className="mb-1">
                   <b> 참여자</b>
                 </div>
               </div>
-              <div>
+              {console.log(activityDetail)}
+              <div className="d-flex wrap">
                 {participants &&
                   Array.isArray(participants) &&
-                  participants.map((participant, index) => (
-                    <PartiIcon
-                      key={`participant_${index}`}
-                      partiName={participant.profile.name}
-                      img={participant.profile.picture}
-                    />
-                  ))}
+                  participants.map((participant, index) => {
+                    if (participant.profile.email === author) {
+                      return (
+                        <UserIcon
+                          key={`participant_${index}`}
+                          userName={`👑${participant.profile.name}`}
+                          img={participant.profile.picture}
+                          leader
+                        />
+                      );
+                    }
+                    return (
+                      <UserIcon
+                        key={`participant_${index}`}
+                        userName={participant.profile.name}
+                        img={participant.profile.picture}
+                      />
+                    );
+                  })}
               </div>
             </PartiCard>
           </div>

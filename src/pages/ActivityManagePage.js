@@ -8,7 +8,6 @@ import '../styles/Write.scss';
 const ActivityManagePage = ({ match, history }) => {
   const { params } = match;
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
 
   const [activityDetail, setActivityDetail] = useState();
   const [tags, setTags] = useState();

@@ -15,17 +15,15 @@ const GoogleLoginButton = ({ onSocial }) => {
   const onLoginSuccess = (userData) => dispatch(loginSuccess(userData));
 
   const onSuccess = async (response) => {
-    console.log(response);
-    console.log(response.profileObj.email);
     // const email = response.profileObj.email
 
     const res = await axios.post('/accounts/tokentest/', {
       access_token: response.accessToken,
       // email: email
     });
-    console.log(res);
     if (res.status === 200) {
       window.localStorage.setItem('user', JSON.stringify(res.data.user));
+      console.log('login success', res);
       onLoginSuccess({
         ...res.data.user,
         access_token: res.data.access_token,

@@ -27,7 +27,6 @@ const ManageActivity = ({
   };
   const { user } = useSelector((state) => ({ user: state.auth.user }));
 
-  console.log('match', match);
   // states for write form
   const [inputs, setInputs] = useState({
     title: activityDetail.title,
@@ -74,10 +73,8 @@ const ManageActivity = ({
       tags: tags,
       participants_delete: participantsDelete,
     };
-    console.log('submit');
 
     const onRequest = () => {
-      console.log('submit request');
       updateActivity(data, setWriteRes, params.activityId);
     };
     const onSuccess = () => {
@@ -102,9 +99,7 @@ const ManageActivity = ({
   }, [writeRes]);
 
   async function onDeleteActivity() {
-    console.log('delete');
     const onRequest = () => {
-      console.log('delete request');
       deleteActivity(setWriteRes, params.activityId);
     };
     const onSuccess = () => {
@@ -135,7 +130,6 @@ const ManageActivity = ({
         submitActivity={onSubmitActivity}
         manage
       />
-      {console.log('tags', tags)}
       {Array.isArray(prevParticipants) && prevParticipants.length > 0 && (
         <ManageParticipants
           currentParticipants={prevParticipants}

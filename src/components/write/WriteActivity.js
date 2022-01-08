@@ -41,12 +41,10 @@ const WriteActivity = () => {
     };
     submitActivity(data, setWriteRes, setResID);
     setSendCounter(sendCounter + 1);
-    console.log('write data', data);
   }
 
   return (
     <>
-      {/* {console.log(tags)} */}
       {sendCounter === 0 && (
         <>
           <h4>액티비티 작성</h4>

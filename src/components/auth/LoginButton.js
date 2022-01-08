@@ -5,12 +5,8 @@ import Button from '../common/Button';
 const onClickHandler = async () => {
   await axios
     .get('/accounts/google/login/')
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+    .then((res) => {})
+    .catch((e) => {});
 };
 const LoginButton = () => {
   return (

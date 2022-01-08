@@ -9,7 +9,6 @@ import { DeleteResponse, DeleteAsk } from '../components/write/WriteResponse';
 import { useSelector } from 'react-redux';
 
 const ActivityChapterPage = ({ match, history }) => {
-  // console.log('ActivityChapterPage match', match);
   const { user } = useSelector((state) => ({ user: state.auth.user }));
 
   const { params } = match;
@@ -27,8 +26,6 @@ const ActivityChapterPage = ({ match, history }) => {
   };
 
   const onDeleteActivity = async () => {
-    // deleteChapter(activityId, setWriteRes, chapterId)
-    // console.log(params.activityId);
     setSendCounter(sendCounter + 1);
     await deleteChapter(params.activityId, setDeleteRes, params.chapterId);
   };
@@ -58,7 +55,6 @@ const ActivityChapterPage = ({ match, history }) => {
 
   return (
     <div className="activity-chapter-page">
-      {/* {console.log('activityChapterDetail', chapterData)} */}
       {chapterData ? (
         <>
           <ChapterDetail chapterData={chapterData} match={match} />

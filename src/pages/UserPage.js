@@ -3,10 +3,7 @@ import { getUserActivityList } from 'modules/api';
 import { NoCards } from 'components/common/NoCards';
 
 const UserPage = ({ match }) => {
-  console.log(match);
-
   const [userActiCards, setUserActiCards] = useState();
-  console.log(userActiCards);
 
   useEffect(() => {
     if (match.userId) {

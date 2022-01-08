@@ -9,7 +9,6 @@ const UpdateActivity = ({ match, activityDetail, prevTags }) => {
   const { user } = useSelector((state) => ({ user: state.auth.user }));
   const { pk } = user;
 
-  console.log('match', match);
   // states for write form
   const [inputs, setInputs] = useState({
     title: activityDetail.title,
@@ -24,9 +23,7 @@ const UpdateActivity = ({ match, activityDetail, prevTags }) => {
   const [tags, setTags] = useState(prevTags);
   const [participants, setParticipants] = useState([]);
 
-  useEffect(() => {
-    console.log('tags', tags);
-  }, [tags]);
+  useEffect(() => {}, [tags]);
 
   useEffect(() => {
     setInputs({ ...inputs, author: pk });
@@ -45,12 +42,10 @@ const UpdateActivity = ({ match, activityDetail, prevTags }) => {
     };
     updateActivity(data, setWriteRes, setResID, params.activityId);
     setSendCounter(sendCounter + 1);
-    console.log('write data', data);
   }
 
   return (
     <>
-      {/* {console.log(tags)} */}
       <>
         {inputs && sendCounter === 0 && (
           <>

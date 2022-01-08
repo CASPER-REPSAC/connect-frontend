@@ -240,7 +240,6 @@ export const DeleteResponse = ({ res, setSendCounter, submitActivity }) => {
 
           {res !== true && (
             <>
-              {console.log(res)}
               <Button
                 style={{ marginLeft: '5px' }}
                 onClick={() => submitActivity()}
