@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 
-const StyledUserIcon = styled.div`
+const StyledUserIcon = styled.img`
   text-align: center;
   line-height: 55px;
   font-weight: bold;
@@ -33,22 +33,9 @@ const StyledUserIcon = styled.div`
 
 // props.children도 함께 상속됨.
 export const UserIcon = (props, url) => {
-  const { userColors } = useSelector((state) => ({
-    userColors: state.colors.userColors,
-  }));
-
-  let tmpUserPk = 0;
-  for (let i = 0; i < props.user.length; i++) {
-    tmpUserPk += props.user.charCodeAt(i);
-  }
-
-  const colorIndex = tmpUserPk % userColors.length;
-
   return (
     <Link to={`/users/${props.user}`} title={props.user}>
-      <StyledUserIcon {...props} background={userColors[colorIndex]}>
-        {props.user.substr(0, 1)}
-      </StyledUserIcon>
+      <StyledUserIcon {...props} />
     </Link>
   );
 };

@@ -4,11 +4,10 @@
   .chapter {
     display: flex;
   }
-  @media (max-width: 700px) {
-    .chapter {
-      display: block;
-    }
+  .article-grid {
+    min-height: 300px;
   }
+
   .side {
     width: 200px;
     flex: none;
@@ -18,15 +17,42 @@
     padding-top: 0px;
     border-left: 1px solid lightgray;
   }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .description {
     width: 100%;
-  }
-  .article-grid {
-    min-height: 300px;
   }
 
   .chapters {
     flex: none;
+  }
+
+  @media (max-width: 700px) {
+    .chapter {
+      display: block;
+    }
+    .article-grid {
+      flex-direction: column;
+    }
+    .particard {
+      margin-bottom: 00px;
+    }
+    .side {
+      order: 1;
+      border: none;
+      border-bottom: 1px solid lightgray;
+      width: 100%;
+      margin: 0px;
+      margin-bottom: 10px;
+      padding: 0px;
+    }
+    .description {
+      order: 2;
+    }
   }
 }
 

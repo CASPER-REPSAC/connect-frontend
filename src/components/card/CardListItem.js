@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import Tag from '../common/Tag';
-import { UserIcon } from '../common/UserIcon';
+import { UserIcon } from '../common/PartiCard';
 
 import './CardItem.scss';
 
@@ -18,8 +18,8 @@ const CardListItem = ({ card, colors }) => {
   const { tagColors } = colors;
 
   const [width, widthSet] = useState(widthBase);
+  const [authorIcon, setAuthorIcon] = useState();
 
-  // ... 안 붙는 문제 해결하기
   useEffect(() => {
     if (participants.length > maxParticipants) {
       widthSet(widthBase + participants.length - maxParticipants);
@@ -28,6 +28,11 @@ const CardListItem = ({ card, colors }) => {
     if (width > maxWidth) {
       widthSet(maxWidth);
     }
+
+    setAuthorIcon(
+      participants.filter((parti) => parti.profile.email === author)[0].profile
+        .picture,
+    );
   }, []);
 
   // 소개를 입력받아서 이 함수 안에서 일정 길이 넘어가면 자르고 ... 붙이기
@@ -37,13 +42,7 @@ const CardListItem = ({ card, colors }) => {
     <div className="card-item-block">
       <div className="top-section">
         <div className="article-block">
-          <UserIcon
-            user={author}
-            url={`/users/${author}`}
-            width="50px"
-            height="50px"
-            borderRadius="8px"
-          />
+          {authorIcon && <UserIcon img={authorIcon} userName={author} />}
 
           <div className="article">
             <div className="article-header">

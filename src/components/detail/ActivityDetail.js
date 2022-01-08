@@ -5,7 +5,7 @@ import Tag from '../common/Tag';
 import { NoCards } from '../common/NoCards';
 import { RecnetBox } from '../common/RecentBox';
 import '../../styles/Detail.scss';
-import { PartiCard, LinkedCard } from '../common/PartiCard';
+import { PartiCard, LinkedCard, PartiIcon } from '../common/PartiCard';
 import { useSelector } from 'react-redux';
 
 function arrSlice(arr, n) {
@@ -107,7 +107,7 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
           dangerouslySetInnerHTML={{ __html: description }}
         />
         <div className="side">
-          <div className="mb-3 particard">
+          <div className="particard">
             <PartiCard>
               <div className="d-flex justify-content-between align-items-center mb-1">
                 <div style={{ fontSize: '12px' }}>
@@ -118,9 +118,11 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
                 {participants &&
                   Array.isArray(participants) &&
                   participants.map((participant, index) => (
-                    <PartiCard key={`participant_${index}`}>
-                      {participant.user_name}
-                    </PartiCard>
+                    <PartiIcon
+                      key={`participant_${index}`}
+                      partiName={participant.profile.name}
+                      img={participant.profile.picture}
+                    />
                   ))}
               </div>
             </PartiCard>

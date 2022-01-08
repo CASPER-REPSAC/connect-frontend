@@ -14,6 +14,35 @@ export const PartiCard = (props) => {
   );
 };
 
+export const PartiIcon = (props) => {
+  return (
+    <img
+      src={props.img}
+      alt={`participant icon : ${props.partiName}`}
+      style={{
+        width: '40px',
+        height: '40px',
+        borderRadius: '7px',
+        margin: '1.5px',
+      }}
+    />
+  );
+};
+export const UserIcon = (props) => {
+  return (
+    <img
+      src={props.img}
+      alt={`author icon : ${props.userName}`}
+      style={{
+        width: '50px',
+        height: '50px',
+        borderRadius: '9px',
+        margin: '5px 8px 5px -5px',
+      }}
+    />
+  );
+};
+
 export const LinkedCard = (props) => {
   return (
     <PartiCard {...props}>
