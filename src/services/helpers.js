@@ -1,6 +1,11 @@
-const log = (data) => {
+export const log = (data) => {
   if (process.env.NODE_ENV === "production") return;
   console.log(data);
 };
 
-export { log };
+export const isArray = (data) => {
+  if (data && Array.isArray(data)) {
+    return true;
+  }
+  return false;
+};

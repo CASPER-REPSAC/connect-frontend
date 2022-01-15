@@ -8,11 +8,17 @@
 
 ## New packages compare to previous connect frontend project
 
+~~
+
 - babel-plugin-module-resolver
+
   - 절대 경로 import를 위해 사용
   - CRA에서는 .babelrc파일을 사용할 수 없기 때문에 아래의 패키지가 필요.(eject를 통해 사용할 수 있으나 권장되지 않음.)
   - customize-cra, react-app-rewired
   - config-overrides.js와 package.json의 scripts에서 react-app-rewired는 이 패키지를 위한 것.
+    ~~
+
+- bable-plougin-module-resolver, react-app-rewired 대신 craco사용
 
 ## Others
 
