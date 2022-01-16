@@ -106,7 +106,7 @@ const ActivityForm = ({
       />
 
       <label htmlFor="title" className="mt-3">
-        <h5>Password</h5>
+        <h5 className="pw-label">Password</h5>
       </label>
 
       <input

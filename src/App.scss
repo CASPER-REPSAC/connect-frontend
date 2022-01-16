@@ -2,28 +2,29 @@
 
 .app-container {
   width: 100%;
-  height: fit-content;
+  height: 100%;
   min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding: 20px;
 
   background-color: $gray1;
 }
 
 .app-box {
-  width: $app-box-width;
-  max-width: $app-box-width;
-  min-height: 88vh;
-  min-width: 320px;
+  // width: $app-box-width;
+  // max-width: $app-box-width;
+  // min-height: 88vh;
+  // min-width: 320px;
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
   @include box-shadow($app-box-radius);
   box-shadow: none;
-  margin: 5.5vh 0;
-  @media (max-height: 850px) {
-    margin: 50px 0;
-  }
 
   overflow-x: hidden;
+  overflow-y: hidden;
   display: flex;
 
   .sidebar-container {
