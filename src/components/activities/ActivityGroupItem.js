@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Tag } from "comp/common";
 import { log, isArray } from "serv/helpers";
 
-export const ActivityListItem = ({ activity }) => {
+export const ActivityGroupItem = ({ activity }) => {
   const {
     url,
     id,
@@ -29,14 +29,18 @@ export const ActivityListItem = ({ activity }) => {
     <>
       <Card.Frame className="max-h-activityCard flex flex-col">
         <div className="flex mb-1">
-          <Card.Icon userData={authorData} className="flex-none mr-2" />
+          <Card.Icon
+            tooltip={authorData.user_name}
+            userData={authorData}
+            className="flex-none mr-2 text-text-50"
+          />
           <div className="truncate flex-auto">
             <Card.Title>{title}</Card.Title>
-            <div className="flex justify-between align-middle">
+            <div className="flex align-middle">
               <Card.SubTitle>{type}</Card.SubTitle>
-              <div className="text-text-600 text-xs leading-6">
+              <div className="text-text-600 text-xs leading-6 ml-2">
                 {isArray(participants) && (
-                  <>현재 참여자 {participants.length}명</>
+                  <> {`현재 참여자 ${participants.length}명`}</>
                 )}
               </div>
             </div>
@@ -51,4 +55,4 @@ export const ActivityListItem = ({ activity }) => {
   );
 };
 
-export default ActivityListItem;
+export default ActivityGroupItem;

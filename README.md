@@ -1,5 +1,9 @@
 # Connect frontend with tailwindcss && redux thunk
 
+## Note
+
+유저 아이콘 툴팁으로 정보표시
+
 ## Outline
 
 부트스트랩이 구시대 유물이 되었다는 소식을 듣고 tailwindcss로 갈아타기로 함. 잘가....

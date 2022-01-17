@@ -1,4 +1,5 @@
 import React from "react";
+import { Icon, IconWithToolTip } from "./Icon";
 
 export const CardFrame = (props) => {
   return (
@@ -41,24 +42,12 @@ export const CardBody = (props) => {
   );
 };
 
-export const Icon = (props) => {
-  const { userData } = props;
-  return (
-    <img
-      {...props}
-      src={userData.profile.picture || ""}
-      alt={userData.profile.picture || ""}
-      className={`w-14 h-14 rounded-md ${props.className || ""}`}
-    />
-  );
-};
-
 export const Card = {
   Frame: CardFrame,
   Title: CardTitle,
   SubTitle: CardSubTitle,
   Body: CardBody,
-  Icon: Icon,
+  Icon: IconWithToolTip,
 };
 
 export default Card;

@@ -1,13 +1,15 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import ActivityListPage from "@/pages/ActivityListPage";
+import ActivityGroupPage from "@/pages/ActivityGroupPage";
 
 function App() {
   return (
-    <div className="bg-background-200 w-screen h-screen">
-      <Routes>
-        <Route path="/" element={<ActivityListPage />} />
-      </Routes>
+    <div className="bg-background-200 w-screen h-screen p-5">
+      <div className="bg-background-100 w-full h-full rounded-3xl overflow-hidden">
+        <Routes>
+          <Route path="/" element={<ActivityGroupPage />} />
+        </Routes>
+      </div>
     </div>
   );
 }

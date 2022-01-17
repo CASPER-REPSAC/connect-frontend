@@ -1,17 +1,17 @@
 import React from "react";
-import { ActivityListItem } from "./ActivityListItem";
+import { ActivityGroupItem } from "./ActivityGroupItem";
 import { isArray, log } from "serv/helpers";
 
-export const ActivityList = ({ activities }) => {
+export const ActivityGroup = ({ activities }) => {
   const { loading, error, data } = activities;
   return (
     <div className="flex flex-wrap">
       {isArray(data) &&
         data.map((activity) => (
-          <ActivityListItem key={activity.id} activity={activity} />
+          <ActivityGroupItem key={activity.id} activity={activity} />
         ))}
     </div>
   );
 };
 
-export default ActivityList;
+export default ActivityGroup;
