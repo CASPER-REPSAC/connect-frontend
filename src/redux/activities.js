@@ -1,4 +1,5 @@
 import * as activitiesAPI from "@/api/activities";
+import { log } from "#serv";
 
 // action types
 const GET_ACTIVITIES = "activities/GET_ACTIVITIES";

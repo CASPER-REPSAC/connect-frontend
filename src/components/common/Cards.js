@@ -5,7 +5,7 @@ export const CardFrame = (props) => {
   return (
     <div
       {...props}
-      className={`min-w-card max-w-card rounded-lg overflow-hidden shadow-lg bg-background-50 p-5 ${
+      className={`min-w-card max-w-card rounded-lg overflow-hidden transition-all duration-200 ease-in-out bg-background-50 p-5 hover:shadow-lg hover:bg-background-100 ${
         props.className || ""
       }`}
     ></div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityGroupContainer } from "comp/activities/ActivityGroupContainer";
+import { ActivityGroupContainer } from "#comp/activities/ActivityGroupContainer";
 
 export const ActivityGroupPage = () => {
   return (

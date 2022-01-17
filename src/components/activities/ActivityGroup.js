@@ -1,6 +1,6 @@
 import React from "react";
 import { ActivityGroupItem } from "./ActivityGroupItem";
-import { isArray, log } from "serv/helpers";
+import { isArray, log } from "#serv/helpers";
 
 export const ActivityGroup = ({ activities }) => {
   const { loading, error, data } = activities;

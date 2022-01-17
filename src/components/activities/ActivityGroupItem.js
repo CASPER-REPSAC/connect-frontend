@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Tag } from "comp/common";
-import { log, isArray } from "serv/helpers";
+import { Card, Tag } from "#comp/common";
+import { log, isArray } from "#serv/helpers";
 
 export const ActivityGroupItem = ({ activity }) => {
   const {
@@ -23,15 +23,13 @@ export const ActivityGroupItem = ({ activity }) => {
     (participant) => participant.profile.email === author
   );
 
-  log(activity);
-  log(authorData);
   return (
     <>
       <Card.Frame className="max-h-activityCard flex flex-col">
         <div className="flex mb-1">
           <Card.Icon
             tooltip={authorData.user_name}
-            userData={authorData}
+            userdata={authorData}
             className="flex-none mr-2 text-text-50"
           />
           <div className="truncate flex-auto">

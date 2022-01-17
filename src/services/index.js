@@ -1,1 +1,1 @@
-export { log } from "./helpers";
+export { log, isArray } from "./helpers";

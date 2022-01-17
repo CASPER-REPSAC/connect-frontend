@@ -1,9 +1,5 @@
 # Connect frontend with tailwindcss && redux thunk
 
-## Note
-
-유저 아이콘 툴팁으로 정보표시
-
 ## Outline
 
 부트스트랩이 구시대 유물이 되었다는 소식을 듣고 tailwindcss로 갈아타기로 함. 잘가....
@@ -12,7 +8,7 @@
 
 ## New packages compare to previous connect frontend project
 
-~~
+<del>
 
 - babel-plugin-module-resolver
 
@@ -20,7 +16,8 @@
   - CRA에서는 .babelrc파일을 사용할 수 없기 때문에 아래의 패키지가 필요.(eject를 통해 사용할 수 있으나 권장되지 않음.)
   - customize-cra, react-app-rewired
   - config-overrides.js와 package.json의 scripts에서 react-app-rewired는 이 패키지를 위한 것.
-    ~~
+
+</del>
 
 - bable-plougin-module-resolver, react-app-rewired 대신 craco사용
 
