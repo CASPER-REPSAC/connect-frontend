@@ -16,8 +16,8 @@ const WriteActivity = () => {
     author: '',
     createDate: date,
     description: '',
-    startDate: date,
-    endDate: date,
+    startDate: '',
+    endDate: '',
     currentState: 0,
     password: '',
   });
@@ -47,7 +47,9 @@ const WriteActivity = () => {
     <>
       {sendCounter === 0 && (
         <>
-          <h4>액티비티 작성</h4>
+          <h4>
+            <b>액티비티 작성</b>
+          </h4>
           <hr />
           <ActivityForm
             inputs={inputs}

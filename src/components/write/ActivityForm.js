@@ -49,19 +49,6 @@ const ActivityForm = ({
         onFocus={(event, editor) => {}}
       />
 
-      <label htmlFor="type">
-        <h5>Type</h5>
-      </label>
-      <select
-        name="type"
-        id="type"
-        value={inputs['type']}
-        onChange={(e) => onChangeHandler(e)}
-      >
-        <option value="CTF">CTF</option>
-        <option value="Study">Study</option>
-        <option value="Project">Project</option>
-      </select>
       {manage && (
         <>
           <br />
@@ -80,22 +67,47 @@ const ActivityForm = ({
           </select>
         </>
       )}
-      <div className="date">
-        <h5 className="mt-3">Date</h5>
-        <label htmlFor="startDate">start date</label>
-        <input
-          type="date"
-          id="startDate"
-          value={inputs['startDate']}
-          onChange={(e) => onChangeHandler(e)}
-        />
-        <label htmlFor="endDate">end date</label>
-        <input
-          type="date"
-          id="endDate"
-          value={inputs['endDate']}
-          onChange={(e) => onChangeHandler(e)}
-        />
+      <div className="d-flex">
+        <div>
+          <label htmlFor="type">
+            <h5>Type</h5>
+          </label>
+          <br />
+          <select
+            name="type"
+            id="type"
+            value={inputs['type']}
+            onChange={(e) => onChangeHandler(e)}
+          >
+            <option value="CTF">CTF</option>
+            <option value="Study">Study</option>
+            <option value="Project">Project</option>
+          </select>
+        </div>
+
+        <div className="date">
+          <h5 className="mt-3">Date</h5>
+          <div className="d-flex">
+            <div>
+              <label htmlFor="startDate">start</label>
+              <input
+                type="date"
+                id="startDate"
+                value={inputs['startDate']}
+                onChange={(e) => onChangeHandler(e)}
+              />
+            </div>
+            <div>
+              <label htmlFor="endDate">end</label>
+              <input
+                type="date"
+                id="endDate"
+                value={inputs['endDate']}
+                onChange={(e) => onChangeHandler(e)}
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <h5 className="mt-3">Tags</h5>
       <TagsInput

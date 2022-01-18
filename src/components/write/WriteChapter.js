@@ -89,7 +89,9 @@ const WriteChapter = ({ match }) => {
         <>
           {sendCounter === 0 && (
             <>
-              <h4 className="no-margin">챕터 작성: {activityDetail.title} </h4>
+              <h4 className="no-margin">
+                <b>챕터 작성: {activityDetail.title}</b>{' '}
+              </h4>
               <hr />
               <ChapterForm
                 activityDetail={activityDetail}
