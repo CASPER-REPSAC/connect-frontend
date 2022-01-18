@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Tag from '../common/Tag';
 import { UserIcon } from '../common/PartiCard';
+import { Badge } from 'react-bootstrap';
 
 import './CardItem.scss';
 
@@ -13,7 +14,16 @@ const maxWidth = 25;
 const maxParticipants = 4;
 
 const CardListItem = ({ card, colors }) => {
-  const { title, author, type, participants, description, tags, id } = card;
+  const {
+    title,
+    author,
+    type,
+    participants,
+    description,
+    createDate,
+    tags,
+    id,
+  } = card;
   let url = '/activities/' + id;
   const { tagColors } = colors;
 
@@ -58,8 +68,25 @@ const CardListItem = ({ card, colors }) => {
             </div>
             <div className="typeAuth">
               <Link to={url}>
-                <div>{type}</div>
+                <div>
+                  {type}
+                  {new Date(createDate) > new Date() - 172800000 && (
+                    <>
+                      {console.log(new Date() - new Date(createDate))}
+                      <Badge
+                        style={{
+                          fontSize: '10px',
+                          marginLeft: '5px',
+                        }}
+                        bg="warning"
+                      >
+                        New
+                      </Badge>
+                    </>
+                  )}
+                </div>
               </Link>
+
               {/* <Link to={`/users/${author || 'test@test.com'}`}>
                 <div title={author || 'test@test.com'} className="author">
                   {author || 'test@test.com'}
