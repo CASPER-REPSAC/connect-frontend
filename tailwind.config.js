@@ -48,15 +48,23 @@ module.exports = {
       gradientColorStops: {},
       minWidth: {
         card: "280px",
+        tooltip: "120px",
       },
       maxWidth: {
         card: "300px",
+        tooltip: "200px",
       },
       maxHeight: {
         activityCard: "128px",
+        card: "128px",
       },
-      fontSize: {
-        "2xs": "10px",
+      minHeight: {
+        activityCard: "128px",
+        card: "128px",
+      },
+      gridRowEnd: {
+        minus1: "-1",
+        minus2: "-2",
       },
     },
   },

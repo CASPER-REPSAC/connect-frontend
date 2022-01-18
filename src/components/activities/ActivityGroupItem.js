@@ -25,7 +25,7 @@ export const ActivityGroupItem = ({ activity }) => {
 
   return (
     <>
-      <Card.Frame className="max-h-activityCard flex flex-col">
+      <Card.Frame className="flex flex-col">
         <div className="flex mb-1">
           <Card.Icon
             tooltip={authorData.user_name}

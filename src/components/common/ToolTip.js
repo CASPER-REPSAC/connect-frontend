@@ -1,41 +1,40 @@
 import React from "react";
-import styled from "styled-components";
-
-export const ToolTipContainer = styled.div`
-  position: relative;
-  span {
-    opacity: 0;
-    transform: scale(0, 0) rotate(20deg);
-    transition: 100ms ease-in-out;
-  }
-  &:hover {
-    span {
-      opacity: 100;
-      transform: scale(1, 1) rotate(0);
-    }
-  }
-`;
+import { returnUnionedClassName } from "#serv";
 
 export const WithToolTip = (props) => {
+  const prevClassName = "relative b-0 group";
+  const className = returnUnionedClassName(prevClassName, props.className);
+  const offsets = {
+    bottom:
+      "top-16 -left-1/4 after:absolute after:-top-1/4 after:right-1/2 after:border-transparent after:border-b-background-700",
+    top: "bottom-16 -left-1/4 after:absolute after:-bottom-1/4 after:right-1/2 after:border-transparent after:border-t-background-700",
+    left: "bottom-4 right-16 text-sm after:absolute after:bottom-1/4 after:left-24 after:border-transparent after:border-l-background-700",
+    right:
+      "top-4 left-16 text-sm after:absolute after:bottom-1/2 after:right-24 after:border-transparent after:border-r-background-700",
+  };
+  let offset = "bottom";
+  if (props.offset) {
+    offset = props.offset;
+  }
   return (
-    <ToolTipContainer
-      {...props}
-      className={`relative last:opacity-0 hover:last:opacity-100 ${
-        props.className || ""
-      }`}
-    >
+    <div {...props} className={className}>
       {props.children}
       <span
-        className={`
-        p-1 w-24 bg-background-700 border-none 
-        text-center rounded-md absolute top-16
-        -left-1/4 text-sm z-10 
-      after:absolute after:-top-1/4 after:right-1/2 after:border-transparent
-      after:border-b-background-700 after:border-4`}
+        className={returnUnionedClassName(
+          `
+        opacity-0 scale-0 rotate-12 transition-all text-text-50
+        group-hover:opacity-90 group-hover:scale-100 group-hover:rotate-0
+        p-1 w-24 bg-background-700 z-50
+        text-center rounded-md absolute after:border-4 text-sm
+
+        ${offsets[offset]}
+         `,
+          props.tooltipclassname
+        )}
       >
         {props.tooltip}
       </span>
-    </ToolTipContainer>
+    </div>
   );
 };
 

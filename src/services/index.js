@@ -1,1 +1,1 @@
-export { log, isArray } from "./helpers";
+export { log, isArray, returnUnionedClassName } from "./helpers";

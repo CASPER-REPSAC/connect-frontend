@@ -4,6 +4,8 @@ import { isArray, log } from "#serv/helpers";
 
 export const ActivityGroup = ({ activities }) => {
   const { loading, error, data } = activities;
+  if (loading && !data) {
+  }
   return (
     <div className="flex flex-wrap">
       {isArray(data) &&
