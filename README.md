@@ -30,9 +30,17 @@ scripts.build의 GENERATE_SOURCEMAP=falseGENERATE_SOURCEMAP=false 설정으로 s
 ### src/services/helpers.js
 
 log() 함수를 만들어 webpack을 건드리지 않고 build 시에 console.log가 찍히지 않게 함.
+
 매번 import를 해야하는게 귀찮긴하다..
 
 ### css
 
 flex-box 위주의 레이아웃을 grid로 전환
+
 tailwindcss의 테마기능 활용
+
+### naming rules
+
+default: camelCase
+
+url params : snake_case

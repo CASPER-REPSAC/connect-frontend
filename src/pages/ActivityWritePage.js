@@ -1,7 +1,7 @@
 import React from "react";
 
 export const ActivityWritePage = () => {
-  return <div></div>;
+  return <div>ActivityWritePage</div>;
 };
 
 export default ActivityWritePage;

@@ -1,5 +1,5 @@
 import React from "react";
-import { IconWithToolTip } from "./Icon";
+import { IconWithToolTip } from "@/icons/IconFrames";
 import { returnUnionedClassName, log } from "#serv";
 
 export const CardFrame = (props) => {
