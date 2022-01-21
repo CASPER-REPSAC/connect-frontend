@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import {
   ActivityGroupPage,
   ActivityDetailPage,
@@ -15,8 +15,10 @@ import {
 import { SideBar } from "#comp/navigations";
 
 function App() {
+  const location = useLocation();
   return (
     <div className="bg-background-300 w-full overflow-x-hidden h-fit min-h-full p-5 flex ">
+      {console.log(location)}
       <div className="bg-background-100 w-full rounded-xl overflow-hidden grid grid-flow-col justify-start">
         <header className="col-start-1 bg-background-200 w-fit min-h-full">
           <SideBar />
@@ -39,7 +41,10 @@ function App() {
                 />
               </Route>
             </Route>
-            <Route path="search/:type/:keyword" element={<SearchPage />} />
+            <Route path="search/*">
+              <Route path=":type/:keyword" element={<SearchPage />} />
+              <Route path="*" element={<SearchPage />} />
+            </Route>
             <Route path="*" element={<ActivityGroupPage />} />
           </Routes>
         </section>

@@ -1,19 +1,70 @@
+import { useState } from "react";
 import { log } from "#serv";
 import {
   SearchIconWithBg,
-  SignInIconWithBg,
+  SignOutIconWithBg,
   KeyboardIconWithBg,
   CogIconWithBg,
   CasLogoIconWithBg,
   GitIssueIconWithBg,
-  ExpendNavIcons,
+  UserIconWithBg,
+  UserBoardIconWithBg,
 } from "@/icons";
+import { ExpendableIcons } from "@/icons";
+import { SettingsModal } from "#comp/settings";
 
-export const ExpendTestButton = () => {
+export { CasLogoIconWithBg as HomeButton };
+export { KeyboardIconWithBg as ActivityWriteButton };
+export { GoogleLoginButton } from "#comp/auth/GoogleButton";
+
+export const UserButton = () => {
   return (
-    <ExpendNavIcons
-      parentIcon={<SearchIconWithBg />}
-      childIcons={[<SignInIconWithBg />, <SignInIconWithBg />]}
+    <ExpendableIcons
+      parentIcon={<UserIconWithBg />}
+      childIcons={[<UserBoardIconWithBg />, <SignOutIconWithBg />]}
+    />
+  );
+};
+
+export const SettingsButton = () => {
+  const [show, setShow] = useState(false);
+  console.log("show", show);
+  return (
+    <>
+      <CogIconWithBg
+        onClick={() => {
+          setShow(true);
+        }}
+      />
+      <SettingsModal show={show} setShow={setShow} />
+    </>
+  );
+};
+
+export const GitIssueButton = () => {
+  const onClick = () => {
+    window.open("https://github.com/CASPER-REPSAC/casper-api/issues");
+  };
+  return <GitIssueIconWithBg onClick={onClick} />;
+};
+
+const SearchButtonInput = () => {
+  return (
+    <div className="flex items-center h-fit text-text-50">
+      <input
+        type="text"
+        className="bg-transparent border-b-2 border-b-text-200 w-32 mr-5 focus:outline-none m-2"
+      />
+    </div>
+  );
+};
+
+export const SearchButton = ({ isActive }) => {
+  return (
+    <ExpendableIcons
+      search
+      parentIcon={<SearchIconWithBg isActive={isActive} />}
+      childIcons={[<SearchButtonInput />]}
     />
   );
 };

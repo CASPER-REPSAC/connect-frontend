@@ -1,7 +1,7 @@
 import React from "react";
 import { WithToolTip } from "#comp/common/ToolTip";
 import { returnUnionedClassName, isArray } from "#serv";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const UserIcon = (props) => {
   const { userdata } = props;
@@ -34,27 +34,6 @@ export const RoundedBg = (props) => {
   );
 };
 
-export const SideBarIconFrame = (props) => {
-  return (
-    <RoundedBg
-      element={props.element}
-      className={`${
-        props.isActive
-          ? `bg-background-800 rounded-2xl text-text-50 hover:text-text-50
-             hover:bg-background-700 
-             fill-text-50  hover:fill-text-50  
-          `
-          : "hover:bg-background-400 fill-text-50"
-      } hover:text-text-800 hover:fill-text-800 
-        bg-background-300 text-text-50 fill-text-50 text-xl gruop`}
-    />
-  );
-};
-
-export const LinkedIcon = ({ to, isActive, element }) => {
-  return <Link to={to} element={element} isActive={isActive} />;
-};
-
 export const IconWithToolTip = (props) => {
   return (
     <WithToolTip {...props}>
@@ -63,14 +42,52 @@ export const IconWithToolTip = (props) => {
   );
 };
 
-export const ExpendNavIcons = ({ parentIcon, childIcons }) => {
+export const SideBarIconFrame = ({
+  to,
+  element,
+  isActive,
+  onClick,
+  tooltip,
+  offset,
+}) => {
+  return (
+    <Link to={to || ""} onClick={onClick}>
+      <WithToolTip tooltip={tooltip} offset={offset || "right"}>
+        <RoundedBg
+          element={element}
+          className={
+            isActive
+              ? `bg-background-800 rounded-2xl text-text-50 hover:text-text-50
+             hover:bg-background-700 
+             fill-text-50  hover:fill-text-50 text-xl gruop
+          `
+              : `hover:bg-background-400 fill-text-50 
+          hover:text-text-800 hover:fill-text-800 
+        bg-background-300 text-text-50 text-xl gruop
+          `
+          }
+        />
+      </WithToolTip>
+    </Link>
+  );
+};
+
+export const ExpendableIcons = ({ parentIcon, childIcons, search, focus }) => {
+  let className = `opacity-0 scale-0 none w-0 group-hover:opacity-100 group-hover:scale-100 transition-all `;
+  if (search) {
+    className = className + ` group-hover:w-40 `;
+  } else {
+    className = className + ` group-hover:w-12`;
+  }
+
+  console.log("className", className);
   return (
     <>
-      <div className="w-fit h-fit flex rounded-3xl bg-background-500 bg-opacity-90 z-50 hover:gap-x-2 group">
+      <div className="w-fit h-fit flex rounded-3xl bg-background-500 bg-opacity-90 z-30 hover:gap-x-2 group ">
         <div>{parentIcon}</div>
         {isArray(childIcons) &&
-          childIcons.map((childIcon) => (
-            <div className="opacity-0 none  w-0 group-hover:opacity-100 group-hover:w-12 transition-all">
+          childIcons.map((childIcon, index) => (
+            <div key={index} className={className}>
               {childIcon}
             </div>
           ))}

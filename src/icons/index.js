@@ -1,13 +1,11 @@
-export { CasLogoSVG } from "./CasLogoSVG";
-export { GitIssueSVG } from "./GitIssueSVG";
 export {
-  SearchIcon,
-  SignInIcon,
-  KeyboardIcon,
-  CogIcon,
-  CasLogoIcon,
-  GitIssueIcon,
-} from "./FontAwesomeIcons";
+  SearchSVG,
+  SignInSVG,
+  KeyboardSVG,
+  CogSVG,
+  CasLogoSVG,
+  GitIssueSVG,
+} from "./SVGs";
 export {
   SearchIconWithBg,
   SignInIconWithBg,
@@ -20,5 +18,5 @@ export {
 export * from "./IconFrames";
 export * from "./CasLogoSVG";
 export * from "./GitIssueSVG";
-export * from "./FontAwesomeIcons";
+export * from "./SVGs";
 export * from "./SideBarIcons";

@@ -19,21 +19,23 @@ export const WithToolTip = (props) => {
   return (
     <div {...props} className={className}>
       {props.children}
-      <span
-        className={returnUnionedClassName(
-          `
+      {props.tooltip && (
+        <span
+          className={returnUnionedClassName(
+            `
         opacity-0 scale-0 rotate-12 transition-all text-text-50
         group-hover:opacity-90 group-hover:scale-100 group-hover:rotate-0
-        p-1 w-24 bg-background-700 z-50
+        p-1 w-24 bg-background-700 z-30
         text-center rounded-md absolute after:border-4 text-sm
 
         ${offsets[offset]}
          `,
-          props.tooltipclassname
-        )}
-      >
-        {props.tooltip}
-      </span>
+            props.tooltipclassname
+          )}
+        >
+          {props.tooltip}
+        </span>
+      )}
     </div>
   );
 };

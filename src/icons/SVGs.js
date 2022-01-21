@@ -4,21 +4,29 @@ import {
   faSignInAlt,
   faKeyboard,
   faCog,
+  faUser,
+  faStream,
 } from "@fortawesome/free-solid-svg-icons";
-import { CasLogoSVG } from "./CasLogoSVG";
-import { GitIssueSVG } from "./GitIssueSVG";
+import { CasLogoSVG as CasLogo } from "./CasLogoSVG";
+import { GitIssueSVG as GitIssue } from "./GitIssueSVG";
 
-export const SearchIcon = () => {
+export const SearchSVG = () => {
   return <FontAwesomeIcon icon={faSearch} />;
 };
-export const SignInIcon = () => {
+export const StreamSVG = () => {
+  return <FontAwesomeIcon icon={faStream} />;
+};
+export const SignInSVG = () => {
   return <FontAwesomeIcon icon={faSignInAlt} />;
 };
-export const KeyboardIcon = () => {
+export const KeyboardSVG = () => {
   return <FontAwesomeIcon icon={faKeyboard} />;
 };
-export const CogIcon = () => {
+export const CogSVG = () => {
   return <FontAwesomeIcon icon={faCog} />;
+};
+export const UserSVG = () => {
+  return <FontAwesomeIcon icon={faUser} />;
 };
 
 export const extractSvgClass = (className) => {
@@ -34,9 +42,9 @@ export const extractSvgClass = (className) => {
   return svgClassNameList.join(" ");
 };
 
-export const CasLogoIcon = () => {
-  return <CasLogoSVG className="fill-inherit" width="23px" />;
+export const CasLogoSVG = () => {
+  return <CasLogo className="fill-inherit" width="23px" />;
 };
-export const GitIssueIcon = () => {
-  return <GitIssueSVG className="fill-inherit" width="23px" />;
+export const GitIssueSVG = () => {
+  return <GitIssue className="fill-inherit" width="23px" />;
 };
