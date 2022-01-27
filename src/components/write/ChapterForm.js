@@ -24,7 +24,7 @@ const ChapterForm = ({
   return (
     <div className="chapter-form" style={{ maxWidth: '700px' }}>
       <label htmlFor="subject" className="no-margin">
-        <h5>Title</h5>{' '}
+        <h5 className="needed">Title</h5>{' '}
       </label>
       <br />
       <input
@@ -36,7 +36,7 @@ const ChapterForm = ({
       />
       <br />
       <label htmlFor="article">
-        <h5>Content</h5>
+        <h5 className="needed">Content</h5>
       </label>
       <br />
 

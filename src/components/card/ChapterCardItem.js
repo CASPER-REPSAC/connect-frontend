@@ -18,15 +18,7 @@ const ChapterCardItem = ({ card, colors }) => {
             </div>
           </Link>
         </div>
-        <Link to={url}>
-          <div
-            className="introduce dragable"
-            title={article || 'no article'}
-            dangerouslySetInnerHTML={{ __html: article }}
-          >
-            {/* {article || 'no article'} */}
-          </div>
-        </Link>
+        <Link to={url}></Link>
       </div>
       <div className="d-flex justify-content-end">
         <div className="card-type text-muted">chapter</div>

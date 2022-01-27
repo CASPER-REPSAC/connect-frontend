@@ -28,7 +28,6 @@ const CardListItem = ({ card, colors }) => {
   const { tagColors } = colors;
 
   const [width, widthSet] = useState(widthBase);
-  const [authorProfile, setAuthorProfile] = useState();
 
   useEffect(() => {
     if (participants.length > maxParticipants) {
@@ -38,10 +37,6 @@ const CardListItem = ({ card, colors }) => {
     if (width > maxWidth) {
       widthSet(maxWidth);
     }
-
-    setAuthorProfile(
-      participants.filter((parti) => parti.profile.email === author)[0].profile,
-    );
   }, []);
 
   // 소개를 입력받아서 이 함수 안에서 일정 길이 넘어가면 자르고 ... 붙이기
@@ -51,13 +46,18 @@ const CardListItem = ({ card, colors }) => {
     <div className="card-item-block">
       <div className="top-section">
         <div className="article-block">
-          {authorProfile && (
+          <UserIcon
+            img={participants[0].profile.picture}
+            userName={participants[0].profile.name}
+            author
+          />
+          {/* {authorProfile && (
             <UserIcon
               img={authorProfile.picture}
               userName={authorProfile.name}
               author
             />
-          )}
+          )} */}
           <div className="article">
             <div className="article-header">
               <Link to={url}>
@@ -72,7 +72,6 @@ const CardListItem = ({ card, colors }) => {
                   {type}
                   {new Date(createDate) > new Date() - 172800000 && (
                     <>
-                      {console.log(new Date() - new Date(createDate))}
                       <Badge
                         style={{
                           fontSize: '10px',

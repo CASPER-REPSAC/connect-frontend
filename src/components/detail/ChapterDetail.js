@@ -83,6 +83,23 @@ const ChapterDetail = ({ chapterData, match }) => {
                     </a>
                   </div>
                 ))}
+                {file.map((file, index) => {
+                  if (
+                    chapterData[0].activityid === 76 &&
+                    (file.filepath.split('.')[1] === 'png' ||
+                      file.filepath.split('.')[1] === 'jpg')
+                  ) {
+                    return (
+                      <div key={index}>
+                        <img
+                          src={`${process.env.REACT_APP_BACK_SERVER_BASE_URL}/api/activities/${activityid}/chapter/${last}/download/${file.filepath}`}
+                          alt=""
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                    );
+                  }
+                })}
               </div>
             ))}
           </>

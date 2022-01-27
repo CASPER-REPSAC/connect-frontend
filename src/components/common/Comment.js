@@ -46,7 +46,6 @@ const CommentList = ({ comments, user, increateReqTrigger }) => {
   return (
     <div>
       {comments.map((comment, index) => {
-        console.log(comment);
         return (
           <div
             key={index}

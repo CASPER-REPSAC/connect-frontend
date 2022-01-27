@@ -8,9 +8,9 @@ const baseURL = API_SERVER_URL;
 // ActivityDetailPage
 async function getActivityDetail(activity_id, setState) {
   const res = await axios.get(`/api/activities/${activity_id}/`);
-  console.log('getActivityDetail', res);
+  // console.log('getActivityDetail', res);
   if (res.status === 200 && res.data.length > 0) {
-    console.log('getActivityDetail res', res);
+    // console.log('getActivityDetail res', res);
     setState(res.data[0]);
     return true;
   } else {
@@ -40,7 +40,7 @@ async function getCardsByTag(tagId, setState) {
   }
   const res = await axios.get(`/api/w00/tags/${tagId}/`);
   if (res.status === 200) {
-    console.log('getCardsByTag - res', res);
+    // console.log('getCardsByTag - res', res);
     const cards = await Promise.all(
       res.data.acti.map((acti) => {
         return getActivity(acti.activity_id);
@@ -58,7 +58,7 @@ function getUsers(user_id) {
 async function getListData(url, setState) {
   const res = await axios.get(url);
   const data = res.data;
-  console.log('getListData', data, typeof data);
+  // console.log('getListData', data, typeof data);
 
   setState(
     data.sort(function (a, b) {
@@ -76,7 +76,7 @@ async function getListData(url, setState) {
 async function getActivityList(setState) {
   const res = await axios.get('/api/activities/');
   const data = res.data;
-  console.log('getListData', data, typeof data);
+  // console.log('getListData', data, typeof data);
 
   setState(
     data.sort(function (a, b) {
@@ -109,7 +109,7 @@ const getSearchResult = async (keyword, search_type, setState, page_number) => {
   if (res.status === 200 || res.status === 201 || res.status === 204) {
     setState(res.data);
   }
-  console.log(res);
+  // console.log(res);
 };
 
 const getUserActivityList = async (userId, setState) => {
@@ -127,7 +127,7 @@ const getUserActivityList = async (userId, setState) => {
       }),
     );
   }
-  console.log(res);
+  // console.log(res);
 };
 
 const getUserContainedList = async (accessToken, setState) => {
@@ -140,7 +140,7 @@ const getUserContainedList = async (accessToken, setState) => {
   if (res.status === 200 || res.status === 201 || res.status === 204) {
     setState(res.data);
   }
-  console.log(res);
+  // console.log(res);
 };
 
 export {

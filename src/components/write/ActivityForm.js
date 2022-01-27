@@ -23,7 +23,7 @@ const ActivityForm = ({
   return (
     <div className="activity-form" style={{ maxWidth: '700px' }}>
       <label htmlFor="title" className="no-margin">
-        <h5>Title</h5>
+        <h5 className="needed">Title</h5>
       </label>
       <input
         type="text"
@@ -32,7 +32,7 @@ const ActivityForm = ({
         onChange={(e) => onChangeHandler(e)}
       />
       <label htmlFor="description">
-        <h5>Description</h5>
+        <h5 className="needed">Description</h5>
       </label>
 
       <CKEditor
@@ -70,7 +70,7 @@ const ActivityForm = ({
       <div className="d-flex">
         <div>
           <label htmlFor="type">
-            <h5>Type</h5>
+            <h5 className="needed">Type</h5>
           </label>
           <br />
           <select
@@ -86,7 +86,7 @@ const ActivityForm = ({
         </div>
 
         <div className="date">
-          <h5 className="mt-3">Date</h5>
+          <h5 className="mt-3 needed">Date</h5>
           <div className="d-flex">
             <div>
               <label htmlFor="startDate">start</label>
@@ -117,8 +117,32 @@ const ActivityForm = ({
         placeHolder="태그를 입력해주세요"
       />
 
-      <label htmlFor="authstring" className="mt-3">
+      <label htmlFor="authstring" className="mt-3 d-flex">
         <h5 className="pw-label">Password</h5>
+        <div
+          className="d-flex align-items-center"
+          style={{
+            fontSize: '10px',
+            lineHeight: '-100%',
+            marginLeft: '10px',
+          }}
+        >
+          <div
+            style={{
+              color: 'blue',
+            }}
+          >
+            *
+          </div>
+          <div
+            style={{
+              color: 'blue',
+              marginLeft: '5px',
+            }}
+          >
+            선택사항. <br /> 참여자가 챕터를 작성할 때 필요합니다.
+          </div>
+        </div>
       </label>
 
       <input

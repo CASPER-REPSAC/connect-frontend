@@ -106,18 +106,32 @@ export const AskPasswordModal = (
   msg,
   msgSuccess,
   msgFail,
-  onRequest,
   res,
 ) => {
   const [password, setPassword] = useState(null);
+  const onChange = (e) => {
+    setPassword(e.target.value);
+  };
   return (
     <Modal show={show.show} onHide={show.handleClose}>
       <Modal.Body>
         <div>
           {show.res === undefined && (
             <>
+              <div className="d-flex justify-content-around">
+                <NoCards
+                  msg={show.msg || '아직 참여자는 챕터를 작성할 수 없습니다.'}
+                />
+              </div>
               <div className="text-center">
-                <NoCards msg={show.msg || '요청하시겠습니까?'} />
+                <input
+                  type="password"
+                  className="m-1 rounded"
+                  value={password || ''}
+                  onChange={(e) => {
+                    onChange(e);
+                  }}
+                />
               </div>
               <div className="text-center">
                 <Button onClick={show.handleClose}>취소</Button>
@@ -125,7 +139,8 @@ export const AskPasswordModal = (
                   margin="0 0 0 5px"
                   background="#8B0000"
                   onClick={() => {
-                    show.onRequest();
+                    // show.onRequest();
+                    show.handleClose();
                   }}
                 >
                   확인
@@ -136,7 +151,9 @@ export const AskPasswordModal = (
           {show.res === true && (
             <>
               <div className="text-center">
-                <NoCards msg={show.msgSuccess || '요청에 성공하였습니다.'} />
+                <NoCards
+                  msg={show.msgSuccess || '비밀번호가 일치하지 않습니다.'}
+                />
               </div>
               <div className="text-center">
                 <Button

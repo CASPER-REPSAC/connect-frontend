@@ -9,7 +9,7 @@ import {
 } from '../modules/api';
 import { NoCards } from '../components/common/NoCards';
 import { useSelector } from 'react-redux';
-import { AskReqModal } from '../components/common/ResModal';
+import { AskReqModal, AskPasswordModal } from '../components/common/ResModal';
 
 import { Button, ManageButton } from '../components/common/Button';
 import { useDispatch } from 'react-redux';
@@ -39,10 +39,21 @@ const ActivityDetailPage = ({ match, history }) => {
     msgSuccess: undefined,
     msgFail: undefined,
   };
+  const initialPasswordModalState = {
+    msg: undefined,
+    onRequest: undefined,
+    res: undefined,
+    show: false,
+    handleClose: undefined,
+    onSuccess: undefined,
+    msgSuccess: undefined,
+    msgFail: undefined,
+  };
   const [reqModal, setReqModal] = useState(initialReqModalState);
   const handleClose = () => {
     setReqModal({ ...reqModal, show: false });
   };
+
   useEffect(() => {
     setReqModal({ ...reqModal, res: writeRes });
   }, [writeRes]);
@@ -117,13 +128,27 @@ const ActivityDetailPage = ({ match, history }) => {
                   {activityDetail.participants
                     .map((participant) => participant.profile.email)
                     .includes(user.email) ? (
-                    <Button
-                      width="content-fit"
-                      style={{ marginLeft: '5px' }}
-                      onClick={() => onDeleteActiParticipants()}
-                    >
-                      탈퇴 신청
-                    </Button>
+                    <>
+                      <Button
+                        background="midnightblue"
+                        width="content-fit"
+                        onClick={() => {
+                          history.push(
+                            `/write/activities/${params.activityId}`,
+                          );
+                        }}
+                      >
+                        챕터 작성
+                      </Button>
+                      <Button
+                        width="content-fit"
+                        style={{ marginLeft: '5px' }}
+                        background="#8B0000"
+                        onClick={() => onDeleteActiParticipants()}
+                      >
+                        탈퇴 신청
+                      </Button>
+                    </>
                   ) : (
                     <Button
                       width="content-fit"
@@ -137,6 +162,7 @@ const ActivityDetailPage = ({ match, history }) => {
               ) : (
                 <>
                   <Button
+                    background="midnightblue"
                     width="content-fit"
                     onClick={() => {
                       history.push(`/write/activities/${params.activityId}`);
@@ -152,7 +178,6 @@ const ActivityDetailPage = ({ match, history }) => {
       )}
       {getActivityRes === undefined && <NoCards msg="로딩 중..." />}
       {getActivityRes === false && <NoCards msg="없는 페이지 입니다." />}
-
       <AskReqModal
         show={reqModal.show}
         handleClose={reqModal.handleClose}

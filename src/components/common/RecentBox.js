@@ -73,14 +73,18 @@ const RecentBox = ({
                 ) : (
                   <NoCards
                     margin="5px"
-                    msg="액티비티를 작성하지 않은 것 같은데요?"
+                    msg="작성한 액티비티가 없는 것 같은데요?"
                   />
                 )}
               </>
             ) : (
               <>
                 {secondSectionCards && secondSectionCards.length > 0 ? (
-                  <CardList cards={secondSectionCards} />
+                  <CardList
+                    cards={secondSectionCards.filter(
+                      (card, index) => index < 20,
+                    )}
+                  />
                 ) : (
                   <NoCards margin="5px" />
                 )}
