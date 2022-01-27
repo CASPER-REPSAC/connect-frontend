@@ -61,8 +61,14 @@
     margin-right: 20px;
   }
 
+  .needed::after {
+    content: '*';
+    font-size: 10px;
+    color: red;
+  }
+
   .pw-label::after {
-    content: ' *선택사항';
+    content: ' *선택사항. 참여자가 챕터 작상할 때 필요합니다. ';
     font-size: 10px;
     color: blue;
   }

@@ -55,7 +55,7 @@ const Nav = () => {
           }}
           background="#8B0000"
         >
-          ISSUES
+          제보&제안
         </Button>
       </div>
       {!email && !pk ? (

@@ -19,7 +19,7 @@ const WriteActivity = () => {
     startDate: '',
     endDate: '',
     currentState: 0,
-    password: '',
+    authstring: '',
   });
   const [tags, setTags] = useState([]);
   const [participants, setParticipants] = useState([]);

@@ -46,6 +46,7 @@ const CommentList = ({ comments, user, increateReqTrigger }) => {
   return (
     <div>
       {comments.map((comment, index) => {
+        console.log(comment);
         return (
           <div
             key={index}
@@ -53,10 +54,18 @@ const CommentList = ({ comments, user, increateReqTrigger }) => {
             style={{ borderTop: '1px solid lightgray' }}
           >
             <div className="d-flex">
-              {/* <UserIcon userName="hihi" img="" author /> */}
-              <div className="comments">
+              <UserIcon
+                userName={comment.profile.name}
+                img={comment.profile.picture}
+              />
+              <div className="comments m-1">
                 <div className="mb-1">
-                  <b>{comment.user}</b>
+                  <b>
+                    {comment.profile.name}({comment.profile.email})
+                  </b>
+                  <small class="m-1 text-muted">
+                    {new Date(comment.createtime).toLocaleString()}
+                  </small>
                 </div>
                 <div className="">
                   <div className="text-break">{comment.comment}</div>

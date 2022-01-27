@@ -115,7 +115,7 @@ const ActivityDetailPage = ({ match, history }) => {
               {user.email && user.email !== activityDetail.author ? (
                 <>
                   {activityDetail.participants
-                    .map((participant) => participant.user_name)
+                    .map((participant) => participant.profile.email)
                     .includes(user.email) ? (
                     <Button
                       width="content-fit"

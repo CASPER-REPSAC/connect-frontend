@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import Button from './Button';
 import NoCards from './NoCards';
@@ -37,6 +37,79 @@ export const AskReqModal = (
   onRequest,
   res,
 ) => {
+  return (
+    <Modal show={show.show} onHide={show.handleClose}>
+      <Modal.Body>
+        <div>
+          {show.res === undefined && (
+            <>
+              <div className="text-center">
+                <NoCards msg={show.msg || '요청하시겠습니까?'} />
+              </div>
+              <div className="text-center">
+                <Button onClick={show.handleClose}>취소</Button>
+                <Button
+                  margin="0 0 0 5px"
+                  background="#8B0000"
+                  onClick={() => {
+                    show.onRequest();
+                  }}
+                >
+                  확인
+                </Button>
+              </div>
+            </>
+          )}
+          {show.res === true && (
+            <>
+              <div className="text-center">
+                <NoCards msg={show.msgSuccess || '요청에 성공하였습니다.'} />
+              </div>
+              <div className="text-center">
+                <Button
+                  onClick={() => {
+                    show.handleClose();
+                    show.onSuccess();
+                  }}
+                >
+                  확인
+                </Button>
+              </div>
+            </>
+          )}
+          {show.res === false && (
+            <>
+              <div className="text-center">
+                <NoCards msg={show.msgFail || '요청에 실패하였습니다.'} />
+              </div>
+              <div className="text-center">
+                <Button onClick={show.handleClose}>취소</Button>
+                <Button
+                  margin="0 0 0 5px"
+                  background="#8B0000"
+                  onClick={() => show.onRequest()}
+                >
+                  재요청
+                </Button>
+              </div>
+            </>
+          )}
+        </div>
+      </Modal.Body>
+    </Modal>
+  );
+};
+
+export const AskPasswordModal = (
+  show,
+  handleClose,
+  msg,
+  msgSuccess,
+  msgFail,
+  onRequest,
+  res,
+) => {
+  const [password, setPassword] = useState(null);
   return (
     <Modal show={show.show} onHide={show.handleClose}>
       <Modal.Body>

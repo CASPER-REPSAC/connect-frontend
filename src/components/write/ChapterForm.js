@@ -114,17 +114,17 @@ const ChapterForm = ({
         </>
       )}
       <br />
-      <label htmlFor="title" className="mt-3">
+      <label htmlFor="authstring" className="mt-3">
         <h5 className="pw-label">Password</h5>
       </label>
 
       <input
         type="password"
-        id="password"
-        name="password"
+        id="authstring"
+        name="authstring"
         className="d-block"
         style={{ width: '200px' }}
-        value={chapterInput.password || ''}
+        value={chapterInput.authstring || ''}
         onChange={(e) => inputHandler(e.target)}
       />
       <div className="text-center">
