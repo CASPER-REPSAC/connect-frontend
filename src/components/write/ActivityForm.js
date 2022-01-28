@@ -117,7 +117,7 @@ const ActivityForm = ({
         placeHolder="태그를 입력해주세요"
       />
 
-      <label htmlFor="authstring" className="mt-3 d-flex">
+      <label htmlFor="authString" className="mt-3 d-flex">
         <h5 className="pw-label">Password</h5>
         <div
           className="d-flex align-items-center"
@@ -147,10 +147,10 @@ const ActivityForm = ({
 
       <input
         type="password"
-        id="authstring"
+        id="authString"
         className="d-block"
         style={{ width: '200px' }}
-        value={inputs['authstring'] || ''}
+        value={inputs['authString'] || ''}
         onChange={(e) => onChangeHandler(e)}
       />
 

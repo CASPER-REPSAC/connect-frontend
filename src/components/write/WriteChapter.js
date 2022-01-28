@@ -13,7 +13,7 @@ const WriteChapter = ({ match }) => {
     subject: '',
     article: '',
     activityid: match.params.id,
-    authstring: '',
+    authString: '',
     files: [],
   });
   const [targetFiles, setTargetFiles] = useState();
