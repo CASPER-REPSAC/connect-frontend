@@ -60,6 +60,7 @@ const WriteChapter = ({ match }) => {
       subject: chapterInput.subject,
       article: chapterInput.article,
       activityid: chapterInput.activityid,
+      authString: chapterInput.authString,
       password: chapterInput.password,
     };
     setSendCounter(sendCounter + 1);

@@ -25,6 +25,7 @@ const UpdateChapter = ({ match }) => {
     subject: '',
     article: '',
     activityid: match.params.id,
+    authString: '',
     files: [],
     file_delete: [],
     current_files: [],
@@ -100,7 +101,7 @@ const UpdateChapter = ({ match }) => {
       article: chapterInput.article,
       activityid: chapterInput.activityid,
       file_delete: chapterInput.file_delete,
-      password: chapterInput.password,
+      authString: chapterInput.authString,
     };
     setSendCounter(sendCounter + 1);
     const res = await updateChapter(

@@ -124,7 +124,7 @@ const ChapterForm = ({
         name="authString"
         className="d-block"
         style={{ width: '200px' }}
-        value={chapterInput.authstring || ''}
+        value={chapterInput.authString || ''}
         onChange={(e) => inputHandler(e.target)}
       />
       <div className="text-center">
