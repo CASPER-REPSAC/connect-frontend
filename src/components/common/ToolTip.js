@@ -2,8 +2,7 @@ import React from "react";
 import { returnUnionedClassName } from "#serv";
 
 export const WithToolTip = (props) => {
-  const prevClassName = "relative b-0 group";
-  const className = returnUnionedClassName(prevClassName, props.className);
+  const prevClassName = "relative b-0 ";
   const offsets = {
     bottom:
       "top-16 -left-1/4 after:absolute after:-top-1/4 after:right-1/2 after:border-transparent after:border-b-background-700",
@@ -17,16 +16,20 @@ export const WithToolTip = (props) => {
     offset = props.offset;
   }
   return (
-    <div {...props} className={className}>
-      {props.children}
+    <div
+      {...props}
+      className={returnUnionedClassName(prevClassName, props.className)}
+    >
+      <div className="peer">{props.children}</div>
       {props.tooltip && (
         <span
           className={returnUnionedClassName(
             `
         opacity-0 scale-0 rotate-12 transition-all text-text-50
-        group-hover:opacity-90 group-hover:scale-100 group-hover:rotate-0
+        peer-hover:opacity-90 peer-hover:scale-100 peer-hover:rotate-0
         p-1 w-24 bg-background-700 z-30
-        text-center rounded-md absolute after:border-4 text-sm
+        text-center rounded-md absolute after:border-4 text-sm 
+        not-italic
 
         ${offsets[offset]}
          `,

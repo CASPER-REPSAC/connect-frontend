@@ -417,7 +417,15 @@ export const activities = (state = initialState, action) => {
         ...state,
         activities: {
           loading: false,
-          data: action.payload,
+          data: action.payload.sort(function (a, b) {
+            if (new Date(a.createDate) > new Date(b.createDate)) {
+              return -1;
+            } else if (new Date(a.createDate) < new Date(b.createDate)) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }),
           error: null,
         },
       };

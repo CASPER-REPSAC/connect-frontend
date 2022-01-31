@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
-  ActivityGroupPage,
+  ActivityListGroupPage,
   ActivityDetailPage,
   ActivityWritePage,
   ChapterDetailPage,
@@ -17,15 +17,19 @@ import { SideBar } from "#comp/navigations";
 function App() {
   const location = useLocation();
   return (
-    <div className="bg-background-300 w-full overflow-x-hidden h-fit min-h-full p-5 flex ">
+    <div className="bg-background-400 w-full h-fit min-h-full max-w-screen flex ">
       {console.log(location)}
-      <div className="bg-background-100 w-full rounded-xl overflow-hidden grid grid-flow-col justify-start">
-        <header className="col-start-1 bg-background-200 w-fit min-h-full">
+      <div
+        className="bg-background-200 w-full max-w-full grid justify-start "
+        style={{ gridTemplateColumns: "64px 1fr" }}
+      >
+        <header className="w-fit fixed top-0 left-0 z-50 ">
           <SideBar />
         </header>
-        <section className="col-start-2 min-w-full">
+        <div className="col-start-1"></div>
+        <section className="col-start-2 min-w-full max-w-full p-3 pt-1">
           <Routes>
-            <Route path="" element={<ActivityGroupPage />} />
+            <Route path="" element={<ActivityListGroupPage />} />
             <Route path="user" element={<UserPage />} />
             {/* `/api/activities/${activityId}/` */}
             <Route path="activities">
@@ -45,7 +49,7 @@ function App() {
               <Route path=":type/:keyword" element={<SearchPage />} />
               <Route path="*" element={<SearchPage />} />
             </Route>
-            <Route path="*" element={<ActivityGroupPage />} />
+            <Route path="*" element={<ActivityListGroupPage />} />
           </Routes>
         </section>
       </div>

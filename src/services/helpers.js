@@ -38,7 +38,7 @@ export function returnUnionedClassName(prevClass, newClass) {
     const property = newClassList[i].split("-")[0];
     for (let j = 0; j < prevClassList.length; j++) {
       if (prevClassList[j].split("-")[0] === property) {
-        if (["overflow", "max", "min"].indexOf(property) !== -1)
+        if (["overflow", "max", "min"].indexOf(property) === -1)
           prevClassExcluded = prevClassExcluded.filter(
             (v) => v !== prevClassList[j]
           );

@@ -6,6 +6,7 @@ import {
   faCog,
   faUser,
   faStream,
+  faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import { CasLogoSVG as CasLogo } from "./CasLogoSVG";
 import { GitIssueSVG as GitIssue } from "./GitIssueSVG";
@@ -21,6 +22,9 @@ export const SignInSVG = () => {
 };
 export const KeyboardSVG = () => {
   return <FontAwesomeIcon icon={faKeyboard} />;
+};
+export const PenSVG = () => {
+  return <FontAwesomeIcon icon={faPen} />;
 };
 export const CogSVG = () => {
   return <FontAwesomeIcon icon={faCog} />;

@@ -1,5 +1,5 @@
 export { default as ActivityDetailPage } from "./ActivityDetailPage";
-export { default as ActivityGroupPage } from "./ActivityGroupPage";
+export { default as ActivityListGroupPage } from "./ActivityListGroupPage";
 export { default as ActivityWritePage } from "./ActivityWritePage";
 export { default as AuthPage } from "./AuthPage";
 export { default as ChapterDetailPage } from "./ChapterDetailPage";

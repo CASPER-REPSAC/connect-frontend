@@ -7,17 +7,20 @@ import {
   GitIssueSVG,
   UserSVG,
   StreamSVG,
+  PenSVG,
 } from "./SVGs";
 import { SideBarIconFrame } from "@/icons/IconFrames";
 import { Link } from "react-router-dom";
 import { log } from "#serv";
+import { useSelector } from "react-redux";
 
 export const SearchIconWithBg = (props) => {
+  const { keyword, type } = useSelector((state) => state.inputs.searchInput);
   return (
     <SideBarIconFrame
       element={<SearchSVG />}
       isActive={props.isActive}
-      to="/search"
+      to={`/search/${type}/${keyword}`}
       onClick={props.onClick}
       tooltip={null}
     />
@@ -77,6 +80,18 @@ export const KeyboardIconWithBg = (props) => {
   return (
     <SideBarIconFrame
       element={<KeyboardSVG />}
+      isActive={props.isActive}
+      to="/activities/write"
+      onClick={props.onClick}
+      tooltip={`액티비티 작성`}
+    />
+  );
+};
+
+export const PenIconWithBg = (props) => {
+  return (
+    <SideBarIconFrame
+      element={<PenSVG />}
       isActive={props.isActive}
       to="/activities/write"
       onClick={props.onClick}

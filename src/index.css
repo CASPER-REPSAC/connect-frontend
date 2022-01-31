@@ -48,3 +48,30 @@ body {
   height: 100%;
   overflow-x: hidden;
 }
+
+.a-char-button {
+  @apply font-bold rounded-md bg-background-400 hover:bg-background-600 
+  transition-all h-5 w-5 text-text-50 text-center hover:rotate-6;
+}
+
+a {
+  @apply whitespace-normal break-words text-text-500 italic underline
+  hover:text-text-700 transition-all;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold not-italic text-text-900 no-underline;
+}
+
+h2 {
+  @apply text-xl;
+}
+
+h4 {
+  @apply text-xs;
+}

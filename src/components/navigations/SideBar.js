@@ -14,7 +14,7 @@ export const SideBar = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className="pl-2 pt-2 min-h-full max-h-full w-16 max-w-16 z-20">
+    <nav className="pl-2 pt-2 h-screen w-16 max-w-16 z-20 bg-background-300  rounded-r-xl">
       <div className="flex flex-col z-20 w-16 gap-2">
         <HomeButton isActive={pathname === "/" ? true : false} />
         <SearchButton

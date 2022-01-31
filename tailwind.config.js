@@ -47,20 +47,24 @@ module.exports = {
       borderColor: {},
       gradientColorStops: {},
       minWidth: {
-        card: "280px",
+        card: "230px",
+        tabletCard: "250px",
         tooltip: "120px",
       },
       maxWidth: {
         card: "300px",
+        tabletCard: "250px",
         tooltip: "200px",
       },
       maxHeight: {
         activityCard: "128px",
         card: "128px",
+        tabletCard: "140px",
       },
       minHeight: {
         activityCard: "128px",
         card: "128px",
+        tabletCard: "140px",
       },
       gridRowEnd: {
         minus1: "-1",
