@@ -31,7 +31,7 @@ export const WithToolTip = (props) => {
         text-center rounded-md absolute after:border-4 text-sm 
         not-italic
 
-        ${offsets[offset]}
+        ${props.offsetclass || offsets[offset]}
          `,
             props.tooltipclassname
           )}

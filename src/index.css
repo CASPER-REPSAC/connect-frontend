@@ -68,10 +68,22 @@ h6 {
   @apply font-bold not-italic text-text-900 no-underline;
 }
 
+h1 {
+  @apply text-2xl;
+}
+
 h2 {
   @apply text-xl;
 }
 
+h3 {
+  @apply text-sm;
+}
+
 h4 {
+  @apply text-xs;
+}
+
+h5 {
   @apply text-xs;
 }

@@ -1,22 +1,20 @@
 import React from "react";
 import { WithToolTip } from "#comp/common/ToolTip";
 import { returnUnionedClassName, isArray } from "#serv";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const UserIcon = (props) => {
   const { userdata } = props;
-  if (props.className) {
-    props.className = returnUnionedClassName(
-      "w-14 h-14 rounded-md",
-      props.className
-    );
-  }
+
   return (
     <img
       {...props}
       src={userdata.profile.picture || ""}
       alt={userdata.profile.picture || ""}
-      className={`w-14 h-14 rounded-md ${props.className || ""}`}
+      className={returnUnionedClassName(
+        `w-14 h-14 rounded-md `,
+        props.className
+      )}
     />
   );
 };
@@ -37,7 +35,7 @@ export const RoundedBg = (props) => {
 export const IconWithToolTip = (props) => {
   return (
     <WithToolTip {...props}>
-      <UserIcon userdata={props.userdata} />
+      <UserIcon userdata={props.userdata} className={props.className} />
     </WithToolTip>
   );
 };

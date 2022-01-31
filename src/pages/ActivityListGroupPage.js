@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { get_activities } from "@/redux/activities";
-import { ActivityCardList, ActivityExpendedList } from "#comp/activities/";
-import { PenSVG } from "@/icons";
+import { ActivityCardList } from "#comp/activities/";
+import { ActivityRowItem } from "#comp/activities";
 
 export const ActivityListGroupPage = () => {
-  const types = ["Study", "Project", "CTF"];
+  const types = {
+    Study: { type: "Study", lgCol: 1, lgRow: 1, row: 1 },
+    Project: { type: "Project", lgCol: 3, lgRow: 1, row: 1 },
+    CTF: { type: "CTF", lgCol: 3, lgRow: 2, row: 1 },
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -15,44 +19,57 @@ export const ActivityListGroupPage = () => {
     (state) => state.activities.activities
   );
 
-  if (loading) {
+  if (loading && !data) {
     return <div>로딩중..</div>;
   }
 
   return (
-    <div
-      className="grid gap-3 max-w-full"
-      style={{ gridTemplateColumns: "minmax(0, 100%) 1fr 1fr 1fr" }}
-    >
+    <div className="grid gap-3 max-w-full w-full min-w-full lg:grid-cols-activityLg grid-cols-activityMd grid-rows-activityLg ">
       {data && (
-        <div className="justify-self-stretch">
-          <h2 className=" font-bold m-1">Recent</h2>
-          <ActivityCardList activities={data} expended="true" />
-        </div>
+        <>
+          <ActivityRowItem
+            item={types.Study}
+            element={
+              <ActivityCardList
+                activities={data.filter(
+                  (activity) => activity.type === types.Study.type
+                )}
+              />
+            }
+            icons="true"
+            className="lg:col-start-1 lg:col-end-2 col-start-2 col-end-3 row-start-1 lg:row-end-4 row-end-2"
+          />
+          <ActivityRowItem
+            item={{ type: "Recent", lgCol: 2, col: 2, row: 1 }}
+            element={<ActivityCardList activities={data} expended="true" />}
+            className="col-start-1 col-end-2 lg:col-start-2 lg:col-end-3 row-start-1 row-end-4 justify-self-stretch min-w-full"
+          />
+          <ActivityRowItem
+            item={types.Project}
+            element={
+              <ActivityCardList
+                activities={data.filter(
+                  (activity) => activity.type === types.Project.type
+                )}
+              />
+            }
+            icons="true"
+            className="lg:col-start-3 col-start-2 lg:col-end-4 col-end-3 lg:row-start-1 lg:row-end-2 row-start-2 row-end-3"
+          />
+          <ActivityRowItem
+            item={types.CTF}
+            element={
+              <ActivityCardList
+                activities={data.filter(
+                  (activity) => activity.type === types.CTF.type
+                )}
+              />
+            }
+            icons="true"
+            className="lg:col-start-3 col-start-2 lg:col-end-4 col-end-3 lg:row-start-2 lg:row-end-3 row-start-3 row-end-4"
+          />
+        </>
       )}
-      {data &&
-        types.map((type) => {
-          console.log(data);
-          const sortedActivity = data.filter(
-            (activity) => activity.type === type
-          );
-          return (
-            <div className="" key={type}>
-              <div className="flex justify-between items-center">
-                <h2 className=" font-bold m-1">{type}</h2>
-                <div className="flex gap-1">
-                  <span className="a-char-button text-xs leading-5 ">
-                    <PenSVG />
-                  </span>
-                  <span className="a-char-button leading-5 text-xl ">+</span>
-                </div>
-              </div>
-              <span key={type}>
-                {data && <ActivityCardList activities={sortedActivity} />}
-              </span>
-            </div>
-          );
-        })}
     </div>
   );
 };

@@ -4,12 +4,17 @@ import { returnUnionedClassName, log } from "#serv";
 
 export const CardFrame = (props) => {
   let newClassName = props.className;
-  let prevClassName = `relative min-w-tabletCard rounded-lg transition-all duration-150 ease-in-out bg-background-50 p-5 hover:shadow-lg hover:bg-background-100`;
+  let prevClassName = `relative rounded-lg transition-all duration-150 ease-in-out bg-background-50 p-5 hover:shadow-lg hover:bg-background-100`;
   if (props.expended) {
-    prevClassName = prevClassName + " w-full";
+    prevClassName = prevClassName + " w-full h-full ";
+  } else if (props.isfit) {
+    prevClassName = prevClassName + " w-fit min-w-chapterCard ";
   } else {
-    prevClassName = prevClassName + " max-w-tabletCard ";
+    prevClassName =
+      prevClassName +
+      " min-w-smCard max-w-smCard xl:min-w-tabletCard xl:max-w-tabletCard";
   }
+
   newClassName = returnUnionedClassName(prevClassName, newClassName);
   log(newClassName);
   return <div {...props} className={newClassName}></div>;
