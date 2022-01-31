@@ -9,9 +9,11 @@ import {
   GoogleLoginButton,
 } from "./SideBarButtons";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const SideBar = () => {
   const { pathname } = useLocation();
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <nav className="pl-2 pt-2 h-screen w-16 max-w-16 z-20 bg-background-300  rounded-r-xl">
@@ -23,8 +25,11 @@ export const SideBar = () => {
         <ActivityWriteButton
           isActive={pathname.split("/")[2] === "write" ? true : false}
         />
-        <GoogleLoginButton />
-        <UserButton isActive={pathname === "/" ? true : false} />
+        {user ? (
+          <UserButton isActive={pathname === "/" ? true : false} />
+        ) : (
+          <GoogleLoginButton />
+        )}
         <GitIssueButton />
         <SettingsButton />
       </div>

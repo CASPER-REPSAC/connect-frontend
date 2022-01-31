@@ -13,6 +13,7 @@ import {
 import { ExpendableIcons } from "@/icons";
 import { SettingsModal } from "#comp/settings";
 import { changeSearchInput } from "@/redux/inputs";
+import { logout } from "@/redux/auth";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -21,10 +22,17 @@ export { PenIconWithBg as ActivityWriteButton };
 export { GoogleLoginButton } from "#comp/auth/GoogleButton";
 
 export const UserButton = () => {
+  const dispatch = useDispatch();
+  const onLogout = () => {
+    dispatch(logout());
+  };
   return (
     <ExpendableIcons
       parentIcon={<UserIconWithBg />}
-      childIcons={[<UserBoardIconWithBg />, <SignOutIconWithBg />]}
+      childIcons={[
+        <UserBoardIconWithBg />,
+        <SignOutIconWithBg onClick={() => onLogout()} />,
+      ]}
     />
   );
 };

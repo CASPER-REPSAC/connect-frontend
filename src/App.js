@@ -1,4 +1,5 @@
 import "./App.css";
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
   ActivityListGroupPage,
@@ -13,9 +14,18 @@ import {
   // SettingsPage, 이 셋은 모달이랑 새창 열기로 처리
 } from "@/pages";
 import { SideBar } from "#comp/navigations";
+import { loginWithCookie } from "@/redux/auth";
+import { useDispatch } from "react-redux";
 
 function App() {
   const location = useLocation();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loginWithCookie());
+
+    return () => {};
+  }, [dispatch]);
+
   return (
     <div className="bg-background-400 w-full h-fit min-h-full max-w-screen flex ">
       {console.log(location)}

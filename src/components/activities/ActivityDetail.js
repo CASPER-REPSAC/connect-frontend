@@ -6,7 +6,7 @@ import { ChapterList } from "./ChapterList";
 export const ActivityDetail = ({ activity }) => {
   const {
     // url,
-    id,
+    // id,
     title,
     type,
     author,
@@ -15,8 +15,8 @@ export const ActivityDetail = ({ activity }) => {
     startDate,
     endDate,
     currentState,
-    viewerNum,
-    tags,
+    // viewerNum,
+    // tags,
     participants,
     chapterid,
   } = activity;
