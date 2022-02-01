@@ -9,7 +9,7 @@ import { ActivityDetailPage, ChapterDetailPage } from "@/pages";
 export const MainPage = () => {
   const dispatch = useDispatch();
   const location =
-    useLocation().pathname.split("/")[1] === "activiteis" ? "detail" : "home";
+    useLocation().pathname.split("/")[1] === "activities" ? "detail" : "home";
   useEffect(() => {
     dispatch(get_activities());
   }, [dispatch]);

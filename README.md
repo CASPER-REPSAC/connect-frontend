@@ -1,4 +1,4 @@
-# Connect frontend with tailwindcss && redux thunk
+# Connect frontend with tailwindcss & redux thunk
 
 ## Outline
 

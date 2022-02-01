@@ -8,12 +8,17 @@ import {
   faStream,
   faPen,
   faChevronLeft,
+  faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import { CasLogoSVG as CasLogo } from "./CasLogoSVG";
 import { GitIssueSVG as GitIssue } from "./GitIssueSVG";
 
 export const ChevronLeftSVG = () => {
   return <FontAwesomeIcon icon={faChevronLeft} />;
+};
+
+export const PaperPlaneSVG = () => {
+  return <FontAwesomeIcon icon={faPaperPlane} />;
 };
 
 export const SearchSVG = () => {

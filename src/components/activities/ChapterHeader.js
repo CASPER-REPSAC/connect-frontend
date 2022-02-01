@@ -14,7 +14,7 @@ const ActivityTitle = ({ activityTitle, activity_id }) => {
         <span>
           <ChevronLeftSVG />
         </span>
-        <span className="ml-2">{activityTitle}</span>
+        <span className="ml-1">{activityTitle}</span>
       </h3>
     </Link>
   );
@@ -23,9 +23,9 @@ const ActivityTitle = ({ activityTitle, activity_id }) => {
 const ChapterFlow = ({ chapters, chapter_id, activity_id }) => {
   return (
     <>
-      <div className="grid grid-flow-col gap-10 max-w-fit my-2 justify-center items-center h-5">
+      <div className="grid grid-flow-col gap-8 w-fit max-w-full my-2 justify-center items-center h-5">
         <div
-          className="rounded bg-background-300 h-1 w-full"
+          className="rounded bg-background-200 h-1 w-full"
           style={{
             gridColumn: `${1}/${chapters.length + 1}`,
             gridRow: "1/2",
@@ -33,10 +33,10 @@ const ChapterFlow = ({ chapters, chapter_id, activity_id }) => {
         ></div>
         {chapters.map((chapter, index) => {
           const className =
-            "rounded-lg transition-all text-center hover:-translate-x-0.5 " +
+            "rounded-lg transition-all text-center w-5 h-5 " +
             (chapter.chapterid == chapter_id
-              ? "w-3 h-3 hover:w-4 hover:h-4 border-2 border-background-400 bg-background-600  "
-              : "w-2 h-2 bg-background-400 hover:w-3 hover:h-3 ");
+              ? "bg-background-500 scale-50 hover:scale-100 "
+              : "bg-background-300 scale-50 hover:scale-75");
           return (
             <div
               key={chapter.chapterid}
@@ -51,8 +51,9 @@ const ChapterFlow = ({ chapters, chapter_id, activity_id }) => {
               >
                 <WithToolTip
                   tooltip={chapter.subject}
+                  className="w-4 flex justify-center"
                   tooltipclassname="px-2 whitespace-nowrap w-fit"
-                  offsetclass="top-10 -left-14 after:absolute after:-top-1/4 after:right-1/2  after:border-transparent after:border-b-background-700"
+                  offsetclass="-top-8 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
                 >
                   <div className={className}></div>
                 </WithToolTip>
@@ -92,7 +93,7 @@ export const ChapterHeader = () => {
     <>
       {activity && (
         <>
-          <div className="m-2">
+          <div className="pl-2 flex items-center gap-x-4">
             <ActivityTitle
               activityTitle={activity.title}
               activity_id={activity_id}

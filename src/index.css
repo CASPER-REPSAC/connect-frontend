@@ -87,3 +87,22 @@ h4 {
 h5 {
   @apply text-xs;
 }
+
+blockquote {
+  @apply p-2  pl-3 border-text-400 border-l-4 pb-4 my-2;
+}
+
+ul {
+  @apply list-disc;
+}
+ol {
+  @apply list-decimal;
+}
+p {
+  @apply my-2;
+}
+
+ul,
+ol {
+  @apply ml-4;
+}

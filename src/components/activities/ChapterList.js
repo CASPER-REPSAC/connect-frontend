@@ -27,7 +27,7 @@ export const ChapterList = ({ chapters }) => {
   return (
     <>
       <Card.Frame
-        className="bg-background-200 hover:bg-background-200 p-3 xl:p-3 hover:shadow-none min-h-card "
+        className="bg-background-200 hover:bg-background-200 p-3 xl:p-3 hover:shadow-none min-h-chapterList "
         expended="true"
       >
         <h3 className="m-1">챕터</h3>

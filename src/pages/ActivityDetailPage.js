@@ -33,28 +33,21 @@ export const ActivityDetailPage = () => {
     CTF: { type: "CTF", lgCol: 3, lgRow: 2, row: 1 },
   };
 
-  if (loading && !data) {
-    return <div>로딩중..</div>;
-  }
-
   return (
     <>
+      <ActivityRowItem
+        element={<ActivityDetail activity={data} loading={loading} />}
+        page="detail"
+        priority="main"
+      />
       {data && (
-        <>
-          <ActivityRowItem
-            element={<ActivityDetail activity={data} />}
-            page="detail"
-            priority="main"
-          />
-
-          <ActivityRowItem
-            element={
-              <ActivityInfo participants={data.participants} tags={data.tags} />
-            }
-            page="detail"
-            priority="info"
-          />
-        </>
+        <ActivityRowItem
+          element={
+            <ActivityInfo participants={data.participants} tags={data.tags} />
+          }
+          page="detail"
+          priority="info"
+        />
       )}
     </>
   );

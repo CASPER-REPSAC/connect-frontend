@@ -32,11 +32,9 @@ export const ChapterDetailPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!data || !activityData) {
-      dispatch(get_activity(activity_id));
-      dispatch(get_chapter(activity_id, chapter_id));
-    }
-  }, [dispatch, activity_id, chapter_id, data, activityData]);
+    dispatch(get_activity(activity_id));
+    dispatch(get_chapter(activity_id, chapter_id));
+  }, [dispatch, activity_id, chapter_id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,10 +45,14 @@ export const ChapterDetailPage = () => {
       <ActivityRowItem
         element={
           <Card.Frame
-            className="hover:shadow-none hover:bg-background-50 h-fit min-h-detailCard"
+            className="hover:shadow-none hover:bg-background-50 h-fit min-h-detailCard flex flex-col justify-between gap-y-10"
             expended="true"
           >
-            <ChapterDetail chapter={data} loading={loading} />
+            <ChapterDetail
+              activity={activityData}
+              chapter={data}
+              loading={loading}
+            />
           </Card.Frame>
         }
         page="detail"

@@ -66,7 +66,9 @@ module.exports = {
       minHeight: {
         activityCard: "128px",
         card: "128px",
+        commentInput: "80px",
         tabletCard: "140px",
+        chapterList: "25vh",
         detailCard: "calc(100vh - 25px)",
       },
       gridRowEnd: {
