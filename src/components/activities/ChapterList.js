@@ -1,21 +1,24 @@
 import React from "react";
 import { Card } from "#comp/common";
+import { Link } from "react-router-dom";
 
 export const ChapterListItem = ({ chapter, index }) => {
   const { activityid, chapterid, created_time, last, next, subject } = chapter;
 
   return (
-    <Card.Frame
-      className="mb-1 lg:mb-0 p-2 xl:p-2 cursor-pointer flex items-center"
-      expended="true"
-    >
-      <h3>
-        <span className="mr-1 text-text-500">
-          [{`${index + 1}`.padStart(3, "0")}]
-        </span>
-        {subject}
-      </h3>
-    </Card.Frame>
+    <Link to={`/activities/${activityid}/chapter/${chapterid}`}>
+      <Card.Frame
+        className="mb-1 lg:mb-0 p-2 xl:p-2 cursor-pointer flex items-center"
+        expended="true"
+      >
+        <h3>
+          <span className="mr-1 text-text-500">
+            [{`${index + 1}`.padStart(3, "0")}]
+          </span>
+          {subject}
+        </h3>
+      </Card.Frame>
+    </Link>
   );
 };
 

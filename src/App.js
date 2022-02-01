@@ -2,13 +2,14 @@ import "./App.css";
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
-  ActivityListGroupPage,
-  ActivityDetailPage,
+  // ActivityListGroupPage,
+  // ActivityDetailPage,
   ActivityWritePage,
-  ChapterDetailPage,
+  // ChapterDetailPage,
   ChapterWritePage,
   SearchPage,
   UserPage,
+  MainPage,
   // AuthPage,
   // IssuesPage,
   // SettingsPage, 이 셋은 모달이랑 새창 열기로 처리
@@ -39,27 +40,18 @@ function App() {
         <div className="col-start-1"></div>
         <section className="col-start-2 min-w-full max-w-full p-3 pt-1">
           <Routes>
-            <Route path="" element={<ActivityListGroupPage />} />
+            <Route path="" element={<MainPage />} />
             <Route path="user" element={<UserPage />} />
             {/* `/api/activities/${activityId}/` */}
-            <Route path="activities">
-              <Route path="write">
-                <Route path="" element={<ActivityWritePage />} />
-                <Route path=":activity_id" element={<ChapterWritePage />} />
-              </Route>
-              <Route path=":activity_id">
-                <Route path="" element={<ActivityDetailPage />} />
-                <Route
-                  path="chapar/:chapter_id"
-                  element={<ChapterDetailPage />}
-                />
-              </Route>
+            <Route path="activities/write">
+              <Route path="" element={<ActivityWritePage />} />
+              <Route path=":activity_id" element={<ChapterWritePage />} />
             </Route>
             <Route path="search/*">
               <Route path=":type/:keyword" element={<SearchPage />} />
               <Route path="*" element={<SearchPage />} />
             </Route>
-            <Route path="*" element={<ActivityListGroupPage />} />
+            <Route path="*" element={<MainPage />} />
           </Routes>
         </section>
       </div>

@@ -4,10 +4,13 @@ import * as activitiesAPI from "@/api/activities";
 const GET_ACTIVITIES = "activities/GET_ACTIVITIES";
 const GET_ACTIVITIES_SUCCESS = "activities/GET_ACTIVITIES_SUCCESS";
 const GET_ACTIVITIES_FAIL = "activities/GET_ACTIVITIES_FAIL";
-const GET_ACTIVITY = "activity/GET_ACTIVITY";
-const GET_ACTIVITY_SUCCESS = "activity/GET_ACTIVITY_SUCCESS";
-const GET_ACTIVITY_FAIL = "activity/GET_ACTIVITY_FAIL";
+const GET_ACTIVITY = "activities/GET_ACTIVITY";
+const GET_ACTIVITY_SUCCESS = "activities/GET_ACTIVITY_SUCCESS";
+const GET_ACTIVITY_FAIL = "activities/GET_ACTIVITY_FAIL";
 
+const GET_CHAPTER = "activities/GET_CHAPTER";
+const GET_CHAPTER_SUCCESS = "activities/GET_CHAPTER_SUCCESS";
+const GET_CHAPTER_FAIL = "activities/GET_CHAPTER_FAIL";
 // action creator function. action is also function(for handling Promise)
 // it returns (dispatch)=>{}. redux-thunk gives dispatch and getState automatically
 export const get_activities = () => async (dispatch) => {
@@ -35,6 +38,17 @@ export const get_activity = (activity_id) => async (dispatch) => {
   }
 };
 
+export const get_chapter = (activity_id, chapter_id) => async (dispatch) => {
+  const [success, fail] = [`${GET_CHAPTER}_SUCCESS`, `${GET_CHAPTER}_FAIL`];
+  dispatch({ type: GET_ACTIVITY, chapter_id });
+  try {
+    const activity = await activitiesAPI.getChapter(activity_id, chapter_id);
+    dispatch({ type: success, data: activity, chapter_id });
+  } catch (error) {
+    dispatch({ type: fail, error, chapter_id });
+  }
+};
+
 // initialState
 const initialState = {
   activities: {
@@ -43,6 +57,13 @@ const initialState = {
     error: false,
   },
   activity: {
+    37: {
+      loading: false,
+      data: null,
+      error: null,
+    },
+  },
+  chapter: {
     37: {
       loading: false,
       data: null,
@@ -124,6 +145,45 @@ export const activities = (state = initialState, action) => {
           ...state.activity,
           [action.activity_id]: {
             ...state.activity[action.activity_id],
+            loading: false,
+            error: action.error,
+          },
+        },
+      };
+    case GET_CHAPTER:
+      return {
+        ...state,
+        chapter: {
+          ...state.chapter,
+          [action.chapter_id]: {
+            data:
+              typeof state.chapter[action.chapter_id] === "object" &&
+              state.chapter[action.chapter_id].data,
+            error: null,
+            loading: true,
+          },
+        },
+      };
+    case GET_CHAPTER_SUCCESS:
+      return {
+        ...state,
+        chapter: {
+          ...state.chapter,
+          [action.chapter_id]: {
+            ...state.chapter[action.chapter_id],
+            loading: false,
+            error: null,
+            data: action.data,
+          },
+        },
+      };
+    case GET_CHAPTER_FAIL:
+      return {
+        ...state,
+        chapter: {
+          ...state.chapter,
+          [action.chapter_id]: {
+            ...state.chapter[action.chapter_id],
             loading: false,
             error: action.error,
           },

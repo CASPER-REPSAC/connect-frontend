@@ -55,7 +55,7 @@ body {
 }
 
 a {
-  @apply whitespace-normal break-words text-text-500 italic underline
+  @apply whitespace-normal break-words text-text-500 italic 
   hover:text-text-700 transition-all;
 }
 
