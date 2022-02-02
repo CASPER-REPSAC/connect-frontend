@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { ChevronLeftSVG } from "@/icons";
 import { isArray } from "#serv/helpers";
 import { useSelector, useDispatch } from "react-redux";
-import { get_activity, get_chapter } from "@/redux/activities";
+import { getActivity } from "@/redux/activities";
 import { WithToolTip } from "#comp/common/ToolTip";
 
 const ActivityTitle = ({ activityTitle, activity_id }) => {
@@ -81,7 +81,7 @@ export const ChapterHeader = () => {
 
   useEffect(() => {
     if (!activity) {
-      dispatch(get_activity(activity_id));
+      dispatch(getActivity(activity_id));
     }
   }, [dispatch, activity_id, chapter_id, activity]);
 

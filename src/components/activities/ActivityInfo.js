@@ -1,7 +1,8 @@
 import React from "react";
 import { Card } from "#comp/common";
 import { isArray } from "#serv/helpers";
-
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 const ParticipantIcons = ({ participants }) => {
   return (
     <>
@@ -37,17 +38,29 @@ const Tags = ({ tags }) => {
   );
 };
 
-export const ActivityInfo = ({ participants, tags }) => {
+export const ActivityInfo = () => {
+  const { activity_id } = useParams();
+  const { data } = useSelector(
+    (state) =>
+      state.activities.activity[activity_id] || {
+        data: null,
+      }
+  );
+
   return (
     <>
       <Card.Frame className="h-fit hover:shadow-none hover:bg-background-50">
         <h3>참여자</h3>
-        <ParticipantIcons participants={participants} />
-        {isArray(tags) && (
+        {data && (
           <>
-            <hr className="my-2 " />
-            <h3>태그</h3>
-            <Tags tags={tags} />
+            <ParticipantIcons participants={data.participants} />
+            {isArray(data.tags) && (
+              <>
+                <hr className="my-2 " />
+                <h3>태그</h3>
+                <Tags tags={data.tags} />
+              </>
+            )}
           </>
         )}
       </Card.Frame>

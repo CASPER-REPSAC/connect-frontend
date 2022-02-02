@@ -30,7 +30,7 @@ export const ActivityCardListItem = ({ activity, expended }) => {
     <>
       <Card.Frame
         className={
-          `` +
+          `max-w-full` +
           (currentState === 2
             ? `flex flex-col h-fit bg-background-300 hover:bg-background-300 cursor-pointer`
             : `flex flex-col h-fit cursor-pointer`)

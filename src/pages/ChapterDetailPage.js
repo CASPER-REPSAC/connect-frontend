@@ -1,77 +1,16 @@
 import React, { useEffect } from "react";
-import { ChapterDetail, ActivityRowItem, ActivityInfo } from "#comp/activities";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { get_activity, get_chapter } from "@/redux/activities";
-import { Card } from "#comp/common";
+import { ActivityDetail } from "#comp/activities";
 
 export const ChapterDetailPage = () => {
-  const { activity_id, chapter_id } = useParams();
-  const {
-    data: activityData,
-    loading: activityLoading,
-    error: activityError,
-  } = useSelector(
-    (state) =>
-      state.activities.activity[activity_id] || {
-        loading: false,
-        data: null,
-        error: null,
-      }
+  const { loading, error, data } = useSelector(
+    (state) => state.activities.activity
   );
-
-  const { data, loading, error } = useSelector(
-    (state) =>
-      state.activities.chapter[chapter_id] || {
-        loading: false,
-        data: null,
-        error: null,
-      }
-  );
-
   const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(get_activity(activity_id));
-    dispatch(get_chapter(activity_id, chapter_id));
-  }, [dispatch, activity_id, chapter_id]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  return (
-    <>
-      <ActivityRowItem
-        element={
-          <Card.Frame
-            className="hover:shadow-none hover:bg-background-50 h-fit min-h-detailCard flex flex-col justify-between gap-y-10"
-            expended="true"
-          >
-            <ChapterDetail
-              activity={activityData}
-              chapter={data}
-              loading={loading}
-            />
-          </Card.Frame>
-        }
-        page="detail"
-        priority="main"
-      />
-      {activityData && (
-        <ActivityRowItem
-          element={
-            <ActivityInfo
-              participants={activityData.participants}
-              tags={activityData.tags}
-            />
-          }
-          page="detail"
-          priority="info"
-        />
-      )}
-    </>
-  );
+    dispatch();
+  }, [dispatch]);
+  return <div></div>;
 };
 
 export default ChapterDetailPage;

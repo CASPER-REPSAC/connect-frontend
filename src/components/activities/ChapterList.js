@@ -23,7 +23,8 @@ export const ChapterListItem = ({ chapter, index }) => {
 };
 
 export const ChapterList = ({ chapters }) => {
-  const rows = Math.ceil(chapters.length / 2);
+  const rows =
+    Math.ceil(chapters.length / 2) > 4 ? Math.ceil(chapters.length / 2) : 5;
   return (
     <>
       <Card.Frame
@@ -32,6 +33,17 @@ export const ChapterList = ({ chapters }) => {
       >
         <h3 className="m-1">챕터</h3>
         <div className="lg:grid gap-x-2 gap-y-1 grid-cols-2">
+          {Math.ceil(chapters.length / 2) < 6 &&
+            chapters.map((chapter, index) => {
+              const order = 1 + index * 2;
+
+              return (
+                <span
+                  key={chapter.chapterid}
+                  style={{ order: `${order + 1}` }}
+                ></span>
+              );
+            })}
           {chapters.map((chapter, index) => {
             let order = 1;
             if (rows > index) {

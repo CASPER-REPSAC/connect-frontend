@@ -70,13 +70,10 @@ export const ActivityDetailContent = ({ activity }) => {
 
 export const ActivityDetail = ({ activity, loading }) => {
   return (
-    <Card.Frame
-      className="hover:shadow-none hover:bg-background-50 h-fit min-h-detailCard flex flex-col justify-between gap-3 gap-y-10"
-      expended="true"
-    >
+    <>
       {loading && !activity && <>로딩중..</>}
       {activity && <ActivityDetailContent activity={activity} />}
-    </Card.Frame>
+    </>
   );
 };
 

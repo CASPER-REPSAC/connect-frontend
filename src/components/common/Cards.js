@@ -16,7 +16,6 @@ export const CardFrame = (props) => {
   }
 
   newClassName = returnUnionedClassName(prevClassName, newClassName);
-  log(newClassName);
   return <div {...props} className={newClassName}></div>;
 };
 
