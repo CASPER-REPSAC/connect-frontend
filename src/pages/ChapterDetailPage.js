@@ -1,16 +1,50 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ActivityDetail } from "#comp/activities";
+import { ChapterDetail } from "#comp/activities";
+import { useParams } from "react-router-dom";
+import { getChapter } from "@/redux/chapters";
+import { getActivity } from "@/redux/activities";
 
 export const ChapterDetailPage = () => {
-  const { loading, error, data } = useSelector(
-    (state) => state.activities.activity
+  const { activity_id, chapter_id } = useParams();
+  const {
+    loading,
+    error,
+    data: chapter,
+  } = useSelector(
+    (state) =>
+      state.chapters[chapter_id] || {
+        data: null,
+        loading: false,
+        error: null,
+      }
   );
+
+  const { data: activity } = useSelector(
+    (state) => state.activities.activity[activity_id] || { data: null }
+  );
+
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch();
-  }, [dispatch]);
-  return <div></div>;
+    window.scrollTo(0, 0);
+    dispatch(getChapter(activity_id, chapter_id));
+  }, [dispatch, activity_id, chapter_id]);
+
+  useEffect(() => {
+    if (!activity) {
+      dispatch(getActivity(activity_id));
+    }
+  }, [dispatch, activity_id, activity]);
+
+  return (
+    <>
+      {loading && !chapter && <> 로딩중..</>}
+      {activity && chapter && (
+        <ChapterDetail chapter={chapter} activity={activity} />
+      )}
+    </>
+  );
 };
 
 export default ChapterDetailPage;

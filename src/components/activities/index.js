@@ -4,3 +4,4 @@ export * from "./ActivityDetail";
 export * from "./ChapterDetail";
 export * from "./ActivityRowItem";
 export * from "./ActivityInfo";
+export * from "./ChapterList";

@@ -12,10 +12,15 @@ export const DetailPage = () => {
       expended="true"
     >
       <Routes>
-        <Route path="*">
-          <Route path="" element={<ActivityDetailPage />} />
-          <Route path="chapter/:chapter_id" element={<ChapterDetailPage />} />
-        </Route>
+        <Route path="" element={<ActivityDetailPage />} />
+        <Route
+          path="chapter/:chapter_id"
+          element={
+            <>
+              <ChapterDetailPage />
+            </>
+          }
+        />
       </Routes>
     </Card.Frame>
   );

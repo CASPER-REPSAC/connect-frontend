@@ -28,8 +28,8 @@ export const ActivityDetailPage = () => {
 
   return (
     <>
-      {loading && <> 로딩중..</>}
-      <ActivityDetail activity={activity} />
+      {loading && !activity && <> 로딩중..</>}
+      {activity && <ActivityDetail activity={activity} />}
     </>
   );
 };

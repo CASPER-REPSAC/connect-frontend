@@ -16,6 +16,7 @@ const classNames = {
     "col-start-1 col-end-2 row-start-[-3] row-end-[-4] max-w-tabletCard",
   start_second:
     "col-start-1 col-end-2 row-start-[-3] row-end-[-4] max-w-tabletCard",
+  start_all: "col-start-1 col-end-2 row-start-1 row-end-4 max-w-tabletCard",
 };
 
 export const ActivityRowItem = ({

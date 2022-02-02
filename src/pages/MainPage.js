@@ -5,6 +5,7 @@ import {
   ActivityCardList,
   ActivityRowItem,
   ActivityInfo,
+  SideChapterList,
 } from "#comp/activities/";
 import { DetailPage } from "./DetailPage";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -41,9 +42,10 @@ export const MainPage = () => {
         <>
           <ActivityRowItem gridPosition="main">
             <Routes>
-              <Route path="/activities/:activity_id/*">
-                <Route path="*" element={<DetailPage />} />
-              </Route>
+              <Route
+                path="/activities/:activity_id/*"
+                element={<DetailPage />}
+              />
 
               <Route
                 path="*"
@@ -54,21 +56,23 @@ export const MainPage = () => {
 
           <Routes>
             <Route
-              path="/activities/:activity_id/*"
+              path="/activities/:activity_id"
               element={
-                <ActivityRowItem gridPosition="start-first">
+                <ActivityRowItem gridPosition="start_all">
                   <div className="flex flex-col gap-2">
-                    <Routes>
-                      <Route path="/activities/:activity_id/*">
-                        <Route path="*" element={<ActivityInfo />} />
-                      </Route>
-                    </Routes>
-
-                    <Routes>
-                      <Route path="/activities/:activity_id/chapter/:chapter_id">
-                        <Route path="" element={<ActivityInfo />} />
-                      </Route>
-                    </Routes>
+                    <ActivityInfo />
+                    <SideChapterList />
+                  </div>
+                </ActivityRowItem>
+              }
+            />
+            <Route
+              path="/activities/:activity_id/chapter/:chapter_id"
+              element={
+                <ActivityRowItem gridPosition="start_all">
+                  <div className="flex flex-col gap-2 ">
+                    <ActivityInfo />
+                    <SideChapterList />
                   </div>
                 </ActivityRowItem>
               }

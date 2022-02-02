@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "#comp/common";
 import { isArray } from "#serv/helpers";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 const ParticipantIcons = ({ participants }) => {
   return (
     <>

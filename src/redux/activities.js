@@ -17,7 +17,7 @@ export const getActivities = () => async (dispatch) => {
   ];
   dispatch({ type: GET_ACTIVITIES });
   try {
-    const activities = await activitiesAPI.getActivities();
+    const activities = await activitiesAPI.get_activities();
     dispatch({ type: success, data: activities });
   } catch (error) {
     dispatch({ type: fail, error });
@@ -28,7 +28,7 @@ export const getActivity = (activity_id) => async (dispatch) => {
   const [success, fail] = [`${GET_ACTIVITY}_SUCCESS`, `${GET_ACTIVITY}_FAIL`];
   dispatch({ type: GET_ACTIVITY, activity_id });
   try {
-    const activity = await activitiesAPI.getActivity(activity_id);
+    const activity = await activitiesAPI.get_activity(activity_id);
     dispatch({ type: success, data: activity, activity_id });
   } catch (error) {
     dispatch({ type: fail, error, activity_id });

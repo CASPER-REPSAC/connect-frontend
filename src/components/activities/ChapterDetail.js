@@ -5,23 +5,35 @@ import { Link } from "react-router-dom";
 import { ChapterHeader } from "./ChapterHeader";
 import { CommentList } from "./CommentList";
 
-const ChapterDetailContent = ({ chapter }) => {
+const ChapterContent = ({ chapter, activity }) => {
   const {
-    activityid,
+    // activityid,
     chapterid,
     subject,
     created_time,
     modified_time,
     article,
-    filepath,
-    fileid,
-    last,
-    next,
+    // filepath,
+    // fileid,
+    // last,
+    // next,
   } = chapter;
+
+  const { title, type, chapterid: activityChapters } = activity;
+
+  const chapterSequence = `${
+    activityChapters.findIndex((chapter) => chapter.chapterid === chapterid) + 1
+  }`.padStart(3, "0");
+
   return (
     <>
-      <span className="text-text-500 text-xs font-bold ">Chapter</span>
-      <h2>{subject}</h2>
+      <span className="text-text-500 text-xs font-bold ">
+        Activity | {type} | {title} | Chapter [{chapterSequence}]
+      </span>
+      <h2>
+        <span className="text-text-500 mr-2">[{chapterSequence}]</span>
+        {subject}
+      </h2>
       <div className="text-text-400 text-xs whitespace-normal">
         {`${created_time.substr(0, 10)} ${created_time.substr(
           11,
@@ -39,17 +51,33 @@ const ChapterDetailContent = ({ chapter }) => {
   );
 };
 
+const ChapterFiles = ({ files }) => {
+  return (
+    <div className="my-2 flex gap-3">
+      {files.map((file) => {
+        return (
+          <a
+            href={`api/activities/${file.activityid}/chapter/${file.chapterid}/download/${file.filepath}`}
+          >
+            {file.filename}
+          </a>
+        );
+      })}
+    </div>
+  );
+};
+
 export const ChapterDetail = ({ activity, chapter, loading }) => {
   return (
     <>
       <div className="flex-none">
-        <ChapterHeader />
-        {loading && !chapter && <>로딩중..</>}
-        {chapter && activity && <ChapterDetailContent chapter={chapter[0]} />}
+        {/* <ChapterHeader /> */}
+        <ChapterContent chapter={chapter[0]} activity={activity} />
       </div>
 
       <div className="flex-none">
-        {chapter && <CommentList comments={chapter[2]} />}
+        {isArray(chapter[1]) && <ChapterFiles files={chapter[1]} />}
+        <CommentList comments={chapter[2]} />
       </div>
     </>
   );

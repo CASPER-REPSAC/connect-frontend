@@ -1,6 +1,8 @@
 import React from "react";
 import { Card } from "#comp/common";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { ChevronLeftSVG } from "@/icons/SVGs";
 
 export const ChapterListItem = ({ chapter, index }) => {
   const { activityid, chapterid, created_time, last, next, subject } = chapter;
@@ -60,6 +62,87 @@ export const ChapterList = ({ chapters }) => {
           })}
         </div>
       </Card.Frame>
+    </>
+  );
+};
+
+const ActivityTitle = ({ activityTitle, activity_id }) => {
+  return (
+    <Link to={`/activities/${activity_id}`}>
+      <h3 className="text-text-400 hover:-translate-x-2 transition-all hover:text-text-600 ml-2">
+        <span>
+          <ChevronLeftSVG />
+        </span>
+        <span className="ml-1">{activityTitle}</span>
+      </h3>
+    </Link>
+  );
+};
+
+export const SideChapterListItem = ({ chapter, index, active }) => {
+  const { activityid, chapterid, created_time, last, next, subject } = chapter;
+
+  return (
+    <Link to={`/activities/${activityid}/chapter/${chapterid}`}>
+      <div
+        className={
+          "mb-1 lg:mb-0 p-2 xl:p-2 cursor-pointer flex  text-text-900 not-italic hover:drop-shadow hover:bg-background-100 group " +
+          (active ? "bg-background-100 drop-shadow" : "")
+        }
+      >
+        <div
+          className={
+            "mr-2 mt-1 rounded-lg transition-all text-center w-4 h-4 z-20  flex-none " +
+            (active
+              ? "bg-background-500  scale-75 group-hover:scale-90"
+              : "bg-background-400  scale-50 group-hover:scale-90")
+          }
+        ></div>
+        <span>
+          <span className="mr-1 text-text-500 ">
+            [{`${index + 1}`.padStart(3, "0")}]
+          </span>
+          {subject}
+        </span>
+      </div>
+    </Link>
+  );
+};
+
+export const SideChapterList = () => {
+  const { activity_id } = useParams();
+  const chapter_id = useParams().chapter_id || -1;
+  const { data: activity } = useSelector(
+    (state) => state.activities.activity[activity_id] || { data: null }
+  );
+
+  return (
+    <>
+      {activity && (
+        <Card.Frame
+          className="bg-background-50 hover:bg-background-50 p-3 xl:p-3 hover:shadow-none min-h-chapterList "
+          expended="true"
+        >
+          <ActivityTitle
+            activityTitle={activity.title}
+            activity_id={activity_id}
+          />
+          <div className="text-sm relative top-0 left-0 my-2">
+            <div className="w-1 bg-background-300 h-full absolute top-0 left-[13.5px] "></div>
+            {activity.chapterid.map((chapter, index) => {
+              return (
+                <span key={chapter.chapterid}>
+                  <SideChapterListItem
+                    chapter={chapter}
+                    index={index}
+                    active={chapter.chapterid == chapter_id}
+                  />
+                </span>
+              );
+            })}
+          </div>
+        </Card.Frame>
+      )}
     </>
   );
 };

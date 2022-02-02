@@ -68,11 +68,10 @@ export const ActivityDetailContent = ({ activity }) => {
   );
 };
 
-export const ActivityDetail = ({ activity, loading }) => {
+export const ActivityDetail = ({ activity }) => {
   return (
     <>
-      {loading && !activity && <>로딩중..</>}
-      {activity && <ActivityDetailContent activity={activity} />}
+      <ActivityDetailContent activity={activity} />
     </>
   );
 };

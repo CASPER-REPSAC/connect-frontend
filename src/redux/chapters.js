@@ -4,11 +4,11 @@ const GET_CHAPTER = "activities/GET_CHAPTER";
 const GET_CHAPTER_SUCCESS = "activities/GET_CHAPTER_SUCCESS";
 const GET_CHAPTER_FAIL = "activities/GET_CHAPTER_FAIL";
 
-export const get_chapter = (activity_id, chapter_id) => async (dispatch) => {
+export const getChapter = (activity_id, chapter_id) => async (dispatch) => {
   const [success, fail] = [`${GET_CHAPTER}_SUCCESS`, `${GET_CHAPTER}_FAIL`];
   dispatch({ type: GET_CHAPTER, chapter_id });
   try {
-    const activity = await chaptersAPI.getChapter(activity_id, chapter_id);
+    const activity = await chaptersAPI.get_chapter(activity_id, chapter_id);
     dispatch({ type: success, data: activity, chapter_id });
   } catch (error) {
     dispatch({ type: fail, error, chapter_id });
