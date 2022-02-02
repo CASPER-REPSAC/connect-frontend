@@ -8,6 +8,9 @@ const REMOVE_ACTIVITY_INPUT = "inputs/REMOVE_ACTIVITY_INPUT";
 const CHANGE_CHAPTER_INPUT = "inputs/CHANGE_CHAPTER_INPUT";
 const REMOVE_CHAPTER_INPUT = "inputs/REMOVE_CHAPTER_INPUT";
 
+const CHANGE_COMMENT_INPUT = "inputs/CHANGE_COMMENT_INPUT";
+const REMOVE_COMMENT_INPUT = "inputs/REMOVE_COMMENT_INPUT";
+
 // action creator
 export const changeSearchInput = (target) => ({
   type: CHANGE_SEARCH_INPUT,
@@ -28,6 +31,17 @@ export const removeActivityInput = () => ({
   type: REMOVE_ACTIVITY_INPUT,
 });
 
+export const changeCommentInput = (chapter_id, comment) => ({
+  type: CHANGE_COMMENT_INPUT,
+  chapter_id,
+  comment,
+});
+
+export const removeCommentInput = (chapter_id) => ({
+  type: REMOVE_COMMENT_INPUT,
+  chapter_id,
+});
+
 const initialState = {
   searchInput: {
     keyword: "",
@@ -43,6 +57,9 @@ const initialState = {
     content: "",
     authstring: "",
   },
+  commentInput: {
+    65: "",
+  },
 };
 
 export const inputs = (state = initialState, action) => {
@@ -53,6 +70,23 @@ export const inputs = (state = initialState, action) => {
         searchInput: {
           ...state.searchInput,
           [action.target.name]: action.target.value,
+        },
+      };
+
+    case CHANGE_COMMENT_INPUT:
+      return {
+        ...state,
+        commentInput: {
+          ...state.commentInput,
+          [action.chapter_id]: action.comment,
+        },
+      };
+    case REMOVE_COMMENT_INPUT:
+      return {
+        ...state,
+        commentInput: {
+          ...state.commentInput,
+          [action.chapter_id]: "",
         },
       };
     default:

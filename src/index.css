@@ -99,10 +99,14 @@ ol {
   @apply list-decimal;
 }
 p {
-  @apply my-2;
+  @apply py-1;
 }
 
 ul,
 ol {
   @apply ml-4;
+}
+
+li {
+  @apply py-1;
 }

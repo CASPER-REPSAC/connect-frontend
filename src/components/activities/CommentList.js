@@ -3,14 +3,35 @@ import { Card } from "#comp/common";
 import { Link, useParams } from "react-router-dom";
 import { isArray } from "#serv";
 import { PaperPlaneSVG } from "@/icons";
+import { useSelector, useDispatch } from "react-redux";
+import { changeCommentInput, RemoveComentInput } from "@/redux/inputs";
+import { submitComment } from "@/redux/submits";
 
 const CommentInput = () => {
   const { activity_id, chapter_id } = useParams();
+  const dispatch = useDispatch();
+  const comment = useSelector(
+    (state) => state.inputs.commentInput[chapter_id] || ""
+  );
+  const onChange = (e) => {
+    dispatch(changeCommentInput(chapter_id, e.target.value));
+  };
+
+  const onSubmit = () => {
+    dispatch(submitComment(activity_id, chapter_id));
+  };
   return (
     <>
       <div className="flex gap-1">
-        <textarea className="p-1 text-sm focus:outline-none border border-text-300 bg-text-50  rounded w-full min-h-commentInput" />
-        <button className="px-3 py-1 h-fit border rounded-2xl bg-background-500 text-text-50 hover:bg-background-700 transition-all  active:bg-background-800 active:rotate-12">
+        <textarea
+          onChange={onChange}
+          className="p-1 text-sm focus:outline-none border border-text-300 bg-text-50  rounded w-full min-h-commentInput"
+          value={comment || ""}
+        />
+        <button
+          onClick={onSubmit}
+          className="px-3 py-1 h-fit border rounded-2xl bg-background-500 text-text-50 hover:bg-background-700 transition-all  active:bg-background-800 active:rotate-12"
+        >
           <PaperPlaneSVG />
         </button>
       </div>

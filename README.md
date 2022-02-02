@@ -43,4 +43,4 @@ tailwindcss의 테마기능 활용
 
 default: camelCase
 
-url params : snake_case
+url params, api functions : snake_case

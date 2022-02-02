@@ -28,7 +28,7 @@ export const login = () => async (dispatch, getState) => {
       httpOnly: true,
       path: "/",
     });
-    dispatch({ type: success, user, profile });
+    dispatch({ type: success, user, profile, access_token });
   } catch (error) {
     dispatch({ type: fail, error });
   }
@@ -68,6 +68,7 @@ const initialState = {
   loading: false,
   error: null,
   user: null,
+  accessToken: null,
   googleToken: null,
   profile: null,
 };
@@ -82,6 +83,7 @@ const auth = (state = initialState, action) => {
         loading: false,
         user: action.user,
         profile: action.profile,
+        accessToken: "Bearer " + action.access_token,
       };
     case LOGIN_FAIL:
       return {
@@ -90,6 +92,7 @@ const auth = (state = initialState, action) => {
         error: action.error,
         googleToken: null,
         profile: null,
+        accessToken: null,
       };
     case LOGOUT:
       return {
@@ -97,6 +100,7 @@ const auth = (state = initialState, action) => {
         error: null,
         user: null,
         googleToken: null,
+        accessToken: null,
         profile: null,
       };
     case SET_GOOGLE_TOKEN:

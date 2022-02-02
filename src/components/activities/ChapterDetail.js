@@ -57,6 +57,7 @@ const ChapterFiles = ({ files }) => {
       {files.map((file) => {
         return (
           <a
+            key={file.filepk}
             href={`api/activities/${file.activityid}/chapter/${file.chapterid}/download/${file.filepath}`}
           >
             {file.filename}

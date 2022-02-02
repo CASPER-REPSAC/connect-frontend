@@ -83,7 +83,7 @@ export const ActivityCardListItem = ({ activity, expended }) => {
         {expended && (
           <>
             <hr className="my-2" />
-            <div className=" max-h-96 overflow-y-hidden whitespace-normal break-words text-ellipsis">
+            <div className=" max-h-80 overflow-y-hidden whitespace-normal break-words text-ellipsis">
               <div
                 className={currentState === 2 ? ` text-text-600` : ``}
                 dangerouslySetInnerHTML={{ __html: description }}
