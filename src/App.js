@@ -60,7 +60,7 @@ function App() {
       </div>
       <div
         className={
-          "fixed top-2 right-2 z-50 bg-point-500 text-text-50 border-2 border-point-700 shadow py-1 px-3 min-w-tabletCard rounded-lg " +
+          "fixed max-h-detailCard overflow-y-scroll max-w-lg opacity-80 top-2 right-2 z-50 bg-point-500 text-text-50 border-2 border-point-700 shadow py-1 px-3 min-w-tabletCard rounded-lg " +
           (show ? "block" : "hidden")
         }
       >
@@ -79,7 +79,7 @@ function App() {
           {typeof error.detail === "object" &&
             Object.keys(error.detail).map((key) => (
               <div key={key}>
-                [{key}] :{error.detail[key]}
+                [{key}] :{JSON.stringify(error.detail[key], null, "\t")}
               </div>
             ))}
         </div>

@@ -12,9 +12,9 @@ export const DetailPage = () => {
       expended="true"
     >
       <Routes>
-        <Route path="" element={<ActivityDetailPage />} />
+        <Route path=":activity_id" element={<ActivityDetailPage />} />
         <Route
-          path="chapter/:chapter_id"
+          path=":activity_id/chapter/:chapter_id"
           element={
             <>
               <ChapterDetailPage />

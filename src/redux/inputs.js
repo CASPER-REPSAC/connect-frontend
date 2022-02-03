@@ -31,6 +31,15 @@ export const removeActivityInput = () => ({
   type: REMOVE_ACTIVITY_INPUT,
 });
 
+export const changeChapterInput = (target) => ({
+  type: CHANGE_CHAPTER_INPUT,
+  target,
+});
+
+export const removeChapterInput = () => ({
+  type: REMOVE_CHAPTER_INPUT,
+});
+
 export const changeCommentInput = (chapter_id, comment) => ({
   type: CHANGE_COMMENT_INPUT,
   chapter_id,
@@ -57,10 +66,11 @@ const initialState = {
     endDate: "",
     currentState: 0,
     authString: "",
+    tags: [],
   },
   chapterInput: {
     subject: "",
-    content: "",
+    article: "",
     authstring: "",
   },
   commentInput: {
@@ -83,6 +93,14 @@ export const inputs = (state = initialState, action) => {
         ...state,
         activityInput: {
           ...state.activityInput,
+          [action.target.name]: action.target.value,
+        },
+      };
+    case CHANGE_CHAPTER_INPUT:
+      return {
+        ...state,
+        chapterInput: {
+          ...state.chapterInput,
           [action.target.name]: action.target.value,
         },
       };

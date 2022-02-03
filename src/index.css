@@ -51,8 +51,8 @@ body {
 }
 
 .a-char-button {
-  @apply font-bold rounded-md bg-background-400 hover:bg-background-600 
-  transition-all h-5 w-5 text-text-50 text-center hover:rotate-6;
+  @apply font-bold rounded-md bg-background-400 hover:bg-point-500 max-h-[20px] text-sm flex items-center 
+  transition-all p-1 text-text-50 text-center hover:rotate-6 w-5 h-5 min-w-[5] max-w-[5];
 }
 
 a {

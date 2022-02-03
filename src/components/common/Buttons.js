@@ -1,4 +1,4 @@
-import { PaperPlaneSVG } from "@/icons";
+import { PaperPlaneSVG, CogSVG, PenSVG, PlusSVG } from "@/icons";
 
 export const SubmitButton = ({ onClick }) => {
   return (
@@ -8,5 +8,27 @@ export const SubmitButton = ({ onClick }) => {
     >
       <PaperPlaneSVG />
     </button>
+  );
+};
+
+export const PenButton = ({ onClick }) => {
+  return (
+    <span className="a-char-button ">
+      <PenSVG />
+    </span>
+  );
+};
+export const PlusButton = ({ onClick }) => {
+  return (
+    <span className="a-char-button  ">
+      <PlusSVG />
+    </span>
+  );
+};
+export const CogButton = ({ onClick }) => {
+  return (
+    <span className="a-char-button  ">
+      <CogSVG />
+    </span>
   );
 };

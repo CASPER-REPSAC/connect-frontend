@@ -19,6 +19,7 @@ export const ActivityDetailPage = () => {
         error: null,
       }
   );
+  const user = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,7 +30,7 @@ export const ActivityDetailPage = () => {
   return (
     <>
       {loading && !activity && <> 로딩중..</>}
-      {activity && <ActivityDetail activity={activity} />}
+      {activity && <ActivityDetail activity={activity} user={user} />}
     </>
   );
 };

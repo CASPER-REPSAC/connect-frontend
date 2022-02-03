@@ -29,9 +29,14 @@ export const alerts = (state = initialState, action) => {
       return {
         ...state,
         message: "오류 발생",
+        code: null,
         error: {
           brief: action.breif,
-          detail: action.detail,
+          detail: {
+            data: action.detail.data || null,
+            status: action.detail.status || null,
+            statusText: action.detail.statusText || null,
+          },
         },
       };
     default:

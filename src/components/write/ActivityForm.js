@@ -1,6 +1,5 @@
 import React from "react";
 import { ClassicCKEditor } from "./ClassicCKEditor";
-import { SubmitButton } from "#comp/common";
 
 export const ActivityForm = ({ onChange, onSubmit, activityInput }) => {
   const {
@@ -65,7 +64,11 @@ export const ActivityForm = ({ onChange, onSubmit, activityInput }) => {
         />
       </label>
       <div className="col-span-5 row-start-2 row-end-3 ">
-        <ClassicCKEditor onChange={onChange} value={description} />
+        <ClassicCKEditor
+          onChange={onChange}
+          value={description}
+          name="description"
+        />
       </div>
       <label htmlFor="startDate" className="col-span-2 row-start-3 row-end-4">
         <span className="input-label">시작일</span>
@@ -107,9 +110,6 @@ export const ActivityForm = ({ onChange, onSubmit, activityInput }) => {
           }}
         />
       </label>
-      <div className="col-start-[-1] col-end-[-2] row-start-6 row-end-7 text-right ">
-        <SubmitButton onClick={onSubmit} />
-      </div>
     </div>
   );
 };

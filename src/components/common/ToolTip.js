@@ -2,7 +2,7 @@ import React from "react";
 import { returnUnionedClassName } from "#serv";
 
 export const WithToolTip = (props) => {
-  const prevClassName = "relative b-0 ";
+  const prevClassName = "relative  ";
   const offsets = {
     bottom:
       "top-16 -left-1/4 after:absolute after:-top-1/4 after:right-1/2 after:border-transparent after:border-b-background-700",
@@ -20,7 +20,7 @@ export const WithToolTip = (props) => {
       {...props}
       className={returnUnionedClassName(prevClassName, props.className)}
     >
-      <div className="peer">{props.children}</div>
+      <div className="peer h-fit w-fit">{props.children}</div>
       {props.tooltip && (
         <span
           className={returnUnionedClassName(

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "#comp/common";
+import { PenButton } from "#comp/common";
 import { isArray } from "#serv/helpers";
 import { Link } from "react-router-dom";
 import { ChapterHeader } from "./ChapterHeader";
@@ -27,21 +27,27 @@ const ChapterContent = ({ chapter, activity }) => {
 
   return (
     <>
-      <span className="text-text-500 text-xs font-bold ">
+      <span className="text-text-500 text-xs font-bold">
         Activity | {type} | {title} | Chapter [{chapterSequence}]
       </span>
+
       <h2>
         <span className="text-point-300 mr-2">[{chapterSequence}]</span>
         {subject}
       </h2>
-      <div className="text-text-400 text-xs whitespace-normal">
-        {`${created_time.substr(0, 10)} ${created_time.substr(
-          11,
-          8
-        )} | 수정 ${modified_time.substr(0, 10)} ${modified_time.substr(
-          11,
-          8
-        )}`}
+      <div className="flex justify-between items-center ">
+        <div className="text-text-400 text-xs whitespace-normal">
+          {`${created_time.substr(0, 10)} ${created_time.substr(
+            11,
+            8
+          )} | 수정 ${modified_time.substr(0, 10)} ${modified_time.substr(
+            11,
+            8
+          )}`}
+        </div>
+        <span className="flex gap-1">
+          <PenButton />
+        </span>
       </div>
       <hr className=" mt-2 mb-4" />
       <div className="whitespace-normal break-words flex-none">

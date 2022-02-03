@@ -2,7 +2,7 @@ import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-export const ClassicCKEditor = ({ onChange, value }) => {
+export const ClassicCKEditor = ({ onChange, value, name }) => {
   const editorConfiguration = {
     toolbar: [
       "bold",
@@ -23,7 +23,7 @@ export const ClassicCKEditor = ({ onChange, value }) => {
         data={value}
         onChange={(event, editor) => {
           onChange({
-            target: { value: editor.getData(), name: "description" },
+            target: { value: editor.getData(), name: name },
           });
         }}
         onReady={(editor) => {

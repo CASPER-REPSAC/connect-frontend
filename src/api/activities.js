@@ -24,6 +24,7 @@ export const submit_activity = async ({
   endDate,
   currentState,
   authString,
+  tags,
   token,
 }) => {
   const payload = {
@@ -36,6 +37,8 @@ export const submit_activity = async ({
     endDate,
     currentState,
     authString,
+    participants: [],
+    tags,
   };
   const res = await axios.post("/api/activities/", payload, {
     headers: {

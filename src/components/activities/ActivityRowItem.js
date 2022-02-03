@@ -1,6 +1,6 @@
-import { PenSVG } from "@/icons";
 import { ActivityCardList } from "./ActivityCardList";
 import { isArray } from "#serv";
+import { PlusButton, PenButton } from "#comp/common";
 
 const classNames = {
   end_first:
@@ -37,12 +37,10 @@ export const ActivityRowItem = ({
               <h2 className=" font-bold m-1">{type}</h2>
               {icons && (
                 <div className="flex gap-1">
-                  <span className="a-char-button hover:bg-point-500 text-xs leading-5 ">
+                  {/* <span className="a-char-button hover:bg-point-500 text-xs leading-5 ">
                     <PenSVG />
-                  </span>
-                  <span className="a-char-button hover:bg-point-500  leading-5 text-xl ">
-                    +
-                  </span>
+                  </span> */}
+                  <PlusButton />
                 </div>
               )}
             </>

@@ -42,10 +42,7 @@ export const MainPage = () => {
           <>
             <ActivityRowItem gridPosition="main">
               <Routes>
-                <Route
-                  path="/activities/:activity_id/*"
-                  element={<DetailPage />}
-                />
+                <Route path="/activities/*" element={<DetailPage />} />
 
                 <Route
                   path="*"
