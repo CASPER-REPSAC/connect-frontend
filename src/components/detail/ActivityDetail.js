@@ -31,6 +31,7 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
     type,
     url,
     viewerNum,
+    // PW,
   } = activityDetail;
 
   let { chapterid } = activityDetail;
@@ -117,6 +118,7 @@ const ActivityDetail = ({ activityDetail, ManageButton }) => {
               <div className="d-flex wrap">
                 {participants &&
                   Array.isArray(participants) &&
+                  participants.length > 0 &&
                   participants.map((participant, index) => {
                     if (participant.profile.email === author) {
                       return (

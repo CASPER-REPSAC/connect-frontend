@@ -46,11 +46,15 @@ const CardListItem = ({ card, colors }) => {
     <div className="card-item-block">
       <div className="top-section">
         <div className="article-block">
-          <UserIcon
-            img={participants[0].profile.picture}
-            userName={participants[0].profile.name}
-            author
-          />
+          {participants &&
+            Array.isArray(participants) &&
+            participants.length > 0 && (
+              <UserIcon
+                img={participants[0].profile.picture}
+                userName={participants[0].profile.name}
+                author
+              />
+            )}
           {/* {authorProfile && (
             <UserIcon
               img={authorProfile.picture}
@@ -95,7 +99,11 @@ const CardListItem = ({ card, colors }) => {
           </div>
         </div>
         <div className="participants">
-          {participants && <small>참여자 {participants.length}명</small>}
+          {participants &&
+            Array.isArray(participants) &&
+            participants.length > 0 && (
+              <small>참여자 {participants.length}명</small>
+            )}
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-end">

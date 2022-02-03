@@ -129,17 +129,19 @@ const ActivityDetailPage = ({ match, history }) => {
                     .map((participant) => participant.profile.email)
                     .includes(user.email) ? (
                     <>
-                      <Button
-                        background="midnightblue"
-                        width="content-fit"
-                        onClick={() => {
-                          history.push(
-                            `/write/activities/${params.activityId}`,
-                          );
-                        }}
-                      >
-                        챕터 작성
-                      </Button>
+                      {activityDetail.PW && (
+                        <Button
+                          background="midnightblue"
+                          width="content-fit"
+                          onClick={() => {
+                            history.push(
+                              `/write/activities/${params.activityId}`,
+                            );
+                          }}
+                        >
+                          챕터 작성
+                        </Button>
+                      )}
                       <Button
                         width="content-fit"
                         style={{ marginLeft: '5px' }}
