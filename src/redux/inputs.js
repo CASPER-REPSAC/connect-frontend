@@ -72,6 +72,7 @@ const initialState = {
     subject: "",
     article: "",
     authstring: "",
+    files: null,
   },
   commentInput: {
     65: "",

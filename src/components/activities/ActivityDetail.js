@@ -66,21 +66,21 @@ export const ActivityDetailContent = ({ activity, user }) => {
               <PlusButton />
             </WithToolTip>
 
-            {(user && user.email === author) ||
-              (PW &&
-                isArray(participants) &&
-                user &&
-                participants.includes(user.email) && (
-                  <Link to={"/activities/write/" + activity_id}>
-                    <WithToolTip
-                      tooltip="챕터 작성"
-                      tooltipclassname="px-2 whitespace-nowrap w-fit"
-                      offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
-                    >
-                      <PenButton />
-                    </WithToolTip>
-                  </Link>
-                ))}
+            {(PW &&
+              isArray(participants) &&
+              user &&
+              participants.includes(user.email)) ||
+              (user && user.email === author && (
+                <Link to={"/write/activities/" + activity_id}>
+                  <WithToolTip
+                    tooltip="챕터 작성"
+                    tooltipclassname="px-2 whitespace-nowrap w-fit"
+                    offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
+                  >
+                    <PenButton />
+                  </WithToolTip>
+                </Link>
+              ))}
             {user && user.email === author && (
               <WithToolTip
                 tooltip="관리"
@@ -107,10 +107,10 @@ export const ActivityDetailContent = ({ activity, user }) => {
   );
 };
 
-export const ActivityDetail = ({ activity }) => {
+export const ActivityDetail = ({ activity, user }) => {
   return (
     <>
-      <ActivityDetailContent activity={activity} />
+      <ActivityDetailContent activity={activity} user={user} />
     </>
   );
 };

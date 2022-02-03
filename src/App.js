@@ -43,10 +43,9 @@ function App() {
         <div className="col-start-1"></div>
         <section className="col-start-2 min-w-full max-w-full p-3 pt-1">
           <Routes>
-            <Route path="" element={<MainPage />} />
             <Route path="user" element={<UserPage />} />
             {/* `/api/activities/${activityId}/` */}
-            <Route path="activities/write">
+            <Route path="write/activities">
               <Route path="" element={<ActivityWritePage />} />
               <Route path=":activity_id" element={<ChapterWritePage />} />
             </Route>
@@ -60,7 +59,7 @@ function App() {
       </div>
       <div
         className={
-          "fixed max-h-detailCard overflow-y-scroll max-w-lg opacity-80 top-2 right-2 z-50 bg-point-500 text-text-50 border-2 border-point-700 shadow py-1 px-3 min-w-tabletCard rounded-lg " +
+          "fixed max-h-detailCard  max-w-lg opacity-80 top-2 right-2 z-50 bg-point-500 text-text-50 border-2 border-point-700 shadow py-1 px-3 min-w-tabletCard rounded-lg " +
           (show ? "block" : "hidden")
         }
       >

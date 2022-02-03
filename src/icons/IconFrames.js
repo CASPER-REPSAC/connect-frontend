@@ -12,7 +12,7 @@ export const UserIcon = (props) => {
       src={userdata.profile.picture || ""}
       alt={userdata.profile.picture || ""}
       className={returnUnionedClassName(
-        `w-14 h-14 rounded-md `,
+        `w-12 h-12 rounded-3xl `,
         props.className
       )}
     />

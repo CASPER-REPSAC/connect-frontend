@@ -29,7 +29,13 @@ export const ActivityWritePage = () => {
 
   const activityInput = useSelector((state) => state.inputs.activityInput);
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
+  const { loading: userLoading, user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!user && !window.localStorage.getItem("googleToken")) {
+      navigate("/");
+    }
+  }, [navigate, user]);
 
   return (
     <div
@@ -41,7 +47,7 @@ export const ActivityWritePage = () => {
         expended="true"
         className="hover:bg-background-50 hover:shadow-none min-h-detailCard"
       >
-        {!user && <span>로그인 해주세요.</span>}
+        {!user && userLoading && <span>로딩 중..</span>}
         {user && (
           <>
             <span className="text-text-500 text-xs font-bold ">

@@ -55,13 +55,15 @@ export const ActivityInfo = () => {
         {data && (
           <>
             <ParticipantIcons participants={data.participants} />
-            {isArray(data.tags) && (
-              <>
-                <hr className="my-2 " />
-                <h3>태그</h3>
+            <>
+              <hr className="my-2 " />
+              <h3>태그</h3>
+              {isArray(data.tags) ? (
                 <Tags tags={data.tags} />
-              </>
-            )}
+              ) : (
+                <span className="text-sm text-text-500">태그가 없습니다.</span>
+              )}
+            </>
           </>
         )}
       </Card.Frame>

@@ -34,7 +34,7 @@ export const ActivityRowItem = ({
         <div className="flex justify-between items-center h-fit">
           {isArray(activities) && type && (
             <>
-              <h2 className=" font-bold m-1">{type}</h2>
+              <h2 className=" font-bold ">{type}</h2>
               {icons && (
                 <div className="flex gap-1">
                   {/* <span className="a-char-button hover:bg-point-500 text-xs leading-5 ">

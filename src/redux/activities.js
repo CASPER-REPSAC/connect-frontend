@@ -4,9 +4,16 @@ import * as activitiesAPI from "@/api/activities";
 const GET_ACTIVITIES = "activities/GET_ACTIVITIES";
 const GET_ACTIVITIES_SUCCESS = "activities/GET_ACTIVITIES_SUCCESS";
 const GET_ACTIVITIES_FAIL = "activities/GET_ACTIVITIES_FAIL";
+
 const GET_ACTIVITY = "activities/GET_ACTIVITY";
 const GET_ACTIVITY_SUCCESS = "activities/GET_ACTIVITY_SUCCESS";
 const GET_ACTIVITY_FAIL = "activities/GET_ACTIVITY_FAIL";
+
+const GET_CONTAINED_ACTIVITIES = "activities/GET_CONTAINED_ACTIVITIES";
+const GET_CONTAINED_ACTIVITIES_SUCCESS =
+  "activities/GET_CONTAINED_ACTIVITIES_SUCCESS";
+const GET_CONTAINED_ACTIVITIES_FAIL =
+  "activities/GET_CONTAINED_ACTIVITIES_FAIL";
 
 // action creator function. action is also function(for handling Promise)
 // it returns (dispatch)=>{}. redux-thunk gives dispatch and getState automatically
@@ -18,6 +25,21 @@ export const getActivities = () => async (dispatch) => {
   dispatch({ type: GET_ACTIVITIES });
   try {
     const activities = await activitiesAPI.get_activities();
+    dispatch({ type: success, data: activities });
+  } catch (error) {
+    dispatch({ type: fail, error });
+  }
+};
+
+export const getContainedActivities = () => async (dispatch, getState) => {
+  const [success, fail] = [
+    `${GET_CONTAINED_ACTIVITIES}_SUCCESS`,
+    `${GET_CONTAINED_ACTIVITIES}_FAIL`,
+  ];
+  dispatch({ type: GET_CONTAINED_ACTIVITIES });
+  try {
+    const token = getState().auth.accessToken;
+    const activities = await activitiesAPI.get_contained_activities(token);
     dispatch({ type: success, data: activities });
   } catch (error) {
     dispatch({ type: fail, error });
@@ -40,7 +62,7 @@ const initialState = {
   activities: {
     data: [],
     loading: false,
-    error: false,
+    error: null,
   },
   activity: {
     37: {
@@ -49,26 +71,36 @@ const initialState = {
       error: null,
     },
   },
+  containedActivities: {
+    data: null,
+    loading: false,
+    error: null,
+  },
 };
 
-// reducer
-export const activities = (state = initialState, action) => {
+const listStateHelper = (key, baseActionType) => (state, action) => {
+  const [success, error] = [
+    `${baseActionType}_SUCCESS`,
+    `${baseActionType}_FAIL`,
+  ];
   switch (action.type) {
-    case GET_ACTIVITIES:
+    case baseActionType:
       return {
         ...state,
-        activities: {
-          ...state.activities,
-          // data는 기존 값을 유지하도록 함.
+        [key]: {
+          ...state[key],
+          data: state[key].data,
           loading: true,
           error: null,
         },
       };
-    case GET_ACTIVITIES_SUCCESS:
+    case success:
       return {
         ...state,
-        activities: {
+        [key]: {
+          ...state[key],
           loading: false,
+          error: null,
           data: action.data.sort(function (a, b) {
             if (new Date(a.createDate) > new Date(b.createDate)) {
               return -1;
@@ -78,18 +110,36 @@ export const activities = (state = initialState, action) => {
               return 0;
             }
           }),
-          error: null,
         },
       };
-    case GET_ACTIVITIES_FAIL:
+    case error:
       return {
         ...state,
-        activities: {
-          ...state.activities,
+        [key]: {
+          ...state[key],
           loading: false,
           error: action.error,
         },
       };
+    default:
+      return state;
+  }
+};
+
+// reducer
+export const activities = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ACTIVITIES:
+    case GET_ACTIVITIES_SUCCESS:
+    case GET_ACTIVITIES_FAIL:
+      return listStateHelper("activities", GET_ACTIVITIES)(state, action);
+    case GET_CONTAINED_ACTIVITIES:
+    case GET_CONTAINED_ACTIVITIES_SUCCESS:
+    case GET_CONTAINED_ACTIVITIES_FAIL:
+      return listStateHelper("containedActivities", GET_CONTAINED_ACTIVITIES)(
+        state,
+        action
+      );
     case GET_ACTIVITY:
       return {
         ...state,

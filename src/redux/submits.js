@@ -107,7 +107,7 @@ const initialState = {
   },
 };
 
-const submitStateHelper = (submitType, baseActionType) => (state, action) => {
+const submitStateHelper = (key, baseActionType) => (state, action) => {
   const [success, fail] = [
     `${baseActionType}_SUCCESS`,
     `${baseActionType}_FAIL`,
@@ -116,8 +116,8 @@ const submitStateHelper = (submitType, baseActionType) => (state, action) => {
     case baseActionType:
       return {
         ...state,
-        [submitType]: {
-          ...state[submitType],
+        [key]: {
+          ...state[key],
           error: null,
           loading: true,
         },
@@ -125,8 +125,8 @@ const submitStateHelper = (submitType, baseActionType) => (state, action) => {
     case success:
       return {
         ...state,
-        [submitType]: {
-          ...state[submitType],
+        [key]: {
+          ...state[key],
 
           error: null,
           loading: false,
@@ -135,8 +135,8 @@ const submitStateHelper = (submitType, baseActionType) => (state, action) => {
     case fail:
       return {
         ...state,
-        [submitType]: {
-          ...state[submitType],
+        [key]: {
+          ...state[key],
           error: action.error,
           loading: false,
         },

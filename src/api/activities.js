@@ -7,6 +7,17 @@ export const get_activities = async () => {
   return activities;
 };
 
+export const get_contained_activities = async (token) => {
+  // api/user/contained_new
+  const res = await axios.get("api/user/contained_new/", {
+    headers: {
+      authorization: token,
+    },
+  });
+
+  return res.data;
+};
+
 export const get_activity = async (activity_id) => {
   const res = await axios.get(`/api/activities/${activity_id}`);
   const activity = res.data[0];

@@ -32,7 +32,7 @@ const ChapterContent = ({ chapter, activity }) => {
       </span>
 
       <h2>
-        <span className="text-point-300 mr-2">[{chapterSequence}]</span>
+        <span className="text-point-500 mr-2">[{chapterSequence}]</span>
         {subject}
       </h2>
       <div className="flex justify-between items-center ">

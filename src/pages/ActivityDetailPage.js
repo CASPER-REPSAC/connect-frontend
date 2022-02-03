@@ -19,7 +19,7 @@ export const ActivityDetailPage = () => {
         error: null,
       }
   );
-  const user = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   useEffect(() => {

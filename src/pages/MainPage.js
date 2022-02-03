@@ -1,24 +1,38 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getActivities } from "@/redux/activities";
+import { getActivities, getContainedActivities } from "@/redux/activities";
 import {
   ActivityCardList,
   ActivityRowItem,
   ActivityInfo,
   SideChapterList,
+  ContainedActivities,
 } from "#comp/activities/";
 import { DetailPage } from "./DetailPage";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { UserBox } from "#comp/auth/UserBox";
 
 export const MainPage = () => {
   const dispatch = useDispatch();
   const location =
     useLocation().pathname.split("/")[1] === "activities" ? "detail" : "home";
+
+  const { user, profile } = useSelector((state) => state.auth);
+
   useEffect(() => {
     dispatch(getActivities());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (user) {
+      dispatch(getContainedActivities());
+    }
+  }, [dispatch, user]);
+
   const { loading, data } = useSelector((state) => state.activities.activities);
+  const { data: containedActivities } = useSelector(
+    (state) => state.activities.containedActivities || { data: null }
+  );
 
   if (loading && !data) {
     return <div>로딩중..</div>;
@@ -74,6 +88,24 @@ export const MainPage = () => {
                       <SideChapterList />
                     </div>
                   </ActivityRowItem>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <>
+                    <ActivityRowItem gridPosition="start_all">
+                      <div className="flex flex-col gap-2 ">
+                        <UserBox profile={profile} />
+                        {user && containedActivities && (
+                          <ContainedActivities
+                            activities={containedActivities}
+                            user={user}
+                          />
+                        )}
+                      </div>
+                    </ActivityRowItem>
+                  </>
                 }
               />
             </Routes>

@@ -81,7 +81,7 @@ export const KeyboardIconWithBg = (props) => {
     <SideBarIconFrame
       element={<KeyboardSVG />}
       isActive={props.isActive}
-      to="/activities/write"
+      to="/write/activities"
       onClick={props.onClick}
       tooltip={`액티비티 작성`}
     />
@@ -93,7 +93,7 @@ export const PenIconWithBg = (props) => {
     <SideBarIconFrame
       element={<PenSVG />}
       isActive={props.isActive}
-      to="/activities/write"
+      to="/write/activities"
       onClick={props.onClick}
       tooltip={`액티비티 작성`}
     />
