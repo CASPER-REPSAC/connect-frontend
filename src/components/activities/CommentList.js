@@ -2,10 +2,10 @@ import React from "react";
 import { Card } from "#comp/common";
 import { Link, useParams } from "react-router-dom";
 import { isArray } from "#serv";
-import { PaperPlaneSVG } from "@/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCommentInput, RemoveComentInput } from "@/redux/inputs";
 import { submitComment } from "@/redux/submits";
+import { SubmitButton } from "#comp/common";
 
 const CommentInput = () => {
   const { activity_id, chapter_id } = useParams();
@@ -28,12 +28,8 @@ const CommentInput = () => {
           className="p-1 text-sm focus:outline-none border border-text-300 bg-text-50  rounded w-full min-h-commentInput"
           value={comment || ""}
         />
-        <button
-          onClick={onSubmit}
-          className="px-3 py-1 h-fit border rounded-2xl bg-background-500 text-text-50 hover:bg-background-700 transition-all  active:bg-background-800 active:rotate-12"
-        >
-          <PaperPlaneSVG />
-        </button>
+
+        <SubmitButton onClick={onSubmit} />
       </div>
     </>
   );

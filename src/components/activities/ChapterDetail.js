@@ -31,7 +31,7 @@ const ChapterContent = ({ chapter, activity }) => {
         Activity | {type} | {title} | Chapter [{chapterSequence}]
       </span>
       <h2>
-        <span className="text-text-500 mr-2">[{chapterSequence}]</span>
+        <span className="text-point-300 mr-2">[{chapterSequence}]</span>
         {subject}
       </h2>
       <div className="text-text-400 text-xs whitespace-normal">

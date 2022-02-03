@@ -6,6 +6,7 @@
 @layer base {
   :root {
     --color-text-base: #3fa333;
+    --color-bg-base: #fafaf9;
   }
 }
 
@@ -65,7 +66,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-bold not-italic text-text-900 no-underline py-1;
+  @apply font-bold not-italic  no-underline py-1;
 }
 
 h1 {
@@ -109,4 +110,12 @@ ol {
 
 li {
   @apply py-1;
+}
+
+.connect-input {
+  @apply rounded-sm border border-text-400 text-text-800 focus:outline-none bg-background-50;
+}
+
+.input-label {
+  @apply mr-2 text-sm;
 }

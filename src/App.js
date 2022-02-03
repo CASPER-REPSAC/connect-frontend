@@ -16,9 +16,12 @@ import {
 } from "@/pages";
 import { SideBar } from "#comp/navigations";
 import { loginWithCookie } from "@/redux/auth";
-import { useDispatch } from "react-redux";
+import { hideAlert } from "@/redux/alerts";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  const { show, error, message } = useSelector((state) => state.alerts);
+
   const location = useLocation();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -54,6 +57,32 @@ function App() {
             <Route path="*" element={<MainPage />} />
           </Routes>
         </section>
+      </div>
+      <div
+        className={
+          "fixed top-2 right-2 z-50 bg-point-500 text-text-50 border-2 border-point-700 shadow py-1 px-3 min-w-tabletCard rounded-lg " +
+          (show ? "block" : "hidden")
+        }
+      >
+        <div className="flex justify-between ">
+          <h3>{message}</h3>
+          <button
+            onClick={() => {
+              dispatch(hideAlert());
+            }}
+          >
+            닫기
+          </button>
+        </div>
+        <div>{error.breif}</div>
+        <div>
+          {typeof error.detail === "object" &&
+            Object.keys(error.detail).map((key) => (
+              <div key={key}>
+                [{key}] :{error.detail[key]}
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );

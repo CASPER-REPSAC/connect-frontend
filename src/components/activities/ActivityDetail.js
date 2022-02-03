@@ -34,7 +34,7 @@ export const ActivityDetailContent = ({ activity }) => {
         <h2>{title}</h2>
         <div className="text-text-400 text-xs whitespace-normal">
           {`${createDate} | ${startDate}~${endDate} | `}
-          {<> {`${authorData.profile.name} +`}</>}
+          {authorData && <> {`${authorData.profile.name} +`}</>}
           {isArray(participants) && (
             <span className="whitespace-pre">
               {`${participants.length - 1}`}
@@ -46,11 +46,11 @@ export const ActivityDetailContent = ({ activity }) => {
             </span>
           )}
           {currentState === 0 && (
-            <span className="text-blue-500 text-xs whitespace-nowrap">{` 예정`}</span>
+            <span className="text-point-800 text-xs whitespace-nowrap">{` 예정`}</span>
           )}
           {currentState !== 2 &&
             new Date(createDate) > new Date() - 172800000 && (
-              <span className="text-red-500 text-xs ">{` new!`}</span>
+              <span className="text-point-500 text-xs ">{` new!`}</span>
             )}
         </div>
         <hr className=" mt-2 mb-4" />

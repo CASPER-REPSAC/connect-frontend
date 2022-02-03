@@ -49,8 +49,14 @@ const initialState = {
   },
   activityInput: {
     title: "",
+    type: "Project",
+    author: "",
     createDate: "",
-    authstring: "",
+    description: "",
+    startDate: "",
+    endDate: "",
+    currentState: 0,
+    authString: "",
   },
   chapterInput: {
     subject: "",
@@ -72,7 +78,14 @@ export const inputs = (state = initialState, action) => {
           [action.target.name]: action.target.value,
         },
       };
-
+    case CHANGE_ACTIVITY_INPUT:
+      return {
+        ...state,
+        activityInput: {
+          ...state.activityInput,
+          [action.target.name]: action.target.value,
+        },
+      };
     case CHANGE_COMMENT_INPUT:
       return {
         ...state,

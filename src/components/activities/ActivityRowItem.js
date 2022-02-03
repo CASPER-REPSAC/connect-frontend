@@ -37,10 +37,12 @@ export const ActivityRowItem = ({
               <h2 className=" font-bold m-1">{type}</h2>
               {icons && (
                 <div className="flex gap-1">
-                  <span className="a-char-button text-xs leading-5 ">
+                  <span className="a-char-button hover:bg-point-500 text-xs leading-5 ">
                     <PenSVG />
                   </span>
-                  <span className="a-char-button leading-5 text-xl ">+</span>
+                  <span className="a-char-button hover:bg-point-500  leading-5 text-xl ">
+                    +
+                  </span>
                 </div>
               )}
             </>

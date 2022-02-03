@@ -10,11 +10,11 @@ export const ChapterListItem = ({ chapter, index }) => {
   return (
     <Link to={`/activities/${activityid}/chapter/${chapterid}`}>
       <Card.Frame
-        className="mb-1 lg:mb-0 p-2 xl:p-2 cursor-pointer flex items-center"
+        className="mb-1 lg:mb-0 p-2 xl:p-2 cursor-pointer flex items-center group"
         expended="true"
       >
         <h3>
-          <span className="mr-1 text-text-500">
+          <span className="mr-1 text-text-500 group-hover:text-point-300 transition-all">
             [{`${index + 1}`.padStart(3, "0")}]
           </span>
           {subject}
@@ -69,7 +69,7 @@ export const ChapterList = ({ chapters }) => {
 const ActivityTitle = ({ activityTitle, activity_id }) => {
   return (
     <Link to={`/activities/${activity_id}`}>
-      <h3 className="text-text-400 hover:-translate-x-2 transition-all hover:text-text-600 ml-2">
+      <h3 className="text-point-400 hover:-translate-x-2 transition-all hover:text-point-600 ml-2">
         <span>
           <ChevronLeftSVG />
         </span>
@@ -94,12 +94,14 @@ export const SideChapterListItem = ({ chapter, index, active }) => {
           className={
             "mr-2 mt-1 rounded-lg transition-all text-center w-4 h-4 z-20  flex-none " +
             (active
-              ? "bg-background-500  scale-75 group-hover:scale-90"
+              ? "bg-point-600  scale-75 group-hover:scale-90"
               : "bg-background-400  scale-50 group-hover:scale-90")
           }
         ></div>
         <span>
-          <span className="mr-1 text-text-500 ">
+          <span
+            className={"mr-1  " + (active ? "text-point-500" : "text-text-500")}
+          >
             [{`${index + 1}`.padStart(3, "0")}]
           </span>
           {subject}

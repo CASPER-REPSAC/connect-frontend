@@ -17,9 +17,8 @@ export const MainPage = () => {
   useEffect(() => {
     dispatch(getActivities());
   }, [dispatch]);
-  const { loading, error, data } = useSelector(
-    (state) => state.activities.activities
-  );
+
+  const { loading, data } = useSelector((state) => state.activities.activities);
 
   if (loading && !data) {
     return <div>로딩중..</div>;
@@ -30,77 +29,81 @@ export const MainPage = () => {
   //           : "grid gap-3 max-w-full w-full min-w-full lg:grid-cols-activityLg grid-cols-activityMd grid-rows-activityDetailLg ")
 
   return (
-    <div
-      className={
-        "mt-2 " +
-        (location === "home"
-          ? "grid gap-3 max-w-full w-full min-w-full grid-cols-activityLg grid-rows-activityLg"
-          : "grid gap-3 max-w-full w-full min-w-full grid-cols-activityLg grid-rows-activityDetailLg ")
-      }
-    >
-      {data && (
-        <>
-          <ActivityRowItem gridPosition="main">
+    <>
+      <div
+        className={
+          "mt-2 " +
+          (location === "home"
+            ? "grid gap-3 max-w-full w-full min-w-full grid-cols-activityLg grid-rows-activityLg"
+            : "grid gap-3 max-w-full w-full min-w-full grid-cols-activityLg grid-rows-activityDetailLg ")
+        }
+      >
+        {data && (
+          <>
+            <ActivityRowItem gridPosition="main">
+              <Routes>
+                <Route
+                  path="/activities/:activity_id/*"
+                  element={<DetailPage />}
+                />
+
+                <Route
+                  path="*"
+                  element={
+                    <ActivityCardList activities={data} expended="true" />
+                  }
+                />
+              </Routes>
+            </ActivityRowItem>
+
             <Routes>
               <Route
-                path="/activities/:activity_id/*"
-                element={<DetailPage />}
+                path="/activities/:activity_id"
+                element={
+                  <ActivityRowItem gridPosition="start_all">
+                    <div className="flex flex-col gap-2">
+                      <ActivityInfo />
+                      <SideChapterList />
+                    </div>
+                  </ActivityRowItem>
+                }
               />
-
               <Route
-                path="*"
-                element={<ActivityCardList activities={data} expended="true" />}
+                path="/activities/:activity_id/chapter/:chapter_id"
+                element={
+                  <ActivityRowItem gridPosition="start_all">
+                    <div className="flex flex-col gap-2 ">
+                      <ActivityInfo />
+                      <SideChapterList />
+                    </div>
+                  </ActivityRowItem>
+                }
               />
             </Routes>
-          </ActivityRowItem>
 
-          <Routes>
-            <Route
-              path="/activities/:activity_id"
-              element={
-                <ActivityRowItem gridPosition="start_all">
-                  <div className="flex flex-col gap-2">
-                    <ActivityInfo />
-                    <SideChapterList />
-                  </div>
-                </ActivityRowItem>
-              }
+            <ActivityRowItem
+              type={"Study"}
+              activities={data}
+              icons="true"
+              gridPosition="end_first"
             />
-            <Route
-              path="/activities/:activity_id/chapter/:chapter_id"
-              element={
-                <ActivityRowItem gridPosition="start_all">
-                  <div className="flex flex-col gap-2 ">
-                    <ActivityInfo />
-                    <SideChapterList />
-                  </div>
-                </ActivityRowItem>
-              }
+
+            <ActivityRowItem
+              type={"Project"}
+              activities={data}
+              icons="true"
+              gridPosition="end_second"
             />
-          </Routes>
-
-          <ActivityRowItem
-            type={"Study"}
-            activities={data}
-            icons="true"
-            gridPosition="end_first"
-          />
-
-          <ActivityRowItem
-            type={"Project"}
-            activities={data}
-            icons="true"
-            gridPosition="end_second"
-          />
-          <ActivityRowItem
-            type={"CTF"}
-            activities={data}
-            icons="true"
-            gridPosition="end_third"
-          />
-        </>
-      )}
-    </div>
+            <ActivityRowItem
+              type={"CTF"}
+              activities={data}
+              icons="true"
+              gridPosition="end_third"
+            />
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

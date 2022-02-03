@@ -57,7 +57,7 @@ export const ActivityCardListItem = ({ activity, expended }) => {
                 {expended && (
                   <> {`| ${createDate} | ${startDate}~${endDate} | `}</>
                 )}
-                {<> {`${authorData.profile.name} +`}</>}
+                {authorData && <> {`${authorData.profile.name} +`}</>}
                 {isArray(participants) && (
                   <span className="whitespace-pre">
                     {`${participants.length - 1}`}
@@ -69,11 +69,11 @@ export const ActivityCardListItem = ({ activity, expended }) => {
                   </span>
                 )}
                 {currentState === 0 && (
-                  <span className="text-blue-500 text-xs whitespace-nowrap">{` 예정`}</span>
+                  <span className="text-point-800 text-xs whitespace-nowrap">{` 예정`}</span>
                 )}
                 {currentState !== 2 &&
                   new Date(createDate) > new Date() - 172800000 && (
-                    <span className="text-red-500 text-xs ">{` new!`}</span>
+                    <span className="text-point-500 text-xs ">{` new!`}</span>
                   )}
               </div>
             </div>
@@ -83,7 +83,7 @@ export const ActivityCardListItem = ({ activity, expended }) => {
         {expended && (
           <>
             <hr className="my-2" />
-            <div className=" max-h-80 overflow-y-hidden whitespace-normal break-words text-ellipsis">
+            <div className=" max-h- overflow-y-hidden whitespace-normal break-words text-ellipsis">
               <div
                 className={currentState === 2 ? ` text-text-600` : ``}
                 dangerouslySetInnerHTML={{ __html: description }}
