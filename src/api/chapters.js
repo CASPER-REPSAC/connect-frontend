@@ -8,18 +8,13 @@ export const get_chapter = async (activity_id, chapter_id) => {
   return chapter;
 };
 
-export const submit_chapter = async ({
+export const create_chapter = async ({
   subject,
   article,
   activity_id,
   authString,
   token,
 }) => {
-  //   activityid: "98"
-  // article: "<p>test</p>"
-  // authString: "ddd"
-  // subject: "test1"
-
   const payload = {
     subject,
     article,
@@ -38,7 +33,7 @@ export const submit_chapter = async ({
   return chapterRes;
 };
 
-export const submit_chapter_file = async ({
+export const create_chapter_file = async ({
   file,
   activity_id,
   chapter_id,

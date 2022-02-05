@@ -3,6 +3,7 @@ import { ClassicCKEditor } from "./ClassicCKEditor";
 
 export const ChapterForm = ({
   onChange,
+  onFileChange,
   onSubmit,
   chapterInput,
   ispw,
@@ -35,7 +36,14 @@ export const ChapterForm = ({
         <ClassicCKEditor onChange={onChange} value={article} name="article" />
       </div>
       <div className="col-span-2 row-start-3 row-end-4 ">
-        <input type="file" className="connect-input" />
+        <input
+          type="file"
+          className="connect-input"
+          onChange={(e) => {
+            onFileChange(e);
+          }}
+          multiple
+        />
       </div>
       {ispw && userEmail !== authorEmail && (
         <label htmlFor="password" className="col-span-2 row-start-4 row-end-5 ">

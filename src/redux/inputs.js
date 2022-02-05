@@ -8,6 +8,10 @@ const REMOVE_ACTIVITY_INPUT = "inputs/REMOVE_ACTIVITY_INPUT";
 const CHANGE_CHAPTER_INPUT = "inputs/CHANGE_CHAPTER_INPUT";
 const REMOVE_CHAPTER_INPUT = "inputs/REMOVE_CHAPTER_INPUT";
 
+const CHANGE_CHAPTER_INPUT_FILES = "inputs/CHANGE_CHAPTER_INPUT_FILES";
+const REMOVE_CHAPTER_INPUT_FILES = "inputs/REMOVE_CHAPTER_INPUT_FILES";
+const REMOVE_CHAPTER_INPUT_FILE = "inputs/REMOVE_CHAPTER_INPUT_FILE";
+
 const CHANGE_COMMENT_INPUT = "inputs/CHANGE_COMMENT_INPUT";
 const REMOVE_COMMENT_INPUT = "inputs/REMOVE_COMMENT_INPUT";
 
@@ -34,6 +38,20 @@ export const removeActivityInput = () => ({
 export const changeChapterInput = (target) => ({
   type: CHANGE_CHAPTER_INPUT,
   target,
+});
+
+export const changeChapterInputFiles = (files) => ({
+  type: CHANGE_CHAPTER_INPUT_FILES,
+  files,
+});
+
+export const removeChapterInputFiles = () => ({
+  type: REMOVE_CHAPTER_INPUT_FILES,
+});
+
+export const removeChapterInputFile = (filename) => ({
+  type: REMOVE_CHAPTER_INPUT_FILE,
+  filename,
 });
 
 export const removeChapterInput = () => ({
@@ -72,39 +90,37 @@ const initialState = {
     subject: "",
     article: "",
     authstring: "",
-    files: null,
   },
+  files: null,
   commentInput: {
     65: "",
   },
 };
 
+const changeInputHelper = (key) => (state, action) => {
+  return {
+    ...state,
+    [key]: {
+      ...state[key],
+      [action.target.name]: action.target.value,
+    },
+  };
+};
+
 export const inputs = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_SEARCH_INPUT:
-      return {
-        ...state,
-        searchInput: {
-          ...state.searchInput,
-          [action.target.name]: action.target.value,
-        },
-      };
+      return changeInputHelper("searchInput")(state, action);
     case CHANGE_ACTIVITY_INPUT:
-      return {
-        ...state,
-        activityInput: {
-          ...state.activityInput,
-          [action.target.name]: action.target.value,
-        },
-      };
+      return changeInputHelper("activityInput")(state, action);
     case CHANGE_CHAPTER_INPUT:
+      return changeInputHelper("chapterInput")(state, action);
+    case CHANGE_CHAPTER_INPUT_FILES:
       return {
         ...state,
-        chapterInput: {
-          ...state.chapterInput,
-          [action.target.name]: action.target.value,
-        },
+        files: action.files,
       };
+
     case CHANGE_COMMENT_INPUT:
       return {
         ...state,
@@ -120,6 +136,25 @@ export const inputs = (state = initialState, action) => {
           ...state.commentInput,
           [action.chapter_id]: "",
         },
+      };
+    case REMOVE_CHAPTER_INPUT:
+      return {
+        ...state,
+        chapterInput: {
+          subject: "",
+          article: "",
+          authstring: "",
+        },
+      };
+    case REMOVE_CHAPTER_INPUT_FILES:
+      return {
+        ...state,
+        files: null,
+      };
+    case REMOVE_CHAPTER_INPUT_FILE:
+      return {
+        ...state,
+        files: delete state.files[action.filename],
       };
     default:
       return state;

@@ -147,7 +147,7 @@ export const activities = (state = initialState, action) => {
           ...state.activity,
           [action.activity_id]: {
             data:
-              typeof state.activity[action.activity_id] === "object" &&
+              state.activity[action.activity_id] &&
               state.activity[action.activity_id].data,
             error: null,
             loading: true,

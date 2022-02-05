@@ -3,8 +3,12 @@ import { ChapterForm } from "#comp/write";
 import { Card } from "#comp/common";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { changeChapterInput } from "@/redux/inputs";
-import { submitChapter } from "@/redux/submits";
+import {
+  changeChapterInput,
+  changeChapterInputFiles,
+  removeChapterInputFiles,
+} from "@/redux/inputs";
+import { createChapter } from "@/redux/submits";
 import { getActivity } from "@/redux/activities";
 import { SubmitButton } from "#comp/common";
 import {
@@ -12,23 +16,11 @@ import {
   ActivityInfo,
   SideChapterList,
 } from "#comp/activities/";
+import { isArray } from "#serv";
 
 export const ChapterWritePage = () => {
   const { activity_id } = useParams();
   const dispatch = useDispatch();
-
-  const onChange = (e) => {
-    dispatch(changeChapterInput(e.target));
-  };
-
-  const onSubmit = () => {
-    dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
-
-    dispatch(submitChapter(activity_id));
-  };
-  useEffect(() => {
-    dispatch(getActivity(activity_id));
-  }, [dispatch, activity_id]);
 
   const chapterInput = useSelector((state) => state.inputs.chapterInput);
   const { data: activity } = useSelector(
@@ -38,6 +30,34 @@ export const ChapterWritePage = () => {
   const { email: userEmail } = useSelector(
     (state) => state.auth.user || { email: "" }
   );
+
+  const onChange = (e) => {
+    dispatch(changeChapterInput(e.target));
+  };
+  const onFileChange = (e) => {
+    const files = e.target.files;
+    if (files.length > 0) {
+      dispatch(changeChapterInputFiles(files));
+    } else {
+      dispatch(removeChapterInputFiles());
+    }
+  };
+
+  const onSubmit = () => {
+    dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
+
+    dispatch(createChapter(activity_id));
+  };
+
+  useEffect(() => {
+    dispatch(getActivity(activity_id));
+  }, [dispatch, activity_id]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeChapterInputFiles());
+    };
+  }, []);
 
   return (
     <div
@@ -68,6 +88,7 @@ export const ChapterWritePage = () => {
             </h2>
             <ChapterForm
               onChange={onChange}
+              onFileChange={onFileChange}
               chapterInput={chapterInput}
               onSubmit={onSubmit}
               userEmail={userEmail}

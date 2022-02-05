@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { isArray } from "#serv";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCommentInput, RemoveComentInput } from "@/redux/inputs";
-import { submitComment } from "@/redux/submits";
+import { createComment } from "@/redux/submits";
 import { SubmitButton } from "#comp/common";
 
 const CommentInput = () => {
@@ -18,7 +18,7 @@ const CommentInput = () => {
   };
 
   const onSubmit = () => {
-    dispatch(submitComment(activity_id, chapter_id));
+    dispatch(createComment(activity_id, chapter_id));
   };
   return (
     <>

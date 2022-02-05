@@ -4,8 +4,11 @@ import { Card } from "#comp/common";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeActivityInput } from "@/redux/inputs";
-import { submitActivity } from "@/redux/submits";
+import { createActivity } from "@/redux/submits";
+import { getContainedActivities } from "@/redux/activities";
 import { SubmitButton } from "#comp/common";
+import { ActivityRowItem, ContainedActivities } from "#comp/activities/";
+import { UserBox } from "#comp/auth/UserBox";
 
 export const ActivityWritePage = () => {
   const dispatch = useDispatch();
@@ -13,23 +16,33 @@ export const ActivityWritePage = () => {
     dispatch(changeActivityInput(e.target));
   };
   const onSubmit = () => {
+    const now = new Date();
+    const createDate =
+      now.getFullYear() +
+      "-" +
+      `${now.getMonth() + 1}`.padStart(2, "0") +
+      "-" +
+      `${now.getDate()}`.padStart(2, "0");
     dispatch(
       changeActivityInput({
         name: "createDate",
-        value: new Date()
-          .toLocaleDateString()
-          .split(". ")
-          .join("-")
-          .split(".")[0],
+        value: createDate,
       })
     );
 
-    dispatch(submitActivity());
+    dispatch(createActivity());
   };
+  const { data: containedActivities } = useSelector(
+    (state) => state.activities.containedActivities || { data: null }
+  );
 
   const activityInput = useSelector((state) => state.inputs.activityInput);
   const navigate = useNavigate();
-  const { loading: userLoading, user } = useSelector((state) => state.auth);
+  const {
+    loading: userLoading,
+    user,
+    profile,
+  } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!user && !window.localStorage.getItem("googleToken")) {
@@ -37,12 +50,25 @@ export const ActivityWritePage = () => {
     }
   }, [navigate, user]);
 
+  useEffect(() => {
+    if (user) {
+      dispatch(getContainedActivities());
+    }
+  }, [dispatch, user]);
+
   return (
     <div
       className="grid gap-2 mt-2"
       style={{ gridTemplateColumns: "1fr minmax(300px, 100%)" }}
     >
-      <div>1</div>
+      <ActivityRowItem gridPosition="start_all">
+        <div className="flex flex-col gap-2 ">
+          <UserBox profile={profile} />
+          {user && containedActivities && (
+            <ContainedActivities activities={containedActivities} user={user} />
+          )}
+        </div>
+      </ActivityRowItem>
       <Card.Frame
         expended="true"
         className="hover:bg-background-50 hover:shadow-none min-h-detailCard"

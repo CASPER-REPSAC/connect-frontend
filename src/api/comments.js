@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const submit_comment = async ({
+export const create_comment = async ({
   comment,
   activity_id,
   chapter_id,
