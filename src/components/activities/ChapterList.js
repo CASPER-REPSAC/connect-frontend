@@ -66,7 +66,14 @@ export const ChapterList = ({ chapters }) => {
   );
 };
 
-const ActivityTitle = ({ activityTitle, activity_id }) => {
+const ActivityTitle = ({ activityTitle, activity_id, chapter_id }) => {
+  if (chapter_id === -1) {
+    return (
+      <h3 className="text-point-400 ">
+        <span className="ml-1">{activityTitle}</span>
+      </h3>
+    );
+  }
   return (
     <Link to={`/activities/${activity_id}`}>
       <h3 className="text-point-400 hover:-translate-x-2 transition-all hover:text-point-600 ml-2">
@@ -111,7 +118,7 @@ export const SideChapterListItem = ({ chapter, index, active }) => {
   );
 };
 
-export const SideChapterList = () => {
+export const SideChapterList = React.memo(() => {
   const { activity_id } = useParams();
   const chapter_id = useParams().chapter_id || -1;
   const { data: activity } = useSelector(
@@ -128,6 +135,7 @@ export const SideChapterList = () => {
           <ActivityTitle
             activityTitle={activity.title}
             activity_id={activity_id}
+            chapter_id={chapter_id}
           />
           <div className="text-sm relative top-0 left-0 my-2">
             {activity.chapterid.length > 0 ? (
@@ -153,6 +161,6 @@ export const SideChapterList = () => {
       )}
     </>
   );
-};
+});
 
 export default ChapterList;

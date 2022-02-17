@@ -2,12 +2,12 @@ import * as commentsAPI from "@/api/comments";
 import * as activitiesAPI from "@/api/activities";
 import * as chaptersAPI from "@/api/chapters";
 import { getChapter } from "./chapters";
+import { getActivity } from "./activities";
 import {
   removeCommentInput,
   removeChapterInput,
   removeChapterInputFile,
 } from "./inputs";
-import { setError } from "./alerts";
 
 const CREATE_COMMENT = "comments/CREATE_COMMENT";
 const CREATE_COMMENT_SUCCESS = "comments/CREATE_COMMENT_SUCCESS";
@@ -24,6 +24,8 @@ const CREATE_CHAPTER_FAIL = "CHAPTER/CREATE_CHAPTER_FAIL";
 const CREATE_CHAPTER_FILE = "CHAPTER/CREATE_CHAPTER_FILE";
 const CREATE_CHAPTER_FILE_SUCCESS = "CHAPTER/CREATE_CHAPTER_FILE_SUCCESS";
 const CREATE_CHAPTER_FILE_FAIL = "CHAPTER/CREATE_CHAPTER_FILE_FAIL";
+
+const REMOVE_ERROR = "CHAPTER/REMOVE_ERROR";
 
 //   comment,
 //   activityid,
@@ -53,7 +55,6 @@ export const createComment =
       dispatch({ type: success });
     } catch (error) {
       dispatch({ type: fail, error });
-      dispatch(setError(error.message, error.response));
     }
   };
 
@@ -77,12 +78,11 @@ export const createActivity = () => async (dispatch, getState) => {
     dispatch({ type: success });
   } catch (error) {
     dispatch({ type: fail, error });
-    dispatch(setError(error.message, error.response));
   }
 };
 
 export const createChapterFiles =
-  (activity_id, chapter_id) => async (dispatch, getState) => {
+  (activity_id, chapter_id, navigate) => async (dispatch, getState) => {
     const [success, fail] = [
       `${CREATE_CHAPTER_FILE}_SUCCESS`,
       `${CREATE_CHAPTER_FILE}_FAIL`,
@@ -94,7 +94,6 @@ export const createChapterFiles =
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         dispatch({ type: CREATE_CHAPTER_FILE, filename: file.name });
-
         try {
           const token = getState().auth.accessToken;
           await chaptersAPI.create_chapter_file({
@@ -105,15 +104,19 @@ export const createChapterFiles =
           });
           dispatch({ type: success, filename: file.name });
           dispatch(removeChapterInputFile(file.name));
+          navigate(`/activities/${activity_id}/chapter/${chapter_id}`);
+          getActivity(activity_id);
         } catch (error) {
           dispatch({ type: error, filename: file.name });
-          dispatch(setError(error.message, error.response));
         }
       }
+    } else {
+      navigate(`/activities/${activity_id}/chapter/${chapter_id}`);
+      getActivity(activity_id);
     }
   };
 
-export const createChapter = () => async (dispatch, getState) => {
+export const createChapter = (navigate) => async (dispatch, getState) => {
   const [success, fail] = [
     `${CREATE_CHAPTER}_SUCCESS`,
     `${CREATE_CHAPTER}_FAIL`,
@@ -129,12 +132,17 @@ export const createChapter = () => async (dispatch, getState) => {
     });
     console.log(chapterRes);
     dispatch({ type: success });
-    dispatch(createChapterFiles(chapterRes.activityid, chapterRes.chapterid));
+    dispatch(
+      createChapterFiles(chapterRes.activityid, chapterRes.chapterid, navigate)
+    );
     dispatch(removeChapterInput());
   } catch (error) {
     dispatch({ type: fail, error });
-    dispatch(setError(error.message, error.response));
   }
+};
+
+export const removeError = (key) => {
+  return { type: REMOVE_ERROR, key };
 };
 
 const initialState = {
@@ -246,6 +254,14 @@ export const submits = (state = initialState, action) => {
             loading: false,
             error: action.error,
           },
+        },
+      };
+    case REMOVE_ERROR:
+      return {
+        ...state,
+        [action.key]: {
+          loading: false,
+          error: null,
         },
       };
 

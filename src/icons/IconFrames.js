@@ -23,7 +23,7 @@ export const RoundedBg = (props) => {
   return (
     <div
       className={returnUnionedClassName(
-        "flex items-center justify-around bg-background-400 transition-all rounded-3xl w-12 h-12 hover:rounded-2xl hover:rotate-3 group",
+        "flex items-center overflow-hidden justify-around bg-background-400 transition-all rounded-3xl w-12 h-12 hover:rounded-2xl hover:rotate-3 group",
         props.className
       )}
     >

@@ -13,6 +13,7 @@ import { SideBarIconFrame } from "@/icons/IconFrames";
 import { Link } from "react-router-dom";
 import { log } from "#serv";
 import { useSelector } from "react-redux";
+import casLogo from "./cas.png";
 
 export const SearchIconWithBg = (props) => {
   const { keyword, type } = useSelector((state) => state.inputs.searchInput);
@@ -27,10 +28,10 @@ export const SearchIconWithBg = (props) => {
   );
 };
 
-export const UserIconWithBg = (props) => {
+export const UserIconWithBg = ({ profile }, props) => {
   return (
     <SideBarIconFrame
-      element={<UserSVG />}
+      element={<img src={profile.picture || casLogo} alt="casper logo" />}
       isActive={props.isActive}
       to="#"
       tooltip={null}

@@ -13,8 +13,7 @@ import { useSelector } from "react-redux";
 
 export const SideBar = () => {
   const { pathname } = useLocation();
-  const { user } = useSelector((state) => state.auth);
-
+  const { user, profile } = useSelector((state) => state.auth);
   return (
     <nav className="pl-2 pt-2 h-screen w-16 max-w-16 z-20 bg-background-300  rounded-r-xl">
       <div className="flex flex-col z-20 w-16 gap-2">
@@ -25,8 +24,11 @@ export const SideBar = () => {
         <ActivityWriteButton
           isActive={pathname.split("/")[2] === "write" ? true : false}
         />
-        {user ? (
-          <UserButton isActive={pathname === "/" ? true : false} />
+        {user && profile ? (
+          <UserButton
+            profile={profile}
+            isActive={pathname === "/" ? true : false}
+          />
         ) : (
           <GoogleLoginButton />
         )}

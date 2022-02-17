@@ -32,10 +32,8 @@ export const ChapterDetailPage = () => {
   }, [dispatch, activity_id, chapter_id]);
 
   useEffect(() => {
-    if (!activity) {
-      dispatch(getActivity(activity_id));
-    }
-  }, [dispatch, activity_id, activity]);
+    dispatch(getActivity(activity_id));
+  }, [dispatch, activity_id]);
 
   return (
     <>

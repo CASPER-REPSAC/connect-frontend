@@ -1,6 +1,7 @@
+import React from "react";
 import { PaperPlaneSVG, CogSVG, PenSVG, PlusSVG } from "@/icons";
 
-export const SubmitButton = ({ onClick }) => {
+export const SubmitButton = React.memo(({ onClick }) => {
   return (
     <button
       onClick={onClick}
@@ -9,7 +10,7 @@ export const SubmitButton = ({ onClick }) => {
       <PaperPlaneSVG />
     </button>
   );
-};
+});
 
 export const PenButton = ({ onClick }) => {
   return (

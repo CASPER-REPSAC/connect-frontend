@@ -1,22 +1,18 @@
 const SHOW_ALERT = "alerts/SHOW_ALERT";
 const HIDE_ALERT = "alerts/HIDE_ALERT";
-const SET_ERROR = "alerts/SET_ERROR";
+const SET_ERRORS = "alerts/SET_ERRORS";
+const SET_LOADINGS = "alerts/SET_LOADINGS";
 
 export const showAlert = () => ({ type: SHOW_ALERT });
 export const hideAlert = () => ({ type: HIDE_ALERT });
 
-export const setError = (breif, detail) => (dispatch) => {
-  dispatch({ type: SET_ERROR, breif, detail });
-  dispatch(showAlert());
-};
+export const setLoading = (loadings) => ({ type: SET_LOADINGS, loadings });
+export const setErrors = (errors) => ({ type: SET_ERRORS, errors });
 
 const initialState = {
-  show: false,
-  message: "",
-  error: {
-    brief: "",
-    detail: {},
-  },
+  show: true,
+  loadings: [],
+  errors: [],
 };
 
 export const alerts = (state = initialState, action) => {
@@ -25,20 +21,10 @@ export const alerts = (state = initialState, action) => {
       return { ...state, show: true };
     case HIDE_ALERT:
       return { ...state, show: false };
-    case SET_ERROR:
-      return {
-        ...state,
-        message: "오류 발생",
-        code: null,
-        error: {
-          brief: action.breif,
-          detail: {
-            data: action.detail.data || null,
-            status: action.detail.status || null,
-            statusText: action.detail.statusText || null,
-          },
-        },
-      };
+    case SET_LOADINGS:
+      return { ...state, loadings: action.loadings };
+    case SET_ERRORS:
+      return { ...state, loadings: action.errors };
     default:
       return state;
   }

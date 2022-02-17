@@ -25,7 +25,7 @@ const ContainedActivitiesItem = ({ activity, userId }) => {
     <Link to={"/activities/" + id}>
       <div
         className={
-          "flex justify-between hover:drop-shadow px-3 py-2 rounded border " +
+          "flex justify-between hover:drop-shadow px-3 py-2 gap-2 rounded border " +
           (currentState == 2
             ? "hover:bg-background-200 bg-background-200 text-text-500 "
             : "hover:bg-background-100 ")
@@ -35,7 +35,7 @@ const ContainedActivitiesItem = ({ activity, userId }) => {
           <span>{userId === participants[0].user_id && <>👑</>}</span>
           <h3 className="inline">{title}</h3>
         </div>
-        <span className="font-bold text-xs leading-6">
+        <span className="font-bold text-xs leading-6 flex-none">
           {currentState == 2 && <>종료됨</>}
         </span>
       </div>
@@ -43,7 +43,7 @@ const ContainedActivitiesItem = ({ activity, userId }) => {
   );
 };
 
-export const ContainedActivities = ({ activities, user }) => {
+export const ContainedActivities = React.memo(({ activities, user }) => {
   return (
     <Card.Frame className="hover:bg-background-50 hover:shadow-none">
       <h3>내가 속한 액티비티</h3>
@@ -59,6 +59,6 @@ export const ContainedActivities = ({ activities, user }) => {
       </div>
     </Card.Frame>
   );
-};
+});
 
 export default ContainedActivities;

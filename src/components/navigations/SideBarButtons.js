@@ -21,14 +21,14 @@ export { CasLogoIconWithBg as HomeButton };
 export { PenIconWithBg as ActivityWriteButton };
 export { GoogleLoginButton } from "#comp/auth/GoogleButton";
 
-export const UserButton = () => {
+export const UserButton = ({ profile }) => {
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logout());
   };
   return (
     <ExpendableIcons
-      parentIcon={<UserIconWithBg />}
+      parentIcon={<UserIconWithBg profile={profile} />}
       childIcons={[
         <UserBoardIconWithBg />,
         <SignOutIconWithBg onClick={() => onLogout()} />,

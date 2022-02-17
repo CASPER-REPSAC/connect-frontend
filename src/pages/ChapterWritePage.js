@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { ChapterForm } from "#comp/write";
 import { Card } from "#comp/common";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeChapterInput,
@@ -19,6 +19,7 @@ import {
 import { isArray } from "#serv";
 
 export const ChapterWritePage = () => {
+  const navigate = useNavigate();
   const { activity_id } = useParams();
   const dispatch = useDispatch();
 
@@ -31,23 +32,29 @@ export const ChapterWritePage = () => {
     (state) => state.auth.user || { email: "" }
   );
 
-  const onChange = (e) => {
-    dispatch(changeChapterInput(e.target));
-  };
-  const onFileChange = (e) => {
-    const files = e.target.files;
-    if (files.length > 0) {
-      dispatch(changeChapterInputFiles(files));
-    } else {
-      dispatch(removeChapterInputFiles());
-    }
-  };
+  const onChange = useCallback(
+    (e) => {
+      dispatch(changeChapterInput(e.target));
+    },
+    [dispatch]
+  );
 
-  const onSubmit = () => {
+  const onFileChange = useCallback(
+    (e) => {
+      const files = e.target.files;
+      if (files.length > 0) {
+        dispatch(changeChapterInputFiles(files));
+      } else {
+        dispatch(removeChapterInputFiles());
+      }
+    },
+    [dispatch]
+  );
+
+  const onSubmit = useCallback(() => {
     dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
-
-    dispatch(createChapter(activity_id));
-  };
+    dispatch(createChapter(navigate));
+  }, [dispatch, activity_id, navigate]);
 
   useEffect(() => {
     dispatch(getActivity(activity_id));

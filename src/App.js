@@ -16,12 +16,10 @@ import {
 } from "@/pages";
 import { SideBar } from "#comp/navigations";
 import { loginWithCookie } from "@/redux/auth";
-import { hideAlert } from "@/redux/alerts";
 import { useDispatch, useSelector } from "react-redux";
+import { Alerts } from "#comp/common";
 
 function App() {
-  const { show, error, message } = useSelector((state) => state.alerts);
-
   const location = useLocation();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -57,43 +55,7 @@ function App() {
           </Routes>
         </section>
       </div>
-      <div
-        className={
-          "fixed max-h-detailCard  max-w-lg overscroll-y-scroll opacity-80 top-2 right-2 z-50 bg-point-500 text-text-50 border-2 border-point-700 shadow py-1 px-3 min-w-tabletCard rounded-lg " +
-          (show ? "block" : "hidden")
-        }
-      >
-        <div className="flex justify-between ">
-          <h3>{message}</h3>
-          <button
-            onClick={() => {
-              dispatch(hideAlert());
-            }}
-          >
-            닫기
-          </button>
-        </div>
-        <div>{error.breif}</div>
-        <div>
-          {typeof error.detail === "object" &&
-            Object.keys(error.detail).map((key) => (
-              <div key={key}>
-                [{key}] :
-                {JSON.stringify(error.detail[key], null, "\t").length > 300 ? (
-                  <>
-                    {JSON.stringify(error.detail[key], null, "\t").substr(
-                      0,
-                      300
-                    )}
-                    (...생략...)
-                  </>
-                ) : (
-                  <>{JSON.stringify(error.detail[key], null, "\t")}</>
-                )}
-              </div>
-            ))}
-        </div>
-      </div>
+      <Alerts />
     </div>
   );
 }

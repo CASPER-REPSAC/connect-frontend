@@ -39,7 +39,7 @@ const Tags = ({ tags }) => {
   );
 };
 
-export const ActivityInfo = () => {
+export const ActivityInfo = React.memo(() => {
   const { activity_id } = useParams();
   const { data } = useSelector(
     (state) =>
@@ -69,6 +69,6 @@ export const ActivityInfo = () => {
       </Card.Frame>
     </>
   );
-};
+});
 
 export default ActivityInfo;

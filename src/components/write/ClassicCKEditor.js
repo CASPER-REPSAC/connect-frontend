@@ -2,7 +2,7 @@ import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-export const ClassicCKEditor = ({ onChange, value, name }) => {
+export const ClassicCKEditor = React.memo(({ onChange, value, name }) => {
   const editorConfiguration = {
     toolbar: [
       "bold",
@@ -43,6 +43,6 @@ export const ClassicCKEditor = ({ onChange, value, name }) => {
       />
     </div>
   );
-};
+});
 
 export default ClassicCKEditor;

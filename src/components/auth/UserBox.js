@@ -22,12 +22,12 @@ const NoUser = () => {
   return <div className="text-text-500 text-sm">로그인 할 수 있는데...</div>;
 };
 
-export const UserBox = ({ profile }) => {
+export const UserBox = React.memo(({ profile }) => {
   return (
     <Card.Frame>
       {profile ? <UserProfile profile={profile} /> : <NoUser />}
     </Card.Frame>
   );
-};
+});
 
 export default UserBox;

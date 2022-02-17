@@ -1,3 +1,4 @@
+import React from "react";
 import { ActivityCardList } from "./ActivityCardList";
 import { isArray } from "#serv";
 import { PlusButton, PenButton } from "#comp/common";
@@ -19,45 +20,40 @@ const classNames = {
   start_all: "col-start-1 col-end-2 row-start-1 row-end-4 max-w-tabletCard",
 };
 
-export const ActivityRowItem = ({
-  type,
-  icons,
-  children,
-  expended,
-  activities,
-  gridPosition,
-}) => {
-  const className = classNames[gridPosition || "end_first"];
-  return (
-    <>
-      <div className={className}>
-        <div className="flex justify-between items-center h-fit">
-          {isArray(activities) && type && (
-            <>
-              <h2 className=" font-bold ">{type}</h2>
-              {icons && (
-                <div className="flex gap-1">
-                  {/* <span className="a-char-button hover:bg-point-500 text-xs leading-5 ">
+export const ActivityRowItem = React.memo(
+  ({ type, icons, children, expended, activities, gridPosition }) => {
+    const className = classNames[gridPosition || "end_first"];
+    return (
+      <>
+        <div className={className}>
+          <div className="flex justify-between items-center h-fit">
+            {isArray(activities) && type && (
+              <>
+                <h2 className=" font-bold ">{type}</h2>
+                {icons && (
+                  <div className="flex gap-1">
+                    {/* <span className="a-char-button hover:bg-point-500 text-xs leading-5 ">
                     <PenSVG />
                   </span> */}
-                  <PlusButton />
-                </div>
-              )}
-            </>
-          )}
+                    <PlusButton />
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+          <span className="h-fit">
+            {activities && (
+              <ActivityCardList
+                activities={activities.filter(
+                  (activity) => activity.type === type
+                )}
+              />
+            )}
+            {!activities && children}
+          </span>
         </div>
-        <span className="h-fit">
-          {activities && (
-            <ActivityCardList
-              activities={activities.filter(
-                (activity) => activity.type === type
-              )}
-            />
-          )}
-          {!activities && children}
-        </span>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  }
+);
 export default ActivityRowItem;

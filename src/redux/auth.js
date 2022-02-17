@@ -1,6 +1,5 @@
 import { server_login } from "@/api/auth";
 import { Cookies } from "react-cookie";
-import { setError } from "./alerts";
 import jwt from "jwt-decode";
 
 const cookies = new Cookies();
@@ -32,7 +31,6 @@ export const login = () => async (dispatch, getState) => {
     dispatch({ type: success, user, profile, access_token });
   } catch (error) {
     dispatch({ type: fail, error });
-    dispatch(setError(error.message, error.response));
   }
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { ClassicCKEditor } from "./ClassicCKEditor";
 
-export const ChapterForm = ({
+export const ChapterForm = React.memo(function ChapterForm({
   onChange,
   onFileChange,
   onSubmit,
@@ -9,7 +9,7 @@ export const ChapterForm = ({
   ispw,
   userEmail,
   authorEmail,
-}) => {
+}) {
   const { subject, article, authString } = chapterInput;
 
   return (
@@ -62,6 +62,6 @@ export const ChapterForm = ({
       )}
     </div>
   );
-};
+});
 
 export default ChapterForm;

@@ -1,9 +1,8 @@
-import React from "react";
-import { Card } from "#comp/common";
-import { Link, useParams } from "react-router-dom";
+import React, { useCallback } from "react";
+import { useParams } from "react-router-dom";
 import { isArray } from "#serv";
 import { useSelector, useDispatch } from "react-redux";
-import { changeCommentInput, RemoveComentInput } from "@/redux/inputs";
+import { changeCommentInput } from "@/redux/inputs";
 import { createComment } from "@/redux/submits";
 import { SubmitButton } from "#comp/common";
 
@@ -17,9 +16,9 @@ const CommentInput = () => {
     dispatch(changeCommentInput(chapter_id, e.target.value));
   };
 
-  const onSubmit = () => {
+  const onSubmit = useCallback(() => {
     dispatch(createComment(activity_id, chapter_id));
-  };
+  }, [dispatch, activity_id, chapter_id]);
   return (
     <>
       <div className="flex gap-1">

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { ActivityForm } from "#comp/write";
 import { Card } from "#comp/common";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeActivityInput } from "@/redux/inputs";
-import { createActivity } from "@/redux/submits";
+import { createActivity, removeError } from "@/redux/submits";
 import { getContainedActivities } from "@/redux/activities";
 import { SubmitButton } from "#comp/common";
 import { ActivityRowItem, ContainedActivities } from "#comp/activities/";
@@ -12,10 +12,15 @@ import { UserBox } from "#comp/auth/UserBox";
 
 export const ActivityWritePage = () => {
   const dispatch = useDispatch();
-  const onChange = (e) => {
-    dispatch(changeActivityInput(e.target));
-  };
-  const onSubmit = () => {
+
+  const onChange = useCallback(
+    (e) => {
+      dispatch(changeActivityInput(e.target));
+    },
+    [dispatch]
+  );
+
+  const onSubmit = useCallback(() => {
     const now = new Date();
     const createDate =
       now.getFullYear() +
@@ -29,9 +34,8 @@ export const ActivityWritePage = () => {
         value: createDate,
       })
     );
-
     dispatch(createActivity());
-  };
+  }, [dispatch]);
   const { data: containedActivities } = useSelector(
     (state) => state.activities.containedActivities || { data: null }
   );
@@ -55,6 +59,12 @@ export const ActivityWritePage = () => {
       dispatch(getContainedActivities());
     }
   }, [dispatch, user]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeError("activity"));
+    };
+  }, [dispatch]);
 
   return (
     <div
