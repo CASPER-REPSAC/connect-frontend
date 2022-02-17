@@ -5,7 +5,6 @@ export const create_comment = async ({
   activity_id,
   chapter_id,
   writer,
-  token,
 }) => {
   // payload = {comment, activityid, chapterid, writer(accessToken)};
   const payload = {
@@ -15,12 +14,17 @@ export const create_comment = async ({
     writer,
   };
 
-  const res = await axios.post("/api/activities/write_comment/", payload, {
-    headers: {
-      "Content-Type": "application/json",
-      authorization: token,
-    },
-  });
+  const res = await axios.post("/api/activities/write_comment/", payload);
   const commentRes = res.data;
   return commentRes;
+};
+
+export const delete_comment = async ({ commentpk, token }) => {
+  const payload = { authorization: token };
+  const res = await axios.post(
+    `/api/activities/delete_comment/${commentpk}/`,
+    payload
+  );
+  const commentDelRes = res.data;
+  return commentDelRes;
 };

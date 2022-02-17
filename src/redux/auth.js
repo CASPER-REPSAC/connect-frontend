@@ -1,6 +1,7 @@
 import { server_login } from "@/api/auth";
 import { Cookies } from "react-cookie";
 import jwt from "jwt-decode";
+import axios from "axios";
 
 const cookies = new Cookies();
 
@@ -29,7 +30,11 @@ export const login = () => async (dispatch, getState) => {
       path: "/",
     });
     dispatch({ type: success, user, profile, access_token });
+    axios.defaults.headers.common["Authorization"] =
+      getState().auth.accessToken;
   } catch (error) {
+    axios.defaults.headers.common["Authorization"] = null;
+
     dispatch({ type: fail, error });
   }
 };
@@ -37,6 +42,8 @@ export const login = () => async (dispatch, getState) => {
 export const logout = () => (dispatch) => {
   cookies.remove("access_token");
   window.localStorage.removeItem("googleToken");
+  axios.defaults.headers.common["Authorization"] = null;
+
   dispatch({ type: LOGOUT });
 };
 

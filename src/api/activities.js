@@ -7,14 +7,9 @@ export const get_activities = async () => {
   return activities;
 };
 
-export const get_contained_activities = async (token) => {
+export const get_contained_activities = async () => {
   // api/user/contained_new
-  const res = await axios.get("/api/user/contained_new/", {
-    headers: {
-      authorization: token,
-    },
-  });
-
+  const res = await axios.get("/api/user/contained_new/");
   return res.data;
 };
 
@@ -36,7 +31,6 @@ export const create_activity = async ({
   currentState,
   authString,
   tags,
-  token,
 }) => {
   const payload = {
     title,
@@ -51,12 +45,7 @@ export const create_activity = async ({
     participants: [],
     tags,
   };
-  const res = await axios.post("/api/activities/", payload, {
-    headers: {
-      "Content-Type": "application/json",
-      authorization: token,
-    },
-  });
+  const res = await axios.post("/api/activities/", payload);
   const activityRes = res.data;
   return activityRes;
 };

@@ -3,12 +3,11 @@ import { useParams } from "react-router-dom";
 import { isArray } from "#serv";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCommentInput } from "@/redux/inputs";
-import { createComment } from "@/redux/submits";
+import { createComment, deleteComment } from "@/redux/submits";
 import { SubmitButton } from "#comp/common";
 
-const CommentInput = () => {
+const CommentInput = ({ dispatch }) => {
   const { activity_id, chapter_id } = useParams();
-  const dispatch = useDispatch();
   const comment = useSelector(
     (state) => state.inputs.commentInput[chapter_id] || ""
   );
@@ -34,23 +33,24 @@ const CommentInput = () => {
   );
 };
 
-export const CommentListItem = ({ comment, user }) => {
+export const CommentListItem = ({ comment, user, dispatch }) => {
   const {
     activityid,
     chapterid,
     commentpk,
     comment: content,
-    writer,
+    writer: writerpk,
     createtime,
     user: email,
     profile,
   } = comment;
+  console.log("comment", user);
   return (
-    <div className="p-3 xl:p-3 flex gap-x-2  border-t border-text-300">
+    <div className="p-3 xl:p-3 flex gap-x-2  border-t border-text-300 w-full">
       <img
         src={profile.picture}
         alt="error"
-        className="rounded w-9 h-9 hidden md:block "
+        className="rounded w-9 h-9 hidden md:block flex-none "
       />
       <div>
         <div className="flex-none font-normal text-sm flex gap-1 items-center flex-row  flex-wrap">
@@ -64,16 +64,30 @@ export const CommentListItem = ({ comment, user }) => {
           {content}
         </div>
       </div>
+      <div className="ml-auto">
+        {user && user.pk === writerpk && (
+          <button
+            onClick={() => {
+              dispatch(deleteComment(commentpk, activityid, chapterid));
+            }}
+          >
+            삭제
+          </button>
+        )}
+      </div>
     </div>
   );
 };
 
-export const CommentList = ({ comments, user }) => {
+export const CommentList = ({ comments }) => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.user);
   return (
     <div className="min-h-chapterList">
       <h3 className="m-1">댓글</h3>
       <div className="flex gap-1 flex-col">
-        <CommentInput />
+        <CommentInput dispatch={dispatch} />
         {isArray(comments) ? (
           comments
             .sort(function (a, b) {
@@ -88,7 +102,12 @@ export const CommentList = ({ comments, user }) => {
             .map((comment, index) => {
               return (
                 <span key={comment.commentpk}>
-                  <CommentListItem comment={comment} index={index} />
+                  <CommentListItem
+                    comment={comment}
+                    index={index}
+                    dispatch={dispatch}
+                    user={user}
+                  />
                 </span>
               );
             })

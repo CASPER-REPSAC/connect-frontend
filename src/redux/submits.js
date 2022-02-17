@@ -9,17 +9,54 @@ import {
   removeChapterInputFile,
 } from "./inputs";
 
-const CREATE_COMMENT = "comments/CREATE_COMMENT";
-const CREATE_COMMENT_SUCCESS = "comments/CREATE_COMMENT_SUCCESS";
-const CREATE_COMMENT_FAIL = "comments/CREATE_COMMENT_FAIL";
+const CUDActionTypeCreator = (type) => {
+  const CUD = ["CREATE", "UPDATE", "DELETE"];
+  let rst = [];
+  CUD.map((v) => {
+    rst = rst.concat([
+      `submits/${type}_${v}`,
+      `submits/${type}_${v}_SUCCESS`,
+      `submit/${type}_${v}_FAIL`,
+    ]);
+  });
+  return rst;
+};
 
-const CREATE_ACTIVITY = "ACTIVITY/CREATE_ACTIVITY";
-const CREATE_ACTIVITY_SUCCESS = "ACTIVITY/CREATE_ACTIVITY_SUCCESS";
-const CREATE_ACTIVITY_FAIL = "ACTIVITY/CREATE_ACTIVITY_FAIL";
+const [
+  CREATE_COMMENT,
+  CREATE_COMMENT_SUCCESS,
+  CREATE_COMMENT_FAIL,
+  UPDATE_COMMENT,
+  UPDATE_COMMENT_SUCCESS,
+  UPDATE_COMMENT_FAIL,
+  DELETE_COMMENT,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAIL,
+] = CUDActionTypeCreator("COMMENT");
 
-const CREATE_CHAPTER = "CHAPTER/CREATE_CHAPTER";
-const CREATE_CHAPTER_SUCCESS = "CHAPTER/CREATE_CHAPTER_SUCCESS";
-const CREATE_CHAPTER_FAIL = "CHAPTER/CREATE_CHAPTER_FAIL";
+const [
+  CREATE_ACTIVITY,
+  CREATE_ACTIVITY_SUCCESS,
+  CREATE_ACTIVITY_FAIL,
+  UPDATE_ACTIVITY,
+  UPDATE_ACTIVITY_SUCCESS,
+  UPDATE_ACTIVITY_FAIL,
+  DELETE_ACTIVITY,
+  DELETE_ACTIVITY_SUCCESS,
+  DELETE_ACTIVITY_FAIL,
+] = CUDActionTypeCreator("ACTIVITY");
+
+const [
+  CREATE_CHAPTER,
+  CREATE_CHAPTER_SUCCESS,
+  CREATE_CHAPTER_FAIL,
+  UPDATE_CHAPTER,
+  UPDATE_CHAPTER_SUCCESS,
+  UPDATE_CHAPTER_FAIL,
+  DELETE_CHAPTER,
+  DELETE_CHAPTER_SUCCESS,
+  DELETE_CHAPTER_FAIL,
+] = CUDActionTypeCreator("CHAPTER");
 
 const CREATE_CHAPTER_FILE = "CHAPTER/CREATE_CHAPTER_FILE";
 const CREATE_CHAPTER_FILE_SUCCESS = "CHAPTER/CREATE_CHAPTER_FILE_SUCCESS";
@@ -27,10 +64,11 @@ const CREATE_CHAPTER_FILE_FAIL = "CHAPTER/CREATE_CHAPTER_FILE_FAIL";
 
 const REMOVE_ERROR = "CHAPTER/REMOVE_ERROR";
 
-//   comment,
-//   activityid,
-//   chapterid,
-//   writer
+const resultActionStringCreator = (baseAction) => [
+  `${baseAction}_SUCCESS`,
+  `${baseAction}_FAIL`,
+];
+
 export const createComment =
   (activity_id, chapter_id) => async (dispatch, getState) => {
     const [success, fail] = [
@@ -41,38 +79,31 @@ export const createComment =
     dispatch({ type: CREATE_COMMENT });
     try {
       const writer = getState().auth.user.pk;
-      const token = getState().auth.accessToken;
       const comment = getState().inputs.commentInput[chapter_id];
       await commentsAPI.create_comment({
         writer,
         comment,
         chapter_id,
         activity_id,
-        token,
       });
       dispatch(removeCommentInput(chapter_id));
-      dispatch(getChapter(activity_id, chapter_id));
       dispatch({ type: success });
+      dispatch(getChapter(activity_id, chapter_id));
     } catch (error) {
       dispatch({ type: fail, error });
     }
   };
 
 export const createActivity = () => async (dispatch, getState) => {
-  const [success, fail] = [
-    `${CREATE_ACTIVITY}_SUCCESS`,
-    `${CREATE_ACTIVITY}_FAIL`,
-  ];
+  const [success, fail] = resultActionStringCreator(CREATE_ACTIVITY);
 
   dispatch({ type: CREATE_ACTIVITY });
   try {
     const author = getState().auth.user.pk;
     const activityInput = getState().inputs.activityInput;
-    const token = getState().auth.accessToken;
     await activitiesAPI.create_activity({
       ...activityInput,
       author,
-      token,
       currentState: activityInput.currentState * 1,
     });
     dispatch({ type: success });
@@ -95,12 +126,10 @@ export const createChapterFiles =
         const file = files[i];
         dispatch({ type: CREATE_CHAPTER_FILE, filename: file.name });
         try {
-          const token = getState().auth.accessToken;
           await chaptersAPI.create_chapter_file({
             file: file,
             activity_id,
             chapter_id,
-            token,
           });
           dispatch({ type: success, filename: file.name });
           dispatch(removeChapterInputFile(file.name));
@@ -117,20 +146,14 @@ export const createChapterFiles =
   };
 
 export const createChapter = (navigate) => async (dispatch, getState) => {
-  const [success, fail] = [
-    `${CREATE_CHAPTER}_SUCCESS`,
-    `${CREATE_CHAPTER}_FAIL`,
-  ];
+  const [success, fail] = resultActionStringCreator(CREATE_CHAPTER);
 
   dispatch({ type: CREATE_CHAPTER });
   try {
     const chapterInput = getState().inputs.chapterInput;
-    const token = getState().auth.accessToken;
     const chapterRes = await chaptersAPI.create_chapter({
       ...chapterInput,
-      token,
     });
-    console.log(chapterRes);
     dispatch({ type: success });
     dispatch(
       createChapterFiles(chapterRes.activityid, chapterRes.chapterid, navigate)
@@ -140,6 +163,20 @@ export const createChapter = (navigate) => async (dispatch, getState) => {
     dispatch({ type: fail, error });
   }
 };
+
+export const deleteComment =
+  (commentpk, activity_id, chapter_id) => async (dispatch, getState) => {
+    const [success, fail] = resultActionStringCreator(DELETE_COMMENT);
+    dispatch({ type: DELETE_COMMENT });
+    try {
+      const token = getState().auth.accessToken;
+      commentsAPI.delete_comment({ commentpk, token });
+      dispatch({ type: success });
+      dispatch(getChapter(activity_id, chapter_id));
+    } catch (error) {
+      dispatch({ type: fail, error });
+    }
+  };
 
 export const removeError = (key) => {
   return { type: REMOVE_ERROR, key };
@@ -200,7 +237,6 @@ const submitStateHelper = (key, baseActionType) => (state, action) => {
           loading: false,
         },
       };
-
     default:
       return state;
   }
@@ -211,15 +247,18 @@ export const submits = (state = initialState, action) => {
     case CREATE_COMMENT:
     case CREATE_COMMENT_SUCCESS:
     case CREATE_COMMENT_FAIL:
-      return submitStateHelper("comment", CREATE_COMMENT)(state, action);
+      return submitStateHelper("create_comment", CREATE_COMMENT)(state, action);
     case CREATE_ACTIVITY:
     case CREATE_ACTIVITY_SUCCESS:
     case CREATE_ACTIVITY_FAIL:
-      return submitStateHelper("activity", CREATE_ACTIVITY)(state, action);
+      return submitStateHelper("create_activity", CREATE_ACTIVITY)(
+        state,
+        action
+      );
     case CREATE_CHAPTER:
     case CREATE_CHAPTER_SUCCESS:
     case CREATE_CHAPTER_FAIL:
-      return submitStateHelper("chapter", CREATE_CHAPTER)(state, action);
+      return submitStateHelper("create_chapter", CREATE_CHAPTER)(state, action);
     case CREATE_CHAPTER_FILE:
       return {
         ...state,
@@ -264,7 +303,14 @@ export const submits = (state = initialState, action) => {
           error: null,
         },
       };
-
+    case DELETE_COMMENT:
+    case DELETE_COMMENT_SUCCESS:
+    case DELETE_COMMENT_FAIL:
+      return submitStateHelper("delete_comment", DELETE_COMMENT)(state, action);
+    case DELETE_CHAPTER:
+    case DELETE_CHAPTER_SUCCESS:
+    case DELETE_CHAPTER_FAIL:
+      return submitStateHelper("delete_chapter", DELETE_CHAPTER)(state, action);
     default:
       return state;
   }
