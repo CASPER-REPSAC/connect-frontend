@@ -24,7 +24,7 @@ export const ChapterListItem = ({ chapter, index }) => {
   );
 };
 
-export const ChapterList = ({ chapters }) => {
+export const ChapterList = ({ chapters, chapterAddBtn }) => {
   const rows =
     Math.ceil(chapters.length / 2) > 4 ? Math.ceil(chapters.length / 2) : 5;
   return (
@@ -33,7 +33,7 @@ export const ChapterList = ({ chapters }) => {
         className="bg-background-200 hover:bg-background-200 p-3 xl:p-3 hover:shadow-none min-h-chapterList "
         expended="true"
       >
-        <h3 className="m-1">챕터</h3>
+        <h3 className="m-1 flex gap-2 items-center">챕터 {chapterAddBtn}</h3>
         <div className="lg:grid gap-x-2 gap-y-1 grid-cols-2">
           {Math.ceil(chapters.length / 2) < 6 &&
             chapters.map((chapter, index) => {

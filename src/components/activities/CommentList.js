@@ -4,7 +4,8 @@ import { isArray } from "#serv";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCommentInput } from "@/redux/inputs";
 import { createComment, deleteComment } from "@/redux/submits";
-import { SubmitButton } from "#comp/common";
+import { SubmitButton, WithToolTip } from "#comp/common";
+import { TrashCanSVG } from "@/icons";
 
 const CommentInput = ({ dispatch }) => {
   const { activity_id, chapter_id } = useParams();
@@ -66,13 +67,20 @@ export const CommentListItem = ({ comment, user, dispatch }) => {
       </div>
       <div className="ml-auto">
         {user && user.pk === writerpk && (
-          <button
-            onClick={() => {
-              dispatch(deleteComment(commentpk, activityid, chapterid));
-            }}
+          <WithToolTip
+            tooltip="댓글 삭제"
+            tooltipclassname="px-2 whitespace-nowrap w-fit"
+            offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
           >
-            삭제
-          </button>
+            <button
+              className="text-point-500"
+              onClick={() => {
+                dispatch(deleteComment(commentpk, activityid, chapterid));
+              }}
+            >
+              <TrashCanSVG />
+            </button>
+          </WithToolTip>
         )}
       </div>
     </div>

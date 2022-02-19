@@ -1,8 +1,10 @@
 import React from "react";
-import { PenButton, PlusButton, CogButton, WithToolTip } from "#comp/common";
+import { PlusButton, WithToolTip } from "#comp/common";
+import { CogSVG, PlusSVG, SquarePlusSVG } from "@/icons";
 import { isArray } from "#serv/helpers";
 import { ChapterList } from "./ChapterList";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const ActivityDetailContent = ({ activity, user }) => {
   const {
@@ -26,7 +28,7 @@ export const ActivityDetailContent = ({ activity, user }) => {
   const authorData = participants.find(
     (participant) => participant.profile.email === author
   );
-
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex-none">
@@ -58,36 +60,28 @@ export const ActivityDetailContent = ({ activity, user }) => {
               )}
           </div>
           <span className="flex gap-1">
-            <WithToolTip
-              tooltip="액티비티 참가"
-              tooltipclassname="px-2 whitespace-nowrap w-fit"
-              offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
-            >
-              <PlusButton />
-            </WithToolTip>
-
-            {(PW &&
-              isArray(participants) &&
-              user &&
-              participants.includes(user.email)) ||
-              (user && user.email === author && (
-                <Link to={"/write/activities/" + activity_id}>
-                  <WithToolTip
-                    tooltip="챕터 작성"
-                    tooltipclassname="px-2 whitespace-nowrap w-fit"
-                    offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
-                  >
-                    <PenButton />
-                  </WithToolTip>
-                </Link>
-              ))}
-            {user && user.email === author && (
+            {user && user.email === author ? (
               <WithToolTip
                 tooltip="관리"
                 tooltipclassname="px-2 whitespace-nowrap w-fit"
                 offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
               >
-                <CogButton />
+                <div
+                  onClick={() => {
+                    navigate(`/update/${activity_id}`);
+                  }}
+                  className="text-point-500 hover:rotate-90 transition-all "
+                >
+                  <CogSVG />
+                </div>
+              </WithToolTip>
+            ) : (
+              <WithToolTip
+                tooltip="액티비티 참가"
+                tooltipclassname="px-2 whitespace-nowrap w-fit"
+                offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
+              >
+                <PlusButton />
               </WithToolTip>
             )}
           </span>
@@ -100,7 +94,30 @@ export const ActivityDetailContent = ({ activity, user }) => {
 
       {isArray(chapterid) && (
         <div className="flex-none">
-          <ChapterList chapters={chapterid} />
+          <ChapterList
+            chapters={chapterid}
+            chapterAddBtn={
+              <>
+                {(PW &&
+                  isArray(participants) &&
+                  user &&
+                  participants.includes(user.email)) ||
+                  (user && user.email === author && (
+                    <Link to={"/write/activities/" + activity_id}>
+                      <WithToolTip
+                        tooltip="챕터 추가"
+                        tooltipclassname="px-2 whitespace-nowrap w-fit"
+                        offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
+                      >
+                        <div className="text-point-500 text-base hover:rotate-90 transition-all">
+                          <SquarePlusSVG />
+                        </div>
+                      </WithToolTip>
+                    </Link>
+                  ))}
+              </>
+            }
+          />
         </div>
       )}
     </>

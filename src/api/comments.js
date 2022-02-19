@@ -19,12 +19,8 @@ export const create_comment = async ({
   return commentRes;
 };
 
-export const delete_comment = async ({ commentpk, token }) => {
-  const payload = { authorization: token };
-  const res = await axios.post(
-    `/api/activities/delete_comment/${commentpk}/`,
-    payload
-  );
+export const delete_comment = async (commentpk) => {
+  const res = await axios.post(`/api/activities/delete_comment/${commentpk}/`);
   const commentDelRes = res.data;
   return commentDelRes;
 };

@@ -46,3 +46,7 @@ export function returnUnionedClassName(prevClass, newClass) {
   }
   return Array.from(new Set(prevClassExcluded.concat(newClass))).join(" ");
 }
+
+export function formatDateTimeWithTimeZone(date) {
+  return `${date.substr(0, 10)} ${date.substr(11, 8)}`;
+}

@@ -1,58 +1,122 @@
 import React from "react";
-import { PenButton } from "#comp/common";
-import { isArray } from "#serv/helpers";
+import {
+  PenButton,
+  ChapterRemoveButton,
+  ChapterUpdateButton,
+  WithToolTip,
+} from "#comp/common";
+import { isArray, formatDateTimeWithTimeZone } from "#serv";
 import { Link } from "react-router-dom";
-import { ChapterHeader } from "./ChapterHeader";
+import { useSelector, useDispatch } from "react-redux";
 import { CommentList } from "./CommentList";
+import { deleteChapter } from "@/redux/submits";
+import { useParams, useNavigate } from "react-router-dom";
 
-const ChapterContent = ({ chapter, activity }) => {
+const ChapterHeaderNav = ({ type, acitvityTitle, chapterSequence }) => {
+  return (
+    <span className="text-text-500 text-xs font-bold">
+      Activity | {type} | {acitvityTitle} | Chapter [{chapterSequence}]
+    </span>
+  );
+};
+
+const AuthorIcons = ({ author, onRemove }) => {
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { activity_id, chapter_id } = useParams();
+
+  const onDelete = () => {
+    dispatch(deleteChapter(activity_id, chapter_id, navigate));
+  };
+
+  if (user && user.email === author) {
+    return (
+      <div className="flex gap-2">
+        <ChapterUpdateButton />
+        <ChapterRemoveButton
+          onRemove={() => {
+            onDelete();
+          }}
+        />
+      </div>
+    );
+  } else return <></>;
+};
+
+const ChapterCreateUpdateTime = ({ created_time, modified_time }) => {
+  return (
+    <div className="text-text-400 text-xs whitespace-normal">
+      {`${formatDateTimeWithTimeZone(
+        created_time
+      )} | 수정 ${formatDateTimeWithTimeZone(modified_time)}`}
+    </div>
+  );
+};
+
+const ChapterHeader = ({ chapter, activity }) => {
   const {
-    // activityid,
     chapterid,
-    subject,
+    subject: chapterTitle,
     created_time,
     modified_time,
-    article,
-    // filepath,
-    // fileid,
-    // last,
-    // next,
   } = chapter;
 
-  const { title, type, chapterid: activityChapters } = activity;
-
+  const {
+    title: acitvityTitle,
+    type,
+    chapterid: activityChapters,
+    author,
+  } = activity;
   const chapterSequence = `${
     activityChapters.findIndex((chapter) => chapter.chapterid === chapterid) + 1
   }`.padStart(3, "0");
 
   return (
     <>
-      <span className="text-text-500 text-xs font-bold">
-        Activity | {type} | {title} | Chapter [{chapterSequence}]
-      </span>
-
-      <h2>
-        <span className="text-point-500 mr-2">[{chapterSequence}]</span>
-        {subject}
-      </h2>
+      <ChapterHeaderNav
+        type={type}
+        acitvityTitle={acitvityTitle}
+        chapterSequence={chapterSequence}
+      />
+      <ChapterTitle chapterSequence={chapterSequence} title={chapterTitle} />
       <div className="flex justify-between items-center ">
-        <div className="text-text-400 text-xs whitespace-normal">
-          {`${created_time.substr(0, 10)} ${created_time.substr(
-            11,
-            8
-          )} | 수정 ${modified_time.substr(0, 10)} ${modified_time.substr(
-            11,
-            8
-          )}`}
-        </div>
-        <span className="flex gap-1">
-          <PenButton />
-        </span>
+        <ChapterCreateUpdateTime
+          created_time={created_time}
+          modified_time={modified_time}
+        />
+        <AuthorIcons author={author} />
       </div>
+    </>
+  );
+};
+
+const ChapterTitle = ({ chapterSequence, title }) => {
+  return (
+    <h2>
+      <span className="text-point-500 mr-2">[{chapterSequence}]</span>
+      {title}
+    </h2>
+  );
+};
+
+const ChapterArticle = ({ article }) => {
+  return (
+    <div className="whitespace-normal break-words flex-none">
+      <div dangerouslySetInnerHTML={{ __html: article }}></div>
+    </div>
+  );
+};
+
+const ChapterContent = ({ chapter, activity }) => {
+  const { article } = chapter;
+
+  return (
+    <>
+      <ChapterHeader chapter={chapter} activity={activity} />
       <hr className=" mt-2 mb-4" />
-      <div className="whitespace-normal break-words flex-none">
-        <div dangerouslySetInnerHTML={{ __html: article }}></div>
-      </div>
+      <ChapterArticle article={article} />
     </>
   );
 };
@@ -74,11 +138,10 @@ const ChapterFiles = ({ files }) => {
   );
 };
 
-export const ChapterDetail = ({ activity, chapter, loading }) => {
+export const ChapterDetail = ({ activity, chapter, loading, onDelete }) => {
   return (
     <>
       <div className="flex-none">
-        {/* <ChapterHeader /> */}
         <ChapterContent chapter={chapter[0]} activity={activity} />
       </div>
 

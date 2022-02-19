@@ -41,3 +41,10 @@ export const create_chapter_file = async ({
     formData
   );
 };
+
+export const delete_chapter = async (activityId, chapterId) => {
+  const res = await axios.delete(
+    `/api/activities/${activityId}/chapter/${chapterId}/`
+  );
+  return res.data;
+};

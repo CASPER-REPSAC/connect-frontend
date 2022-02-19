@@ -49,3 +49,16 @@ export const create_activity = async ({
   const activityRes = res.data;
   return activityRes;
 };
+
+export const delete_activity = async (activityId) => {
+  const res = await axios.delete(`/api/w00/activities/${activityId}/`);
+  return res.data;
+};
+
+const delete_activity_participants = async (activity_id, user_id) => {
+  const data = {
+    activity_id: activity_id,
+    user_id: user_id,
+  };
+  await axios.post(`/api/activities/${activity_id}/out/`, data);
+};

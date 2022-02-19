@@ -5,6 +5,7 @@ import {
   // ActivityListGroupPage,
   // ActivityDetailPage,
   ActivityWritePage,
+  ActivityUpdatePage,
   // ChapterDetailPage,
   ChapterWritePage,
   SearchPage,
@@ -44,6 +45,7 @@ function App() {
             {/* `/api/activities/${activityId}/` */}
             <Route path="write/activities">
               <Route path="" element={<ActivityWritePage />} />
+
               <Route path=":activity_id" element={<ChapterWritePage />} />
             </Route>
             <Route path="search/*">
@@ -51,6 +53,10 @@ function App() {
               <Route path="*" element={<SearchPage />} />
             </Route>
             <Route path="*" element={<MainPage />} />
+            <Route
+              path="/update/:activity_id"
+              element={<ActivityUpdatePage />}
+            />
           </Routes>
         </section>
       </div>

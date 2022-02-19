@@ -13,7 +13,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        base: withOpacity("--color-text-base"),
         primary: "#000000",
         secondary: "#03DAC6",
         point: {

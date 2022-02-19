@@ -2,7 +2,7 @@ import * as commentsAPI from "@/api/comments";
 import * as activitiesAPI from "@/api/activities";
 import * as chaptersAPI from "@/api/chapters";
 import { getChapter } from "./chapters";
-import { getActivity } from "./activities";
+import { getActivity, getActivities } from "./activities";
 import {
   removeCommentInput,
   removeChapterInput,
@@ -21,18 +21,6 @@ const CUDActionTypeCreator = (type) => {
   });
   return rst;
 };
-
-const [
-  CREATE_COMMENT,
-  CREATE_COMMENT_SUCCESS,
-  CREATE_COMMENT_FAIL,
-  UPDATE_COMMENT,
-  UPDATE_COMMENT_SUCCESS,
-  UPDATE_COMMENT_FAIL,
-  DELETE_COMMENT,
-  DELETE_COMMENT_SUCCESS,
-  DELETE_COMMENT_FAIL,
-] = CUDActionTypeCreator("COMMENT");
 
 const [
   CREATE_ACTIVITY,
@@ -57,6 +45,18 @@ const [
   DELETE_CHAPTER_SUCCESS,
   DELETE_CHAPTER_FAIL,
 ] = CUDActionTypeCreator("CHAPTER");
+
+const [
+  CREATE_COMMENT,
+  CREATE_COMMENT_SUCCESS,
+  CREATE_COMMENT_FAIL,
+  UPDATE_COMMENT,
+  UPDATE_COMMENT_SUCCESS,
+  UPDATE_COMMENT_FAIL,
+  DELETE_COMMENT,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAIL,
+] = CUDActionTypeCreator("COMMENT");
 
 const CREATE_CHAPTER_FILE = "CHAPTER/CREATE_CHAPTER_FILE";
 const CREATE_CHAPTER_FILE_SUCCESS = "CHAPTER/CREATE_CHAPTER_FILE_SUCCESS";
@@ -165,14 +165,41 @@ export const createChapter = (navigate) => async (dispatch, getState) => {
 };
 
 export const deleteComment =
-  (commentpk, activity_id, chapter_id) => async (dispatch, getState) => {
+  (commentpk, activity_id, chapter_id) => async (dispatch) => {
     const [success, fail] = resultActionStringCreator(DELETE_COMMENT);
     dispatch({ type: DELETE_COMMENT });
     try {
-      const token = getState().auth.accessToken;
-      commentsAPI.delete_comment({ commentpk, token });
+      await commentsAPI.delete_comment(commentpk);
       dispatch({ type: success });
       dispatch(getChapter(activity_id, chapter_id));
+    } catch (error) {
+      dispatch({ type: fail, error });
+    }
+  };
+
+export const deleteChapter =
+  (activity_id, chapter_id, navigate) => async (dispatch, getState) => {
+    const [success, fail] = resultActionStringCreator(DELETE_CHAPTER);
+    dispatch({ type: DELETE_CHAPTER });
+    try {
+      await chaptersAPI.delete_chapter(activity_id, chapter_id);
+      dispatch({ type: success });
+      navigate(`/activities/${activity_id}`);
+      dispatch(getActivity(activity_id));
+    } catch (error) {
+      dispatch({ type: fail, error });
+    }
+  };
+
+export const deleteActivity =
+  (activity_id, navigate) => async (dispatch, getState) => {
+    const [success, fail] = resultActionStringCreator(DELETE_ACTIVITY);
+    dispatch({ type: DELETE_ACTIVITY });
+    try {
+      await activitiesAPI.delete_activity(activity_id);
+      dispatch({ type: success });
+      navigate(`/`);
+      dispatch(getActivities());
     } catch (error) {
       dispatch({ type: fail, error });
     }
@@ -311,6 +338,13 @@ export const submits = (state = initialState, action) => {
     case DELETE_CHAPTER_SUCCESS:
     case DELETE_CHAPTER_FAIL:
       return submitStateHelper("delete_chapter", DELETE_CHAPTER)(state, action);
+    case DELETE_ACTIVITY:
+    case DELETE_ACTIVITY_SUCCESS:
+    case DELETE_ACTIVITY_FAIL:
+      return submitStateHelper("delete_activity", DELETE_ACTIVITY)(
+        state,
+        action
+      );
     default:
       return state;
   }

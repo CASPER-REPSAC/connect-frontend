@@ -10,9 +10,30 @@ import {
   faChevronLeft,
   faPaperPlane,
   faPlus,
+  faTrashCan,
+  faSquarePlus,
+  faPenToSquare,
+  faHand,
+  faPersonRunning,
 } from "@fortawesome/free-solid-svg-icons";
 import { CasLogoSVG as CasLogo } from "./CasLogoSVG";
 import { GitIssueSVG as GitIssue } from "./GitIssueSVG";
+
+export const HandSVG = () => {
+  return <FontAwesomeIcon icon={faHand} />;
+};
+
+export const PersonRunningSVG = () => {
+  return <FontAwesomeIcon icon={faPersonRunning} />;
+};
+
+export const TrashCanSVG = () => {
+  return <FontAwesomeIcon icon={faTrashCan} />;
+};
+
+export const PenToSquareSVG = () => {
+  return <FontAwesomeIcon icon={faPenToSquare} />;
+};
 
 export const ChevronLeftSVG = () => {
   return <FontAwesomeIcon icon={faChevronLeft} />;
@@ -21,6 +42,9 @@ export const PlusSVG = () => {
   return <FontAwesomeIcon icon={faPlus} />;
 };
 
+export const SquarePlusSVG = () => {
+  return <FontAwesomeIcon icon={faSquarePlus} />;
+};
 export const PaperPlaneSVG = () => {
   return <FontAwesomeIcon icon={faPaperPlane} />;
 };

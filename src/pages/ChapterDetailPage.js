@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ChapterDetail } from "#comp/activities";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getChapter } from "@/redux/chapters";
 import { getActivity } from "@/redux/activities";
 
@@ -25,6 +25,7 @@ export const ChapterDetailPage = () => {
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);

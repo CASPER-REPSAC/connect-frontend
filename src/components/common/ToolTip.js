@@ -15,6 +15,7 @@ export const WithToolTip = (props) => {
   if (props.offset) {
     offset = props.offset;
   }
+
   return (
     <div
       {...props}
