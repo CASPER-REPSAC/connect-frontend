@@ -11,11 +11,8 @@ import {
 import { createChapter } from "@/redux/submits";
 import { getActivity } from "@/redux/activities";
 import { SubmitButton } from "#comp/common";
-import {
-  ActivityRowItem,
-  ActivityInfo,
-  SideChapterList,
-} from "#comp/activities/";
+import { ActivityRowItem, ActivityInfo } from "#comp/activities/";
+import { SideChapterList } from "#comp/chapters";
 import { isArray } from "#serv";
 
 export const ChapterWritePage = () => {

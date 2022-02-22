@@ -5,6 +5,7 @@ import inputs from "./inputs";
 import auth from "./auth";
 import submits from "./submits";
 import alerts from "./alerts";
+import shows from "./shows";
 
 const rootReducer = combineReducers({
   activities,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   chapters,
   submits,
   alerts,
+  shows,
 });
 
 export default rootReducer;

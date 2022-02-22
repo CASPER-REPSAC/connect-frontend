@@ -2,12 +2,19 @@ import * as commentsAPI from "@/api/comments";
 import * as activitiesAPI from "@/api/activities";
 import * as chaptersAPI from "@/api/chapters";
 import { getChapter } from "./chapters";
-import { getActivity, getActivities } from "./activities";
+import {
+  getActivity,
+  getActivities,
+  getContainedActivities,
+} from "./activities";
 import {
   removeCommentInput,
   removeChapterInput,
   removeChapterInputFile,
+  changeActivityInput,
+  removeActivityInput,
 } from "./inputs";
+import { formDateAsFormData } from "#serv";
 
 const CUDActionTypeCreator = (type) => {
   const CUD = ["CREATE", "UPDATE", "DELETE"];
@@ -94,23 +101,52 @@ export const createComment =
     }
   };
 
-export const createActivity = () => async (dispatch, getState) => {
+export const createActivity = (navigate) => async (dispatch, getState) => {
   const [success, fail] = resultActionStringCreator(CREATE_ACTIVITY);
 
   dispatch({ type: CREATE_ACTIVITY });
   try {
+    const createDate = formDateAsFormData(new Date());
+    dispatch(
+      changeActivityInput({
+        name: "createDate",
+        value: createDate,
+      })
+    );
     const author = getState().auth.user.pk;
     const activityInput = getState().inputs.activityInput;
-    await activitiesAPI.create_activity({
+    const data = await activitiesAPI.create_activity({
       ...activityInput,
       author,
       currentState: activityInput.currentState * 1,
     });
     dispatch({ type: success });
+    dispatch(removeActivityInput());
+    navigate(`/activities/${data.id}`);
   } catch (error) {
     dispatch({ type: fail, error });
   }
 };
+
+export const updateActivity =
+  (activity_id, navigate) => async (dispatch, getState) => {
+    const [success, fail] = resultActionStringCreator(UPDATE_ACTIVITY);
+
+    dispatch({ type: UPDATE_ACTIVITY });
+    try {
+      const activityInput = getState().inputs.activityInput;
+      const data = await activitiesAPI.update_activity({
+        ...activityInput,
+        activity_id,
+        currentState: activityInput.currentState * 1,
+      });
+      dispatch({ type: success });
+      dispatch(removeActivityInput());
+      navigate(`/activities/${data.id}`);
+    } catch (error) {
+      dispatch({ type: fail, error });
+    }
+  };
 
 export const createChapterFiles =
   (activity_id, chapter_id, navigate) => async (dispatch, getState) => {
@@ -279,6 +315,13 @@ export const submits = (state = initialState, action) => {
     case CREATE_ACTIVITY_SUCCESS:
     case CREATE_ACTIVITY_FAIL:
       return submitStateHelper("create_activity", CREATE_ACTIVITY)(
+        state,
+        action
+      );
+    case UPDATE_ACTIVITY:
+    case UPDATE_ACTIVITY_SUCCESS:
+    case UPDATE_ACTIVITY_FAIL:
+      return submitStateHelper("update_activity", UPDATE_ACTIVITY)(
         state,
         action
       );

@@ -2,7 +2,7 @@ import React from "react";
 import { PlusButton, WithToolTip } from "#comp/common";
 import { CogSVG, PlusSVG, SquarePlusSVG } from "@/icons";
 import { isArray } from "#serv/helpers";
-import { ChapterList } from "./ChapterList";
+import { ChapterList } from "#comp/chapters";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -30,13 +30,13 @@ export const ActivityDetailContent = ({ activity, user }) => {
   );
   const navigate = useNavigate();
   return (
-    <>
+    <div className="flex flex-col gap-20">
       <div className="flex-none">
         <span className="text-text-500 text-xs font-bold">
           Activity | {type}
         </span>
 
-        <h2>{title}</h2>
+        <h1>{title}</h1>
         <div className="flex justify-between items-center ">
           <div className="text-text-400 text-xs whitespace-normal">
             {`${createDate} | ${startDate}~${endDate} | `}
@@ -92,43 +92,39 @@ export const ActivityDetailContent = ({ activity, user }) => {
         </div>
       </div>
 
-      {isArray(chapterid) && (
-        <div className="flex-none">
-          <ChapterList
-            chapters={chapterid}
-            chapterAddBtn={
-              <>
-                {(PW &&
-                  isArray(participants) &&
-                  user &&
-                  participants.includes(user.email)) ||
-                  (user && user.email === author && (
-                    <Link to={"/write/activities/" + activity_id}>
-                      <WithToolTip
-                        tooltip="챕터 추가"
-                        tooltipclassname="px-2 whitespace-nowrap w-fit"
-                        offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
-                      >
-                        <div className="text-point-500 text-base hover:rotate-90 transition-all">
-                          <SquarePlusSVG />
-                        </div>
-                      </WithToolTip>
-                    </Link>
-                  ))}
-              </>
-            }
-          />
-        </div>
-      )}
-    </>
+      <div className="flex-none">
+        <ChapterList
+          chapters={chapterid}
+          chapterAddBtn={
+            <>
+              {(PW &&
+                isArray(participants) &&
+                user &&
+                participants.includes(user.email)) ||
+                (user && user.email === author && (
+                  <Link to={"/write/" + activity_id}>
+                    <WithToolTip
+                      tooltip="챕터 추가"
+                      tooltipclassname="px-2 whitespace-nowrap w-fit"
+                      offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
+                    >
+                      <div className="text-point-500 text-base hover:rotate-90 transition-all">
+                        <SquarePlusSVG />
+                      </div>
+                    </WithToolTip>
+                  </Link>
+                ))}
+            </>
+          }
+        />
+      </div>
+    </div>
   );
 };
 
 export const ActivityDetail = ({ activity, user }) => {
   return (
-    <>
-      <ActivityDetailContent activity={activity} user={user} />
-    </>
+    <>{activity && <ActivityDetailContent activity={activity} user={user} />}</>
   );
 };
 

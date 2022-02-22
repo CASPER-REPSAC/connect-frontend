@@ -10,9 +10,7 @@ export const CardFrame = (props) => {
   } else if (props.isfit) {
     prevClassName = prevClassName + " w-fit min-w-chapterCard ";
   } else {
-    prevClassName =
-      prevClassName +
-      " min-w-smCard max-w-smCard xl:min-w-tabletCard xl:max-w-tabletCard";
+    prevClassName = prevClassName + " min-w-tabletCard max-w-tabletCard";
   }
 
   newClassName = returnUnionedClassName(prevClassName, newClassName);

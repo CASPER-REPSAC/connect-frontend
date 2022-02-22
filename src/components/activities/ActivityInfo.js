@@ -15,7 +15,7 @@ const ParticipantIcons = ({ participants }) => {
                 key={participant.user_id}
                 userdata={participant}
                 tooltip={(index === 0 ? "👑" : "") + participant.user_name}
-                offsetclass="top-12 -left-5 after:absolute after:-top-1/4 after:right-1/2 after:border-transparent after:border-b-background-700"
+                offsetclass="top-12 left-0 after:absolute after:-top-1/4 after:left-[12px] after:border-transparent after:border-b-background-700"
                 className="w-10 h-10"
               />
             );
@@ -50,7 +50,7 @@ export const ActivityInfo = React.memo(() => {
 
   return (
     <>
-      <Card.Frame className="h-fit hover:shadow-none hover:bg-background-50">
+      <Card.Frame className="h-fit hover:shadow-none hover:bg-background-50 rounded-none">
         <h3>참여자</h3>
         {data && (
           <>

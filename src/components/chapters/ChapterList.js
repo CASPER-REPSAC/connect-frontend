@@ -1,8 +1,9 @@
 import React from "react";
-import { Card } from "#comp/common";
+import { Card, Muted } from "#comp/common";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ChevronLeftSVG } from "@/icons/SVGs";
+import { isArray } from "#serv";
 
 export const ChapterListItem = ({ chapter, index }) => {
   const { activityid, chapterid, created_time, last, next, subject } = chapter;
@@ -35,6 +36,7 @@ export const ChapterList = ({ chapters, chapterAddBtn }) => {
       >
         <h3 className="m-1 flex gap-2 items-center">챕터 {chapterAddBtn}</h3>
         <div className="lg:grid gap-x-2 gap-y-1 grid-cols-2">
+          {!isArray(chapters) && <Muted>챕터가 없습니다.</Muted>}
           {Math.ceil(chapters.length / 2) < 6 &&
             chapters.map((chapter, index) => {
               const order = 1 + index * 2;
@@ -67,19 +69,21 @@ export const ChapterList = ({ chapters, chapterAddBtn }) => {
 };
 
 const ActivityTitle = ({ activityTitle, activity_id, chapter_id }) => {
-  if (chapter_id === -1) {
-    return (
-      <h3 className="text-point-400 ">
-        <span className="ml-1">{activityTitle}</span>
-      </h3>
-    );
-  }
   return (
     <Link to={`/activities/${activity_id}`}>
-      <h3 className="text-point-400 hover:-translate-x-2 transition-all hover:text-point-600 ml-2">
-        <span>
-          <ChevronLeftSVG />
-        </span>
+      <h3
+        className={
+          " ml-2 " +
+          (chapter_id
+            ? " hover:-translate-x-2 text-point-400 transition-all hover:text-point-600"
+            : "text-point-600")
+        }
+      >
+        {chapter_id && (
+          <span>
+            <ChevronLeftSVG />
+          </span>
+        )}
         <span className="ml-1">{activityTitle}</span>
       </h3>
     </Link>
@@ -99,7 +103,7 @@ export const SideChapterListItem = ({ chapter, index, active }) => {
       >
         <div
           className={
-            "mr-2 mt-1 rounded-lg transition-all text-center w-4 h-4 z-20  flex-none " +
+            "mr-2 mt-1 rounded-lg transition-all text-center w-4 h-4 z-10  flex-none " +
             (active
               ? "bg-point-600  scale-75 group-hover:scale-90"
               : "bg-background-400  scale-50 group-hover:scale-90")
@@ -120,7 +124,8 @@ export const SideChapterListItem = ({ chapter, index, active }) => {
 
 export const SideChapterList = React.memo(() => {
   const { activity_id } = useParams();
-  const chapter_id = useParams().chapter_id || -1;
+  const chapter_id = useParams()["*"].split("/")[1];
+
   const { data: activity } = useSelector(
     (state) => state.activities.activity[activity_id] || { data: null }
   );
@@ -128,10 +133,7 @@ export const SideChapterList = React.memo(() => {
   return (
     <>
       {activity && (
-        <Card.Frame
-          className="bg-background-50 hover:bg-background-50 p-3 xl:p-3 hover:shadow-none min-h-card "
-          expended="true"
-        >
+        <Card.Frame className="bg-background-50 hover:bg-background-50 p-3 xl:p-3 hover:shadow-none min-h-card rounded-none ">
           <ActivityTitle
             activityTitle={activity.title}
             activity_id={activity_id}
@@ -154,7 +156,7 @@ export const SideChapterList = React.memo(() => {
                 })}
               </>
             ) : (
-              <div className="text-text-400 ml-2">챕터가 없습니다.</div>
+              <Muted>챕터가 없습니다.</Muted>
             )}
           </div>
         </Card.Frame>

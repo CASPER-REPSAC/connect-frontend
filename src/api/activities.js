@@ -55,10 +55,37 @@ export const delete_activity = async (activityId) => {
   return res.data;
 };
 
-const delete_activity_participants = async (activity_id, user_id) => {
+export const delete_activity_participants = async (activity_id, user_id) => {
   const data = {
     activity_id: activity_id,
     user_id: user_id,
   };
   await axios.post(`/api/activities/${activity_id}/out/`, data);
+};
+
+export const update_activity = async ({
+  title,
+  type,
+  description,
+  startDate,
+  endDate,
+  currentState,
+  authString,
+  tags,
+  participants_delete,
+  activity_id,
+}) => {
+  const payload = {
+    title,
+    type,
+    description,
+    startDate,
+    endDate,
+    currentState,
+    authString,
+    tags,
+    participants_delete,
+  };
+  const res = await axios.patch(`/api/activities/${activity_id}/`, payload);
+  return res.data;
 };

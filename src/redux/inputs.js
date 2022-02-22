@@ -4,9 +4,11 @@ const REMOVE_SEARCH_INPUT = "inputs/REMOVE_SEARCH_INPUT";
 
 const CHANGE_ACTIVITY_INPUT = "inputs/CHANGE_ACTIVITY_INPUT";
 const REMOVE_ACTIVITY_INPUT = "inputs/REMOVE_ACTIVITY_INPUT";
+const SET_ACTIVITY_INPUT = "inputs/SET_ACTIVITY_INPUT";
 
 const CHANGE_CHAPTER_INPUT = "inputs/CHANGE_CHAPTER_INPUT";
 const REMOVE_CHAPTER_INPUT = "inputs/REMOVE_CHAPTER_INPUT";
+const SET_CHAPTER_INPUT = "inputs/SET_CHAPTER_INPUT";
 
 const CHANGE_CHAPTER_INPUT_FILES = "inputs/CHANGE_CHAPTER_INPUT_FILES";
 const REMOVE_CHAPTER_INPUT_FILES = "inputs/REMOVE_CHAPTER_INPUT_FILES";
@@ -35,6 +37,11 @@ export const removeActivityInput = () => ({
   type: REMOVE_ACTIVITY_INPUT,
 });
 
+export const setActivityInput = (payload) => ({
+  type: SET_ACTIVITY_INPUT,
+  payload,
+});
+
 export const changeChapterInput = (target) => ({
   type: CHANGE_CHAPTER_INPUT,
   target,
@@ -43,6 +50,11 @@ export const changeChapterInput = (target) => ({
 export const changeChapterInputFiles = (files) => ({
   type: CHANGE_CHAPTER_INPUT_FILES,
   files,
+});
+
+export const setChapterInput = (payload) => ({
+  type: SET_ACTIVITY_INPUT,
+  payload,
 });
 
 export const removeChapterInputFiles = () => ({
@@ -85,6 +97,7 @@ const initialState = {
     currentState: 0,
     authString: "",
     tags: [],
+    participants_delete: [],
   },
   chapterInput: {
     subject: "",
@@ -146,6 +159,11 @@ export const inputs = (state = initialState, action) => {
           authstring: "",
         },
       };
+    case REMOVE_ACTIVITY_INPUT:
+      return {
+        ...state,
+        activityInput: initialState.activityInput,
+      };
     case REMOVE_CHAPTER_INPUT_FILES:
       return {
         ...state,
@@ -155,6 +173,16 @@ export const inputs = (state = initialState, action) => {
       return {
         ...state,
         files: delete state.files[action.filename],
+      };
+    case SET_ACTIVITY_INPUT:
+      return {
+        ...state,
+        activityInput: action.payload,
+      };
+    case SET_CHAPTER_INPUT:
+      return {
+        ...state,
+        chapterInput: action.payload,
       };
     default:
       return state;

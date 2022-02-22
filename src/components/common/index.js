@@ -4,3 +4,5 @@ export { WithToolTip } from "./ToolTip";
 export * from "./Modal";
 export * from "./Buttons";
 export * from "./Alerts";
+export * from "./Muted";
+export * from "./Guides";

@@ -11,11 +11,14 @@ import {
   SearchPage,
   UserPage,
   MainPage,
+  DetailPage,
+  WritePage,
+  UpdatePage,
   // AuthPage,
   // IssuesPage,
   // SettingsPage, 이 셋은 모달이랑 새창 열기로 처리
 } from "@/pages";
-import { SideBar } from "#comp/navigations";
+import { SideBar, TopNavBar } from "#comp/navigations";
 import { loginWithCookie } from "@/redux/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Alerts } from "#comp/common";
@@ -29,38 +32,30 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="bg-background-400 w-full h-fit min-h-full max-w-screen flex ">
+    <div className="bg-background-50 w-full h-fit min-h-full flex ">
       {console.log(location)}
       <div
-        className="bg-background-200 w-full max-w-full grid justify-start "
-        style={{ gridTemplateColumns: "64px 1fr" }}
+        className=" bg-background-200 w-full grid"
+        style={{
+          gridTemplateColumns: "64px 1fr",
+          gridTemplateRows: "min-content 1fr",
+        }}
       >
-        <header className="w-fit fixed top-0 left-0 z-50 ">
+        <div className="col-start-2 row-start-1 ">
+          <TopNavBar />
+        </div>
+        <div className="row-span-2">
           <SideBar />
-        </header>
-        <div className="col-start-1"></div>
-        <section className="col-start-2 min-w-full max-w-full p-3 pt-1">
+        </div>
+        <section className="order-4 ">
           <Routes>
-            <Route path="user" element={<UserPage />} />
-            {/* `/api/activities/${activityId}/` */}
-            <Route path="write/activities">
-              <Route path="" element={<ActivityWritePage />} />
-
-              <Route path=":activity_id" element={<ChapterWritePage />} />
-            </Route>
-            <Route path="search/*">
-              <Route path=":type/:keyword" element={<SearchPage />} />
-              <Route path="*" element={<SearchPage />} />
-            </Route>
-            <Route path="*" element={<MainPage />} />
-            <Route
-              path="/update/:activity_id"
-              element={<ActivityUpdatePage />}
-            />
+            <Route path="/" element={<MainPage />} />
+            <Route path="/activities/:activity_id/*" element={<DetailPage />} />
+            <Route path="write/*" element={<WritePage />} />
+            <Route path="update/:activity_id/*" element={<UpdatePage />} />
           </Routes>
         </section>
       </div>
-      <Alerts />
     </div>
   );
 }

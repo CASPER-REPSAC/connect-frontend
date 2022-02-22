@@ -70,19 +70,19 @@ h6 {
 }
 
 h1 {
-  @apply text-2xl;
+  @apply text-3xl;
 }
 
 h2 {
-  @apply text-xl;
+  @apply text-2xl;
 }
 
 h3 {
-  @apply text-sm;
+  @apply text-base;
 }
 
 h4 {
-  @apply text-xs;
+  @apply text-sm;
 }
 
 h5 {

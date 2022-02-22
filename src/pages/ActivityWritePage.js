@@ -36,6 +36,7 @@ export const ActivityWritePage = () => {
     );
     dispatch(createActivity());
   }, [dispatch]);
+
   const { data: containedActivities } = useSelector(
     (state) => state.activities.containedActivities || { data: null }
   );

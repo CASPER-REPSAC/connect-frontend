@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   PenButton,
   ChapterRemoveButton,
@@ -8,9 +8,10 @@ import {
 import { isArray, formatDateTimeWithTimeZone } from "#serv";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { CommentList } from "./CommentList";
+import { CommentList } from "#comp/comments";
 import { deleteChapter } from "@/redux/submits";
 import { useParams, useNavigate } from "react-router-dom";
+import { getChapter } from "@/redux/chapters";
 
 const ChapterHeaderNav = ({ type, acitvityTitle, chapterSequence }) => {
   return (
@@ -31,10 +32,18 @@ const AuthorIcons = ({ author, onRemove }) => {
     dispatch(deleteChapter(activity_id, chapter_id, navigate));
   };
 
+  const onModify = () => {
+    navigate(`/update/${activity_id}/chapter/${chapter_id}`);
+  };
+
   if (user && user.email === author) {
     return (
       <div className="flex gap-2">
-        <ChapterUpdateButton />
+        <ChapterUpdateButton
+          onClick={() => {
+            onModify();
+          }}
+        />
         <ChapterRemoveButton
           onRemove={() => {
             onDelete();
@@ -94,10 +103,10 @@ const ChapterHeader = ({ chapter, activity }) => {
 
 const ChapterTitle = ({ chapterSequence, title }) => {
   return (
-    <h2>
+    <h1>
       <span className="text-point-500 mr-2">[{chapterSequence}]</span>
       {title}
-    </h2>
+    </h1>
   );
 };
 
@@ -138,17 +147,43 @@ const ChapterFiles = ({ files }) => {
   );
 };
 
-export const ChapterDetail = ({ activity, chapter, loading, onDelete }) => {
+export const ChapterDetail = ({ activity, onDelete }) => {
+  const { activity_id, chapter_id } = useParams();
+  const {
+    loading,
+    error,
+    data: chapter,
+  } = useSelector(
+    (state) =>
+      state.chapters[chapter_id] || {
+        data: null,
+        loading: false,
+        error: null,
+      }
+  );
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(getChapter(activity_id, chapter_id));
+  }, [dispatch, activity_id, chapter_id]);
+
   return (
     <>
-      <div className="flex-none">
-        <ChapterContent chapter={chapter[0]} activity={activity} />
-      </div>
-
-      <div className="flex-none">
-        {isArray(chapter[1]) && <ChapterFiles files={chapter[1]} />}
-        <CommentList comments={chapter[2]} />
-      </div>
+      {chapter && (
+        <>
+          {" "}
+          <div className="flex-none">
+            <ChapterContent chapter={chapter[0]} activity={activity} />
+          </div>
+          <div className="flex-none">
+            {isArray(chapter[1]) && <ChapterFiles files={chapter[1]} />}
+            <CommentList comments={chapter[2]} />
+          </div>
+        </>
+      )}
     </>
   );
 };

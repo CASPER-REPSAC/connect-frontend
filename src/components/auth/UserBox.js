@@ -1,6 +1,8 @@
 import React from "react";
 import { Card } from "#comp/common";
 import { UserIcon } from "@/icons/";
+import { useSelector } from "react-redux";
+import { ContainedActivities } from "#comp/activities";
 
 const UserProfile = ({ profile }) => {
   const { email, name, given_name, family_name, picture } = profile;
@@ -18,14 +20,16 @@ const UserProfile = ({ profile }) => {
   );
 };
 
-const NoUser = () => {
-  return <div className="text-text-500 text-sm">로그인 할 수 있는데...</div>;
-};
+export const UserBox = React.memo(() => {
+  const profile = useSelector((state) => state.auth.profile);
 
-export const UserBox = React.memo(({ profile }) => {
+  if (!profile) return <></>;
+
   return (
     <Card.Frame>
-      {profile ? <UserProfile profile={profile} /> : <NoUser />}
+      <UserProfile profile={profile} />
+      <hr className="my-4" />
+      <ContainedActivities />
     </Card.Frame>
   );
 });
