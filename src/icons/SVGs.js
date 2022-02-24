@@ -15,12 +15,27 @@ import {
   faPenToSquare,
   faHand,
   faPersonRunning,
+  faFile,
+  faArrowLeft,
+  faMinus,
 } from "@fortawesome/free-solid-svg-icons";
 import { CasLogoSVG as CasLogo } from "./CasLogoSVG";
 import { GitIssueSVG as GitIssue } from "./GitIssueSVG";
 
+export const ArrowLeftSVG = () => {
+  return <FontAwesomeIcon icon={faArrowLeft} />;
+};
+
+export const MinusSVG = () => {
+  return <FontAwesomeIcon icon={faMinus} />;
+};
+
 export const HandSVG = () => {
   return <FontAwesomeIcon icon={faHand} />;
+};
+
+export const FileSVG = () => {
+  return <FontAwesomeIcon icon={faFile} />;
 };
 
 export const PersonRunningSVG = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Muted } from "#comp/common";
+import { Card, Muted, ToWriteChapterButton } from "#comp/common";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ChevronLeftSVG } from "@/icons/SVGs";
@@ -14,50 +14,48 @@ export const ChapterListItem = ({ chapter, index }) => {
         className="mb-1 lg:mb-0 p-2 xl:p-2 cursor-pointer flex items-center group"
         expended="true"
       >
-        <h3>
+        <h4>
           <span className="mr-1 text-text-500 group-hover:text-point-300 transition-all">
             [{`${index + 1}`.padStart(3, "0")}]
           </span>
           {subject}
-        </h3>
+        </h4>
       </Card.Frame>
     </Link>
   );
 };
 
-export const ChapterList = ({ chapters, chapterAddBtn }) => {
-  const rows =
-    Math.ceil(chapters.length / 2) > 4 ? Math.ceil(chapters.length / 2) : 5;
+export const ChapterList = ({ activity, user }) => {
+  const {
+    id: activity_id,
+    author,
+    participants,
+    chapterid: chapters,
+    PW,
+  } = activity;
+
   return (
     <>
       <Card.Frame
         className="bg-background-200 hover:bg-background-200 p-3 xl:p-3 hover:shadow-none min-h-chapterList "
         expended="true"
       >
-        <h3 className="m-1 flex gap-2 items-center">챕터 {chapterAddBtn}</h3>
-        <div className="lg:grid gap-x-2 gap-y-1 grid-cols-2">
+        <h3 className="m-1 flex gap-2 items-center">
+          챕터
+          {(PW &&
+            isArray(participants) &&
+            user &&
+            participants.includes(user.email)) ||
+            (user && user.email === author && (
+              <ToWriteChapterButton activity_id={activity_id} />
+            ))}
+        </h3>
+        <div className="lg:grid gap-x-2 gap-y-1 ">
           {!isArray(chapters) && <Muted>챕터가 없습니다.</Muted>}
-          {Math.ceil(chapters.length / 2) < 6 &&
-            chapters.map((chapter, index) => {
-              const order = 1 + index * 2;
 
-              return (
-                <span
-                  key={chapter.chapterid}
-                  style={{ order: `${order + 1}` }}
-                ></span>
-              );
-            })}
           {chapters.map((chapter, index) => {
-            let order = 1;
-            if (rows > index) {
-              order = 1 + index * 2;
-            } else {
-              order = (index - rows) * 2 + 2;
-            }
-            const style = { order: `${order}` };
             return (
-              <span key={chapter.chapterid} style={style}>
+              <span key={chapter.chapterid}>
                 <ChapterListItem chapter={chapter} index={index} />
               </span>
             );

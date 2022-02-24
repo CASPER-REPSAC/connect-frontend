@@ -6,17 +6,22 @@ import {
   changeChapterInput,
   setActivityInput,
   removeActivityInput,
+  removeChapterInput,
+  setChapterInput,
 } from "@/redux/inputs";
 import {
   createActivity,
   updateActivity,
   createChapter,
+  updateChapter,
   removeError,
   deleteActivity,
 } from "@/redux/submits";
 import { getContainedActivities, getActivity } from "@/redux/activities";
+import { getChapter } from "@/redux/chapters";
 import { formDateAsFormData } from "#serv";
 import { SubmitButtonWithText, ActivityRemoveButton } from "#comp/common";
+import { DeletableChapterFileList } from "./UpdatableDatas";
 
 const SubHeader = ({ children }) => {
   return <h4 className="text-text-800">{children}</h4>;
@@ -51,27 +56,52 @@ export const FormContainerWriteChapter = () => {
 
 export const FormContainerUpdateChapter = () => {
   const navigate = useNavigate();
-  const { activity_id } = useParams();
+  const { activity_id, chapter_id } = useParams();
   const dispatch = useDispatch();
+
+  const { data: chapter } = useSelector((state) => {
+    return state.chapters[chapter_id] || { data: null };
+  });
+
+  const onDeleteFilesChange = (fileDelete) => {
+    dispatch(changeChapterInput({ name: "file_delete", value: fileDelete }));
+  };
 
   const onSubmit = useCallback(() => {
     dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
-    dispatch(createChapter(navigate));
-  }, [dispatch, activity_id, navigate]);
+    dispatch(updateChapter(activity_id, chapter_id, navigate));
+  }, [dispatch, activity_id, chapter_id, navigate]);
+
+  useEffect(() => {
+    if (!chapter) dispatch(getChapter(activity_id, chapter_id));
+    else
+      dispatch(
+        setChapterInput({ ...chapter[0], file_delete: [], authString: "" })
+      );
+  }, [chapter, dispatch, activity_id, chapter_id]);
 
   useEffect(() => {
     return () => {
-      dispatch(removeError("chapter"));
+      dispatch(removeError("update_chapter"));
+      dispatch(removeChapterInput());
     };
   }, [dispatch]);
 
   return (
     <div>
       <SubHeader>챕터 수정</SubHeader>
-      <ChapterForm />
-      <div className="flex justify-end">
-        <SubmitButtonWithText onClick={onSubmit} />
-      </div>
+      {chapter && (
+        <div className=" py-1 px-2">
+          <ChapterForm />
+          <div className="flex justify-between mt-2">
+            <DeletableChapterFileList
+              files={chapter[1]}
+              onDeleteFilesChange={onDeleteFilesChange}
+            />
+            <SubmitButtonWithText onClick={onSubmit} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -141,7 +171,7 @@ export const FormContainerUpdateActivity = () => {
     <div>
       <SubHeader>액티비티 수정</SubHeader>
       <ActivityForm />
-      <div className="flex justify-between">
+      <div className="flex justify-between py-1 px-2">
         <ActivityRemoveButton onRemove={onRemove} />
         <SubmitButtonWithText onClick={onSubmit} />
       </div>

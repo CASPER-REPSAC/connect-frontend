@@ -11,7 +11,7 @@ const WritePage = () => {
     <div className="p-2 h-full w-full flex justify-center">
       <Card.Frame
         expended="true"
-        className="hover:bg-background-50 w-full sm:w-[500px] md:w-[650px] lg:w-[900px]"
+        className="hover:bg-background-50 hover:shadow-none w-full sm:w-[500px] md:w-[650px] lg:w-[900px]"
       >
         {!authLoading && user && (
           <Routes>

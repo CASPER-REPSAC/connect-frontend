@@ -65,9 +65,13 @@ const [
   DELETE_COMMENT_FAIL,
 ] = CUDActionTypeCreator("COMMENT");
 
-const CREATE_CHAPTER_FILE = "CHAPTER/CREATE_CHAPTER_FILE";
-const CREATE_CHAPTER_FILE_SUCCESS = "CHAPTER/CREATE_CHAPTER_FILE_SUCCESS";
-const CREATE_CHAPTER_FILE_FAIL = "CHAPTER/CREATE_CHAPTER_FILE_FAIL";
+const CREATE_CHAPTER_FILE = "submits/CREATE_CHAPTER_FILE";
+const CREATE_CHAPTER_FILE_SUCCESS = "submits/CREATE_CHAPTER_FILE_SUCCESS";
+const CREATE_CHAPTER_FILE_FAIL = "submits/CREATE_CHAPTER_FILE_FAIL";
+
+const JOIN_ACTIVITY = "submits/JOIN_ACTIVITY";
+const JOIN_ACTIVITY_SUCCESS = "submits/JOIN_ACTIVITY_SUCCESS";
+const JOIN_ACTIVITY_FAIL = "submits/JOIN_ACTIVITY_FAIL";
 
 const REMOVE_ERROR = "CHAPTER/REMOVE_ERROR";
 
@@ -169,10 +173,14 @@ export const createChapterFiles =
           });
           dispatch({ type: success, filename: file.name });
           dispatch(removeChapterInputFile(file.name));
-          navigate(`/activities/${activity_id}/chapter/${chapter_id}`);
-          getActivity(activity_id);
+
+          if (i === files.length - 1) {
+            navigate(`/activities/${activity_id}/chapter/${chapter_id}`);
+            dispatch(getActivity(activity_id));
+            dispatch(getChapter(activity_id, chapter_id));
+          }
         } catch (error) {
-          dispatch({ type: error, filename: file.name });
+          dispatch({ type: fail, error });
         }
       }
     } else {
@@ -199,6 +207,26 @@ export const createChapter = (navigate) => async (dispatch, getState) => {
     dispatch({ type: fail, error });
   }
 };
+
+export const updateChapter =
+  (activity_id, chapter_id, navigate) => async (dispatch, getState) => {
+    const [success, fail] = resultActionStringCreator(CREATE_CHAPTER);
+
+    dispatch({ type: CREATE_CHAPTER });
+    try {
+      const chapterInput = getState().inputs.chapterInput;
+      const chapterRes = await chaptersAPI.update_chapter({
+        ...chapterInput,
+        activity_id,
+        chapter_id,
+      });
+      dispatch({ type: success });
+      dispatch(createChapterFiles(activity_id, chapter_id, navigate));
+      dispatch(removeChapterInput());
+    } catch (error) {
+      dispatch({ type: fail, error });
+    }
+  };
 
 export const deleteComment =
   (commentpk, activity_id, chapter_id) => async (dispatch) => {
@@ -244,6 +272,40 @@ export const deleteActivity =
 export const removeError = (key) => {
   return { type: REMOVE_ERROR, key };
 };
+
+export const joinActivity =
+  (activity_id, user_id) => async (dispatch, getState) => {
+    const [success, fail] = resultActionStringCreator(JOIN_ACTIVITY);
+
+    dispatch({ type: CREATE_CHAPTER });
+    try {
+      await activitiesAPI.join_activity({
+        activity_id,
+        user_id,
+      });
+      dispatch({ type: success });
+      dispatch(getActivity(activity_id));
+    } catch (error) {
+      dispatch({ type: fail, error });
+    }
+  };
+
+export const quitActivity =
+  (activity_id, user_id) => async (dispatch, getState) => {
+    const [success, fail] = resultActionStringCreator(JOIN_ACTIVITY);
+
+    dispatch({ type: CREATE_CHAPTER });
+    try {
+      await activitiesAPI.quit_activity({
+        activity_id,
+        user_id,
+      });
+      dispatch({ type: success });
+      dispatch(getActivity(activity_id));
+    } catch (error) {
+      dispatch({ type: fail, error });
+    }
+  };
 
 const initialState = {
   comment: {
@@ -305,6 +367,53 @@ const submitStateHelper = (key, baseActionType) => (state, action) => {
   }
 };
 
+const submitFileStateHelper = (baseActionType) => (state, action) => {
+  const [success, fail] = [
+    `${baseActionType}_SUCCESS`,
+    `${baseActionType}_FAIL`,
+  ];
+  switch (action.type) {
+    case baseActionType:
+      return {
+        ...state,
+        files: {
+          ...state.files,
+          [action.filename]: {
+            ...state.files[action.filename],
+            error: null,
+            loading: true,
+          },
+        },
+      };
+    case success:
+      return {
+        ...state,
+        files: {
+          ...state.files,
+          [action.filename]: {
+            ...state.files[action.filename],
+            error: null,
+            loading: false,
+          },
+        },
+      };
+    case fail:
+      return {
+        ...state,
+        files: {
+          ...state.files,
+          [action.filename]: {
+            ...state.files[action.filename],
+            error: action.error,
+            loading: false,
+          },
+        },
+      };
+    default:
+      return state;
+  }
+};
+
 export const submits = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_COMMENT:
@@ -330,41 +439,9 @@ export const submits = (state = initialState, action) => {
     case CREATE_CHAPTER_FAIL:
       return submitStateHelper("create_chapter", CREATE_CHAPTER)(state, action);
     case CREATE_CHAPTER_FILE:
-      return {
-        ...state,
-        files: {
-          ...state.files,
-          [action.filename]: {
-            ...state[action.filename],
-            loading: true,
-            error: null,
-          },
-        },
-      };
     case CREATE_CHAPTER_FILE_SUCCESS:
-      return {
-        ...state,
-        files: {
-          ...state.files,
-          [action.filename]: {
-            ...state[action.filename],
-            loading: false,
-            error: null,
-          },
-        },
-      };
     case CREATE_CHAPTER_FILE_FAIL:
-      return {
-        ...state,
-        files: {
-          ...state.files,
-          [action.filename]: {
-            ...state[action.filename],
-            loading: false,
-            error: action.error,
-          },
-        },
-      };
+      return submitFileStateHelper(CREATE_CHAPTER_FILE)(state, action);
     case REMOVE_ERROR:
       return {
         ...state,
@@ -388,6 +465,10 @@ export const submits = (state = initialState, action) => {
         state,
         action
       );
+    case JOIN_ACTIVITY:
+    case JOIN_ACTIVITY_SUCCESS:
+    case JOIN_ACTIVITY_FAIL:
+      return submitStateHelper("join_activity", DELETE_ACTIVITY)(state, action);
     default:
       return state;
   }

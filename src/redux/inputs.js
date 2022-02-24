@@ -9,6 +9,7 @@ const SET_ACTIVITY_INPUT = "inputs/SET_ACTIVITY_INPUT";
 const CHANGE_CHAPTER_INPUT = "inputs/CHANGE_CHAPTER_INPUT";
 const REMOVE_CHAPTER_INPUT = "inputs/REMOVE_CHAPTER_INPUT";
 const SET_CHAPTER_INPUT = "inputs/SET_CHAPTER_INPUT";
+const TOGGLE_DELETE_FILES = "inputs/TOGGLE_DELETE_FILES";
 
 const CHANGE_CHAPTER_INPUT_FILES = "inputs/CHANGE_CHAPTER_INPUT_FILES";
 const REMOVE_CHAPTER_INPUT_FILES = "inputs/REMOVE_CHAPTER_INPUT_FILES";
@@ -52,8 +53,13 @@ export const changeChapterInputFiles = (files) => ({
   files,
 });
 
+export const toggleDeleteFile = (filename) => ({
+  type: TOGGLE_DELETE_FILES,
+  filename,
+});
+
 export const setChapterInput = (payload) => ({
-  type: SET_ACTIVITY_INPUT,
+  type: SET_CHAPTER_INPUT,
   payload,
 });
 
@@ -103,6 +109,8 @@ const initialState = {
     subject: "",
     article: "",
     authstring: "",
+    file_delete: [],
+    authString: "",
   },
   files: null,
   commentInput: {
@@ -153,11 +161,7 @@ export const inputs = (state = initialState, action) => {
     case REMOVE_CHAPTER_INPUT:
       return {
         ...state,
-        chapterInput: {
-          subject: "",
-          article: "",
-          authstring: "",
-        },
+        chapterInput: initialState.chapterInput,
       };
     case REMOVE_ACTIVITY_INPUT:
       return {
@@ -184,6 +188,7 @@ export const inputs = (state = initialState, action) => {
         ...state,
         chapterInput: action.payload,
       };
+
     default:
       return state;
   }

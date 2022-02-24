@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import { ClassicCKEditor } from "./ClassicCKEditor";
 import {
   changeChapterInput,
@@ -8,7 +8,26 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getActivity } from "@/redux/activities";
-import { Guides } from "#comp/common";
+import { Guides, Muted } from "#comp/common";
+import { isArray } from "#serv";
+import { FileSVG } from "@/icons";
+
+const FilesInputList = ({ files }) => {
+  const fileArray = Array.from(files || []);
+  return (
+    <div>
+      {fileArray.length > 0 ? (
+        fileArray.map((file) => (
+          <Muted>
+            {file.name} ({file.size}byte)
+          </Muted>
+        ))
+      ) : (
+        <Muted>선택된 파일이 없습니다.</Muted>
+      )}
+    </div>
+  );
+};
 
 const SubjectInput = ({ subject, onChange }) => {
   return (
@@ -32,14 +51,23 @@ const SubjectInput = ({ subject, onChange }) => {
 
 const FilesInput = ({ onFileChange }) => {
   return (
-    <input
-      type="file"
-      className="connect-input"
-      onChange={(e) => {
-        onFileChange(e);
-      }}
-      multiple
-    />
+    <label htmlFor="file" className="relative inline-block">
+      <div className="text-sm font-bold text-point-500 cursor-pointer ">
+        <span className="text-xl mr-2">
+          <FileSVG />
+        </span>
+        파일 추가
+      </div>
+      <input
+        type="file"
+        id="file"
+        className="connect-input w-0 h-0 absolute overflow-hidden opacity-0"
+        onChange={(e) => {
+          onFileChange(e);
+        }}
+        multiple
+      />
+    </label>
   );
 };
 
@@ -66,6 +94,7 @@ export const ChapterForm = React.memo(function ChapterForm({ onSubmit }) {
   const dispatch = useDispatch();
 
   const chapterInput = useSelector((state) => state.inputs.chapterInput);
+  const chapterInputFiles = useSelector((state) => state.inputs.files);
   const { subject, article, authString } = chapterInput;
   const { data: activity } = useSelector(
     (state) => state.activities.activity[activity_id] || { data: null }
@@ -105,19 +134,14 @@ export const ChapterForm = React.memo(function ChapterForm({ onSubmit }) {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-2 mx-1 my-2 ">
+    <div className="flex flex-col gap-2  ">
       {activity ? (
         <>
           <SubjectInput subject={subject} onChange={onChange} />
-          <div className="col-span-2 row-start-2 row-end-3 ">
-            <ClassicCKEditor
-              onChange={onChange}
-              value={article}
-              name="article"
-            />
-          </div>
-          <div className="col-span-2 row-start-3 row-end-4 ">
+          <ClassicCKEditor onChange={onChange} value={article} name="article" />
+          <div>
             <FilesInput onFileChange={onFileChange} />
+            <FilesInputList files={chapterInputFiles} />
           </div>
           {activity.ispw && userEmail !== activity.authorEmail && (
             <PasswordInput authString={authString} onChange={onChange} />

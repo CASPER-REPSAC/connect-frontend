@@ -53,6 +53,7 @@ module.exports = {
         },
         muted: "#e0e0e0",
         error: "#e02020",
+        alert: "#e02020",
       },
       backgroundColor: {},
       borderColor: {},

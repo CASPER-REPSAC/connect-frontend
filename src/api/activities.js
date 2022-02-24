@@ -89,3 +89,18 @@ export const update_activity = async ({
   const res = await axios.patch(`/api/activities/${activity_id}/`, payload);
   return res.data;
 };
+
+export const join_activity = async ({ activity_id, user_id }) => {
+  const payload = { activity_id, user_id };
+  const res = await axios.post(
+    `/api/activities/${activity_id}/member/`,
+    payload
+  );
+  return res.data;
+};
+
+export const quit_activity = async ({ activity_id, user_id }) => {
+  const payload = { activity_id, user_id };
+  const res = await axios.post(`/api/activities/${activity_id}/out/`, payload);
+  return res.data;
+};

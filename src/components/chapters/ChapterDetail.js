@@ -12,6 +12,7 @@ import { CommentList } from "#comp/comments";
 import { deleteChapter } from "@/redux/submits";
 import { useParams, useNavigate } from "react-router-dom";
 import { getChapter } from "@/redux/chapters";
+import { PreviewFile } from "./PreviewFile";
 
 const ChapterHeaderNav = ({ type, acitvityTitle, chapterSequence }) => {
   return (
@@ -135,12 +136,16 @@ const ChapterFiles = ({ files }) => {
     <div className="my-2 flex gap-3">
       {files.map((file) => {
         return (
-          <a
-            key={file.filepk}
-            href={`api/activities/${file.activityid}/chapter/${file.chapterid}/download/${file.filepath}`}
-          >
-            {file.filename}
-          </a>
+          <div className="relative">
+            <a
+              key={file.filepk}
+              href={`/api/activities/${file.activityid}/chapter/${file.chapterid}/download/${file.filepath}`}
+              className="peer"
+            >
+              {file.filename}
+            </a>
+            <PreviewFile file={file} />
+          </div>
         );
       })}
     </div>
@@ -173,8 +178,7 @@ export const ChapterDetail = ({ activity, onDelete }) => {
   return (
     <>
       {chapter && (
-        <>
-          {" "}
+        <div className="flex flex-col gap-20">
           <div className="flex-none">
             <ChapterContent chapter={chapter[0]} activity={activity} />
           </div>
@@ -182,7 +186,7 @@ export const ChapterDetail = ({ activity, onDelete }) => {
             {isArray(chapter[1]) && <ChapterFiles files={chapter[1]} />}
             <CommentList comments={chapter[2]} />
           </div>
-        </>
+        </div>
       )}
     </>
   );

@@ -67,9 +67,8 @@ export const ContainedActivities = React.memo(() => {
     <>
       <h3>내가 속한 액티비티</h3>
       <div className="flex flex-col mt-1 gap-1">
-        {containedActivitiesLoading && "로딩 중..."}
-        {!containedActivitiesLoading &&
-          isArray(containedActivities) &&
+        {containedActivitiesLoading && !containedActivities && "로딩 중..."}
+        {isArray(containedActivities) &&
           containedActivities.map((activities) => (
             <ContainedActivitiesItem
               key={activities.id}

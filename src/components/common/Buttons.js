@@ -6,8 +6,12 @@ import {
   PenSVG,
   PlusSVG,
   TrashCanSVG,
+  HandSVG,
+  MinusSVG,
+  SquarePlusSVG,
 } from "@/icons";
 import { WithToolTip } from "./ToolTip";
+import { Link } from "react-router-dom";
 
 export const SubmitButton = React.memo(({ onClick }) => {
   return (
@@ -31,6 +35,39 @@ export const SubmitButtonWithText = React.memo(({ onClick }) => {
   );
 });
 
+export const ToActivityManageButton = ({ onClick }) => {
+  return (
+    <WithToolTip
+      tooltip="관리"
+      tooltipclassname="px-2 whitespace-nowrap w-fit"
+      offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
+    >
+      <div
+        onClick={onClick}
+        className="text-point-500 hover:rotate-90 transition-all "
+      >
+        <CogSVG />
+      </div>
+    </WithToolTip>
+  );
+};
+
+export const ToWriteChapterButton = ({ activity_id }) => {
+  return (
+    <Link to={"/write/" + activity_id} className="flex-none">
+      <WithToolTip
+        tooltip="챕터 추가"
+        tooltipclassname="px-2 whitespace-nowrap w-fit"
+        offsetclass="-top-9 -left-1 after:absolute after:top-7 after:left-2 after:border-transparent after:border-t-background-700"
+      >
+        <div className="text-point-500 text-base hover:rotate-90 transition-all">
+          <SquarePlusSVG />
+        </div>
+      </WithToolTip>
+    </Link>
+  );
+};
+
 const AskToolTip = ({ msg, msqWord, show, setShow, onQue, className }) => {
   return (
     <>
@@ -50,7 +87,7 @@ const AskToolTip = ({ msg, msqWord, show, setShow, onQue, className }) => {
               취소
             </button>
             <button
-              className="px-2 bg-point-600 hover:bg-point-700 transition-all py-1 rounded  font-bold text-text-50"
+              className="px-2 bg-alert hover:scale-110 transition-all py-1 rounded  font-bold text-text-50"
               onClick={() => {
                 setShow(false);
                 onQue();
@@ -73,7 +110,7 @@ export const ActivityRemoveButton = ({ onRemove }) => {
       <div className="relative">
         <button
           onClick={() => setShow(!show)}
-          className="focus:outline-none flex w-full gap-2 px-3 py-2 hover:bg-point-700 hover:scale-105 transition-all duration-100 bg-point-600  rounded-lg font-bold text-text-50 items-center justify-center"
+          className="focus:outline-none flex w-full gap-2 px-3 py-2 hover:bg-alert hover:scale-105 transition-all duration-100 bg-alert rounded-lg font-bold text-text-50 items-center justify-center"
         >
           <TrashCanSVG />
           <div>액티비티 삭제</div>
@@ -97,13 +134,82 @@ export const ActivityRemoveButton = ({ onRemove }) => {
   );
 };
 
+export const JoinActivityButton = ({ onClick }) => {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="flex-none">
+      <button
+        onClick={() => setShow(!show)}
+        className="text-point-600 transition-all text-sm"
+      >
+        <PlusSVG /> 참여
+      </button>
+      <AskToolTip
+        msg={"참여 하시겠습니까?"}
+        show={show}
+        setShow={setShow}
+        onQue={() => {
+          onClick();
+        }}
+        msqWord={"참여"}
+      />
+    </div>
+  );
+};
+
+export const QuitActivityButton = ({ onClick }) => {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="flex-none">
+      <button
+        onClick={() => setShow(!show)}
+        className="text-alert transition-all text-sm"
+      >
+        <MinusSVG /> 탈퇴
+      </button>
+      <AskToolTip
+        msg={"탈퇴 하시겠습니까?"}
+        show={show}
+        setShow={setShow}
+        onQue={() => {
+          onClick();
+        }}
+        msqWord={"탈퇴"}
+      />
+    </div>
+  );
+};
+
 export const ChapterRemoveButton = ({ onRemove }) => {
   const [show, setShow] = useState(false);
   return (
     <div>
       <button
         onClick={() => setShow(!show)}
-        className="text-point-500 hover:text-point-600 transition-all text-sm"
+        className="text-alert transition-all text-sm"
+      >
+        <TrashCanSVG /> 삭제
+      </button>
+      <AskToolTip
+        msg={"정말 삭제하시겠습니까?"}
+        show={show}
+        setShow={setShow}
+        onQue={() => {
+          onRemove();
+        }}
+        msqWord={"삭제"}
+      />
+    </div>
+  );
+};
+
+export const CommentRemoveButton = ({ onRemove }) => {
+  const [show, setShow] = useState(false);
+  return (
+    <div>
+      <button
+        onClick={() => setShow(!show)}
+        className="text-alert transition-all text-sm"
       >
         <TrashCanSVG /> 삭제
       </button>

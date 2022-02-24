@@ -48,3 +48,25 @@ export const delete_chapter = async (activityId, chapterId) => {
   );
   return res.data;
 };
+
+export const update_chapter = async ({
+  subject,
+  article,
+  activity_id,
+  chapter_id,
+  file_delete,
+  authString,
+}) => {
+  const payload = {
+    subject,
+    article,
+    activityid: activity_id,
+    file_delete,
+    authString,
+  };
+  const res = await axios.post(
+    `/api/activities/${activity_id}/chapter/${chapter_id}/update_chapter/`,
+    payload
+  );
+  return;
+};

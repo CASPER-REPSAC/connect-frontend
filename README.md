@@ -39,7 +39,7 @@ flex-box 위주의 레이아웃을 grid로 전환
 
 tailwindcss의 테마기능 활용
 
-### naming rules
+### naming convention
 
 default: camelCase
 

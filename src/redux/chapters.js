@@ -1,8 +1,8 @@
 import * as chaptersAPI from "@/api/chapters";
 
-const GET_CHAPTER = "activities/GET_CHAPTER";
-const GET_CHAPTER_SUCCESS = "activities/GET_CHAPTER_SUCCESS";
-const GET_CHAPTER_FAIL = "activities/GET_CHAPTER_FAIL";
+const GET_CHAPTER = "chapters/GET_CHAPTER";
+const GET_CHAPTER_SUCCESS = "chapters/GET_CHAPTER_SUCCESS";
+const GET_CHAPTER_FAIL = "chapters/GET_CHAPTER_FAIL";
 
 export const getChapter = (activity_id, chapter_id) => async (dispatch) => {
   const [success, fail] = [`${GET_CHAPTER}_SUCCESS`, `${GET_CHAPTER}_FAIL`];

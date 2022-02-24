@@ -22,7 +22,7 @@ export const MainPage = () => {
       style={{ gridTemplateColumns: "min-content 1fr min-content" }}
     >
       {activitiesLoading && !activities && "로딩중.."}
-      {!activitiesLoading && activities && (
+      {activities && (
         <>
           <div className="p-2">
             <UserBox />

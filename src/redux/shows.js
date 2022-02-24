@@ -11,7 +11,7 @@ export const toggleChapterList = () => ({ type: TOGGLE_CHAPTER_LIST });
 // initialState
 const initialState = {
   chapterList: {
-    show: false,
+    show: true,
   },
 };
 

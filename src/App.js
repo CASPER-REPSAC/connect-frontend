@@ -33,7 +33,6 @@ function App() {
 
   return (
     <div className="bg-background-50 w-full h-fit min-h-full flex ">
-      {console.log(location)}
       <div
         className=" bg-background-200 w-full grid"
         style={{
