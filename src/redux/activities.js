@@ -1,4 +1,4 @@
-import * as activitiesAPI from "@/api/activities";
+import { activitiesAPI } from "@/api/";
 
 // action types
 const GET_ACTIVITIES = "activities/GET_ACTIVITIES";

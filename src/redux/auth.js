@@ -1,4 +1,4 @@
-import { server_login } from "@/api/auth";
+import { authAPI } from "@/api/";
 import { Cookies } from "react-cookie";
 import jwt from "jwt-decode";
 import axios from "axios";
@@ -19,9 +19,8 @@ export const login = () => async (dispatch, getState) => {
 
   dispatch({ type: LOGIN });
   try {
-    const { access_token, refresh_token, profile, user } = await server_login(
-      googleToken
-    );
+    const { access_token, refresh_token, profile, user } =
+      await authAPI.server_login(googleToken);
     cookies.set("access_token", access_token, {
       path: "/",
     });

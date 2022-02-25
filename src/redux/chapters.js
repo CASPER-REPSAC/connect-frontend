@@ -1,4 +1,4 @@
-import * as chaptersAPI from "@/api/chapters";
+import { chaptersAPI } from "@/api";
 
 const GET_CHAPTER = "chapters/GET_CHAPTER";
 const GET_CHAPTER_SUCCESS = "chapters/GET_CHAPTER_SUCCESS";

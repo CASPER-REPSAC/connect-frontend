@@ -1,6 +1,4 @@
-import * as commentsAPI from "@/api/comments";
-import * as activitiesAPI from "@/api/activities";
-import * as chaptersAPI from "@/api/chapters";
+import { commentsAPI, activitiesAPI, chaptersAPI } from "@/api";
 import { getChapter } from "./chapters";
 import {
   getActivity,
@@ -14,20 +12,7 @@ import {
   changeActivityInput,
   removeActivityInput,
 } from "./inputs";
-import { formDateAsFormData } from "#serv";
-
-const CUDActionTypeCreator = (type) => {
-  const CUD = ["CREATE", "UPDATE", "DELETE"];
-  let rst = [];
-  CUD.map((v) => {
-    rst = rst.concat([
-      `submits/${type}_${v}`,
-      `submits/${type}_${v}_SUCCESS`,
-      `submit/${type}_${v}_FAIL`,
-    ]);
-  });
-  return rst;
-};
+import { formDateAsFormData, CUDActionTypeCreator } from "#serv";
 
 const [
   CREATE_ACTIVITY,
