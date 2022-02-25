@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getActivities, getContainedActivities } from "@/redux/activities";
+import {
+  getActivities,
+  getContainedActivities,
+  GET_ACTIVITIES,
+} from "@/redux/activities";
 import { ActivityGroup } from "#comp/activities/";
 import { UserBox } from "#comp/auth/UserBox";
 
@@ -12,8 +16,9 @@ export const MainPage = () => {
     dispatch(getContainedActivities());
   }, [dispatch]);
 
-  const { loading: activitiesLoading, data: activities } = useSelector(
-    (state) => state.activities.activities
+  const activities = useSelector((state) => state.activities.activities);
+  const activitiesLoading = useSelector(
+    (state) => state.loadings[GET_ACTIVITIES]
   );
 
   return (

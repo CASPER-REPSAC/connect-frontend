@@ -186,7 +186,7 @@ export const ChapterRemoveButton = ({ onRemove }) => {
     <div>
       <button
         onClick={() => setShow(!show)}
-        className="text-alert transition-all text-sm"
+        className="text-alert transition-all text-sm flex-none"
       >
         <TrashCanSVG /> 삭제
       </button>
@@ -209,7 +209,7 @@ export const CommentRemoveButton = ({ onRemove }) => {
     <div>
       <button
         onClick={() => setShow(!show)}
-        className="text-alert transition-all text-sm"
+        className="text-alert transition-all text-sm flex-none"
       >
         <TrashCanSVG /> 삭제
       </button>
@@ -232,7 +232,7 @@ export const ChapterUpdateButton = ({ onClick }) => {
       onClick={() => {
         onClick();
       }}
-      className="text-point-500 hover:text-point-600 transition-all mx-2 text-sm"
+      className="text-point-500 hover:text-point-600 transition-all text-sm flex-none"
     >
       <PenToSquareSVG /> 수정
     </button>

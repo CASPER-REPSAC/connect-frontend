@@ -4,7 +4,10 @@ import { Card, Muted } from "#comp/common";
 import { isArray } from "#serv";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getContainedActivities } from "@/redux/activities";
+import {
+  getContainedActivities,
+  GET_CONTAINED_ACTIVITIES,
+} from "@/redux/activities";
 
 const ContainedActivitiesItem = ({ activity, userId }) => {
   const {
@@ -45,11 +48,12 @@ const ContainedActivitiesItem = ({ activity, userId }) => {
 
 export const ContainedActivities = React.memo(() => {
   const dispatch = useDispatch();
-  const { data: containedActivities, loading: containedActivitiesLoading } =
-    useSelector(
-      (state) =>
-        state.activities.containedActivities || { data: null, loadng: null }
-    );
+  const containedActivities = useSelector(
+    (state) => state.activities.containedActivities
+  );
+  const containedActivitiesLoading = useSelector(
+    (state) => state.loadings[GET_CONTAINED_ACTIVITIES]
+  );
 
   const { pk: userpk } = useSelector(
     (state) => state.auth.user || { pk: undefined }

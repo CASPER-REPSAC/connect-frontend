@@ -96,8 +96,8 @@ export const ChapterForm = React.memo(function ChapterForm({ onSubmit }) {
   const chapterInput = useSelector((state) => state.inputs.chapterInput);
   const chapterInputFiles = useSelector((state) => state.inputs.files);
   const { subject, article, authString } = chapterInput;
-  const { data: activity } = useSelector(
-    (state) => state.activities.activity[activity_id] || { data: null }
+  const activity = useSelector(
+    (state) => state.activities.activity[activity_id]
   );
 
   const { email: userEmail } = useSelector(

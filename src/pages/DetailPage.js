@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { ActivityDetail } from "#comp/activities";
 import { ChapterDetail } from "#comp/chapters";
 import { getActivity } from "@/redux/activities";
-import { joinActivity, quitActivity } from "@/redux/submits";
+import { joinActivity, quitActivity } from "@/redux/activities";
 
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Card } from "#comp/common";
@@ -23,17 +23,8 @@ export const DetailPage = () => {
     dispatch(getActivity(activity_id));
   }, [dispatch, activity_id]);
 
-  const {
-    loading,
-    error,
-    data: activity,
-  } = useSelector(
-    (state) =>
-      state.activities.activity[activity_id] || {
-        data: null,
-        loading: false,
-        error: null,
-      }
+  const activity = useSelector(
+    (state) => state.activities.activity[activity_id]
   );
   const { user } = useSelector((state) => state.auth);
 

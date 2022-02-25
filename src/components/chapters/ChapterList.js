@@ -124,8 +124,8 @@ export const SideChapterList = React.memo(() => {
   const { activity_id } = useParams();
   const chapter_id = useParams()["*"].split("/")[1];
 
-  const { data: activity } = useSelector(
-    (state) => state.activities.activity[activity_id] || { data: null }
+  const activity = useSelector(
+    (state) => state.activities.activity[activity_id]
   );
 
   return (

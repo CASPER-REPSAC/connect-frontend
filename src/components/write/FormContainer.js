@@ -9,15 +9,15 @@ import {
   removeChapterInput,
   setChapterInput,
 } from "@/redux/inputs";
+import { createChapter, updateChapter } from "@/redux/chapters";
+import { removeError } from "@/redux/loadings";
 import {
+  getContainedActivities,
+  getActivity,
   createActivity,
   updateActivity,
-  createChapter,
-  updateChapter,
-  removeError,
   deleteActivity,
-} from "@/redux/submits";
-import { getContainedActivities, getActivity } from "@/redux/activities";
+} from "@/redux/activities";
 import { getChapter } from "@/redux/chapters";
 import { formDateAsFormData } from "#serv";
 import { SubmitButtonWithText, ActivityRemoveButton } from "#comp/common";
@@ -59,9 +59,7 @@ export const FormContainerUpdateChapter = () => {
   const { activity_id, chapter_id } = useParams();
   const dispatch = useDispatch();
 
-  const { data: chapter } = useSelector((state) => {
-    return state.chapters[chapter_id] || { data: null };
-  });
+  const chapter = useSelector((state) => state.chapters[chapter_id]);
 
   const onDeleteFilesChange = (fileDelete) => {
     dispatch(changeChapterInput({ name: "file_delete", value: fileDelete }));
@@ -140,9 +138,9 @@ export const FormContainerUpdateActivity = () => {
     dispatch(updateActivity(activity_id, navigate));
   }, [dispatch, navigate, activity_id]);
 
-  const { data: activity } = useSelector((state) => {
-    return state.activities.activity[activity_id] || { data: null };
-  });
+  const activity = useSelector(
+    (state) => state.activities.activity[activity_id]
+  );
 
   const onRemove = () => {
     dispatch(deleteActivity(activity_id, navigate));

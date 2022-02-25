@@ -1,185 +1,186 @@
 import { activitiesAPI } from "@/api/";
 
+import {
+  removeCommentInput,
+  removeChapterInput,
+  removeChapterInputFile,
+  changeActivityInput,
+  removeActivityInput,
+} from "./inputs";
+
+import {
+  formDateAsFormData,
+  CUDActionTypeCreator,
+  resultActionStringCreator,
+} from "#serv";
+import { startLoading, requestSuccess, requestFail } from "./loadings";
+
 // action types
-const GET_ACTIVITIES = "activities/GET_ACTIVITIES";
-const GET_ACTIVITIES_SUCCESS = "activities/GET_ACTIVITIES_SUCCESS";
-const GET_ACTIVITIES_FAIL = "activities/GET_ACTIVITIES_FAIL";
-
+export const GET_ACTIVITIES = "activities/GET_ACTIVITIES";
 const GET_ACTIVITY = "activities/GET_ACTIVITY";
-const GET_ACTIVITY_SUCCESS = "activities/GET_ACTIVITY_SUCCESS";
-const GET_ACTIVITY_FAIL = "activities/GET_ACTIVITY_FAIL";
 
-const GET_CONTAINED_ACTIVITIES = "activities/GET_CONTAINED_ACTIVITIES";
-const GET_CONTAINED_ACTIVITIES_SUCCESS =
-  "activities/GET_CONTAINED_ACTIVITIES_SUCCESS";
-const GET_CONTAINED_ACTIVITIES_FAIL =
-  "activities/GET_CONTAINED_ACTIVITIES_FAIL";
+const SET_ACTIVITIES = "activities/SET_ACTIVITIES";
+const SET_ACTIVITY = "activities/SET_ACTIVITY";
 
-// action creator function. action is also function(for handling Promise)
-// it returns (dispatch)=>{}. redux-thunk gives dispatch and getState automatically
+export const GET_CONTAINED_ACTIVITIES = "activities/GET_CONTAINED_ACTIVITIES";
+const SET_CONTAINED_ACTIVITIES = "activities/SET_CONTAINED_ACTIVITIES";
+
+const CREATE_ACTIVITY = "activities/CREATE_ACTIVITY";
+const UPDATE_ACTIVITY = "activities/UPDATE_ACTIVITY";
+const DELETE_ACTIVITY = "activities/DELETE_ACTIVITY";
+
+const JOIN_ACTIVITY = "submits/JOIN_ACTIVITY";
+const QUIT_ACTIVITY = "submits/QUIT_ACTIVITY";
+
 export const getActivities = () => async (dispatch) => {
-  const [success, fail] = [
-    `${GET_ACTIVITIES}_SUCCESS`,
-    `${GET_ACTIVITIES}_FAIL`,
-  ];
-  dispatch({ type: GET_ACTIVITIES });
+  dispatch(startLoading(GET_ACTIVITIES));
   try {
     const activities = await activitiesAPI.get_activities();
-    dispatch({ type: success, data: activities });
+    dispatch({ type: SET_ACTIVITIES, data: activities });
+    dispatch(requestSuccess(GET_ACTIVITIES));
   } catch (error) {
-    dispatch({ type: fail, error });
+    dispatch(requestFail(GET_ACTIVITIES, error));
   }
 };
 
 export const getContainedActivities = () => async (dispatch, getState) => {
-  const [success, fail] = [
-    `${GET_CONTAINED_ACTIVITIES}_SUCCESS`,
-    `${GET_CONTAINED_ACTIVITIES}_FAIL`,
-  ];
-  dispatch({ type: GET_CONTAINED_ACTIVITIES });
+  dispatch(startLoading(GET_CONTAINED_ACTIVITIES));
   try {
     const token = getState().auth.accessToken;
     const activities = await activitiesAPI.get_contained_activities(token);
-    dispatch({ type: success, data: activities });
+    dispatch({ type: SET_CONTAINED_ACTIVITIES, data: activities });
+    dispatch(requestSuccess(GET_CONTAINED_ACTIVITIES));
   } catch (error) {
-    dispatch({ type: fail, error });
+    dispatch(requestFail(GET_CONTAINED_ACTIVITIES, error));
   }
 };
 
 export const getActivity = (activity_id) => async (dispatch) => {
-  const [success, fail] = [`${GET_ACTIVITY}_SUCCESS`, `${GET_ACTIVITY}_FAIL`];
-  dispatch({ type: GET_ACTIVITY, activity_id });
+  dispatch(startLoading(GET_ACTIVITY));
   try {
     const activity = await activitiesAPI.get_activity(activity_id);
-    dispatch({ type: success, data: activity, activity_id });
+    dispatch({ type: SET_ACTIVITY, data: activity, activity_id });
+    dispatch(requestSuccess(GET_ACTIVITY));
   } catch (error) {
-    dispatch({ type: fail, error, activity_id });
+    dispatch(requestFail(GET_ACTIVITY, error));
   }
 };
+
+export const createActivity = (navigate) => async (dispatch, getState) => {
+  dispatch(startLoading(CREATE_ACTIVITY));
+  try {
+    const createDate = formDateAsFormData(new Date());
+    dispatch(
+      changeActivityInput({
+        name: "createDate",
+        value: createDate,
+      })
+    );
+    const author = getState().auth.user.pk;
+    const activityInput = getState().inputs.activityInput;
+    const data = await activitiesAPI.create_activity({
+      ...activityInput,
+      author,
+      currentState: activityInput.currentState * 1,
+    });
+    dispatch(removeActivityInput());
+    navigate(`/activities/${data.id}`);
+    dispatch(requestSuccess(CREATE_ACTIVITY));
+  } catch (error) {
+    dispatch(requestFail(CREATE_ACTIVITY, error));
+  }
+};
+
+export const updateActivity =
+  (activity_id, navigate) => async (dispatch, getState) => {
+    dispatch(startLoading(UPDATE_ACTIVITY));
+    try {
+      const activityInput = getState().inputs.activityInput;
+      const data = await activitiesAPI.update_activity({
+        ...activityInput,
+        activity_id,
+        currentState: activityInput.currentState * 1,
+      });
+      dispatch(removeActivityInput());
+      dispatch(requestSuccess(UPDATE_ACTIVITY));
+      navigate(`/activities/${data.id}`);
+    } catch (error) {
+      dispatch(requestFail(UPDATE_ACTIVITY, error));
+    }
+  };
+
+export const deleteActivity =
+  (activity_id, navigate) => async (dispatch, getState) => {
+    dispatch(startLoading(DELETE_ACTIVITY));
+    try {
+      await activitiesAPI.delete_activity(activity_id);
+      navigate(`/`);
+      dispatch(getActivities());
+      dispatch(requestSuccess(DELETE_ACTIVITY));
+    } catch (error) {
+      dispatch(requestFail(DELETE_ACTIVITY, error));
+    }
+  };
+
+export const joinActivity =
+  (activity_id, user_id) => async (dispatch, getState) => {
+    dispatch(startLoading(JOIN_ACTIVITY));
+    try {
+      await activitiesAPI.join_activity({
+        activity_id,
+        user_id,
+      });
+      dispatch(getActivity(activity_id));
+      dispatch(requestSuccess(JOIN_ACTIVITY));
+    } catch (error) {
+      dispatch(requestFail(JOIN_ACTIVITY, error));
+    }
+  };
+
+export const quitActivity =
+  (activity_id, user_id) => async (dispatch, getState) => {
+    dispatch(startLoading(QUIT_ACTIVITY));
+    try {
+      await activitiesAPI.quit_activity({
+        activity_id,
+        user_id,
+      });
+      dispatch(getActivity(activity_id));
+      dispatch(requestSuccess(QUIT_ACTIVITY));
+    } catch (error) {
+      dispatch(requestFail(QUIT_ACTIVITY, error));
+    }
+  };
 
 // initialState
 const initialState = {
-  activities: {
-    data: [],
-    loading: false,
-    error: null,
-  },
+  activities: [],
   activity: {
-    37: {
-      loading: false,
-      data: null,
-      error: null,
-    },
+    37: null,
   },
-  containedActivities: {
-    data: null,
-    loading: false,
-    error: null,
-  },
-};
-
-const listStateHelper = (key, baseActionType) => (state, action) => {
-  const [success, error] = [
-    `${baseActionType}_SUCCESS`,
-    `${baseActionType}_FAIL`,
-  ];
-  switch (action.type) {
-    case baseActionType:
-      return {
-        ...state,
-        [key]: {
-          ...state[key],
-          data: state[key].data,
-          loading: true,
-          error: null,
-        },
-      };
-    case success:
-      return {
-        ...state,
-        [key]: {
-          ...state[key],
-          loading: false,
-          error: null,
-          data: action.data.sort(function (a, b) {
-            if (new Date(a.createDate) > new Date(b.createDate)) {
-              return -1;
-            } else if (new Date(a.createDate) < new Date(b.createDate)) {
-              return 1;
-            } else {
-              return 0;
-            }
-          }),
-        },
-      };
-    case error:
-      return {
-        ...state,
-        [key]: {
-          ...state[key],
-          loading: false,
-          error: action.error,
-        },
-      };
-    default:
-      return state;
-  }
+  containedActivities: null,
 };
 
 // reducer
 export const activities = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ACTIVITIES:
-    case GET_ACTIVITIES_SUCCESS:
-    case GET_ACTIVITIES_FAIL:
-      return listStateHelper("activities", GET_ACTIVITIES)(state, action);
-    case GET_CONTAINED_ACTIVITIES:
-    case GET_CONTAINED_ACTIVITIES_SUCCESS:
-    case GET_CONTAINED_ACTIVITIES_FAIL:
-      return listStateHelper("containedActivities", GET_CONTAINED_ACTIVITIES)(
-        state,
-        action
-      );
-    case GET_ACTIVITY:
+    case SET_ACTIVITIES:
+      return {
+        ...state,
+        activities: action.data,
+      };
+    case SET_ACTIVITY:
       return {
         ...state,
         activity: {
-          ...state.activity,
-          [action.activity_id]: {
-            data:
-              state.activity[action.activity_id] &&
-              state.activity[action.activity_id].data,
-            error: null,
-            loading: true,
-          },
+          [action.activity_id]: action.data,
         },
       };
-    case GET_ACTIVITY_SUCCESS:
+    case SET_CONTAINED_ACTIVITIES:
       return {
         ...state,
-        activity: {
-          ...state.activity,
-          [action.activity_id]: {
-            ...state.activity[action.activity_id],
-            loading: false,
-            error: null,
-            data: action.data,
-          },
-        },
+        containedActivities: action.data,
       };
-    case GET_ACTIVITY_FAIL:
-      return {
-        ...state,
-        activity: {
-          ...state.activity,
-          [action.activity_id]: {
-            ...state.activity[action.activity_id],
-            loading: false,
-            error: action.error,
-          },
-        },
-      };
-
     default:
       return state;
   }

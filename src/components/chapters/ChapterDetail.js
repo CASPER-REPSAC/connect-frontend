@@ -9,7 +9,7 @@ import { isArray, formatDateTimeWithTimeZone } from "#serv";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CommentList } from "#comp/comments";
-import { deleteChapter } from "@/redux/submits";
+import { deleteChapter } from "@/redux/chapters";
 import { useParams, useNavigate } from "react-router-dom";
 import { getChapter } from "@/redux/chapters";
 import { PreviewFile } from "./PreviewFile";
@@ -91,7 +91,7 @@ const ChapterHeader = ({ chapter, activity }) => {
         chapterSequence={chapterSequence}
       />
       <ChapterTitle chapterSequence={chapterSequence} title={chapterTitle} />
-      <div className="flex justify-between items-center ">
+      <div className="flex flex-col gap-2 md:flex-row itmes-start justify-between md:items-center ">
         <ChapterCreateUpdateTime
           created_time={created_time}
           modified_time={modified_time}
@@ -154,18 +154,7 @@ const ChapterFiles = ({ files }) => {
 
 export const ChapterDetail = ({ activity, onDelete }) => {
   const { activity_id, chapter_id } = useParams();
-  const {
-    loading,
-    error,
-    data: chapter,
-  } = useSelector(
-    (state) =>
-      state.chapters[chapter_id] || {
-        data: null,
-        loading: false,
-        error: null,
-      }
-  );
+  const chapter = useSelector((state) => state.chapters[chapter_id]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -10,3 +10,8 @@ export const CUDActionTypeCreator = (type) => {
   });
   return rst;
 };
+
+export const resultActionStringCreator = (baseAction) => [
+  `${baseAction}_SUCCESS`,
+  `${baseAction}_FAIL`,
+];

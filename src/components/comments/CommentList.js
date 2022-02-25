@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { isArray } from "#serv";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCommentInput } from "@/redux/inputs";
-import { createComment, deleteComment } from "@/redux/submits";
+import { createComment, deleteComment } from "@/redux/comments";
 import { SubmitButton, WithToolTip, CommentRemoveButton } from "#comp/common";
 import { TrashCanSVG } from "@/icons";
 
