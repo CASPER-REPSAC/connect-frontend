@@ -41,12 +41,7 @@ const Tags = ({ tags }) => {
 
 export const ActivityInfo = React.memo(() => {
   const { activity_id } = useParams();
-  const { data } = useSelector(
-    (state) =>
-      state.activities.activity[activity_id] || {
-        data: null,
-      }
-  );
+  const data = useSelector((state) => state.activities.activity[activity_id]);
 
   return (
     <>

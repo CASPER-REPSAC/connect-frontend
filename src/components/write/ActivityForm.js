@@ -1,9 +1,50 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { ClassicCKEditor } from "./ClassicCKEditor";
 import { changeActivityInput } from "@/redux/inputs";
 import { useDispatch, useSelector } from "react-redux";
+import { WithContext as ReactTags } from "react-tag-input";
+import "./forms.css";
 
-const SelectType = ({ type, onChange }) => {
+const TagInput = ({ onChange, prevTags }) => {
+  const [tags, setTags] = useState([]);
+  const handleDelete = (i) => {
+    setTags(tags.filter((tag, index) => index !== i));
+  };
+
+  const handleAddition = (tag) => {
+    setTags([...tags, tag]);
+  };
+
+  const handleDrag = (tag, currPos, newPos) => {
+    const newTags = tags.slice();
+
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
+    setTags(newTags);
+  };
+
+  useEffect(() => {
+    setTags(prevTags.map((tag) => ({ id: tag, text: tag })));
+  }, []);
+
+  useEffect(() => {
+    onChange({ target: { name: "tags", value: tags.map((tag) => tag.text) } });
+  }, [tags, onChange]);
+
+  return (
+    <ReactTags
+      tags={tags}
+      handleDelete={handleDelete}
+      handleAddition={handleAddition}
+      handleDrag={handleDrag}
+      inputFieldPosition="top"
+      placeholder="태그 입력 후 enter"
+      allowDragDrop={false}
+    />
+  );
+};
+
+const SelectType = React.memo(({ type, onChange }) => {
   return (
     <select
       name="type"
@@ -19,7 +60,7 @@ const SelectType = ({ type, onChange }) => {
       <option value="CTF">CTF</option>
     </select>
   );
-};
+});
 
 const SelectCurrentState = ({ currentState, onChange }) => {
   return (
@@ -138,6 +179,7 @@ export const ActivityForm = ({ onSubmit }) => {
     endDate,
     currentState,
     authString,
+    tags,
   } = activityInput;
 
   return (
@@ -158,6 +200,7 @@ export const ActivityForm = ({ onSubmit }) => {
         <StartDateInput startDate={startDate} onChange={onChange} />
         <EndDateInput endDate={endDate} onChange={onChange} />
       </div>
+      <TagInput onChange={onChange} prevTags={tags} />
       <PasswordInput authString={authString} onChange={onChange} />
     </div>
   );

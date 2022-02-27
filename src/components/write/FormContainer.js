@@ -8,6 +8,7 @@ import {
   removeActivityInput,
   removeChapterInput,
   setChapterInput,
+  changeActivityInput,
 } from "@/redux/inputs";
 import { createChapter, updateChapter } from "@/redux/chapters";
 import { removeError } from "@/redux/loadings";
@@ -21,7 +22,10 @@ import {
 import { getChapter } from "@/redux/chapters";
 import { formDateAsFormData } from "#serv";
 import { SubmitButtonWithText, ActivityRemoveButton } from "#comp/common";
-import { DeletableChapterFileList } from "./UpdatableDatas";
+import {
+  DeletableChapterFileList,
+  DeletableParticipantsList,
+} from "./UpdatableDatas";
 
 const SubHeader = ({ children }) => {
   return <h4 className="text-text-800">{children}</h4>;
@@ -134,6 +138,15 @@ export const FormContainerUpdateActivity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const onDeleteParticipantsChange = (paticipantDelete) => {
+    dispatch(
+      changeActivityInput({
+        name: "participants_delete",
+        value: paticipantDelete,
+      })
+    );
+  };
+
   const onSubmit = useCallback(() => {
     dispatch(updateActivity(activity_id, navigate));
   }, [dispatch, navigate, activity_id]);
@@ -168,11 +181,19 @@ export const FormContainerUpdateActivity = () => {
   return (
     <div>
       <SubHeader>액티비티 수정</SubHeader>
-      <ActivityForm />
-      <div className="flex justify-between py-1 px-2">
-        <ActivityRemoveButton onRemove={onRemove} />
-        <SubmitButtonWithText onClick={onSubmit} />
-      </div>
+      {activity && (
+        <>
+          <ActivityForm />
+          <DeletableParticipantsList
+            participants={activity.participants}
+            onDeleteParticipantsChange={onDeleteParticipantsChange}
+          />
+          <div className="flex justify-between py-1 px-2 mt-4">
+            <ActivityRemoveButton onRemove={onRemove} />
+            <SubmitButtonWithText onClick={onSubmit} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

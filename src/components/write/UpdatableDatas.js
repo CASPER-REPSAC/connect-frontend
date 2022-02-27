@@ -12,6 +12,42 @@ export function UpdatableDatas() {
   );
 }
 
+const DeletableParticipantItem = ({
+  participant,
+  setParticipantDelete,
+  participantDelete,
+}) => {
+  return (
+    <div>
+      <button
+        className="relative "
+        onClick={() => {
+          if (participantDelete.indexOf(participant.user_id) === -1)
+            setParticipantDelete(participantDelete.concat(participant.user_id));
+          else
+            setParticipantDelete(
+              participantDelete.filter((dFile) => dFile !== participant.user_id)
+            );
+        }}
+      >
+        <div
+          className={
+            "peer transition-all text-sm " +
+            (participantDelete.indexOf(participant.user_id) > -1
+              ? " line-through text-alert"
+              : "")
+          }
+        >
+          <span className="text-alert mr-2 text-md">
+            <TrashCanSVG />
+          </span>
+          {participant.user_name}
+        </div>
+      </button>
+    </div>
+  );
+};
+
 const DeletableChapterFileItem = ({ file, setFileDelete, fileDelete }) => {
   return (
     <div>
@@ -73,10 +109,32 @@ export const DeletableChapterFileList = ({ files, onDeleteFilesChange }) => {
   );
 };
 
-export const DeletableParticipantsList = ({ participants }) => {
+export const DeletableParticipantsList = ({
+  participants,
+  onDeleteParticipantsChange,
+}) => {
+  const [participantDelete, setParticipantDelete] = useState([]);
+  useEffect(() => {
+    onDeleteParticipantsChange(participantDelete);
+  }, [participantDelete, onDeleteParticipantsChange]);
+
   return (
     <div>
       <h4 className="text-text-600">참여자 관리</h4>
+      <div className="flex gap-3">
+        {isArray(participants) ? (
+          participants.map((participant) => (
+            <DeletableParticipantItem
+              key={participant.user_id}
+              participant={participant}
+              setParticipantDelete={setParticipantDelete}
+              participantDelete={participantDelete}
+            />
+          ))
+        ) : (
+          <Muted>참여자가 없습니다.</Muted>
+        )}
+      </div>
     </div>
   );
 };

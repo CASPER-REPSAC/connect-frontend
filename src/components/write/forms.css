@@ -1,0 +1,21 @@
+.ReactTags__selected {
+  display: flex;
+  gap: 10px;
+  color: #444;
+}
+
+.ReactTags__tag:before {
+  content: "#";
+}
+
+.ReactTags__tagInputField {
+  background: #eee;
+}
+.ReactTags__tagInputField:focus {
+  outline: none;
+}
+
+.ReactTags__remove {
+  color: red;
+  margin-left: 2px;
+}
