@@ -11,6 +11,7 @@ import { getActivity } from "@/redux/activities";
 import { Guides, Muted } from "#comp/common";
 import { isArray } from "#serv";
 import { FileSVG } from "@/icons";
+import { RequiredFieldsInform } from "#text";
 
 const FilesInputList = ({ files }) => {
   const fileArray = Array.from(files || []);
@@ -89,11 +90,27 @@ const PasswordInput = ({ authString, onChange }) => {
   );
 };
 
-export const ChapterForm = React.memo(function ChapterForm({ onSubmit }) {
+const RequiredFields = ({ chapterInput }) => {
+  const { subject, article } = chapterInput;
+
+  return (
+    <div className="text-sm text-alert leading-3">
+      <h4>{RequiredFieldsInform.informTitle}</h4>
+      <ul>
+        {subject ? undefined : <li>{RequiredFieldsInform.emptyTitle}</li>}
+        {article ? undefined : <li>{RequiredFieldsInform.emptyContent}</li>}
+      </ul>
+    </div>
+  );
+};
+
+export const ChapterForm = React.memo(function ChapterForm({
+  chapterInput,
+  showRequiredFields,
+}) {
   const { activity_id } = useParams();
   const dispatch = useDispatch();
 
-  const chapterInput = useSelector((state) => state.inputs.chapterInput);
   const chapterInputFiles = useSelector((state) => state.inputs.files);
   const { subject, article, authString } = chapterInput;
   const activity = useSelector(
@@ -143,9 +160,18 @@ export const ChapterForm = React.memo(function ChapterForm({ onSubmit }) {
             <FilesInput onFileChange={onFileChange} />
             <FilesInputList files={chapterInputFiles} />
           </div>
-          {activity.ispw && userEmail !== activity.authorEmail && (
-            <PasswordInput authString={authString} onChange={onChange} />
-          )}
+          <div className="flex justify-between">
+            {showRequiredFields ? (
+              <RequiredFields chapterInput={chapterInput} />
+            ) : (
+              <div></div>
+            )}
+            {activity.ispw && userEmail !== activity.authorEmail ? (
+              <PasswordInput authString={authString} onChange={onChange} />
+            ) : (
+              <div></div>
+            )}
+          </div>
         </>
       ) : (
         <Guides.Loading />

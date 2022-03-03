@@ -3,6 +3,7 @@ import { ClassicCKEditor } from "./ClassicCKEditor";
 import { changeActivityInput } from "@/redux/inputs";
 import { useDispatch, useSelector } from "react-redux";
 import { WithContext as ReactTags } from "react-tag-input";
+import { RequiredFieldsInform } from "#text";
 import "./forms.css";
 
 const TagInput = ({ onChange, prevTags }) => {
@@ -158,9 +159,43 @@ const PasswordInput = ({ authString, onChange }) => {
   );
 };
 
-export const ActivityForm = ({ onSubmit }) => {
+const RequiredFields = ({ activityInput }) => {
+  const {
+    title,
+    type,
+    author,
+    createDate,
+    description,
+    startDate,
+    endDate,
+    currentState,
+    authString,
+    tags,
+    participants_delete,
+  } = activityInput;
+
+  return (
+    <div className="text-sm text-alert leading-3">
+      <h4>{RequiredFieldsInform.informTitle}</h4>
+      <ul>
+        {title ? undefined : <li>{RequiredFieldsInform.emptyTitle}</li>}
+        {description ? undefined : <li>{RequiredFieldsInform.emptyContent}</li>}
+        {startDate ? undefined : <li>{RequiredFieldsInform.emptyStartDate}</li>}
+        {endDate ? undefined : <li>{RequiredFieldsInform.emptyEndDate}</li>}
+        {endDate && startDate ? (
+          <>
+            {new Date(startDate) <= new Date(endDate) ? undefined : (
+              <li>{RequiredFieldsInform.datesNotMatching}</li>
+            )}
+          </>
+        ) : undefined}
+      </ul>
+    </div>
+  );
+};
+
+export const ActivityForm = ({ activityInput, showRequiredFields }) => {
   const dispatch = useDispatch();
-  const activityInput = useSelector((state) => state.inputs.activityInput);
 
   const onChange = useCallback(
     (e) => {
@@ -180,6 +215,7 @@ export const ActivityForm = ({ onSubmit }) => {
     currentState,
     authString,
     tags,
+    participants_delete,
   } = activityInput;
 
   return (
@@ -201,7 +237,14 @@ export const ActivityForm = ({ onSubmit }) => {
         <EndDateInput endDate={endDate} onChange={onChange} />
       </div>
       <TagInput onChange={onChange} prevTags={tags} />
-      <PasswordInput authString={authString} onChange={onChange} />
+      <div className="flex justify-between">
+        {showRequiredFields ? (
+          <RequiredFields activityInput={activityInput} />
+        ) : (
+          <div></div>
+        )}
+        <PasswordInput authString={authString} onChange={onChange} />
+      </div>
     </div>
   );
 };

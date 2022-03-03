@@ -7,6 +7,7 @@ import {
 } from "@/redux/activities";
 import { ActivityGroup } from "#comp/activities/";
 import { UserBox } from "#comp/auth/UserBox";
+import { Guides } from "#comp/common";
 
 export const MainPage = () => {
   const dispatch = useDispatch();
@@ -20,24 +21,28 @@ export const MainPage = () => {
   const activitiesLoading = useSelector(
     (state) => state.loadings[GET_ACTIVITIES]
   );
+  const user = useSelector((state) => state.auth.user);
 
   return (
-    <div
-      className="grid"
-      style={{ gridTemplateColumns: "min-content 1fr min-content" }}
-    >
-      {activitiesLoading && !activities && "로딩중.."}
+    <div className="flex flex-col md:flex-row lg:grid grid-flow-col lg:grid-cols-mainXl px-2">
+      {activitiesLoading && !activities && <Guides.LoadingGuide />}
       {activities && (
         <>
+          {user && (
+            <div className="p-2">
+              <UserBox />
+            </div>
+          )}
           <div className="p-2">
-            <UserBox />
             <ActivityGroup.ByType activities={activities} type={"Study"} />
           </div>
-          <div className="p-2">
+          <div className="p-2 hidden lg:block">
             <ActivityGroup.Expended activities={activities} />
           </div>
           <div className="p-2">
             <ActivityGroup.ByType activities={activities} type={"Project"} />
+          </div>
+          <div className="p-2">
             <ActivityGroup.ByType activities={activities} type={"CTF"} />
           </div>
         </>

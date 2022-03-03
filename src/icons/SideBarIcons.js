@@ -16,12 +16,11 @@ import { useSelector } from "react-redux";
 import casLogo from "./cas.png";
 
 export const SearchIconWithBg = (props) => {
-  const { keyword, type } = useSelector((state) => state.inputs.searchInput);
   return (
     <SideBarIconFrame
       element={<SearchSVG />}
       isActive={props.isActive}
-      to={`/search/${type}/${keyword}`}
+      to={`/search`}
       onClick={props.onClick}
       tooltip={null}
     />

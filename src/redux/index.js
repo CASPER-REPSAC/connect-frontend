@@ -6,6 +6,7 @@ import auth from "./auth";
 import loadings from "./loadings";
 import alerts from "./alerts";
 import shows from "./shows";
+import search from "./search";
 
 const rootReducer = combineReducers({
   activities,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   loadings,
   alerts,
   shows,
+  search,
 });
 
 export default rootReducer;

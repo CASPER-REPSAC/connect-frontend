@@ -6,9 +6,7 @@ export function SortedActivityGroupByType({ activities, type }) {
   return (
     <div>
       <h2>{type}</h2>
-      <ActivityCardList
-        activities={sortActivitiesByType(activities, "Study")}
-      />
+      <ActivityCardList activities={sortActivitiesByType(activities, type)} />
     </div>
   );
 }

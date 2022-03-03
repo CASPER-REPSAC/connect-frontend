@@ -91,6 +91,9 @@ const initialState = {
   searchInput: {
     keyword: "",
     type: "all",
+    page_number: 1,
+    requestCounter: 0,
+    lastRequestKeyword: "",
   },
   activityInput: {
     title: "",

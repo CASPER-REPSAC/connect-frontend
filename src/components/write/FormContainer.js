@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { ActivityForm, ChapterForm } from "#comp/write";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -32,14 +32,22 @@ const SubHeader = ({ children }) => {
 };
 
 export const FormContainerWriteChapter = () => {
+  const [showRequiredFields, setShowRequiredFields] = useState(false);
   const navigate = useNavigate();
   const { activity_id } = useParams();
   const dispatch = useDispatch();
 
+  const chapterInput = useSelector((state) => state.inputs.chapterInput);
+  const { subject, article } = chapterInput;
+
   const onSubmit = useCallback(() => {
-    dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
-    dispatch(createChapter(navigate));
-  }, [dispatch, activity_id, navigate]);
+    if (!subject || !article) {
+      setShowRequiredFields(true);
+    } else {
+      dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
+      dispatch(createChapter(navigate));
+    }
+  }, [dispatch, activity_id, navigate, subject, article]);
 
   useEffect(() => {
     return () => {
@@ -50,7 +58,10 @@ export const FormContainerWriteChapter = () => {
   return (
     <div>
       <SubHeader>챕터 작성</SubHeader>
-      <ChapterForm />
+      <ChapterForm
+        showRequiredFields={showRequiredFields}
+        chapterInput={chapterInput}
+      />
       <div className="flex justify-end">
         <SubmitButtonWithText onClick={onSubmit} />
       </div>
@@ -59,20 +70,30 @@ export const FormContainerWriteChapter = () => {
 };
 
 export const FormContainerUpdateChapter = () => {
+  const [showRequiredFields, setShowRequiredFields] = useState(false);
   const navigate = useNavigate();
   const { activity_id, chapter_id } = useParams();
   const dispatch = useDispatch();
 
   const chapter = useSelector((state) => state.chapters[chapter_id]);
+  const chapterInput = useSelector((state) => state.inputs.chapterInput);
+  const { subject, article } = chapterInput;
 
-  const onDeleteFilesChange = (fileDelete) => {
-    dispatch(changeChapterInput({ name: "file_delete", value: fileDelete }));
-  };
+  const onDeleteFilesChange = useCallback(
+    (fileDelete) => {
+      dispatch(changeChapterInput({ name: "file_delete", value: fileDelete }));
+    },
+    [dispatch]
+  );
 
   const onSubmit = useCallback(() => {
-    dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
-    dispatch(updateChapter(activity_id, chapter_id, navigate));
-  }, [dispatch, activity_id, chapter_id, navigate]);
+    if (!subject || !article) {
+      setShowRequiredFields(true);
+    } else {
+      dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
+      dispatch(updateChapter(activity_id, chapter_id, navigate));
+    }
+  }, [dispatch, activity_id, chapter_id, navigate, subject, article]);
 
   useEffect(() => {
     if (!chapter) dispatch(getChapter(activity_id, chapter_id));
@@ -94,7 +115,10 @@ export const FormContainerUpdateChapter = () => {
       <SubHeader>챕터 수정</SubHeader>
       {chapter && (
         <div className=" py-1 px-2">
-          <ChapterForm />
+          <ChapterForm
+            showRequiredFields={showRequiredFields}
+            chapterInput={chapterInput}
+          />
           <div className="flex justify-between mt-2">
             <DeletableChapterFileList
               files={chapter[1]}
@@ -109,11 +133,26 @@ export const FormContainerUpdateChapter = () => {
 };
 
 export const FormContainerWriteActivity = () => {
+  const [showRequiredFields, setShowRequiredFields] = useState(false);
+  const activityInput = useSelector((state) => state.inputs.activityInput);
+
+  const { title, description, startDate, endDate } = activityInput;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onSubmit = useCallback(() => {
-    dispatch(createActivity(navigate));
-  }, [dispatch, navigate]);
+    if (
+      !title ||
+      !description ||
+      !startDate ||
+      !endDate ||
+      new Date(startDate) > new Date(endDate)
+    ) {
+      setShowRequiredFields(true);
+    } else {
+      dispatch(createActivity(navigate));
+    }
+  }, [dispatch, navigate, title, description, startDate, endDate]);
 
   useEffect(() => {
     return () => {
@@ -124,7 +163,10 @@ export const FormContainerWriteActivity = () => {
   return (
     <div>
       <SubHeader>액티비티 작성</SubHeader>
-      <ActivityForm />
+      <ActivityForm
+        showRequiredFields={showRequiredFields}
+        activityInput={activityInput}
+      />
       <div className="flex justify-end">
         <SubmitButtonWithText onClick={onSubmit} />
       </div>
@@ -133,23 +175,41 @@ export const FormContainerWriteActivity = () => {
 };
 
 export const FormContainerUpdateActivity = () => {
+  const [showRequiredFields, setShowRequiredFields] = useState(false);
+  const activityInput = useSelector((state) => state.inputs.activityInput);
+
+  const { title, description, startDate, endDate } = activityInput;
+
   const { activity_id } = useParams();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onDeleteParticipantsChange = (paticipantDelete) => {
-    dispatch(
-      changeActivityInput({
-        name: "participants_delete",
-        value: paticipantDelete,
-      })
-    );
-  };
+  const onDeleteParticipantsChange = useCallback(
+    (paticipantDelete) => {
+      dispatch(
+        changeActivityInput({
+          name: "participants_delete",
+          value: paticipantDelete,
+        })
+      );
+    },
+    [dispatch]
+  );
 
   const onSubmit = useCallback(() => {
-    dispatch(updateActivity(activity_id, navigate));
-  }, [dispatch, navigate, activity_id]);
+    if (
+      !title ||
+      !description ||
+      !startDate ||
+      !endDate ||
+      new Date(startDate) > new Date(endDate)
+    ) {
+      setShowRequiredFields(true);
+    } else {
+      dispatch(updateActivity(activity_id, navigate));
+    }
+  }, [dispatch, navigate, activity_id, title, description, startDate, endDate]);
 
   const activity = useSelector(
     (state) => state.activities.activity[activity_id]
@@ -183,7 +243,10 @@ export const FormContainerUpdateActivity = () => {
       <SubHeader>액티비티 수정</SubHeader>
       {activity && (
         <>
-          <ActivityForm />
+          <ActivityForm
+            showRequiredFields={showRequiredFields}
+            activityInput={activityInput}
+          />
           <DeletableParticipantsList
             participants={activity.participants}
             onDeleteParticipantsChange={onDeleteParticipantsChange}

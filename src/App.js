@@ -52,6 +52,7 @@ function App() {
             <Route path="/activities/:activity_id/*" element={<DetailPage />} />
             <Route path="write/*" element={<WritePage />} />
             <Route path="update/:activity_id/*" element={<UpdatePage />} />
+            <Route path="search" element={<SearchPage />} />
           </Routes>
         </section>
       </div>

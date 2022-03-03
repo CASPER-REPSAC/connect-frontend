@@ -119,3 +119,17 @@ li {
 .input-label {
   @apply mr-2 text-sm;
 }
+
+.editable-placeholder {
+  @apply bg-background-200;
+}
+
+.editable-placeholder:empty:before {
+  content: attr(placeholder);
+  color: grey;
+  display: inline-block;
+}
+
+.editable-placeholder:focus {
+  outline: none;
+}

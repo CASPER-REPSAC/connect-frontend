@@ -1,18 +1,8 @@
 import { activitiesAPI } from "@/api/";
 
-import {
-  removeCommentInput,
-  removeChapterInput,
-  removeChapterInputFile,
-  changeActivityInput,
-  removeActivityInput,
-} from "./inputs";
+import { changeActivityInput, removeActivityInput } from "./inputs";
 
-import {
-  formDateAsFormData,
-  CUDActionTypeCreator,
-  resultActionStringCreator,
-} from "#serv";
+import { formDateAsFormData } from "#serv";
 import { startLoading, requestSuccess, requestFail } from "./loadings";
 
 // action types

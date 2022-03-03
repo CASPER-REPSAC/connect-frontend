@@ -1,9 +1,9 @@
 import React from "react";
-import { Card } from "#comp/common";
+import { Card, Muted } from "#comp/common";
 import { isArray } from "#serv/helpers";
 import { useNavigate } from "react-router-dom";
 
-export const ActivityCardListItem = ({ activity, expended }) => {
+export const ActivityListItem = ({ activity, expended }) => {
   const navigate = useNavigate();
   const {
     // url,
@@ -30,17 +30,17 @@ export const ActivityCardListItem = ({ activity, expended }) => {
     <>
       <Card.Frame
         className={
-          `max-w-full ` +
+          `h-full cursor-pointer ` +
           (currentState === 2
-            ? `flex flex-col h-fit bg-background-300 hover:bg-background-300 cursor-pointer`
-            : `flex flex-col h-fit cursor-pointer`)
+            ? `h-fit bg-background-300 hover:bg-background-300`
+            : `h-fit`)
         }
-        expended={expended || null}
+        expended={expended}
         onClick={() => {
           navigate(`/activities/${id}`);
         }}
       >
-        <div className="flex mb-1">
+        <div className="h-full flex flex-col justify-between">
           <div className="truncate flex-auto">
             <Card.Title
               className={
@@ -53,10 +53,6 @@ export const ActivityCardListItem = ({ activity, expended }) => {
             </Card.Title>
             <div className="md:flex md:align-middle">
               <div className="text-text-400 text-xs whitespace-normal">
-                {expended && <>{type}</>}
-                {expended && (
-                  <> {`| ${createDate} | ${startDate}~${endDate} | `}</>
-                )}
                 {authorData && <> {`${authorData.profile.name} +`}</>}
                 {isArray(participants) && (
                   <span className="whitespace-pre">
@@ -78,36 +74,55 @@ export const ActivityCardListItem = ({ activity, expended }) => {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* {expended && (
-          <>
-            <hr className="my-2" />
-            <div className=" max-h- overflow-y-hidden whitespace-normal break-words text-ellipsis">
-              <div
-                className={currentState === 2 ? ` text-text-600` : ``}
-                dangerouslySetInnerHTML={{ __html: description }}
-              ></div>
-            </div>
-          </>
-        )} */}
-        {isArray(tags) && tags.length > 0 && expended && (
-          <div className=" mt-8"></div>
-        )}
-
-        <div className="truncate text-text-500 text-xs">
-          {/* {isArray(tags) &&
-            tags.map((tag) => <Tag key={tag.tag_id}>{tag.tag_name}</Tag>)} */}
-          {isArray(tags) &&
-            tags.map((tag) => (
-              <span className="mr-2" key={tag.tag_id}>
-                #{tag.tag_name}
-              </span>
-            ))}
+          <div className="truncate text-text-500 text-xs">
+            {isArray(tags) &&
+              tags.map((tag) => (
+                <span className="mr-2" key={tag.tag_id}>
+                  #{tag.tag_name}
+                </span>
+              ))}
+          </div>
         </div>
       </Card.Frame>
     </>
   );
 };
 
-export default ActivityCardListItem;
+export const ChapterListItem = ({ chapter, expended }) => {
+  const navigate = useNavigate();
+  const {
+    activityid,
+    chapterid,
+    subject,
+    // created_time,
+    // modified_time,
+    article,
+  } = chapter;
+
+  const newArticle = article
+    .replace(/(<([^>]+)>)/gi, "")
+    .replace(/&nbsp;/gi, " ");
+
+  return (
+    <>
+      <Card.Frame
+        onClick={() => {
+          navigate(`/activities/${activityid}/chapter/${chapterid}`);
+        }}
+        expended={expended}
+        className="cursor-pointer h-full"
+      >
+        <Card.Title className="whitespace-normal">
+          <h3>
+            {subject}
+            <Muted>챕터</Muted>
+          </h3>
+        </Card.Title>
+        <div className=" mb-2 max-h-12 overflow-hidden truncate">
+          {newArticle}
+        </div>
+      </Card.Frame>
+    </>
+  );
+};

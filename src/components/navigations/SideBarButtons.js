@@ -60,7 +60,9 @@ export const GitIssueButton = () => {
 
 export const SearchButton = ({ isActive }) => {
   let className = `opacity-0 scale-0 none w-0 group-hover:opacity-100 group-hover:scale-100 transition-all group-hover:w-40`;
-  const { keyword, type } = useSelector((state) => state.inputs.searchInput);
+  const { keyword, type, requestCounter } = useSelector(
+    (state) => state.inputs.searchInput
+  );
   const dispatch = useDispatch();
   const searchInput = useRef();
 
@@ -73,6 +75,13 @@ export const SearchButton = ({ isActive }) => {
   const onMouseLeave = () => {
     searchInput.current.blur();
   };
+
+  const onClick = () => {
+    dispatch(
+      changeSearchInput({ name: "requestCounter", value: requestCounter + 1 })
+    );
+  };
+
   const navigate = useNavigate();
   return (
     <>
@@ -86,12 +95,18 @@ export const SearchButton = ({ isActive }) => {
         }}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
-            navigate(`/search/${type}/${keyword}`);
+            dispatch(changeSearchInput(e.target));
+            navigate(`/search`);
           }
         }}
       >
         <div>
-          <SearchIconWithBg isActive={isActive} />
+          <SearchIconWithBg
+            isActive={isActive}
+            onClick={() => {
+              onClick();
+            }}
+          />
         </div>
         <div className={className}>
           <div className="flex items-center h-fit text-text-50">
@@ -100,7 +115,6 @@ export const SearchButton = ({ isActive }) => {
               name="keyword"
               className="bg-transparent border-b-2 border-b-text-200 w-32 mr-5 focus:outline-none m-2"
               onChange={(e) => onChange(e)}
-              value={keyword || ""}
               ref={searchInput}
             />
           </div>

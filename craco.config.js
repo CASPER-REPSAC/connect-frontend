@@ -7,6 +7,7 @@ module.exports = {
       "@": path.resolve(__dirname, "src/"),
       "#comp": path.resolve(__dirname, "src/components/"),
       "#serv": path.resolve(__dirname, "src/services/"),
+      "#text": path.resolve(__dirname, "src/texts/"),
     },
   },
   jest: {
