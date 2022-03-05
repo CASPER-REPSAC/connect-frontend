@@ -34,13 +34,16 @@ export const ActivityGroup = ({ activities, title }) => {
   const maxPage = Math.ceil(activities.length / pageSize);
 
   useEffect(() => {
-    if (currentPage + 1 > maxPage) {
+    if (maxPage > 0 && currentPage >= maxPage) {
       setCurrentPage(maxPage - 1);
     }
+  }, [currentPage, maxPage]);
+
+  useEffect(() => {
     if (currentPage < 0) {
       setCurrentPage(0);
     }
-  }, [currentPage, maxPage]);
+  }, [currentPage]);
 
   const onNextPage = () => {
     if (activities.length > (currentPage + 1) * pageSize) {
