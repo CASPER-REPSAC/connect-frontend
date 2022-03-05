@@ -37,6 +37,9 @@ export const ActivityGroup = ({ activities, title }) => {
     if (currentPage + 1 > maxPage) {
       setCurrentPage(maxPage - 1);
     }
+    if (currentPage < 0) {
+      setCurrentPage(0);
+    }
   }, [currentPage, maxPage]);
 
   const onNextPage = () => {
