@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("http://fonts.googleapis.com/css?family=Roboto:400,300,100,600,200,900,,800,500,700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,100,600,200,900,,800,500,700");
 
 @layer base {
   :root {
