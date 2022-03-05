@@ -2,6 +2,7 @@ import React from "react";
 import { Card } from "#comp/common";
 import { isArray } from "#serv/helpers";
 import { useNavigate } from "react-router-dom";
+import { activitiesState } from "@/texts";
 
 export const ActivityCardListItem = ({ activity, expended }) => {
   const navigate = useNavigate();
@@ -30,17 +31,17 @@ export const ActivityCardListItem = ({ activity, expended }) => {
     <>
       <Card.Frame
         className={
-          `max-w-full ` +
+          ` h-full cursor-pointer border border-text-200 ` +
           (currentState === 2
-            ? `flex flex-col h-fit bg-background-300 hover:bg-background-300 cursor-pointer`
-            : `flex flex-col h-fit cursor-pointer`)
+            ? ` bg-background-200 hover:bg-background-300`
+            : "")
         }
-        expended={expended || null}
+        expended={expended}
         onClick={() => {
           navigate(`/activities/${id}`);
         }}
       >
-        <div className="flex mb-1">
+        <div className="h-full flex flex-col justify-between">
           <div className="truncate flex-auto">
             <Card.Title
               className={
@@ -49,23 +50,19 @@ export const ActivityCardListItem = ({ activity, expended }) => {
                   : `whitespace-normal`
               }
             >
-              <h3>{title}</h3>
+              <h4>{title}</h4>
             </Card.Title>
             <div className="md:flex md:align-middle">
-              <div className="text-text-400 text-xs whitespace-normal">
-                {expended && <>{type}</>}
-                {expended && (
-                  <> {`| ${createDate} | ${startDate}~${endDate} | `}</>
-                )}
+              <div className="text-text-800 text-xs whitespace-normal">
                 {authorData && <> {`${authorData.profile.name} +`}</>}
                 {isArray(participants) && (
                   <span className="whitespace-pre">
-                    {`${participants.length - 1}`}
+                    {` ${participants.length - 1}`}
                   </span>
                 )}
                 {currentState === 2 && (
-                  <span className="text-text-500 text-xs font-bold ">
-                    {` 종료됨`}
+                  <span className="text-text-500 text-xs font-bold ml-2 ">
+                    {activitiesState.ended}
                   </span>
                 )}
                 {currentState === 0 && (
@@ -78,32 +75,15 @@ export const ActivityCardListItem = ({ activity, expended }) => {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* {expended && (
-          <>
-            <hr className="my-2" />
-            <div className=" max-h- overflow-y-hidden whitespace-normal break-words text-ellipsis">
-              <div
-                className={currentState === 2 ? ` text-text-600` : ``}
-                dangerouslySetInnerHTML={{ __html: description }}
-              ></div>
-            </div>
-          </>
-        )} */}
-        {isArray(tags) && tags.length > 0 && expended && (
-          <div className=" mt-8"></div>
-        )}
-
-        <div className="truncate text-text-500 text-xs">
-          {/* {isArray(tags) &&
-            tags.map((tag) => <Tag key={tag.tag_id}>{tag.tag_name}</Tag>)} */}
-          {isArray(tags) &&
-            tags.map((tag) => (
-              <span className="mr-2" key={tag.tag_id}>
-                #{tag.tag_name}
-              </span>
-            ))}
+          {/* <div className="truncate text-text-500 text-xs mt-2">
+            {isArray(tags) &&
+              tags.map((tag) => (
+                <span className="mr-2" key={tag.tag_id}>
+                  #{tag.tag_name}
+                </span>
+              ))}
+          </div> */}
         </div>
       </Card.Frame>
     </>

@@ -1,6 +1,7 @@
 import {
   SearchSVG,
   SignInSVG,
+  SignOutSVG,
   KeyboardSVG,
   CogSVG,
   CasLogoSVG,
@@ -55,7 +56,7 @@ export const UserBoardIconWithBg = (props) => {
 export const SignOutIconWithBg = (props) => {
   return (
     <SideBarIconFrame
-      element={<SignInSVG />}
+      element={<SignOutSVG />}
       isActive={props.isActive}
       to="#"
       onClick={props.onClick}

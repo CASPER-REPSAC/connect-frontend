@@ -38,7 +38,7 @@ export const DetailPage = () => {
 
   return (
     <div
-      className="grid relative"
+      className="grid relative h-full"
       style={{ gridTemplateColumns: "min-content 1fr" }}
     >
       <div className="col-start-1 overflow-hidden w-fit pt-2">
@@ -47,7 +47,7 @@ export const DetailPage = () => {
       <div className="col-start-2 p-2  ">
         <Card.Frame
           expended="true"
-          className="bg-background-50 hover:bg-background-50 xl:p-6 p-6 hover:shadow-none min-h-card  "
+          className="bg-background-50 hover:bg-background-50 xl:p-6 p-6 hover:shadow-none min-h-card h-full "
         >
           {activity && (
             <Routes>

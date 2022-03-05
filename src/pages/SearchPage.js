@@ -27,7 +27,7 @@ export const SearchPage = () => {
       >
         <div className="flex justify-between">
           <input
-            className="text-3xl editable-placeholder w-full mr-1"
+            className="text-xl p-1 editable-placeholder w-full mr-1"
             spellCheck={false}
             placeholder="검색어를 입력하세요"
             onChange={(e) => {

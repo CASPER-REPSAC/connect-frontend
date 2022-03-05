@@ -18,9 +18,28 @@ import {
   faFile,
   faArrowLeft,
   faMinus,
+  faCaretLeft,
+  faCaretRight,
+  faRightToBracket,
+  faRightFromBracket,
+  faSun,
+  faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { CasLogoSVG as CasLogo } from "./CasLogoSVG";
 import { GitIssueSVG as GitIssue } from "./GitIssueSVG";
+
+export const MoonSVG = () => {
+  return <FontAwesomeIcon icon={faMoon} />;
+};
+export const SunSVG = () => {
+  return <FontAwesomeIcon icon={faSun} />;
+};
+export const CaretLeftSVG = () => {
+  return <FontAwesomeIcon icon={faCaretLeft} />;
+};
+export const CaretRightSVG = () => {
+  return <FontAwesomeIcon icon={faCaretRight} />;
+};
 
 export const ArrowLeftSVG = () => {
   return <FontAwesomeIcon icon={faArrowLeft} />;
@@ -71,7 +90,10 @@ export const StreamSVG = () => {
   return <FontAwesomeIcon icon={faStream} />;
 };
 export const SignInSVG = () => {
-  return <FontAwesomeIcon icon={faSignInAlt} />;
+  return <FontAwesomeIcon icon={faRightToBracket} />;
+};
+export const SignOutSVG = () => {
+  return <FontAwesomeIcon icon={faRightFromBracket} />;
 };
 export const KeyboardSVG = () => {
   return <FontAwesomeIcon icon={faKeyboard} />;

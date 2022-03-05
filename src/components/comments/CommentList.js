@@ -55,13 +55,15 @@ export const CommentListItem = ({ comment, user, dispatch }) => {
       />
       <div>
         <div className="flex-none font-normal text-sm flex gap-1 items-center flex-row  flex-wrap">
-          <span className="font-bold whitespace-nowrap ">{profile.name}</span>
+          <span className="font-bold whitespace-nowrap text-text-800 ">
+            {profile.name}
+          </span>
           <span className="text-text-500 text-xs">({profile.email})</span>
           <span className="text-text-500 text-xs">
             {createtime.substr(0, 10)} {createtime.substr(11, 8)}
           </span>
         </div>
-        <div className="text-sm border-t mt-2 pt-3 sm:border-0 sm:mt-1 sm:pt-0 border-text-200">
+        <div className="text-sm text-text-800 border-t mt-2 pt-3 sm:border-0 sm:mt-1 sm:pt-0 border-text-200">
           {content}
         </div>
       </div>

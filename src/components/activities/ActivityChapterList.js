@@ -3,6 +3,7 @@ import {
   ChapterListItem,
   ActivityListItem,
 } from "#comp/chapters/ChapterListItem";
+import { ActivityCardListItem } from "./ActivityCardListItem";
 
 export const ActivityChapterList = ({ cards }) => {
   return (
@@ -10,7 +11,11 @@ export const ActivityChapterList = ({ cards }) => {
       {cards.map((card) => {
         if (card.description) {
           return (
-            <ActivityListItem expended="true" activity={card} key={card.id} />
+            <ActivityCardListItem
+              expended="true"
+              activity={card}
+              key={card.id}
+            />
           );
         } else {
           return (

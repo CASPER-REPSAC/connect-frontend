@@ -37,7 +37,7 @@ export const SideBar = () => {
             <GoogleLoginButton />
           )}
           <GitIssueButton />
-          <SettingsButton />
+          {/* <SettingsButton /> */}
         </div>
       </div>
     </nav>
@@ -51,10 +51,15 @@ export const ChapterListSidebar = () => {
   });
   return (
     <animated.div style={style} className=" rounded-r-lg overflow-hidden">
-      <div className="mb-2">
-        <ActivityInfo />
-      </div>
-      <SideChapterList />
+      <animated.div
+        style={style}
+        className="fixed rounded-r-lg overflow-hidden"
+      >
+        <div className="mb-2">
+          <ActivityInfo />
+        </div>
+        <SideChapterList />
+      </animated.div>
     </animated.div>
   );
 };

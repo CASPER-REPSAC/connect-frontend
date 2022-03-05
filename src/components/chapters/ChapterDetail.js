@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   PenButton,
   ChapterRemoveButton,
@@ -13,6 +13,7 @@ import { deleteChapter } from "@/redux/chapters";
 import { useParams, useNavigate } from "react-router-dom";
 import { getChapter } from "@/redux/chapters";
 import { PreviewFile } from "./PreviewFile";
+import { CaretLeftSVG, CaretRightSVG } from "@/icons";
 
 const ChapterHeaderNav = ({ type, acitvityTitle, chapterSequence }) => {
   return (
@@ -113,7 +114,7 @@ const ChapterTitle = ({ chapterSequence, title }) => {
 
 const ChapterArticle = ({ article }) => {
   return (
-    <div className="whitespace-normal break-words flex-none">
+    <div className="whitespace-normal break-words flex-none text-text-800">
       <div dangerouslySetInnerHTML={{ __html: article }}></div>
     </div>
   );
@@ -152,12 +153,53 @@ const ChapterFiles = ({ files }) => {
   );
 };
 
+const PrevNextChapterNav = ({ prevChapter, nextChapter }) => {
+  return (
+    <div className="flex gap-2 justify-center text-sm text-text-500">
+      {prevChapter && (
+        <Link
+          to={`/activities/${prevChapter.activityid}/chapter/${prevChapter.chapterid}`}
+        >
+          <CaretLeftSVG /> {prevChapter.subject}
+        </Link>
+      )}
+      {prevChapter && nextChapter && <div>|</div>}
+      {nextChapter && (
+        <Link
+          to={`/activities/${nextChapter.activityid}/chapter/${nextChapter.chapterid}`}
+        >
+          {nextChapter.subject} <CaretRightSVG />
+        </Link>
+      )}
+    </div>
+  );
+};
+
 export const ChapterDetail = ({ activity, onDelete }) => {
   const { activity_id, chapter_id } = useParams();
-  const chapter = useSelector((state) => state.chapters[chapter_id]);
+  const chapter = useSelector((state) => state.chapters[chapter_id] || null);
+  const [prevChapter, setPrevChapter] = useState(null);
+  const [nextChapter, setNextChapter] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (chapter) {
+      setPrevChapter(
+        activity.chapterid.find((a) => a.chapterid === chapter[0]?.last) || null
+      );
+      if (
+        activity.chapterid.find((a) => a.chapterid === chapter[0]?.next)
+          ?.chapterid !== Number(chapter_id)
+      ) {
+        setNextChapter(
+          activity.chapterid.find((a) => a.chapterid === chapter[0]?.next) ||
+            null
+        );
+      }
+    }
+  }, [activity, chapter_id, chapter]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -167,12 +209,16 @@ export const ChapterDetail = ({ activity, onDelete }) => {
   return (
     <>
       {chapter && (
-        <div className="flex flex-col gap-20">
+        <div className="flex flex-col justify-between h-full">
           <div className="flex-none">
             <ChapterContent chapter={chapter[0]} activity={activity} />
           </div>
           <div className="flex-none">
             {isArray(chapter[1]) && <ChapterFiles files={chapter[1]} />}
+            <PrevNextChapterNav
+              prevChapter={prevChapter}
+              nextChapter={nextChapter}
+            />
             <CommentList comments={chapter[2]} />
           </div>
         </div>

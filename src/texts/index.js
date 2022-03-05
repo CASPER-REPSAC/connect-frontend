@@ -6,3 +6,24 @@ export const RequiredFieldsInform = {
   emptyEndDate: "종료일이 비어있습니다.",
   datesNotMatching: "시작일과 종료일이 모순됩니다.",
 };
+
+export const activityTitles = {
+  study: "🖊️ Study",
+  project: "📝 Project",
+  CTF: "🤖 CTF",
+  running: "🏃 진행중",
+  planned: "⏰ 예정",
+};
+
+export const activityTypes = {
+  study: "Study",
+  project: "Project",
+  CTF: "CTF",
+};
+
+export const activitiesState = {
+  ended: "종료",
+  running: "진행중",
+  planned: "예정",
+  new: "new!",
+};

@@ -1,50 +1,80 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getActivities,
-  getContainedActivities,
-  GET_ACTIVITIES,
-} from "@/redux/activities";
+
 import { ActivityGroup } from "#comp/activities/";
 import { UserBox } from "#comp/auth/UserBox";
 import { Guides } from "#comp/common";
+import { useActivities } from "@/hooks";
+import { activityTitles } from "@/texts";
+
+const MainPageGridItem = ({ children }) => {
+  return (
+    <div className="p-1 flex flex-col ">
+      <div className="px-3 py-1 pb-2 flex-1 flex flex-col overflow-hidden rounded bg-background-50">
+        {children}
+      </div>
+    </div>
+  );
+};
 
 export const MainPage = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getActivities());
-    dispatch(getContainedActivities());
-  }, [dispatch]);
-
-  const activities = useSelector((state) => state.activities.activities);
-  const activitiesLoading = useSelector(
-    (state) => state.loadings[GET_ACTIVITIES]
-  );
   const user = useSelector((state) => state.auth.user);
+  const { activities, activitiesLoading } = useActivities();
 
   return (
-    <div className="flex flex-col md:flex-row lg:grid grid-flow-col lg:grid-cols-mainXl px-2">
+    <div
+      className="grid p-1 h-full "
+      style={{
+        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+      }}
+    >
       {activitiesLoading && !activities && <Guides.LoadingGuide />}
-      {activities && (
+      {activities && activities.Study && activities.CTF && activities.Project && (
         <>
           {user && (
-            <div className="p-2">
-              <UserBox />
-            </div>
+            <MainPageGridItem>
+              <div className="pt-2">
+                <UserBox />
+              </div>
+            </MainPageGridItem>
           )}
-          <div className="p-2">
-            <ActivityGroup.ByType activities={activities} type={"Study"} />
-          </div>
-          <div className="p-2 hidden lg:block">
-            <ActivityGroup.Expended activities={activities} />
-          </div>
-          <div className="p-2">
-            <ActivityGroup.ByType activities={activities} type={"Project"} />
-          </div>
-          <div className="p-2">
-            <ActivityGroup.ByType activities={activities} type={"CTF"} />
-          </div>
+          <MainPageGridItem>
+            <div className="flex flex-col h-full">
+              <div className="pb-3 flex-1">
+                <ActivityGroup
+                  activities={activities.running}
+                  title={activityTitles.running}
+                />
+              </div>
+              <div className="flex-1">
+                <ActivityGroup
+                  activities={activities.planned}
+                  title={activityTitles.planned}
+                />
+              </div>
+            </div>
+          </MainPageGridItem>
+
+          <MainPageGridItem>
+            <ActivityGroup
+              activities={activities.Study}
+              title={activityTitles.study}
+            />
+          </MainPageGridItem>
+
+          <MainPageGridItem>
+            <ActivityGroup
+              activities={activities.Project}
+              title={activityTitles.project}
+            />
+          </MainPageGridItem>
+
+          <MainPageGridItem>
+            <ActivityGroup
+              activities={activities.CTF}
+              title={activityTitles.CTF}
+            />
+          </MainPageGridItem>
         </>
       )}
     </div>

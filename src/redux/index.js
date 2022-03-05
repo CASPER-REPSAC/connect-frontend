@@ -7,6 +7,7 @@ import loadings from "./loadings";
 import alerts from "./alerts";
 import shows from "./shows";
 import search from "./search";
+import themes from "./themes";
 
 const rootReducer = combineReducers({
   activities,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   alerts,
   shows,
   search,
+  themes,
 });
 
 export default rootReducer;

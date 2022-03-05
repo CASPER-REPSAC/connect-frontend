@@ -20,7 +20,7 @@ export const Modal = ({ children, show, setShow }) => {
   return (
     <div className={className}>
       <div className={modalClassName}>
-        <div onClick={() => setShow(false)}>❌</div>
+        <button onClick={() => setShow(false)}>❌</button>
         <div>{children}</div>
       </div>
       <div className={bgClassName}></div>

@@ -4,12 +4,12 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import {
   // ActivityListGroupPage,
   // ActivityDetailPage,
-  ActivityWritePage,
-  ActivityUpdatePage,
+  // ActivityWritePage,
+  // ActivityUpdatePage,
   // ChapterDetailPage,
-  ChapterWritePage,
+  // ChapterWritePage,
   SearchPage,
-  UserPage,
+  // UserPage,
   MainPage,
   DetailPage,
   WritePage,
@@ -22,9 +22,11 @@ import { SideBar, TopNavBar } from "#comp/navigations";
 import { loginWithCookie } from "@/redux/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Alerts } from "#comp/common";
+import { useClientThemes } from "@/hooks";
 
 function App() {
-  const location = useLocation();
+  const { theme } = useClientThemes();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loginWithCookie());
@@ -32,29 +34,34 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="bg-background-50 w-full h-fit min-h-full flex ">
-      <div
-        className=" bg-background-200 w-full grid"
-        style={{
-          gridTemplateColumns: "64px 1fr",
-          gridTemplateRows: "min-content 1fr",
-        }}
-      >
-        <div className="col-start-2 row-start-1 ">
-          <TopNavBar />
+    <div className={theme}>
+      <div className="bg-background-50 w-full h-fit min-h-full flex">
+        <div
+          className=" bg-background-200 w-full grid"
+          style={{
+            gridTemplateColumns: "64px 1fr",
+            gridTemplateRows: "min-content 1fr",
+          }}
+        >
+          <div className=" sticky top-0 left-0 col-start-2 row-start-1 z-20 drop-shadow">
+            <TopNavBar />
+          </div>
+          <div className="row-span-2">
+            <SideBar />
+          </div>
+          <section className="order-4 ">
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route
+                path="/activities/:activity_id/*"
+                element={<DetailPage />}
+              />
+              <Route path="write/*" element={<WritePage />} />
+              <Route path="update/:activity_id/*" element={<UpdatePage />} />
+              <Route path="search" element={<SearchPage />} />
+            </Routes>
+          </section>
         </div>
-        <div className="row-span-2">
-          <SideBar />
-        </div>
-        <section className="order-4 ">
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/activities/:activity_id/*" element={<DetailPage />} />
-            <Route path="write/*" element={<WritePage />} />
-            <Route path="update/:activity_id/*" element={<UpdatePage />} />
-            <Route path="search" element={<SearchPage />} />
-          </Routes>
-        </section>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { activitiesAPI } from "@/api/";
+import { searchAPI } from "@/api/";
 
 import { changeActivityInput, removeActivityInput } from "./inputs";
 
@@ -19,8 +20,30 @@ const CREATE_ACTIVITY = "activities/CREATE_ACTIVITY";
 const UPDATE_ACTIVITY = "activities/UPDATE_ACTIVITY";
 const DELETE_ACTIVITY = "activities/DELETE_ACTIVITY";
 
-const JOIN_ACTIVITY = "submits/JOIN_ACTIVITY";
-const QUIT_ACTIVITY = "submits/QUIT_ACTIVITY";
+const JOIN_ACTIVITY = "activities/JOIN_ACTIVITY";
+const QUIT_ACTIVITY = "activities/QUIT_ACTIVITY";
+
+const GET_ALL_ACTIVITIES = "activities/GET_ALL_ACTIVITIES";
+const SET_ALL_ACTIVITIES = "activities/SET_ALL_ACTIVITIES";
+
+export const getAllActivities = () => async (dispatch) => {
+  dispatch(startLoading(GET_ALL_ACTIVITIES));
+  try {
+    const activities = await searchAPI.get_search_result({
+      keyword: "",
+      search_type: "activity",
+      page_number: 1,
+      page_size: 100,
+    });
+    dispatch({
+      type: SET_ALL_ACTIVITIES,
+      data: activities.searched_objects || [],
+    });
+    dispatch(requestSuccess(GET_ALL_ACTIVITIES));
+  } catch (error) {
+    dispatch(requestFail(GET_ALL_ACTIVITIES, error));
+  }
+};
 
 export const getActivities = () => async (dispatch) => {
   dispatch(startLoading(GET_ACTIVITIES));
@@ -170,6 +193,11 @@ export const activities = (state = initialState, action) => {
       return {
         ...state,
         containedActivities: action.data,
+      };
+    case SET_ALL_ACTIVITIES:
+      return {
+        ...state,
+        allActivities: action.data,
       };
     default:
       return state;

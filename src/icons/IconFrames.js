@@ -59,9 +59,8 @@ export const SideBarIconFrame = ({
              hover:bg-background-700 
              fill-text-50  hover:fill-text-50 text-xl gruop
           `
-              : `hover:bg-background-500 fill-text-50 
-          
-        bg-background-400 text-text-50 text-xl group
+              : `hover:bg-background-400 fill-text-800 hover:fill-text-50 
+                 bg-background-300 text-text-800 hover:text-text-50 text-xl group
           `
           }
         />

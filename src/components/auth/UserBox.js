@@ -11,7 +11,7 @@ const UserProfile = ({ profile }) => {
     <div className="flex items-center gap-2 max-w-full">
       <UserIcon userdata={{ profile: profile }} />
       <div className="overflow-hidden leading-tight ">
-        <h3 className="py-0 my-0">{name}</h3>
+        <h4 className="py-0 my-0">{name}</h4>
         <span className="text-text-400 text-sm py-0 my-0 max-w-full break-words h-fit ">
           {email}
         </span>
@@ -26,11 +26,11 @@ export const UserBox = React.memo(() => {
   if (!profile) return <></>;
 
   return (
-    <Card.Frame>
+    <div className="h-fit">
       <UserProfile profile={profile} />
-      <hr className="my-4" />
+      <hr className="my-4 border-text-300" />
       <ContainedActivities />
-    </Card.Frame>
+    </div>
   );
 });
 

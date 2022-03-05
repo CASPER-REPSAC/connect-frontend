@@ -30,7 +30,7 @@ export const UserButton = ({ profile }) => {
     <ExpendableIcons
       parentIcon={<UserIconWithBg profile={profile} />}
       childIcons={[
-        <UserBoardIconWithBg />,
+        // <UserBoardIconWithBg />,
         <SignOutIconWithBg onClick={() => onLogout()} />,
       ]}
     />

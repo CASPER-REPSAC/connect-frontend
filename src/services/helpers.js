@@ -51,10 +51,6 @@ export function formatDateTimeWithTimeZone(date) {
   return `${date.substr(0, 10)} ${date.substr(11, 8)}`;
 }
 
-export function sortActivitiesByType(activities, type) {
-  return activities.filter((activity) => activity.type === type);
-}
-
 export function formDateAsFormData(time) {
   return (
     time.getFullYear() +

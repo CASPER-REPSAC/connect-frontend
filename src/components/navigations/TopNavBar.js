@@ -2,7 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleChapterList } from "@/redux/shows";
 import { useLocation } from "react-router-dom";
-import { ArrowLeftSVG } from "@/icons";
+import { ArrowLeftSVG, MoonSVG, SunSVG } from "@/icons";
+import { useClientThemes } from "@/hooks";
 
 const ToggleActivityInfoButton = ({
   onActivityInfoToggle,
@@ -13,7 +14,7 @@ const ToggleActivityInfoButton = ({
       onClick={() => {
         onActivityInfoToggle();
       }}
-      className="h-full flex items-center group absolute"
+      className="h-full flex items-center group absolute text-text-900"
     >
       <div
         className={
@@ -26,6 +27,32 @@ const ToggleActivityInfoButton = ({
         액티비티 정보
       </div>
     </button>
+  );
+};
+
+const ThemeButton = () => {
+  const { theme, setClientTheme } = useClientThemes();
+  return (
+    <div className="flex items-center h-full text-text-800">
+      {theme === "dark" && (
+        <button
+          onClick={() => {
+            setClientTheme("base");
+          }}
+        >
+          <SunSVG />
+        </button>
+      )}
+      {theme === "base" && (
+        <button
+          onClick={() => {
+            setClientTheme("dark");
+          }}
+        >
+          <MoonSVG />
+        </button>
+      )}
+    </div>
   );
 };
 
@@ -57,6 +84,10 @@ export const TopNavBar = () => {
           chapterListShow={chapterListShow}
         />
       )}
+
+      <div className="absolute right-5 top-0 h-full w-fit">
+        <ThemeButton />
+      </div>
     </nav>
   );
 };

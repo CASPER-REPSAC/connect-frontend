@@ -128,7 +128,7 @@ export const ActivityDetailContent = ({
           />
         </div>
         <hr className=" mt-2 mb-4" />
-        <div className="whitespace-normal break-words flex-none">
+        <div className="whitespace-normal break-words flex-none text-text-800">
           <div dangerouslySetInnerHTML={{ __html: description }}></div>
         </div>
       </div>
