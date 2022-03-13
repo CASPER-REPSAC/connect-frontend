@@ -68,7 +68,6 @@ export const TopNavBar = () => {
   const dispatch = useDispatch();
   const chapterListShow = useSelector((state) => state.shows.chapterList.show);
   const location = useLocation();
-  console.log("navbar", useLocation());
   const onActivityInfoToggle = () => {
     dispatch(toggleChapterList());
   };

@@ -84,6 +84,7 @@ export const SearchPage = () => {
               {[...Array(searchResult.page_end_index)].map(
                 (pageButton, index) => (
                   <button
+                    key={index}
                     className={
                       "text-center w-9 h-9 rounded " +
                       (searchResult.page_index === index + 1

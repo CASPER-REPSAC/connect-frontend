@@ -16,7 +16,6 @@ export const getSearchResult = () => async (dispatch, getState) => {
 
   dispatch(startLoading(GET_SEARCH_RESULT));
   try {
-    console.log("search request:", keyword, search_type, page_number);
     const searchResult = await searchAPI.get_search_result({
       keyword,
       search_type,

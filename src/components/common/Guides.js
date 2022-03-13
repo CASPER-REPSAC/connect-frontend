@@ -9,7 +9,7 @@ export function LoginGuide() {
       <div className="flex flex-col gap-3 items-center">
         <div className="flex">
           <CasLogoSVG width="30" className="fill-text-400" />
-          <Muted>로그인을 하면 글을 작성할 수 있어요!</Muted>
+          <Muted>로그인 하면 글을 작성할 수 있어요!</Muted>
         </div>
         <div>
           <GoogleLoginTextButton />

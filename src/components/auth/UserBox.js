@@ -6,10 +6,9 @@ import { ContainedActivities } from "#comp/activities";
 
 const UserProfile = ({ profile }) => {
   const { email, name, given_name, family_name, picture } = profile;
-  console.log(profile);
   return (
     <div className="flex items-center gap-2 max-w-full">
-      <UserIcon userdata={{ profile: profile }} />
+      <UserIcon profile={profile} />
       <div className="overflow-hidden leading-tight ">
         <h4 className="py-0 my-0">{name}</h4>
         <span className="text-text-400 text-sm py-0 my-0 max-w-full break-words h-fit ">
