@@ -33,14 +33,9 @@ yarn install
 
 ```
 
-## New packages compare to previous connect frontend project
+## Defference from previous connect frontend project
 
-This project has been refactor from last one(using react-bootstrap for css library, and good-all useState for state managing). Now it use `TailwindCSS`, `redux` and `redux-thunk`. Planning to add `code spliting` & `SSR` ASAP.
-
-Here are more information about some libraries used in this project.
-
-- craco : For webpack settings.
-- <del> bable-plougin-module-resolver, react-app-rewired</del> : moved to craco
+This project has been refactor from [last one](https://github.com/CASPER-REPSAC/connect-frontend/tree/Bootstrap) (using react-bootstrap for css library, and good-all useState for state managing). Now it uses `TailwindCSS`, `redux` and `redux-thunk`. Planning to add `code spliting` & `SSR` ASAP.
 
 ## Others
 
