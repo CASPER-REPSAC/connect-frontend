@@ -33,7 +33,7 @@ yarn install
 
 ```
 
-## Defference from previous connect frontend project
+## Difference from previous connect frontend project
 
 This project has been refactor from [last one](https://github.com/CASPER-REPSAC/connect-frontend/tree/Bootstrap) (using react-bootstrap for css library, and good-all useState for state managing). Now it uses `TailwindCSS`, `redux` and `redux-thunk`. Planning to add `code spliting` & `SSR` ASAP.
 
