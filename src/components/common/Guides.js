@@ -1,9 +1,22 @@
 import React from "react";
 import { CasLogoSVG } from "@/icons/CasLogoSVG";
 import { Muted } from "#comp/common";
+import { GoogleLoginTextButton } from "#comp/auth/GoogleButton";
 
 export function LoginGuide() {
-  return <div>LoginGuide</div>;
+  return (
+    <div className="h-full w-full flex justify-center items-center min-h-commentInput">
+      <div className="flex flex-col gap-3 items-center">
+        <div className="flex">
+          <CasLogoSVG width="30" className="fill-text-400" />
+          <Muted>로그인을 하면 글을 작성할 수 있어요!</Muted>
+        </div>
+        <div>
+          <GoogleLoginTextButton />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function NoActivitiesGuide() {
@@ -18,7 +31,14 @@ export function NoActivitiesGuide() {
 }
 
 export function LoadingGuide() {
-  return <div>LoadingGuide</div>;
+  return (
+    <div className="h-full w-full flex justify-center items-center min-h-commentInput">
+      <div className="flex ">
+        <CasLogoSVG width="30" className="fill-text-400" />
+        <Muted>로딩 중..</Muted>
+      </div>
+    </div>
+  );
 }
 
 export const Guides = {
