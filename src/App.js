@@ -21,7 +21,7 @@ import {
 import { SideBar, TopNavBar } from "#comp/navigations";
 import { loginWithCookie } from "@/redux/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { Alerts } from "#comp/common";
+import { Alerts, Loadings } from "#comp/common";
 import { useClientThemes } from "@/hooks";
 
 function App() {
@@ -35,6 +35,7 @@ function App() {
 
   return (
     <div className={theme}>
+      <Loadings />
       <div className="bg-background-50 w-full h-fit min-h-full flex">
         <div
           className=" bg-background-200 w-full grid"

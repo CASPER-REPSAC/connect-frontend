@@ -13,7 +13,6 @@ import {
 import { createChapter, updateChapter } from "@/redux/chapters";
 import { removeError } from "@/redux/loadings";
 import {
-  getContainedActivities,
   getActivity,
   createActivity,
   updateActivity,

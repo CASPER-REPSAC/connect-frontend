@@ -11,16 +11,15 @@ import ReduxThunk from "redux-thunk";
 import logger from "redux-logger";
 import { BrowserRouter } from "react-router-dom";
 
-const store =
-  process.env.NODE_ENV === "production"
-    ? createStore(
-        rootReducer,
-        composeWithDevTools(applyMiddleware(ReduxThunk, logger))
-      )
-    : createStore(
-        rootReducer,
-        composeWithDevTools(applyMiddleware(ReduxThunk))
-      );
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(
+      ReduxThunk
+      // logger
+    )
+  )
+);
 
 ReactDOM.render(
   <React.StrictMode>

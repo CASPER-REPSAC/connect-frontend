@@ -22,20 +22,7 @@ const loadingStates = {
   },
 };
 
-const initialState = {
-  comment: {
-    loading: false,
-    error: null,
-  },
-  activity: {
-    loading: false,
-    error: null,
-  },
-  chapter: {
-    loading: false,
-    error: null,
-  },
-};
+const initialState = {};
 
 export const loadings = (state = initialState, action) => {
   switch (action.type) {

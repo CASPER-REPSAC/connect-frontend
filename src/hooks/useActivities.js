@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getActivities,
-  getContainedActivities,
+  // getContainedActivities,
   getAllActivities,
   GET_ACTIVITIES,
 } from "@/redux/activities";
@@ -17,7 +17,7 @@ export const useActivities = () => {
 
   useEffect(() => {
     dispatch(getActivities());
-    dispatch(getContainedActivities());
+    // dispatch(getContainedActivities());
     dispatch(getAllActivities());
   }, [dispatch]);
 
