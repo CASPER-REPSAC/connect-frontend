@@ -1,6 +1,6 @@
 # Connect-frontend
 
-Web application project for managing Changwon Univercity's security club `Casper`'s activities.
+Web front-end project for managing Changwon Univercity's security club `Casper`'s activities.
 
 ## Stack
 
@@ -35,7 +35,7 @@ yarn install
 
 ## Difference from previous connect frontend project
 
-This project has been refactor from [last one](https://github.com/CASPER-REPSAC/connect-frontend/tree/Bootstrap) (using react-bootstrap for css library, and good-all useState for state managing). Now it uses `TailwindCSS`, `redux` and `redux-thunk`. Planning to add `code spliting` & `SSR` ASAP.
+This project has been refactor from [last one](https://github.com/CASPER-REPSAC/connect-frontend/tree/Bootstrap) (using react-bootstrap for css library, and good-all useState for every state managing). Now it uses `TailwindCSS`, `redux` and `redux-thunk`. Planning to add `code spliting` & `SSR` ASAP.
 
 ## Others
 

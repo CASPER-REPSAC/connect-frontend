@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { IconWithToolTip } from "@/icons/IconFrames";
 
 const ParticipantIcons = ({ participants }) => {
-  console.log(participants);
   return (
     <>
       {participants && (

@@ -151,7 +151,7 @@ export const ChapterForm = React.memo(function ChapterForm({
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-2  ">
+    <div className="flex flex-col gap-2 ">
       {activity ? (
         <>
           <SubjectInput subject={subject} onChange={onChange} />

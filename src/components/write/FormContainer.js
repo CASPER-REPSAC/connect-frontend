@@ -175,10 +175,10 @@ export const FormContainerWriteActivity = () => {
 
 export const FormContainerUpdateActivity = () => {
   const [showRequiredFields, setShowRequiredFields] = useState(false);
+  const [isInputsSet, setIsInputsSet] = useState(false);
   const activityInput = useSelector((state) => state.inputs.activityInput);
 
   const { title, description, startDate, endDate } = activityInput;
-
   const { activity_id } = useParams();
 
   const dispatch = useDispatch();
@@ -220,7 +220,7 @@ export const FormContainerUpdateActivity = () => {
 
   useEffect(() => {
     if (!activity) dispatch(getActivity(activity_id));
-    else
+    else {
       dispatch(
         setActivityInput({
           ...activity,
@@ -228,6 +228,8 @@ export const FormContainerUpdateActivity = () => {
           participants_delete: [],
         })
       );
+      setIsInputsSet(true);
+    }
   }, [activity, dispatch, activity_id]);
 
   useEffect(() => {
@@ -240,7 +242,7 @@ export const FormContainerUpdateActivity = () => {
   return (
     <div>
       <SubHeader>액티비티 수정</SubHeader>
-      {activity && (
+      {activity && isInputsSet && (
         <>
           <ActivityForm
             showRequiredFields={showRequiredFields}
