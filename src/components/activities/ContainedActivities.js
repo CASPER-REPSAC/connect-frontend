@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { ActivityCardList } from "./ActivityCardList";
-import { Card, Muted, Guides } from "#comp/common";
+import { Muted, Guides } from "#comp/common";
 import { isArray } from "#serv";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";

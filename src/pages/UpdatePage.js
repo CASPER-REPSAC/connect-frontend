@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import { Card, Guides } from "#comp/common";
 import { FormContainer } from "#comp/write";
 import { useSelector } from "react-redux";

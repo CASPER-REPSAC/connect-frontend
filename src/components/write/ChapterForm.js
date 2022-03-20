@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback } from "react";
 import { ClassicCKEditor } from "./ClassicCKEditor";
 import {
   changeChapterInput,
@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getActivity } from "@/redux/activities";
 import { Guides, Muted } from "#comp/common";
-import { isArray } from "#serv";
 import { FileSVG } from "@/icons";
 import { RequiredFieldsInform } from "#text";
 

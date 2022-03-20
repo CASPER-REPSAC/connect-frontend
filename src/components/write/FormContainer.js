@@ -1,25 +1,5 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import { ActivityForm, ChapterForm } from "#comp/write";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  changeChapterInput,
-  setActivityInput,
-  removeActivityInput,
-  removeChapterInput,
-  setChapterInput,
-  changeActivityInput,
-} from "@/redux/inputs";
-import { createChapter, updateChapter } from "@/redux/chapters";
-import { removeError } from "@/redux/loadings";
-import {
-  getActivity,
-  createActivity,
-  updateActivity,
-  deleteActivity,
-} from "@/redux/activities";
-import { getChapter } from "@/redux/chapters";
-import { formDateAsFormData } from "#serv";
 import { SubmitButtonWithText, ActivityRemoveButton } from "#comp/common";
 import {
   DeletableChapterFileList,

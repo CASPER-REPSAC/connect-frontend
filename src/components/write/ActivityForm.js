@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { ClassicCKEditor } from "./ClassicCKEditor";
 import { changeActivityInput } from "@/redux/inputs";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { WithContext as ReactTags } from "react-tag-input";
 import { RequiredFieldsInform } from "#text";
 import "./forms.css";
@@ -207,15 +207,12 @@ export const ActivityForm = ({ activityInput, showRequiredFields }) => {
   const {
     title,
     type,
-    author,
-    createDate,
     description,
     startDate,
     endDate,
     currentState,
     authString,
     tags,
-    participants_delete,
   } = activityInput;
 
   return (

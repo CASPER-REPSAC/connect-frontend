@@ -1,14 +1,12 @@
 import React from "react";
 import {
-  WithToolTip,
   JoinActivityButton,
   QuitActivityButton,
   ToActivityManageButton,
 } from "#comp/common";
-import { CogSVG, SquarePlusSVG } from "@/icons";
 import { isArray } from "#serv/helpers";
 import { ChapterList } from "#comp/chapters";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ActivityStateInfo = ({ activityStateData, authorData }) => {
   const { createDate, startDate, endDate, currentState, participants } =

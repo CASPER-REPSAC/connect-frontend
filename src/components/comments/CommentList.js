@@ -4,8 +4,7 @@ import { isArray } from "#serv";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCommentInput } from "@/redux/inputs";
 import { createComment, deleteComment } from "@/redux/comments";
-import { SubmitButton, WithToolTip, CommentRemoveButton } from "#comp/common";
-import { TrashCanSVG } from "@/icons";
+import { SubmitButton, CommentRemoveButton } from "#comp/common";
 
 const CommentInput = ({ dispatch }) => {
   const { activity_id, chapter_id } = useParams();
@@ -42,7 +41,6 @@ export const CommentListItem = ({ comment, user, dispatch }) => {
     comment: content,
     writer: writerpk,
     createtime,
-    user: email,
     profile,
   } = comment;
   console.log("comment", user);

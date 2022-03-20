@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { ActivityCardListItem } from "./ActivityCardListItem";
-import { ActivityListItem } from "#comp/chapters/ChapterListItem";
-import { isArray, log } from "#serv";
 
 export const ActivityCardList = ({ activities, pageSize, currentPage }) => {
   return (

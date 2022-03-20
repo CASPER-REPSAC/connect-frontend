@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  PenButton,
-  ChapterRemoveButton,
-  ChapterUpdateButton,
-  WithToolTip,
-} from "#comp/common";
+import { ChapterRemoveButton, ChapterUpdateButton } from "#comp/common";
 import { isArray, formatDateTimeWithTimeZone } from "#serv";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -182,7 +177,6 @@ export const ChapterDetail = ({ activity, onDelete }) => {
   const [nextChapter, setNextChapter] = useState(null);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (chapter) {

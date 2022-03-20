@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useLoadings } from "@/hooks";
 import { useSpring, animated } from "react-spring";
 import { CasLogoSVG } from "@/icons/CasLogoSVG";
@@ -28,8 +28,6 @@ const CasLogoSpinner = () => {
     from: { rotate: 0, transformOrigin: "center" },
     to: { rotate: 360 },
     loop: true,
-    // delay: 500,
-    // config: { duration: 500 },
   });
 
   return (

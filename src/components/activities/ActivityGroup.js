@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ActivityCardList } from "./ActivityCardList";
-import { isArray, log } from "#serv";
+import { isArray } from "#serv";
 import { CaretRightSVG, CaretLeftSVG } from "@/icons";
 import { Muted, Guides } from "#comp/common";
 import { activityTitles } from "@/texts";

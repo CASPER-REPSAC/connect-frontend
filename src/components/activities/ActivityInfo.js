@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Card } from "#comp/common";
 import { isArray } from "#serv/helpers";
 import { useSelector } from "react-redux";

@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getSearchResult } from "@/redux/search";
-import { changeSearchInput } from "@/redux/inputs";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useSearch } from "@/hooks";
 import { Card, Muted } from "#comp/common";
 import { ActivityChapterList } from "#comp/activities/ActivityChapterList";

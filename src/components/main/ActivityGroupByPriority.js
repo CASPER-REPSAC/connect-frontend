@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 
 import { ActivityGroup } from "#comp/activities/";
-import { UserBox } from "#comp/auth/UserBox";
-import { Guides } from "#comp/common";
 import { useActivities, useLayouts } from "@/hooks";
 
 const MainPageGridItem = ({ children }) => {
@@ -17,7 +14,7 @@ const MainPageGridItem = ({ children }) => {
 };
 
 export const ActivityGroupByPriority = () => {
-  const { activities, activitiesLoading } = useActivities();
+  const { activities } = useActivities();
   const { mainLayout } = useLayouts();
   return (
     <>

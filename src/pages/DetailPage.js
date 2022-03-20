@@ -8,7 +8,7 @@ import { ChapterDetail } from "#comp/chapters";
 import { getActivity } from "@/redux/activities";
 import { joinActivity, quitActivity } from "@/redux/activities";
 
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Card } from "#comp/common";
 
 export const DetailPage = () => {

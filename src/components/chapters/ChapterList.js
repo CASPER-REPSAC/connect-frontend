@@ -6,7 +6,7 @@ import { ChevronLeftSVG } from "@/icons/SVGs";
 import { isArray } from "#serv";
 
 export const ChapterListItem = ({ chapter, index }) => {
-  const { activityid, chapterid, created_time, last, next, subject } = chapter;
+  const { activityid, chapterid, subject } = chapter;
 
   return (
     <Link to={`/activities/${activityid}/chapter/${chapterid}`}>

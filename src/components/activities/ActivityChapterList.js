@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  ChapterListItem,
-  ActivityListItem,
-} from "#comp/chapters/ChapterListItem";
+import { ChapterListItem } from "#comp/chapters/ChapterListItem";
 import { ActivityCardListItem } from "./ActivityCardListItem";
 
 export const ActivityChapterList = ({ cards }) => {

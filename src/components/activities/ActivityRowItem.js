@@ -1,7 +1,7 @@
 import React from "react";
 import { ActivityCardList } from "./ActivityCardList";
 import { isArray } from "#serv";
-import { PlusButton, PenButton } from "#comp/common";
+import { PlusButton } from "#comp/common";
 
 const classNames = {
   end_first:

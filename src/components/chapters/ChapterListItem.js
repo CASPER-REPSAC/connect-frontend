@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Muted } from "#comp/common";
-import { isArray } from "#serv/helpers";
 import { useNavigate } from "react-router-dom";
 
 export const ChapterListItem = ({ chapter, expended }) => {

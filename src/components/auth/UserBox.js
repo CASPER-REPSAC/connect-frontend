@@ -1,11 +1,10 @@
 import React from "react";
-import { Card } from "#comp/common";
 import { UserIcon } from "@/icons/";
 import { useSelector } from "react-redux";
 import { ContainedActivities } from "#comp/activities";
 
 const UserProfile = ({ profile }) => {
-  const { email, name, given_name, family_name, picture } = profile;
+  const { email, name } = profile;
   return (
     <div className="flex items-center gap-2 max-w-full">
       <UserIcon profile={profile} />
