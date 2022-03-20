@@ -11,16 +11,17 @@ import {
   sortActivitiesById,
   filterActivitiesByCurrentState,
 } from "#serv";
+import { useLayouts } from "./useLayouts";
 
-export const useActivities = () => {
+export const useGetActivities = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getActivities());
-    // dispatch(getContainedActivities());
     dispatch(getAllActivities());
   }, [dispatch]);
+};
 
+export const useActivities = () => {
   const { activities: runningActivities, allActivities } = useSelector(
     (state) => state.activities
   );
@@ -44,4 +45,41 @@ export const useActivities = () => {
     activities,
     activitiesLoading,
   };
+};
+
+export const useActivityGroup = (activities, title) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const { mainLayout } = useLayouts();
+
+  let pageSize = 6;
+  console.log(title, mainLayout.fourth);
+  if (title === mainLayout.fourth || title === mainLayout.fifth) {
+    pageSize = 3;
+  }
+  const maxPage = Math.ceil(activities.length / pageSize);
+
+  useEffect(() => {
+    if (maxPage > 0 && currentPage >= maxPage) {
+      setCurrentPage(maxPage - 1);
+    }
+  }, [currentPage, maxPage]);
+
+  useEffect(() => {
+    if (currentPage < 0) {
+      setCurrentPage(0);
+    }
+  }, [currentPage]);
+
+  const onNextPage = () => {
+    if (activities.length > (currentPage + 1) * pageSize) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  const onPreviousPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  return { maxPage, currentPage, pageSize, onNextPage, onPreviousPage };
 };

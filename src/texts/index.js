@@ -8,16 +8,16 @@ export const RequiredFieldsInform = {
 };
 
 export const activityTitles = {
-  study: "🖊️ Study",
-  project: "📝 Project",
+  Study: "🖊️ Study",
+  Project: "📝 Project",
   CTF: "🤖 CTF",
   running: "🏃 진행중",
   planned: "⏰ 예정",
 };
 
 export const activityTypes = {
-  study: "Study",
-  project: "Project",
+  Study: "Study",
+  Project: "Project",
   CTF: "CTF",
 };
 

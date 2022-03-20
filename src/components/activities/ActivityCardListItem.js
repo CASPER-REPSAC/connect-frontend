@@ -7,20 +7,13 @@ import { activitiesState } from "@/texts";
 export const ActivityCardListItem = ({ activity, expended }) => {
   const navigate = useNavigate();
   const {
-    // url,
     id,
     title,
-    type,
     author,
     createDate,
-    description,
-    startDate,
-    endDate,
+
     currentState,
-    // viewerNum,
-    tags,
     participants,
-    // authString,
   } = activity;
 
   const authorData = participants.find(
@@ -45,9 +38,8 @@ export const ActivityCardListItem = ({ activity, expended }) => {
           <div className="truncate flex-auto">
             <Card.Title
               className={
-                currentState === 2
-                  ? `whitespace-normal text-text-600`
-                  : `whitespace-normal`
+                "whitespace-normal " +
+                (currentState === 2 ? `text-text-600` : "")
               }
             >
               <h4>{title}</h4>
@@ -75,15 +67,6 @@ export const ActivityCardListItem = ({ activity, expended }) => {
               </div>
             </div>
           </div>
-
-          {/* <div className="truncate text-text-500 text-xs mt-2">
-            {isArray(tags) &&
-              tags.map((tag) => (
-                <span className="mr-2" key={tag.tag_id}>
-                  #{tag.tag_name}
-                </span>
-              ))}
-          </div> */}
         </div>
       </Card.Frame>
     </>

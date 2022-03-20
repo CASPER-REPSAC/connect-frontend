@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { ActivityGroup } from "#comp/activities/";
 import { UserBox } from "#comp/auth/UserBox";
 import { Guides } from "#comp/common";
-import { useActivities } from "@/hooks";
-import { activityTitles } from "@/texts";
+import { useActivities, useGetActivities } from "@/hooks";
+import { ActivityGroupByPriority } from "#comp/main/";
 
 const MainPageGridItem = ({ children }) => {
   return (
@@ -20,6 +19,7 @@ const MainPageGridItem = ({ children }) => {
 export const MainPage = () => {
   const user = useSelector((state) => state.auth.user);
   const { activities, activitiesLoading } = useActivities();
+  useGetActivities();
 
   return (
     <div
@@ -38,43 +38,7 @@ export const MainPage = () => {
               </div>
             </MainPageGridItem>
           )}
-          <MainPageGridItem>
-            <div className="flex flex-col h-full">
-              <div className="pb-3 flex-1">
-                <ActivityGroup
-                  activities={activities.running}
-                  title={activityTitles.running}
-                />
-              </div>
-              <div className="flex-1">
-                <ActivityGroup
-                  activities={activities.planned}
-                  title={activityTitles.planned}
-                />
-              </div>
-            </div>
-          </MainPageGridItem>
-
-          <MainPageGridItem>
-            <ActivityGroup
-              activities={activities.Study}
-              title={activityTitles.study}
-            />
-          </MainPageGridItem>
-
-          <MainPageGridItem>
-            <ActivityGroup
-              activities={activities.Project}
-              title={activityTitles.project}
-            />
-          </MainPageGridItem>
-
-          <MainPageGridItem>
-            <ActivityGroup
-              activities={activities.CTF}
-              title={activityTitles.CTF}
-            />
-          </MainPageGridItem>
+          <ActivityGroupByPriority />
         </>
       )}
     </div>

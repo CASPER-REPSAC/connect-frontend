@@ -4,6 +4,7 @@ import { isArray, log } from "#serv";
 import { CaretRightSVG, CaretLeftSVG } from "@/icons";
 import { Muted, Guides } from "#comp/common";
 import { activityTitles } from "@/texts";
+import { useActivityGroup } from "@/hooks";
 
 const PageControlButtons = ({ onPreviousPage, onNextPage }) => {
   return (
@@ -26,43 +27,19 @@ const PageControlButtons = ({ onPreviousPage, onNextPage }) => {
   );
 };
 
-export const ActivityGroup = ({ activities, title }) => {
-  const [currentPage, setCurrentPage] = useState(0);
-  let pageSize = 6;
-  if (title === activityTitles.running || title === activityTitles.planned)
-    pageSize = 3;
-  const maxPage = Math.ceil(activities.length / pageSize);
+export const ActivityGroup = ({ activities, type }) => {
+  const { maxPage, currentPage, pageSize, onNextPage, onPreviousPage } =
+    useActivityGroup(activities, type);
 
-  useEffect(() => {
-    if (maxPage > 0 && currentPage >= maxPage) {
-      setCurrentPage(maxPage - 1);
-    }
-  }, [currentPage, maxPage]);
-
-  useEffect(() => {
-    if (currentPage < 0) {
-      setCurrentPage(0);
-    }
-  }, [currentPage]);
-
-  const onNextPage = () => {
-    if (activities.length > (currentPage + 1) * pageSize) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-  const onPreviousPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  const title = activityTitles[type];
 
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1 flex flex-col">
         <div className="flex justify-between items-center">
-          <h3>
+          <h3 className="mb-2 mt-1">
             {title}
-            {maxPage > 2 && (
+            {maxPage > 1 && (
               <Muted>
                 ({currentPage + 1}/{maxPage})
               </Muted>
