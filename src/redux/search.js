@@ -3,7 +3,7 @@ import { startLoading, requestSuccess, requestFail } from "./loadings";
 import { changeSearchInput } from "./inputs";
 
 // action types
-const GET_SEARCH_RESULT = "search/GET_SEARCH_RESULT";
+export const GET_SEARCH_RESULT = "search/GET_SEARCH_RESULT";
 const SET_SEARCH_RESULT = "search/SET_SEARCH_RESULT";
 
 // action creators
@@ -12,15 +12,19 @@ export const getSearchResult = () => async (dispatch, getState) => {
     keyword,
     type: search_type,
     page_number,
+    lastRequestKeyword,
   } = getState().inputs.searchInput;
 
   dispatch(startLoading(GET_SEARCH_RESULT));
   try {
-    const searchResult = await searchAPI.get_search_result({
-      keyword,
-      search_type,
-      page_number,
-    });
+    let payload = { keyword, search_type, page_number };
+    if (lastRequestKeyword !== keyword) {
+      payload = {
+        ...payload,
+        page_number: 1,
+      };
+    }
+    const searchResult = await searchAPI.get_search_result(payload);
     dispatch({ type: SET_SEARCH_RESULT, payload: searchResult });
     dispatch(
       changeSearchInput({ name: "lastRequestKeyword", value: keyword || "" })
