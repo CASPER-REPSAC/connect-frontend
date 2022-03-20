@@ -26,34 +26,19 @@ import {
   DeletableParticipantsList,
 } from "./UpdatableDatas";
 
+import {
+  useCreateChapter,
+  useCreateActivity,
+  useUpdateActivity,
+  useUpdateChapter,
+} from "@/hooks/";
+
 const SubHeader = ({ children }) => {
   return <h4 className="text-text-800">{children}</h4>;
 };
 
 export const FormContainerWriteChapter = () => {
-  const [showRequiredFields, setShowRequiredFields] = useState(false);
-  const navigate = useNavigate();
-  const { activity_id } = useParams();
-  const dispatch = useDispatch();
-
-  const chapterInput = useSelector((state) => state.inputs.chapterInput);
-  const { subject, article } = chapterInput;
-
-  const onSubmit = useCallback(() => {
-    if (!subject || !article) {
-      setShowRequiredFields(true);
-    } else {
-      dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
-      dispatch(createChapter(navigate));
-    }
-  }, [dispatch, activity_id, navigate, subject, article]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(removeError("chapter"));
-    };
-  }, [dispatch]);
-
+  const { onSubmit, chapterInput, showRequiredFields } = useCreateChapter();
   return (
     <div>
       <SubHeader>챕터 작성</SubHeader>
@@ -69,45 +54,13 @@ export const FormContainerWriteChapter = () => {
 };
 
 export const FormContainerUpdateChapter = () => {
-  const [showRequiredFields, setShowRequiredFields] = useState(false);
-  const navigate = useNavigate();
-  const { activity_id, chapter_id } = useParams();
-  const dispatch = useDispatch();
-
-  const chapter = useSelector((state) => state.chapters[chapter_id]);
-  const chapterInput = useSelector((state) => state.inputs.chapterInput);
-  const { subject, article } = chapterInput;
-
-  const onDeleteFilesChange = useCallback(
-    (fileDelete) => {
-      dispatch(changeChapterInput({ name: "file_delete", value: fileDelete }));
-    },
-    [dispatch]
-  );
-
-  const onSubmit = useCallback(() => {
-    if (!subject || !article) {
-      setShowRequiredFields(true);
-    } else {
-      dispatch(changeChapterInput({ name: "activity_id", value: activity_id }));
-      dispatch(updateChapter(activity_id, chapter_id, navigate));
-    }
-  }, [dispatch, activity_id, chapter_id, navigate, subject, article]);
-
-  useEffect(() => {
-    if (!chapter) dispatch(getChapter(activity_id, chapter_id));
-    else
-      dispatch(
-        setChapterInput({ ...chapter[0], file_delete: [], authString: "" })
-      );
-  }, [chapter, dispatch, activity_id, chapter_id]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(removeError("update_chapter"));
-      dispatch(removeChapterInput());
-    };
-  }, [dispatch]);
+  const {
+    onSubmit,
+    chapterInput,
+    showRequiredFields,
+    onDeleteFilesChange,
+    chapter,
+  } = useUpdateChapter();
 
   return (
     <div>
@@ -132,33 +85,7 @@ export const FormContainerUpdateChapter = () => {
 };
 
 export const FormContainerWriteActivity = () => {
-  const [showRequiredFields, setShowRequiredFields] = useState(false);
-  const activityInput = useSelector((state) => state.inputs.activityInput);
-
-  const { title, description, startDate, endDate } = activityInput;
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const onSubmit = useCallback(() => {
-    if (
-      !title ||
-      !description ||
-      !startDate ||
-      !endDate ||
-      new Date(startDate) > new Date(endDate)
-    ) {
-      setShowRequiredFields(true);
-    } else {
-      dispatch(createActivity(navigate));
-    }
-  }, [dispatch, navigate, title, description, startDate, endDate]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(removeError("activity"));
-    };
-  }, [dispatch]);
-
+  const { showRequiredFields, activityInput, onSubmit } = useCreateActivity();
   return (
     <div>
       <SubHeader>액티비티 작성</SubHeader>
@@ -174,71 +101,15 @@ export const FormContainerWriteActivity = () => {
 };
 
 export const FormContainerUpdateActivity = () => {
-  const [showRequiredFields, setShowRequiredFields] = useState(false);
-  const [isInputsSet, setIsInputsSet] = useState(false);
-  const activityInput = useSelector((state) => state.inputs.activityInput);
-
-  const { title, description, startDate, endDate } = activityInput;
-  const { activity_id } = useParams();
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const onDeleteParticipantsChange = useCallback(
-    (paticipantDelete) => {
-      dispatch(
-        changeActivityInput({
-          name: "participants_delete",
-          value: paticipantDelete,
-        })
-      );
-    },
-    [dispatch]
-  );
-
-  const onSubmit = useCallback(() => {
-    if (
-      !title ||
-      !description ||
-      !startDate ||
-      !endDate ||
-      new Date(startDate) > new Date(endDate)
-    ) {
-      setShowRequiredFields(true);
-    } else {
-      dispatch(updateActivity(activity_id, navigate));
-    }
-  }, [dispatch, navigate, activity_id, title, description, startDate, endDate]);
-
-  const activity = useSelector(
-    (state) => state.activities.activity[activity_id]
-  );
-
-  const onRemove = () => {
-    dispatch(deleteActivity(activity_id, navigate));
-  };
-
-  useEffect(() => {
-    if (!activity) dispatch(getActivity(activity_id));
-    else {
-      dispatch(
-        setActivityInput({
-          ...activity,
-          tags: activity.tags.map((tag) => tag.tag_name),
-          participants_delete: [],
-        })
-      );
-      setIsInputsSet(true);
-    }
-  }, [activity, dispatch, activity_id]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(removeError("update_activity"));
-      dispatch(removeActivityInput());
-    };
-  }, [dispatch]);
-
+  const {
+    activity,
+    isInputsSet,
+    showRequiredFields,
+    activityInput,
+    onDeleteParticipantsChange,
+    onRemove,
+    onSubmit,
+  } = useUpdateActivity();
   return (
     <div>
       <SubHeader>액티비티 수정</SubHeader>
