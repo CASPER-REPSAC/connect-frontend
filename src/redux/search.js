@@ -4,7 +4,9 @@ import { changeSearchInput } from "./inputs";
 
 // action types
 export const GET_SEARCH_RESULT = "search/GET_SEARCH_RESULT";
+export const GET_USER_SEARCH_RESULT = "search/GET_USER_SEARCH_RESULT";
 const SET_SEARCH_RESULT = "search/SET_SEARCH_RESULT";
+const SET_USER_SEARCH_RESULT = "search/SET_USER_SEARCH_RESULT";
 
 // action creators
 export const getSearchResult = () => async (dispatch, getState) => {
@@ -35,9 +37,22 @@ export const getSearchResult = () => async (dispatch, getState) => {
   }
 };
 
+export const getUserSearchResult =
+  (user_email) => async (dispatch, getState) => {
+    dispatch(startLoading(GET_USER_SEARCH_RESULT));
+    try {
+      const searchResult = await searchAPI.get_user_search_result(user_email);
+      dispatch({ type: SET_USER_SEARCH_RESULT, payload: searchResult });
+      dispatch(requestSuccess(GET_USER_SEARCH_RESULT));
+    } catch (e) {
+      dispatch(requestFail(GET_USER_SEARCH_RESULT));
+    }
+  };
+
 // initial State
 const initialState = {
   searchResult: null,
+  userSearchResult: null,
 };
 
 // reducer
@@ -47,6 +62,12 @@ function search(state = initialState, action) {
       return {
         ...state,
         searchResult: action.payload,
+      };
+
+    case SET_USER_SEARCH_RESULT:
+      return {
+        ...state,
+        userSearchResult: action.payload,
       };
     default:
       return state;

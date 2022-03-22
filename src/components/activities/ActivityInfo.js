@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "#comp/common";
 import { isArray } from "#serv/helpers";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { IconWithToolTip } from "@/icons/IconFrames";
 
 const ParticipantIcons = ({ participants }) => {
@@ -12,13 +12,15 @@ const ParticipantIcons = ({ participants }) => {
         <div className="grid grid-cols-3 max-w-fit xl:grid-cols-5 gap-1">
           {participants.map((participant, index) => {
             return (
-              <IconWithToolTip
-                key={participant.user_id}
-                profile={participant.profile}
-                tooltip={(index === 0 ? "👑" : "") + participant.user_name}
-                offsetclass="top-12 left-0 after:absolute after:-top-1/4 after:left-[12px] after:border-transparent after:border-b-background-700"
-                className="w-10 h-10"
-              />
+              <Link to={"/search-user/" + participant.profile.email}>
+                <IconWithToolTip
+                  key={participant.user_id}
+                  profile={participant.profile}
+                  tooltip={(index === 0 ? "👑" : "") + participant.user_name}
+                  offsetclass="top-12 left-0 after:absolute after:-top-1/4 after:left-[12px] after:border-transparent after:border-b-background-700"
+                  className="w-10 h-10"
+                />
+              </Link>
             );
           })}
         </div>

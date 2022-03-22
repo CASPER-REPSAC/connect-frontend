@@ -9,7 +9,7 @@ import {
   // ChapterDetailPage,
   // ChapterWritePage,
   SearchPage,
-  // UserPage,
+  UserPage,
   MainPage,
   DetailPage,
   WritePage,
@@ -60,6 +60,7 @@ function App() {
               <Route path="write/*" element={<WritePage />} />
               <Route path="update/:activity_id/*" element={<UpdatePage />} />
               <Route path="search" element={<SearchPage />} />
+              <Route path="search-user/:user_email" element={<UserPage />} />
             </Routes>
           </section>
         </div>

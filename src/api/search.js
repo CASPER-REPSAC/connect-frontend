@@ -17,3 +17,13 @@ export const get_search_result = async ({
 
   return res.data;
 };
+
+export const get_user_search_result = async (user_email) => {
+  const payload = { user: user_email };
+
+  // gives error on '/api/search_user/'(last slach cause err)
+  const res = await axios.get("/api/search_user", {
+    params: payload,
+  });
+  return res.data;
+};

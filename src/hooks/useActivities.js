@@ -51,7 +51,6 @@ export const useActivityGroup = (activities, title) => {
   const { mainLayout } = useLayouts();
 
   let pageSize = 6;
-  console.log(title, mainLayout.fourth);
   if (title === mainLayout.fourth || title === mainLayout.fifth) {
     pageSize = 3;
   }
