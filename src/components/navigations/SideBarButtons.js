@@ -16,6 +16,7 @@ import { changeSearchInput } from "@/redux/inputs";
 import { logout } from "@/redux/auth";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useSearchButton } from "@/hooks";
 
 export { CasLogoIconWithBg as HomeButton };
 export { PenIconWithBg as ActivityWriteButton };
@@ -60,29 +61,16 @@ export const GitIssueButton = () => {
 
 export const SearchButton = ({ isActive }) => {
   let className = `opacity-0 scale-0 none w-0 group-hover:opacity-100 group-hover:scale-100 transition-all group-hover:w-40`;
-  const { keyword, type, requestCounter } = useSelector(
-    (state) => state.inputs.searchInput
-  );
-  const dispatch = useDispatch();
-  const searchInput = useRef();
 
-  const onChange = (e) => {
-    dispatch(changeSearchInput(e.target));
-  };
-  const onHover = () => {
-    searchInput.current.focus();
-  };
-  const onMouseLeave = () => {
-    searchInput.current.blur();
-  };
+  const {
+    onHover,
+    onMouseLeave,
+    onEnter,
+    onIconClick,
+    onKeywordChange,
+    searchInput,
+  } = useSearchButton();
 
-  const onClick = () => {
-    dispatch(
-      changeSearchInput({ name: "requestCounter", value: requestCounter + 1 })
-    );
-  };
-
-  const navigate = useNavigate();
   return (
     <>
       <div
@@ -94,17 +82,14 @@ export const SearchButton = ({ isActive }) => {
           onMouseLeave();
         }}
         onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            dispatch(changeSearchInput(e.target));
-            navigate(`/search`);
-          }
+          onEnter(e);
         }}
       >
         <div>
           <SearchIconWithBg
             isActive={isActive}
             onClick={() => {
-              onClick();
+              onIconClick();
             }}
           />
         </div>
@@ -114,7 +99,7 @@ export const SearchButton = ({ isActive }) => {
               type="text"
               name="keyword"
               className="bg-transparent border-b-2 border-b-text-200 w-32 mr-5 focus:outline-none m-2"
-              onChange={(e) => onChange(e)}
+              onChange={(e) => onKeywordChange(e)}
               ref={searchInput}
             />
           </div>
