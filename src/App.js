@@ -2,12 +2,6 @@ import "./App.css";
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
-  // ActivityListGroupPage,
-  // ActivityDetailPage,
-  // ActivityWritePage,
-  // ActivityUpdatePage,
-  // ChapterDetailPage,
-  // ChapterWritePage,
   SearchPage,
   UserPage,
   MainPage,
@@ -21,7 +15,7 @@ import {
 import { SideBar, TopNavBar } from "#comp/navigations";
 import { loginWithCookie } from "@/redux/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { Alerts, Loadings } from "#comp/common";
+import { Alerts, Loadings, Footer } from "#comp/common";
 import { useClientThemes } from "@/hooks";
 
 function App() {
@@ -50,7 +44,7 @@ function App() {
           <div className="row-span-2">
             <SideBar />
           </div>
-          <section className="order-4 ">
+          <section className="order-4 relative">
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route
@@ -62,6 +56,7 @@ function App() {
               <Route path="search" element={<SearchPage />} />
               <Route path="search-user/:user_email" element={<UserPage />} />
             </Routes>
+            <Footer />
           </section>
         </div>
       </div>

@@ -6,3 +6,4 @@ export * from "./Buttons";
 export * from "./Loadings";
 export * from "./Muted";
 export * from "./Guides";
+export * from "./Footer";
