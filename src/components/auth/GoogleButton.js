@@ -1,6 +1,6 @@
 import React from "react";
 import GoogleLogin from "react-google-login";
-import { SignInIconWithBg } from "#comp/navigations";
+import { SignInIconWithBg } from "#comp/navigations/SideBarIcons";
 import { useGoogleLogin } from "@/hooks";
 
 // 로그인 성공시 정보 저장은 thunk에서 처리

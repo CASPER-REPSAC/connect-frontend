@@ -9,7 +9,7 @@ import {
   GitIssueIconWithBg,
   UserIconWithBg,
   // UserBoardIconWithBg,
-} from "#comp/navigations";
+} from "./SideBarIcons";
 import { ExpendableIcons } from "#comp/common";
 import { SettingsModal } from "#comp/settings";
 import { logout } from "@/redux/auth";

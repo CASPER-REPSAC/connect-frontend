@@ -58,7 +58,7 @@ export const Card = {
   Title: CardTitle,
   SubTitle: CardSubTitle,
   Body: CardBody,
-  Icon: IconWithToolTip,
+  // Icon: IconWithToolTip,
 };
 
 export default Card;
