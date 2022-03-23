@@ -1,5 +1,5 @@
 import React from "react";
-import { UserIcon } from "@/icons/";
+import { UserIcon } from "#comp/common";
 import { useSelector } from "react-redux";
 import { ContainedActivities } from "#comp/activities";
 

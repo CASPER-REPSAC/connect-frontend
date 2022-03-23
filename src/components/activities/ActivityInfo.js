@@ -1,9 +1,8 @@
 import React from "react";
-import { Card } from "#comp/common";
+import { Card, IconWithToolTip } from "#comp/common";
 import { isArray } from "#serv/helpers";
 import { useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import { IconWithToolTip } from "@/icons/IconFrames";
 
 const ParticipantIcons = ({ participants }) => {
   return (

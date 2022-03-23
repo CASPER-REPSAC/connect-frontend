@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   SearchIconWithBg,
   SignOutIconWithBg,
@@ -8,14 +8,12 @@ import {
   CasLogoIconWithBg,
   GitIssueIconWithBg,
   UserIconWithBg,
-  UserBoardIconWithBg,
-} from "@/icons";
-import { ExpendableIcons } from "@/icons";
+  // UserBoardIconWithBg,
+} from "#comp/navigations";
+import { ExpendableIcons } from "#comp/common";
 import { SettingsModal } from "#comp/settings";
-import { changeSearchInput } from "@/redux/inputs";
 import { logout } from "@/redux/auth";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useSearchButton } from "@/hooks";
 
 export { CasLogoIconWithBg as HomeButton };

@@ -1,16 +1,14 @@
 import React from "react";
-import { Card, Muted, Guides } from "#comp/common";
+import { Card, Muted, Guides, UserIcon } from "#comp/common";
 import { useUser } from "@/hooks/";
-import { isArray } from "#serv";
 import { ActivityCardList } from "#comp/activities";
-import { UserIcon } from "@/icons/";
 
 export const UserPage = () => {
   const {
-    getUserInfo,
+    // getUserInfo,
     userActivities,
-    user_email,
-    activityCount,
+    // user_email,
+    // activityCount,
     pageSize,
     currentPage,
     userSearchLoading,

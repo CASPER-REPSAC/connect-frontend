@@ -1,5 +1,5 @@
 import React from "react";
-import { returnUnionedClassName, log } from "#serv";
+import { returnUnionedClassName } from "#serv";
 
 export function Muted({ children, className }) {
   return (

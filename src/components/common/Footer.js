@@ -1,7 +1,6 @@
 import React from "react";
 import { Muted } from "#comp/common";
 import { CasLogoSVG } from "@/icons/CasLogoSVG";
-import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (

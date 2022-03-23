@@ -1,6 +1,6 @@
 import React from "react";
-import { IconWithToolTip } from "@/icons/IconFrames";
-import { returnUnionedClassName, log } from "#serv";
+import { IconWithToolTip } from "#comp/common";
+import { returnUnionedClassName } from "#serv";
 
 export const CardFrame = (props) => {
   let newClassName = props.className;

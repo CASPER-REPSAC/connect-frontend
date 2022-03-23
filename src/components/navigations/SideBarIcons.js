@@ -6,15 +6,12 @@ import {
   CogSVG,
   CasLogoSVG,
   GitIssueSVG,
-  UserSVG,
+  // UserSVG,
   StreamSVG,
   PenSVG,
-} from "./SVGs";
-import { SideBarIconFrame } from "@/icons/IconFrames";
-import { Link } from "react-router-dom";
-import { log } from "#serv";
-import { useSelector } from "react-redux";
-import casLogo from "./cas.png";
+} from "@/icons";
+import { SideBarIconFrame } from "#comp/common";
+import casLogo from "@/icons/cas.png";
 
 export const SearchIconWithBg = (props) => {
   return (

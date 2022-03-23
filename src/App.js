@@ -1,6 +1,6 @@
 import "./App.css";
 import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import {
   SearchPage,
   UserPage,
@@ -14,8 +14,8 @@ import {
 } from "@/pages";
 import { SideBar, TopNavBar } from "#comp/navigations";
 import { loginWithCookie } from "@/redux/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { Alerts, Loadings, Footer } from "#comp/common";
+import { useDispatch } from "react-redux";
+import { Loadings, Footer } from "#comp/common";
 import { useClientThemes } from "@/hooks";
 
 function App() {
