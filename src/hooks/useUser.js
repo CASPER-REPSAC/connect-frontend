@@ -14,6 +14,7 @@ export const useUser = () => {
     searched_objects_count: activityCount,
     page_size: pageSize,
     page_index: currentPage,
+    user_info,
   } = useSelector(
     (state) =>
       state.search.userSearchResult || {
@@ -47,5 +48,6 @@ export const useUser = () => {
     pageSize,
     currentPage,
     userSearchLoading,
+    user_info,
   };
 };
