@@ -3,13 +3,13 @@ import { CasLogoSVG } from "@/icons/CasLogoSVG";
 import { Muted } from "#comp/common";
 import { GoogleLoginTextButton } from "#comp/auth/GoogleButton";
 
-export function LoginGuide() {
+export function LoginGuide({ msg }) {
   return (
     <div className="h-full w-full flex justify-center items-center min-h-commentInput">
       <div className="flex flex-col gap-3 items-center">
         <div className="flex">
           <CasLogoSVG width="30" className="fill-text-400" />
-          <Muted>로그인 하면 글을 작성할 수 있어요!</Muted>
+          <Muted>{msg || "로그인 하면 글을 작성할 수 있어요!"}</Muted>
         </div>
         <div>
           <GoogleLoginTextButton />

@@ -49,5 +49,6 @@ export const useUser = () => {
     currentPage,
     userSearchLoading,
     user_info,
+    wai,
   };
 };
