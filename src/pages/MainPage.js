@@ -31,13 +31,6 @@ export const MainPage = () => {
       {activitiesLoading && !activities && <Guides.LoadingGuide />}
       {activities && activities.Study && activities.CTF && activities.Project && (
         <>
-          {user && (
-            <MainPageGridItem>
-              <div className="pt-2">
-                <UserBox />
-              </div>
-            </MainPageGridItem>
-          )}
           <ActivityGroupByPriority />
         </>
       )}

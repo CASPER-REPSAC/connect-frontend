@@ -13,7 +13,12 @@ import { BrowserRouter } from "react-router-dom";
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(ReduxThunk, logger))
+  composeWithDevTools(
+    applyMiddleware(
+      ReduxThunk
+      // logger
+    )
+  )
 );
 
 ReactDOM.render(

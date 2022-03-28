@@ -68,17 +68,20 @@ export const SideBarIconFrame = ({
 };
 
 export const ExpendableIcons = ({ parentIcon, childIcons, search, focus }) => {
-  let className = `opacity-0 scale-0 none w-0 group-hover:opacity-100 group-hover:scale-100 transition-all group-hover:w-12`;
+  // opacity-0 scale-0 none w-0 h-0
+  let className = ` opacity-0 scale-0 none w-0 h-0 group-hover:opacity-100 group-hover:scale-100 transition-all group-hover:w-12`;
   return (
     <>
-      <div className="w-fit h-fit flex rounded-3xl bg-background-600 bg-opacity-90 z-30 hover:gap-x-2 group">
-        <div>{parentIcon}</div>
-        {isArray(childIcons) &&
-          childIcons.map((childIcon, index) => (
-            <div key={index} className={className}>
-              {childIcon}
-            </div>
-          ))}
+      <div className="relative w-fit h-fit flex rounded-3xl bg-background-600 bg-opacity-90 z-30 hover:gap-x-2 group">
+        <div className="z-20">{parentIcon}</div>
+        <div className="absolute -top-1 -left-1">
+          {isArray(childIcons) &&
+            childIcons.map((childIcon, index) => (
+              <div key={index} className={className}>
+                {childIcon}
+              </div>
+            ))}
+        </div>
       </div>
     </>
   );

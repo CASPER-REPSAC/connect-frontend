@@ -8,9 +8,11 @@ import {
   CasLogoIconWithBg,
   GitIssueIconWithBg,
   UserIconWithBg,
-  // UserBoardIconWithBg,
+  UserBoardIconWithBg,
 } from "./SideBarIcons";
-import { ExpendableIcons } from "#comp/common";
+import { StreamSVG, SignOutSVG } from "@/icons/SVGs";
+import { ExpendableIcons, Muted } from "#comp/common";
+import { UserBox } from "#comp/auth/UserBox";
 import { SettingsModal } from "#comp/settings";
 import { logout } from "@/redux/auth";
 import { useDispatch } from "react-redux";
@@ -20,17 +22,22 @@ export { CasLogoIconWithBg as HomeButton };
 export { PenIconWithBg as ActivityWriteButton };
 export { GoogleLoginButton } from "#comp/auth/GoogleButton";
 
+const UserIconInfo = () => {
+  return (
+    <div className="rounded-3xl overflow-hidden h-fit w-fit drop-shadow-md shadow-text-600 bg-background-50 ">
+      <UserBox />
+    </div>
+  );
+};
+
 export const UserButton = ({ profile }) => {
-  const dispatch = useDispatch();
-  const onLogout = () => {
-    dispatch(logout());
-  };
   return (
     <ExpendableIcons
       parentIcon={<UserIconWithBg profile={profile} />}
       childIcons={[
-        // <UserBoardIconWithBg />,
-        <SignOutIconWithBg onClick={() => onLogout()} />,
+        // ,
+        <UserIconInfo />,
+        // <SignOutIconWithBg onClick={() => onLogout()} />,
       ]}
     />
   );
