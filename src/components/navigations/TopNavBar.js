@@ -77,12 +77,13 @@ export const TopNavBar = () => {
       <div className="absolute left-0 top-0 h-full w-full">
         <TopNavHeader location={location} />
       </div>
-      {location.pathname.indexOf("activities") !== -1 && (
-        <ToggleActivityInfoButton
-          onActivityInfoToggle={onActivityInfoToggle}
-          chapterListShow={chapterListShow}
-        />
-      )}
+      {location.pathname.indexOf("activities") !== -1 &&
+        location.pathname.indexOf("activities/ended") === -1 && (
+          <ToggleActivityInfoButton
+            onActivityInfoToggle={onActivityInfoToggle}
+            chapterListShow={chapterListShow}
+          />
+        )}
 
       <div className="absolute right-5 top-0 h-full w-fit">
         <ThemeButton />

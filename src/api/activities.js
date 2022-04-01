@@ -7,6 +7,11 @@ export const get_activities = async () => {
   return activities;
 };
 
+export const get_ended_activities = async () => {
+  const res = await axios.get("/api/activities/end/");
+  return res.data;
+};
+
 export const get_contained_activities = async () => {
   // api/user/contained_new
   const res = await axios.get("/api/user/contained_new/");

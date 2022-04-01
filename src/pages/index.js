@@ -1,8 +1,9 @@
-export { default as AuthPage } from "./AuthPage";
-export { default as SearchPage } from "./SearchPage";
-export { default as SettingsPage } from "./SettingsPage";
-export { default as UserPage } from "./UserPage";
-export { default as MainPage } from "./MainPage";
-export { default as DetailPage } from "./DetailPage";
-export { default as WritePage } from "./WritePage";
-export { default as UpdatePage } from "./UpdatePage";
+export { default as Auth } from "./AuthPage";
+export { default as Search } from "./SearchPage";
+export { default as Settings } from "./SettingsPage";
+export { default as User } from "./UserPage";
+export { default as Main } from "./MainPage";
+export { default as Detail } from "./DetailPage";
+export { default as Write } from "./WritePage";
+export { default as Update } from "./UpdatePage";
+export { default as EndedActivities } from "./EndedActivities";

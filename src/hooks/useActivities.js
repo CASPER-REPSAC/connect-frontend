@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getActivities,
   getAllActivities,
+  getEndedActivities,
   GET_ACTIVITIES,
 } from "@/redux/activities";
 import {
@@ -46,11 +47,10 @@ export const useActivities = () => {
   };
 };
 
-export const useActivityGroup = (activities, title) => {
+export const useActivityGroup = (activities, title, pageSize = 6) => {
   const [currentPage, setCurrentPage] = useState(0);
   const { mainLayout } = useLayouts();
 
-  let pageSize = 6;
   if (title === mainLayout.fourth || title === mainLayout.fifth) {
     pageSize = 3;
   }
@@ -80,4 +80,27 @@ export const useActivityGroup = (activities, title) => {
   };
 
   return { maxPage, currentPage, pageSize, onNextPage, onPreviousPage };
+};
+
+export const useEndedActivities = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getEndedActivities());
+  }, [dispatch]);
+
+  const endedActivities = useSelector(
+    (state) => state.activities.endedActivities || []
+  );
+
+  const { maxPage, currentPage, pageSize, onNextPage, onPreviousPage } =
+    useActivityGroup(endedActivities, "", 10);
+
+  return {
+    endedActivities,
+    maxPage,
+    currentPage,
+    pageSize,
+    onNextPage,
+    onPreviousPage,
+  };
 };

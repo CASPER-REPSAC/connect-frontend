@@ -10,6 +10,9 @@ import { startLoading, requestSuccess, requestFail } from "./loadings";
 export const GET_ACTIVITIES = "activities/GET_ACTIVITIES";
 const GET_ACTIVITY = "activities/GET_ACTIVITY";
 
+const GET_ENDED_ACTIVITIES = "activities/GET_ENDED_ACTIVITIES";
+const SET_ENDED_ACTIVITIES = "activities/SET_ENDED_ACTIVITIES";
+
 const SET_ACTIVITIES = "activities/SET_ACTIVITIES";
 const SET_ACTIVITY = "activities/SET_ACTIVITY";
 
@@ -101,6 +104,19 @@ export const createActivity = (navigate) => async (dispatch, getState) => {
     dispatch(requestSuccess(CREATE_ACTIVITY));
   } catch (error) {
     dispatch(requestFail(CREATE_ACTIVITY, error));
+  }
+};
+
+// get_ended_activities
+
+export const getEndedActivities = () => async (dispatch) => {
+  dispatch(startLoading(GET_ENDED_ACTIVITIES));
+  try {
+    const activities = await activitiesAPI.get_ended_activities();
+    dispatch({ type: SET_ENDED_ACTIVITIES, data: activities });
+    dispatch(requestSuccess(GET_ENDED_ACTIVITIES));
+  } catch (error) {
+    dispatch(requestFail(GET_ENDED_ACTIVITIES, error));
   }
 };
 
@@ -198,6 +214,11 @@ export const activities = (state = initialState, action) => {
       return {
         ...state,
         allActivities: action.data,
+      };
+    case SET_ENDED_ACTIVITIES:
+      return {
+        ...state,
+        endedActivities: action.data,
       };
     default:
       return state;

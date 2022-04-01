@@ -2,15 +2,16 @@ import "./App.css";
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import {
-  SearchPage,
-  UserPage,
-  MainPage,
-  DetailPage,
-  WritePage,
-  UpdatePage,
-  // AuthPage,
-  // IssuesPage,
-  // SettingsPage, 이 셋은 모달이랑 새창 열기로 처리
+  Search,
+  User,
+  Main,
+  Detail,
+  Write,
+  Update,
+  EndedActivities,
+  // Auth,
+  // Issues,
+  // Settings, 이 셋은 모달이랑 새창 열기로 처리
 } from "@/pages";
 import { SideBar, TopNavBar } from "#comp/navigations";
 import { loginWithCookie } from "@/redux/auth";
@@ -46,15 +47,13 @@ function App() {
           </div>
           <section className="order-4 relative">
             <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route
-                path="/activities/:activity_id/*"
-                element={<DetailPage />}
-              />
-              <Route path="write/*" element={<WritePage />} />
-              <Route path="update/:activity_id/*" element={<UpdatePage />} />
-              <Route path="search" element={<SearchPage />} />
-              <Route path="search-user/:user_email" element={<UserPage />} />
+              <Route path="/" element={<Main />} />
+              <Route path="/activities/ended" element={<EndedActivities />} />
+              <Route path="/activities/:activity_id/*" element={<Detail />} />
+              <Route path="write/*" element={<Write />} />
+              <Route path="update/:activity_id/*" element={<Update />} />
+              <Route path="search" element={<Search />} />
+              <Route path="search-user/:user_email" element={<User />} />
             </Routes>
             <Footer />
           </section>

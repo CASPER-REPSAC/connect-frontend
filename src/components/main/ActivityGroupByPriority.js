@@ -2,6 +2,7 @@ import React from "react";
 
 import { ActivityGroup } from "#comp/activities/";
 import { useActivities, useLayouts } from "@/hooks";
+import { ToEndedActivityButton } from "#comp/common";
 
 const MainPageGridItem = ({ children }) => {
   return (
@@ -30,6 +31,9 @@ export const ActivityGroupByPriority = () => {
           activities={activities[mainLayout.second]}
           type={mainLayout.second}
         />
+        <div className="flex justify-center">
+          <ToEndedActivityButton />
+        </div>
       </MainPageGridItem>
 
       <MainPageGridItem>
