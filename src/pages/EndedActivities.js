@@ -1,29 +1,8 @@
 import React from "react";
-import { Card, Muted } from "#comp/common";
+import { Card, Muted, PageControlButtons } from "#comp/common";
 import { useEndedActivities } from "@/hooks";
 import { ActivityCardList } from "#comp/activities/";
 import { CaretRightSVG, CaretLeftSVG } from "@/icons";
-
-const PageControlButtons = ({ onPreviousPage, onNextPage }) => {
-  return (
-    <div className="flex gap-4 text-lg text-text-800">
-      <button
-        onClick={() => {
-          onPreviousPage();
-        }}
-      >
-        <CaretLeftSVG />
-      </button>
-      <button
-        onClick={() => {
-          onNextPage();
-        }}
-      >
-        <CaretRightSVG />
-      </button>
-    </div>
-  );
-};
 
 const EndedActivities = () => {
   const {

@@ -1,31 +1,9 @@
 import React from "react";
 import { ActivityCardList } from "./ActivityCardList";
 import { isArray } from "#serv";
-import { CaretRightSVG, CaretLeftSVG } from "@/icons";
-import { Muted, Guides } from "#comp/common";
+import { Muted, Guides, PageControlButtons } from "#comp/common";
 import { activityTitles } from "@/texts";
 import { useActivityGroup } from "@/hooks";
-
-const PageControlButtons = ({ onPreviousPage, onNextPage }) => {
-  return (
-    <div className="flex gap-4 text-lg text-text-800">
-      <button
-        onClick={() => {
-          onPreviousPage();
-        }}
-      >
-        <CaretLeftSVG />
-      </button>
-      <button
-        onClick={() => {
-          onNextPage();
-        }}
-      >
-        <CaretRightSVG />
-      </button>
-    </div>
-  );
-};
 
 export const ActivityGroup = ({ activities, type }) => {
   const { maxPage, currentPage, pageSize, onNextPage, onPreviousPage } =

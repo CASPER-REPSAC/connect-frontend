@@ -10,9 +10,31 @@ import {
   MinusSVG,
   SquarePlusSVG,
   CaretRightSVG,
+  CaretLeftSVG,
 } from "@/icons";
 import { WithToolTip } from "./ToolTip";
 import { Link } from "react-router-dom";
+
+export const PageControlButtons = ({ onPreviousPage, onNextPage }) => {
+  return (
+    <div className="flex gap-4 text-lg text-text-800 w-fit">
+      <button
+        onClick={() => {
+          onPreviousPage();
+        }}
+      >
+        <CaretLeftSVG />
+      </button>
+      <button
+        onClick={() => {
+          onNextPage();
+        }}
+      >
+        <CaretRightSVG />
+      </button>
+    </div>
+  );
+};
 
 export const ToEndedActivityButton = () => {
   return (
