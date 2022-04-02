@@ -20,17 +20,25 @@ const EndedActivities = () => {
         expended="true"
         className="hover:bg-background-50 hover:shadow-none w-full sm:w-[500px] md:w-[650px] lg:w-[900px]"
       >
-        <h3>
-          종료된 액티비티
-          <Muted className="ml-1"> ({endedActivities.length})</Muted>
-        </h3>
-        <div>
-          {endedActivities.length > pageSize && (
-            <PageControlButtons
-              onNextPage={onNextPage}
-              onPreviousPage={onPreviousPage}
-            />
-          )}
+        <div className="flex justify-between items-center">
+          <h3>
+            종료된 액티비티
+            <Muted className="ml-1"> ({endedActivities.length})</Muted>
+          </h3>
+
+          <div className="flex gap-2">
+            {maxPage > 1 && (
+              <Muted>
+                ({currentPage + 1}/{maxPage})
+              </Muted>
+            )}
+            {endedActivities.length > pageSize && (
+              <PageControlButtons
+                onNextPage={onNextPage}
+                onPreviousPage={onPreviousPage}
+              />
+            )}
+          </div>
         </div>
         <ActivityCardList
           activities={endedActivities}

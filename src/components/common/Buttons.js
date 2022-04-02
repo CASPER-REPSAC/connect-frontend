@@ -40,7 +40,7 @@ export const ToEndedActivityButton = () => {
   return (
     <Link
       to="/activities/ended"
-      className="bg-background-500 h-fit w-fit py-1 px-3 rounded text-text-50 text-sm text-center hover:text-text-50 hover:translate-x-3"
+      className="bg-point-500 h-fit w-fit py-1 px-3 rounded text-text-50 text-xs text-center hover:text-text-50 hover:translate-x-3"
     >
       <span>종료 액티비티 보러가기 </span>
       <span>

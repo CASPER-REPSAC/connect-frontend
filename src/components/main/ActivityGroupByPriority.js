@@ -43,20 +43,16 @@ export const ActivityGroupByPriority = () => {
         />
       </MainPageGridItem>
       <MainPageGridItem>
-        <div className="flex flex-col h-full">
-          <div className="pb-3 flex-1">
-            <ActivityGroup
-              activities={activities[mainLayout.fourth]}
-              type={mainLayout.fourth}
-            />
-          </div>
-          <div className="flex-1">
-            <ActivityGroup
-              activities={activities[mainLayout.fifth]}
-              type={mainLayout.fifth}
-            />
-          </div>
-        </div>
+        <ActivityGroup
+          activities={activities[mainLayout.fourth]}
+          type={mainLayout.fourth}
+        />
+      </MainPageGridItem>
+      <MainPageGridItem>
+        <ActivityGroup
+          activities={activities[mainLayout.fifth]}
+          type={mainLayout.fifth}
+        />
       </MainPageGridItem>
     </>
   );

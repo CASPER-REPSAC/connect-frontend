@@ -1,20 +1,13 @@
 import React from "react";
-import { Card } from "#comp/common";
+import { Card, Muted } from "#comp/common";
 import { isArray } from "#serv/helpers";
 import { useNavigate } from "react-router-dom";
 import { activitiesState } from "@/texts";
 
 export const ActivityCardListItem = ({ activity, expended }) => {
   const navigate = useNavigate();
-  const {
-    id,
-    title,
-    author,
-    createDate,
-
-    currentState,
-    participants,
-  } = activity;
+  const { id, title, author, createDate, type, currentState, participants } =
+    activity;
 
   const authorData = participants.find(
     (participant) => participant.profile.email === author
@@ -44,7 +37,7 @@ export const ActivityCardListItem = ({ activity, expended }) => {
             >
               <h4>{title}</h4>
             </Card.Title>
-            <div className="md:flex md:align-middle">
+            <div className="flex align-middle justify-between">
               <div className="text-text-800 text-xs whitespace-normal">
                 {authorData && <> {`${authorData.profile.name} +`}</>}
                 {isArray(participants) && (
@@ -65,6 +58,7 @@ export const ActivityCardListItem = ({ activity, expended }) => {
                     <span className="text-point-500 text-xs ">{` new!`}</span>
                   )}
               </div>
+              <div className="text-xs text-text-400 italic">{type}</div>
             </div>
           </div>
         </div>

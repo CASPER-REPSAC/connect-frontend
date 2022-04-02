@@ -51,9 +51,6 @@ export const useActivityGroup = (activities, title, pageSize = 6) => {
   const [currentPage, setCurrentPage] = useState(0);
   const { mainLayout } = useLayouts();
 
-  if (title === mainLayout.fourth || title === mainLayout.fifth) {
-    pageSize = 3;
-  }
   const maxPage = Math.ceil(activities.length / pageSize);
 
   useEffect(() => {
