@@ -30,7 +30,7 @@ export const UserIconWithBg = ({ profile }, props) => {
     <SideBarIconFrame
       element={<img src={profile.picture || casLogo} alt="casper logo" />}
       isActive={props.isActive}
-      to="#"
+      to={`/search-user/${profile.email}`}
       tooltip={null}
       onClick={props.onClick}
     />

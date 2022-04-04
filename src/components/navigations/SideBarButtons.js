@@ -1,22 +1,17 @@
 import { useState } from "react";
 import {
   SearchIconWithBg,
-  SignOutIconWithBg,
-  // KeyboardIconWithBg,
   PenIconWithBg,
   CogIconWithBg,
   CasLogoIconWithBg,
   GitIssueIconWithBg,
   UserIconWithBg,
-  UserBoardIconWithBg,
 } from "./SideBarIcons";
-import { StreamSVG, SignOutSVG } from "@/icons/SVGs";
-import { ExpendableIcons, Muted } from "#comp/common";
+import { ExpendableIcons } from "#comp/common";
 import { UserBox } from "#comp/auth/UserBox";
 import { SettingsModal } from "#comp/settings";
-import { logout } from "@/redux/auth";
-import { useDispatch } from "react-redux";
 import { useSearchButton } from "@/hooks";
+import { Link } from "react-router-dom";
 
 export { CasLogoIconWithBg as HomeButton };
 export { PenIconWithBg as ActivityWriteButton };

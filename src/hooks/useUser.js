@@ -5,6 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserSearchResult, GET_USER_SEARCH_RESULT } from "@/redux/search";
 import { useParams } from "react-router-dom";
 
+export const useAuthUser = () => {
+  const user = useSelector((state) => state.auth.user);
+
+  return { user };
+};
+
 export const useUser = () => {
   const dispatch = useDispatch();
   const { user_email } = useParams();

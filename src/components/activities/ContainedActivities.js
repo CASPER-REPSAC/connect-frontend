@@ -54,7 +54,7 @@ export const ContainedActivities = React.memo(() => {
 
   return (
     <>
-      <h4>내가 속한 액티비티</h4>
+      <h4>참여중인 액티비티</h4>
       <div className="flex flex-col mt-1 gap-1">
         {containedActivitiesLoading && !containedActivities && "로딩 중..."}
         {isArray(containedActivities) &&

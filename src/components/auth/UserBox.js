@@ -3,7 +3,9 @@ import { UserIcon, Muted } from "#comp/common";
 import { useSelector, useDispatch } from "react-redux";
 import { ContainedActivities } from "#comp/activities";
 import { logout } from "@/redux/auth";
-import { StreamSVG, SignOutSVG } from "@/icons/SVGs";
+import { PlusSVG, SignOutSVG } from "@/icons/SVGs";
+import { Link } from "react-router-dom";
+import { useAuthUser } from "@/hooks";
 
 const UserProfile = ({ profile }) => {
   const { email, name } = profile;
@@ -20,12 +22,22 @@ const UserProfile = ({ profile }) => {
   );
 };
 
-const LogoutBtnWithText = ({ onLogout }) => {
+const LogoutBtnWithText = ({ onClick }) => {
   return (
-    <button onClick={() => onLogout()}>
+    <button onClick={() => onClick()}>
       <SignOutSVG />
       <Muted>로그아웃</Muted>
     </button>
+  );
+};
+
+const LinkToUserPage = () => {
+  const { user } = useAuthUser();
+  return (
+    <Link to={`/search-user/${user.email}`}>
+      <PlusSVG />
+      <Muted>내 정보 보기</Muted>
+    </Link>
   );
 };
 
@@ -49,12 +61,11 @@ export const UserBox = React.memo(() => {
         <ContainedActivities />
       </div>
       <div className="text-center">
-        <StreamSVG />
-        <Muted>종료 액티비티 보기</Muted>
+        <LinkToUserPage />
       </div>
       <hr className="my-1 border-text-300" />
       <div className="text-right pr-4 pb-1">
-        <LogoutBtnWithText onLogout={() => onLogout()} />
+        <LogoutBtnWithText onClick={() => onLogout()} />
       </div>
     </div>
   );
