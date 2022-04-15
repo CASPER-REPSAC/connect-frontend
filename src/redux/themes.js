@@ -2,7 +2,9 @@ const SET_THEME = "thems/SET_THEME";
 
 export const getTheme = () => async (dispatch, getState) => {
   let theme = window.localStorage.getItem("theme");
-  if (theme) {
+  if (theme === "undefined") {
+    dispatch({ type: SET_THEME, theme: "base" });
+  } else {
     theme = JSON.parse(theme);
     dispatch({ type: SET_THEME, theme });
   }
@@ -10,7 +12,7 @@ export const getTheme = () => async (dispatch, getState) => {
 
 export const setTheme = (theme) => (dispatch, getState) => {
   dispatch({ type: SET_THEME, theme });
-  window.localStorage.setItem("theme", JSON.stringify(getState().theme));
+  window.localStorage.setItem("theme", JSON.stringify(getState().themes.theme));
 };
 
 const initialState = {
