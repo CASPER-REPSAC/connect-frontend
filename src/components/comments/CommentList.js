@@ -43,7 +43,6 @@ export const CommentListItem = ({ comment, user, dispatch }) => {
     createtime,
     profile,
   } = comment;
-  console.log("comment", user);
   return (
     <div className="p-3 xl:p-3 flex gap-x-2  border-t border-text-300 w-full">
       <img

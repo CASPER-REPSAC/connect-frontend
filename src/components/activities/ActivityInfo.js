@@ -11,7 +11,10 @@ const ParticipantIcons = ({ participants }) => {
         <div className="grid grid-cols-3 max-w-fit xl:grid-cols-5 gap-1">
           {participants.map((participant, index) => {
             return (
-              <Link to={"/search-user/" + participant.profile.email}>
+              <Link
+                key={participant.user_id}
+                to={"/search-user/" + participant.profile.email}
+              >
                 <IconWithToolTip
                   key={participant.user_id}
                   profile={participant.profile}
