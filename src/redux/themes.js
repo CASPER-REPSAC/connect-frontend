@@ -1,7 +1,16 @@
 const SET_THEME = "thems/SET_THEME";
 
-export const setTheme = (theme) => {
-  return { type: SET_THEME, theme };
+export const getTheme = () => async (dispatch, getState) => {
+  let theme = window.localStorage.getItem("theme");
+  if (theme) {
+    theme = JSON.parse(theme);
+    dispatch({ type: SET_THEME, theme });
+  }
+};
+
+export const setTheme = (theme) => (dispatch, getState) => {
+  dispatch({ type: SET_THEME, theme });
+  window.localStorage.setItem("theme", JSON.stringify(getState().theme));
 };
 
 const initialState = {
