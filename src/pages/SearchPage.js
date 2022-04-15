@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useSearch } from "@/hooks";
 import { Card, Muted } from "#comp/common";
 import { ActivityChapterList } from "#comp/activities/ActivityChapterList";
+import { useSearch } from "@/hooks";
+import { SearchInput } from "#comp/search";
 
 const SearchTitle = ({ searchResult }) => {
   const {
@@ -34,39 +35,6 @@ const SearchTitle = ({ searchResult }) => {
           <option value="chapter">chapter</option>
         </select>
       </div>
-    </div>
-  );
-};
-
-const SearchInput = () => {
-  const { sendSearchRequest, onChangeSearchInput } = useSearch();
-  return (
-    <div className="flex justify-between">
-      <input
-        className="text-xl p-1 editable-placeholder w-full mr-1"
-        spellCheck={false}
-        placeholder="검색어를 입력하세요"
-        onChange={(e) => {
-          onChangeSearchInput({
-            name: "keyword",
-            value: e.target.value,
-          });
-        }}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            sendSearchRequest();
-          }
-        }}
-      />
-
-      <button
-        className="flex-none bg-background-700 text-text-50 px-2 py-1 rounded h-fit"
-        onClick={() => {
-          sendSearchRequest();
-        }}
-      >
-        검색
-      </button>
     </div>
   );
 };
