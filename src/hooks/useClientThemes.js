@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTheme, setTheme } from "@/redux/themes";
+import { getTheme, setTheme, setPointColor } from "@/redux/themes";
 
 export const useClientThemes = () => {
-  const theme = useSelector((state) => state.themes.theme);
+  const themes = useSelector((state) => state.themes);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,5 +14,14 @@ export const useClientThemes = () => {
     dispatch(setTheme(theme));
   };
 
-  return { theme, setClientTheme };
+  const setClientPointColor = (theme) => {
+    dispatch(setPointColor(theme));
+  };
+
+  return {
+    theme: themes.theme,
+    pointColor: themes.pointColor,
+    setClientTheme,
+    setClientPointColor,
+  };
 };

@@ -34,6 +34,56 @@
   --color-connect-text-50: #1c1917;
 }
 
+.point-orange {
+  --color-connect-point-50: #fff7ed;
+  --color-connect-point-100: #ffedd5;
+  --color-connect-point-200: #fed7aa;
+  --color-connect-point-300: #fdba74;
+  --color-connect-point-400: #fb923c;
+  --color-connect-point-500: #f97316;
+  --color-connect-point-600: #ea580c;
+  --color-connect-point-700: #c2410c;
+  --color-connect-point-800: #9a3412;
+  --color-connect-point-900: #7c2d12;
+}
+
+.point-blue {
+  --color-connect-point-50: #eff6ff;
+  --color-connect-point-100: #dbeafe;
+  --color-connect-point-200: #bfdbfe;
+  --color-connect-point-300: #93c5fd;
+  --color-connect-point-400: #60a5fa;
+  --color-connect-point-500: #3b82f6;
+  --color-connect-point-600: #2563eb;
+  --color-connect-point-700: #1d4ed8;
+  --color-connect-point-800: #1e40af;
+  --color-connect-point-900: #1e3a8a;
+}
+.point-cyan {
+  --color-connect-point-50: #ecfeff;
+  --color-connect-point-100: #cffafe;
+  --color-connect-point-200: #a5f3fc;
+  --color-connect-point-300: #67e8f9;
+  --color-connect-point-400: #22d3ee;
+  --color-connect-point-500: #06b6d4;
+  --color-connect-point-600: #0891b2;
+  --color-connect-point-700: #0e7490;
+  --color-connect-point-800: #155e75;
+  --color-connect-point-900: #164e63;
+}
+.point-lime {
+  --color-connect-point-50: #f7fee7;
+  --color-connect-point-100: #ecfccb;
+  --color-connect-point-200: #d9f99d;
+  --color-connect-point-300: #bef264;
+  --color-connect-point-400: #a3e635;
+  --color-connect-point-500: #84cc16;
+  --color-connect-point-600: #65a30d;
+  --color-connect-point-700: #4d7c0f;
+  --color-connect-point-800: #3f6212;
+  --color-connect-point-900: #365314;
+}
+
 @font-face {
   font-family: "GmarketSansLight";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff")

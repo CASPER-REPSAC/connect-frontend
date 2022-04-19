@@ -20,7 +20,7 @@ import { Loadings, Footer } from "#comp/common";
 import { useClientThemes } from "@/hooks";
 
 function App() {
-  const { theme } = useClientThemes();
+  const { theme, pointColor } = useClientThemes();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,7 +29,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className={theme}>
+    <div className={`${theme} ${pointColor}`}>
       <Loadings />
       <div className="bg-background-50 w-full h-fit min-h-full flex">
         <div

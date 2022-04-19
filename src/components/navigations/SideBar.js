@@ -37,7 +37,7 @@ export const SideBar = () => {
             <GoogleLoginButton />
           )}
           <GitIssueButton />
-          {/* <SettingsButton /> */}
+          <SettingsButton />
         </div>
       </div>
     </nav>
