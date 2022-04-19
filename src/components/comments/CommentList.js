@@ -23,7 +23,7 @@ const CommentInput = ({ dispatch }) => {
       <div className="flex gap-1">
         <textarea
           onChange={onChange}
-          className="p-1 text-sm focus:outline-none border border-text-300 bg-text-50  rounded w-full min-h-commentInput"
+          className="text-text-800 p-1 text-sm focus:outline-none border border-text-300 bg-text-50  rounded w-full min-h-commentInput"
           value={comment || ""}
         />
 
