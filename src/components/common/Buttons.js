@@ -14,6 +14,7 @@ import {
 } from "@/icons";
 import { WithToolTip } from "./ToolTip";
 import { Link } from "react-router-dom";
+import { useAuthUser } from "@/hooks";
 
 export const PageControlButtons = ({ onPreviousPage, onNextPage }) => {
   return (
@@ -112,13 +113,13 @@ const AskToolTip = ({ msg, msqWord, show, setShow, onQue, className }) => {
         <div
           className={
             className ||
-            "absolute w-44 h-20  bg-background-50 shadow shadow-background-300 z-30 -translate-x-40 text-sm rounded flex items-center justify-center flex-col gap-2"
+            "absolute w-44 h-20  bg-background-300 shadow shadow-background-300 z-30 -translate-x-40 text-sm text-text-800 rounded flex items-center justify-center flex-col gap-2"
           }
         >
           <div>{msg}</div>
           <div>
             <button
-              className="px-2 bg-background-200 mr-2 py-1 rounded font-bold hover:bg-background-300 transition-all"
+              className="px-2 bg-background-200 mr-2 py-1 rounded font-bold hover:bg-background-400 transition-all"
               onClick={() => setShow(false)}
             >
               취소
@@ -172,6 +173,7 @@ export const ActivityRemoveButton = ({ onRemove }) => {
 };
 
 export const JoinActivityButton = ({ onClick }) => {
+  const { user } = useAuthUser();
   const [show, setShow] = useState(false);
   return (
     <div className="flex-none">
@@ -181,14 +183,15 @@ export const JoinActivityButton = ({ onClick }) => {
       >
         <PlusSVG /> 참여
       </button>
+
       <AskToolTip
-        msg={"참여 하시겠습니까?"}
+        msg={user ? "참여 하시겠습니까?" : "로그인 해주세요."}
         show={show}
         setShow={setShow}
         onQue={() => {
           onClick();
         }}
-        msqWord={"참여"}
+        msqWord={user ? "참여" : "닫기"}
       />
     </div>
   );

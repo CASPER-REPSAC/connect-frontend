@@ -51,7 +51,7 @@ export const ActivityCardListItem = ({ activity, expended }) => {
                   </span>
                 )}
                 {currentState === 0 && (
-                  <span className="text-point-800 text-xs whitespace-nowrap">{` 예정`}</span>
+                  <span className="text-point-400 text-xs whitespace-nowrap">{` 예정`}</span>
                 )}
                 {currentState !== 2 &&
                   new Date(createDate) > new Date() - 172800000 && (

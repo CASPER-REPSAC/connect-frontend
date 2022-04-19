@@ -84,6 +84,56 @@
   --color-connect-point-900: #365314;
 }
 
+.dark.point-orange {
+  --color-connect-point-50: #fff7ed;
+  --color-connect-point-100: #ffedd5;
+  --color-connect-point-200: #fed7aa;
+  --color-connect-point-300: #fdba74;
+  --color-connect-point-400: #fb923c;
+  --color-connect-point-500: #fb923c;
+  --color-connect-point-600: #fb923c;
+  --color-connect-point-700: #fb923c;
+  --color-connect-point-800: #fb923c;
+  --color-connect-point-900: #7c2d12;
+}
+
+.dark.point-blue {
+  --color-connect-point-50: #eff6ff;
+  --color-connect-point-100: #dbeafe;
+  --color-connect-point-200: #bfdbfe;
+  --color-connect-point-300: #93c5fd;
+  --color-connect-point-400: #60a5fa;
+  --color-connect-point-500: #60a5fa;
+  --color-connect-point-600: #60a5fa;
+  --color-connect-point-700: #60a5fa;
+  --color-connect-point-800: #60a5fa;
+  --color-connect-point-900: #60a5fa;
+}
+.dark.point-cyan {
+  --color-connect-point-50: #ecfeff;
+  --color-connect-point-100: #cffafe;
+  --color-connect-point-200: #a5f3fc;
+  --color-connect-point-300: #67e8f9;
+  --color-connect-point-400: #22d3ee;
+  --color-connect-point-500: #22d3ee;
+  --color-connect-point-600: #22d3ee;
+  --color-connect-point-700: #22d3ee;
+  --color-connect-point-800: #22d3ee;
+  --color-connect-point-900: #22d3ee;
+}
+.dark.point-lime {
+  --color-connect-point-50: #f7fee7;
+  --color-connect-point-100: #ecfccb;
+  --color-connect-point-200: #d9f99d;
+  --color-connect-point-300: #bef264;
+  --color-connect-point-400: #a3e635;
+  --color-connect-point-500: #a3e635;
+  --color-connect-point-600: #a3e635;
+  --color-connect-point-700: #a3e635;
+  --color-connect-point-800: #a3e635;
+  --color-connect-point-900: #a3e635;
+}
+
 @font-face {
   font-family: "GmarketSansLight";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff")

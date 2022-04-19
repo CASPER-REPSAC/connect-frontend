@@ -31,7 +31,7 @@ export const ActivityGroupByPriority = () => {
           activities={activities[mainLayout.second]}
           type={mainLayout.second}
         />
-        <div className="flex justify-center">
+        <div className="flex justify-center m-2">
           <ToEndedActivityButton />
         </div>
       </MainPageGridItem>
