@@ -10,15 +10,15 @@ const initialState = {
 export const getTheme = () => async (dispatch, getState) => {
   let themes = window.localStorage.getItem("themes");
   if (themes === "undefined" || !themes) {
-    dispatch({ type: SET_THEMES, initialState });
+    dispatch({ type: SET_THEMES, themes: initialState });
   } else {
     themes = JSON.parse(themes);
     dispatch({ type: SET_THEMES, themes });
   }
 };
 
-export const setTheme = (theme) => (dispatch, getState) => {
-  dispatch({ type: SET_THEME, theme });
+export const setTheme = (themes) => (dispatch, getState) => {
+  dispatch({ type: SET_THEME, themes });
   window.localStorage.setItem("themes", JSON.stringify(getState().themes));
 };
 
@@ -30,7 +30,7 @@ export const setPointColor = (color) => (dispatch, getState) => {
 const themes = (state = initialState, action) => {
   switch (action.type) {
     case SET_THEME:
-      return { ...state, theme: action.theme };
+      return { ...state, ...action.themes };
     case SET_POINT_COLOR:
       return { ...state, pointColor: action.color };
     case SET_THEMES:
