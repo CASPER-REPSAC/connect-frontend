@@ -30,7 +30,7 @@ export const setPointColor = (color) => (dispatch, getState) => {
 const themes = (state = initialState, action) => {
   switch (action.type) {
     case SET_THEME:
-      return { ...state, ...action.themes };
+      return { ...state, theme: action.themes };
     case SET_POINT_COLOR:
       return { ...state, pointColor: action.color };
     case SET_THEMES:
