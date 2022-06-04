@@ -27,3 +27,10 @@ export const activitiesState = {
   planned: "예정",
   new: "new!",
 };
+
+export const themesTitles = {
+  darkmode: "다크모드",
+  setPointColor: "포인트 색상 설정",
+  setPointColorInfo: "버튼이나 액티비티 타이틀에 적용됩니다.",
+  settedColor: "적용된 색상",
+};

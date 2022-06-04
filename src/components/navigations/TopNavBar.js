@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleChapterList } from "@/redux/shows";
 import { useLocation } from "react-router-dom";
-import { ArrowLeftSVG, MoonSVG, SunSVG } from "@/icons";
-import { useClientThemes } from "@/hooks";
+import { ArrowLeftSVG } from "@/icons";
+import { ThemeButton } from "#comp/common/Buttons";
 
 const ToggleActivityInfoButton = ({
   onActivityInfoToggle,
@@ -27,32 +27,6 @@ const ToggleActivityInfoButton = ({
         액티비티 정보
       </div>
     </button>
-  );
-};
-
-const ThemeButton = () => {
-  const { theme, setClientTheme } = useClientThemes();
-  return (
-    <div className="flex items-center h-full text-text-800">
-      {theme === "dark" && (
-        <button
-          onClick={() => {
-            setClientTheme("base");
-          }}
-        >
-          <SunSVG />
-        </button>
-      )}
-      {theme === "base" && (
-        <button
-          onClick={() => {
-            setClientTheme("dark");
-          }}
-        >
-          <MoonSVG />
-        </button>
-      )}
-    </div>
   );
 };
 

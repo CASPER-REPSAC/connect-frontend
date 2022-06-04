@@ -11,10 +11,39 @@ import {
   SquarePlusSVG,
   CaretRightSVG,
   CaretLeftSVG,
+  MoonSVG,
+  SunSVG,
 } from "@/icons";
 import { WithToolTip } from "./ToolTip";
 import { Link } from "react-router-dom";
 import { useAuthUser } from "@/hooks";
+import { useClientThemes } from "@/hooks";
+
+export const ThemeButton = () => {
+  const { theme, setClientTheme } = useClientThemes();
+  return (
+    <div className="flex items-center h-full text-text-800">
+      {theme === "dark" && (
+        <button
+          onClick={() => {
+            setClientTheme("base");
+          }}
+        >
+          <SunSVG />
+        </button>
+      )}
+      {theme === "base" && (
+        <button
+          onClick={() => {
+            setClientTheme("dark");
+          }}
+        >
+          <MoonSVG />
+        </button>
+      )}
+    </div>
+  );
+};
 
 export const PageControlButtons = ({ onPreviousPage, onNextPage }) => {
   return (
